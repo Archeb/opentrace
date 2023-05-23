@@ -241,7 +241,7 @@ namespace traceroute
             tracerouteResultCollection.Clear(); // 清空原有GridView
             ResetMap(); // 重置地图
             startTracerouteButton.Text = "Stop";
-            var instance = new NextTraceWrapper(IPTextBox.Text + " -raw " + dataProviderSelection.SelectedKey);
+            var instance = new NextTraceWrapper(IPTextBox.Text + " --raw " + dataProviderSelection.SelectedKey);
             CurrentInstance = instance;
             instance.Output.CollectionChanged += (sender, e) =>
             {
