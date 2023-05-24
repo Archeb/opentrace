@@ -5,6 +5,7 @@ using System;
 using System.Diagnostics;
 using System.Text.Json;
 using System.IO;
+using Resources = traceroute.Properties.Resources;
 
 namespace traceroute
 {
@@ -49,25 +50,25 @@ namespace traceroute
 
         public MainForm()
         {
-            Title = "OpenTrace";
+            Title = Resources.APPTITLE;
             MinimumSize = new Size(860, 600);
 
             // 创建菜单项
-            var newWindowCommand = new Command { MenuText = "&New", ToolBarText = "Create a new traceroute window.", Shortcut = Application.Instance.CommonModifier | Keys.N };
+            var newWindowCommand = new Command { MenuText = Resources.NEW, ToolBarText = Resources.NEW_WINDOW_TEXT, Shortcut = Application.Instance.CommonModifier | Keys.N };
             newWindowCommand.Executed += (sender, e) =>
             {
                 Process.Start(Process.GetCurrentProcess().MainModule.FileName);
             };
 
-            var exportCommand = new Command { MenuText = "&Export"};
+            var exportCommand = new Command { MenuText = Resources.EXPORT};
 
-            var quitCommand = new Command { MenuText = "&Quit", Shortcut = Application.Instance.CommonModifier | Keys.Q };
+            var quitCommand = new Command { MenuText = Resources.QUIT, Shortcut = Application.Instance.CommonModifier | Keys.Q };
             quitCommand.Executed += (sender, e) => Application.Instance.Quit();
 
-            var aboutCommand = new Command { MenuText = "&About..." };
+            var aboutCommand = new Command { MenuText = Resources.ABOUT };
             aboutCommand.Executed += (sender, e) => new AboutDialog().ShowDialog(this);
 
-            var preferenceCommand = new Command { MenuText = "&Preferences" };
+            var preferenceCommand = new Command { MenuText = Resources.PREFERENCES };
             preferenceCommand.Executed += (sender, e) => preferenceDialog.ShowModal();
 
             // 创建菜单栏
@@ -75,29 +76,29 @@ namespace traceroute
             {
                 Items =
                 {
-                    new SubMenuItem { Text = "&File", Items = {
+                    new SubMenuItem { Text = Resources.FILE, Items = {
                             newWindowCommand,
-                            new SubMenuItem { Text = "&Export To" , Items = {
+                            new SubMenuItem { Text = Resources.EXPORT_TO , Items = {
                                     new Command { MenuText = "HTML" },
                                     new Command { MenuText = "Plain text (CSV)" }
                             } },
+                            preferenceCommand,
+                            quitCommand
                         } },
-                     new SubMenuItem { Text = "&Help" , Items = {
-                             new SubMenuItem { Text = "&Language" , Items = {
+                     new SubMenuItem { Text = Resources.HELP , Items = {
+                             new SubMenuItem { Text = Resources.LANGUAGE , Items = {
                                     new Command { MenuText = "English" },
                                     new Command { MenuText = "简体中文" }
                             } },
                              aboutCommand
                          } }
-                },
-                ApplicationItems = { preferenceCommand },
-                QuitItem = quitCommand
+                }
             };
 
             // 创建控件
             IPTextBox = new TextBox { Text = "" };
 
-            startTracerouteButton = new Button { Text = "Start" };
+            startTracerouteButton = new Button { Text = Resources.START };
             protocolSelection = new DropDown
             {
                 Items = {
@@ -106,7 +107,7 @@ namespace traceroute
                     new ListItem{Text = "UDP",Key = "-U" },
                 },
                 SelectedIndex = 0,
-                ToolTip = "Protocol for tracerouting"
+                ToolTip = Resources.PROTOCOL_FOR_TRACEROUTING
             };
             dataProviderSelection = new DropDown
             {
@@ -121,7 +122,7 @@ namespace traceroute
                     new ListItem{Text = "CHUNZHEN" , Key = "--data-provider CHUNZHEN"}
                 },
                 SelectedIndex = 0,
-                ToolTip = "IP Geograph Data Provider"
+                ToolTip = Resources.IP_GEO_DATA_PROVIDER
             };
 
             tracerouteGridView = new GridView { DataStore = tracerouteResultCollection };
@@ -140,7 +141,7 @@ namespace traceroute
             tracerouteGridView.Columns.Add(new GridColumn
             {
                 DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteResult, string>(r => r.Time) },
-                HeaderText = "Time(ms)"
+                HeaderText = Resources.TIME_MS
             });
             /* 合并位置和运营商功能
             tracerouteGridView.Columns.Add(new GridColumn
@@ -152,12 +153,12 @@ namespace traceroute
             tracerouteGridView.Columns.Add(new GridColumn
             {
                 DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteResult, string>(r => r.Geolocation) },
-                HeaderText = "Geolocation"
+                HeaderText = Resources.GEOLOCATION
             });
             tracerouteGridView.Columns.Add(new GridColumn
             {
                 DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteResult, string>(r => r.Organization) },
-                HeaderText = "Organization"
+                HeaderText = Resources.ORGANIZATION
             });
             tracerouteGridView.Columns.Add(new GridColumn
             {
@@ -167,7 +168,7 @@ namespace traceroute
             tracerouteGridView.Columns.Add(new GridColumn
             {
                 DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteResult, string>(r => r.Hostname) },
-                HeaderText = "Hostname"
+                HeaderText = Resources.HOSTNAME
             });
 
             mapWebView = new WebView
@@ -241,7 +242,7 @@ namespace traceroute
             {
                 var instance = new NextTraceWrapper(IPTextBox.Text + " --raw " + dataProviderSelection.SelectedKey);
                 CurrentInstance = instance;
-                startTracerouteButton.Text = "Stop";
+                startTracerouteButton.Text = Resources.STOP;
                 instance.Output.CollectionChanged += (sender, e) =>
                 {
                     if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
@@ -258,14 +259,14 @@ namespace traceroute
                 {
                     Application.Instance.InvokeAsync(() =>
                     {
-                        startTracerouteButton.Text = "Start";
+                        startTracerouteButton.Text = Resources.START;
                         CurrentInstance = null;
                     });
                 };
             } catch (FileNotFoundException)
             {
-                DialogResult dr = MessageBox.Show("MissingComponentPrompt",
-                     "Missing Component", MessageBoxButtons.YesNo);
+                DialogResult dr = MessageBox.Show(Resources.MISSING_COMP_TEXT,
+                     Resources.MISSING_COMP, MessageBoxButtons.YesNo);
                 if (dr == DialogResult.Yes)
                 {
                     Process.Start(new ProcessStartInfo("https://mtr.moe/") { UseShellExecute = true });

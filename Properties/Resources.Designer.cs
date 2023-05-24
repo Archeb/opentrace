@@ -22,7 +22,7 @@ namespace traceroute.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace traceroute.Properties {
         ///   返回此类使用的缓存的 ResourceManager 实例。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("traceroute.Properties.Resources", typeof(Resources).Assembly);
@@ -51,12 +51,48 @@ namespace traceroute.Properties {
         ///   使用此强类型资源类的所有资源查找执行重写。
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 About... 的本地化字符串。
+        /// </summary>
+        public static string ABOUT {
+            get {
+                return ResourceManager.GetString("ABOUT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Additional Arguments 的本地化字符串。
+        /// </summary>
+        public static string ADDITIONAL_ARGS {
+            get {
+                return ResourceManager.GetString("ADDITIONAL_ARGS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OpenTrace 的本地化字符串。
+        /// </summary>
+        public static string APPTITLE {
+            get {
+                return ResourceManager.GetString("APPTITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 (Auto Detect) 的本地化字符串。
+        /// </summary>
+        public static string AUTO_DETECT {
+            get {
+                return ResourceManager.GetString("AUTO_DETECT", resourceCulture);
             }
         }
         
@@ -81,9 +117,366 @@ namespace traceroute.Properties {
         ///			try {
         ///				if (t [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
-        internal static string baiduMap {
+        public static string baiduMap {
             get {
                 return ResourceManager.GetString("baiduMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Cancel 的本地化字符串。
+        /// </summary>
+        public static string CANCEL {
+            get {
+                return ResourceManager.GetString("CANCEL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 CHUNZHEN Endpoint 的本地化字符串。
+        /// </summary>
+        public static string CHUNZHEN_ENDPOINT {
+            get {
+                return ResourceManager.GetString("CHUNZHEN_ENDPOINT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Destination port (TCP/UDP) / Initial seq (ICMP) 的本地化字符串。
+        /// </summary>
+        public static string DST_PORT_INIT_SEQ {
+            get {
+                return ResourceManager.GetString("DST_PORT_INIT_SEQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Exectuable Path 的本地化字符串。
+        /// </summary>
+        public static string EXE_PATH {
+            get {
+                return ResourceManager.GetString("EXE_PATH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Export 的本地化字符串。
+        /// </summary>
+        public static string EXPORT {
+            get {
+                return ResourceManager.GetString("EXPORT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Export To 的本地化字符串。
+        /// </summary>
+        public static string EXPORT_TO {
+            get {
+                return ResourceManager.GetString("EXPORT_TO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 File 的本地化字符串。
+        /// </summary>
+        public static string FILE {
+            get {
+                return ResourceManager.GetString("FILE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 First TTL Hop 的本地化字符串。
+        /// </summary>
+        public static string FIRST_TTL_HOP {
+            get {
+                return ResourceManager.GetString("FIRST_TTL_HOP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 General 的本地化字符串。
+        /// </summary>
+        public static string GENERAL {
+            get {
+                return ResourceManager.GetString("GENERAL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Geolocation 的本地化字符串。
+        /// </summary>
+        public static string GEOLOCATION {
+            get {
+                return ResourceManager.GetString("GEOLOCATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Help 的本地化字符串。
+        /// </summary>
+        public static string HELP {
+            get {
+                return ResourceManager.GetString("HELP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Hostname 的本地化字符串。
+        /// </summary>
+        public static string HOSTNAME {
+            get {
+                return ResourceManager.GetString("HOSTNAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 IP Geograph Data Provider 的本地化字符串。
+        /// </summary>
+        public static string IP_GEO_DATA_PROVIDER {
+            get {
+                return ResourceManager.GetString("IP_GEO_DATA_PROVIDER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Language 的本地化字符串。
+        /// </summary>
+        public static string LANGUAGE {
+            get {
+                return ResourceManager.GetString("LANGUAGE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Link-local Address 的本地化字符串。
+        /// </summary>
+        public static string LINKLOCAL_ADDR {
+            get {
+                return ResourceManager.GetString("LINKLOCAL_ADDR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Loopback Address 的本地化字符串。
+        /// </summary>
+        public static string LOOPBACK_ADDR {
+            get {
+                return ResourceManager.GetString("LOOPBACK_ADDR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Max Hops 的本地化字符串。
+        /// </summary>
+        public static string MAX_HOPS {
+            get {
+                return ResourceManager.GetString("MAX_HOPS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Missing Component 的本地化字符串。
+        /// </summary>
+        public static string MISSING_COMP {
+            get {
+                return ResourceManager.GetString("MISSING_COMP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OpenTrace requires the NextTrace utility to function properly. This executable is currently missing.
+        ///NextTrace can be placed in either:
+        ///1. The same directory as the OpenTrace executable
+        ///OR
+        ///2. A directory included in your system&apos;s PATH environment variable
+        ///
+        ///Would you like to download the NextTrace utility now? 的本地化字符串。
+        /// </summary>
+        public static string MISSING_COMP_TEXT {
+            get {
+                return ResourceManager.GetString("MISSING_COMP_TEXT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 New 的本地化字符串。
+        /// </summary>
+        public static string NEW {
+            get {
+                return ResourceManager.GetString("NEW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Create a new OpenTrace window. 的本地化字符串。
+        /// </summary>
+        public static string NEW_WINDOW_TEXT {
+            get {
+                return ResourceManager.GetString("NEW_WINDOW_TEXT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 No Reverse DNS Lookup 的本地化字符串。
+        /// </summary>
+        public static string NO_RDNS {
+            get {
+                return ResourceManager.GetString("NO_RDNS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Organization 的本地化字符串。
+        /// </summary>
+        public static string ORGANIZATION {
+            get {
+                return ResourceManager.GetString("ORGANIZATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Packet Group Interval 的本地化字符串。
+        /// </summary>
+        public static string PACKET_GROUP_INTERVAL {
+            get {
+                return ResourceManager.GetString("PACKET_GROUP_INTERVAL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Packet Interval 的本地化字符串。
+        /// </summary>
+        public static string PACKET_INTERVAL {
+            get {
+                return ResourceManager.GetString("PACKET_INTERVAL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Parallel Requests 的本地化字符串。
+        /// </summary>
+        public static string PARALLEL_REQ {
+            get {
+                return ResourceManager.GetString("PARALLEL_REQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Preferences 的本地化字符串。
+        /// </summary>
+        public static string PREFERENCES {
+            get {
+                return ResourceManager.GetString("PREFERENCES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Private Address (LAN) 的本地化字符串。
+        /// </summary>
+        public static string PRIVATE_ADDR {
+            get {
+                return ResourceManager.GetString("PRIVATE_ADDR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Protocol for tracerouting 的本地化字符串。
+        /// </summary>
+        public static string PROTOCOL_FOR_TRACEROUTING {
+            get {
+                return ResourceManager.GetString("PROTOCOL_FOR_TRACEROUTING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Queries (probes per each hop) 的本地化字符串。
+        /// </summary>
+        public static string QUERIES_SETTING {
+            get {
+                return ResourceManager.GetString("QUERIES_SETTING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Quit 的本地化字符串。
+        /// </summary>
+        public static string QUIT {
+            get {
+                return ResourceManager.GetString("QUIT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Save 的本地化字符串。
+        /// </summary>
+        public static string SAVE {
+            get {
+                return ResourceManager.GetString("SAVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Shared Address 的本地化字符串。
+        /// </summary>
+        public static string SHARED_ADDR {
+            get {
+                return ResourceManager.GetString("SHARED_ADDR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Source Address 的本地化字符串。
+        /// </summary>
+        public static string SRC_ADDR_SETTING {
+            get {
+                return ResourceManager.GetString("SRC_ADDR_SETTING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Source Interface 的本地化字符串。
+        /// </summary>
+        public static string SRC_INTERFACE_SETTING {
+            get {
+                return ResourceManager.GetString("SRC_INTERFACE_SETTING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Start 的本地化字符串。
+        /// </summary>
+        public static string START {
+            get {
+                return ResourceManager.GetString("START", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Stop 的本地化字符串。
+        /// </summary>
+        public static string STOP {
+            get {
+                return ResourceManager.GetString("STOP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Time(ms) 的本地化字符串。
+        /// </summary>
+        public static string TIME_MS {
+            get {
+                return ResourceManager.GetString("TIME_MS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Tracerouting 的本地化字符串。
+        /// </summary>
+        public static string TRACEROUTING {
+            get {
+                return ResourceManager.GetString("TRACEROUTING", resourceCulture);
             }
         }
     }

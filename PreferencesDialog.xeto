@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
+
 <Dialog
 	xmlns="http://schema.picoe.ca/eto.forms" 
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-	xmlns:local="clr-namespace:traceroute;assembly=EtoApp.1"
-	Title="Preferences"
+	xmlns:resource="clr-namespace:traceroute.Properties"
+	Title="{x:Static resource:Resources.PREFERENCES}"
 	MinimumSize="400,350"
 	Closing="PreferencesDialog_Closing"
 	Padding="10"
@@ -12,19 +13,19 @@
 		<TableRow ScaleHeight="True">
 			<TableLayout>
 				<TabControl>
-					<TabPage Text="General">
+					<TabPage Text="{x:Static resource:Resources.GENERAL}">
 						<TableLayout Padding="10" Spacing="5,5">
 							<TableRow>
-								<Label Text="Exectuable Path"></Label>
-								<TextBox Text="(Auto Detect)"></TextBox>
+								<Label Text="{x:Static resource:Resources.EXE_PATH}"></Label>
+								<TextBox x:Name="exectuablePath" PlaceholderText="{x:Static resource:Resources.AUTO_DETECT}"></TextBox>
 							</TableRow>
 							<TableRow>
-								<Label Text="Additional Arguments"></Label>
-								<TextBox Text=""></TextBox>
+								<Label Text="{x:Static resource:Resources.ADDITIONAL_ARGS}"></Label>
+								<TextBox x:Name="arguments" Text=""></TextBox>
 							</TableRow>
 							<TableRow>
 								<Label Text="Language (语言)"></Label>
-								<DropDown SelectedIndex="0">
+								<DropDown x:Name="language" SelectedIndex="0">
 									<ListItem Text="English" Key="en"></ListItem>
 									<ListItem Text="简体中文" Key="zh-Hans"></ListItem>
 									<ListItem Text="繁體中文" Key="zh-Hant"></ListItem>
@@ -33,46 +34,46 @@
 							<TableRow ScaleHeight="True"></TableRow>
 						</TableLayout>
 					</TabPage>
-					<TabPage Text="Tracerouting">
+					<TabPage x:Name="TraceroutingTabPage" Text="{x:Static resource:Resources.TRACEROUTING}">
 						<TableLayout Padding="10" Spacing="5,5">
 							<TableRow>
-								<Label Text="Queries (probes per each hop)"></Label>
-								<TextBox Text="3"></TextBox>
+								<Label Text="{x:Static resource:Resources.QUERIES_SETTING}"></Label>
+								<TextBox x:Name="queries" PlaceholderText="3"></TextBox>
 							</TableRow>
 							<TableRow>
-								<Label Text="Destination port / Initial seq"></Label>
-								<TextBox Text=""></TextBox>
+								<Label Text="{x:Static resource:Resources.DST_PORT_INIT_SEQ}"></Label>
+								<TextBox x:Name="port" PlaceholderText="80/tcp 53/udp 1/icmp"></TextBox>
 							</TableRow>
 							<TableRow>
-								<Label Text="Parallel Requests"></Label>
-								<TextBox Text="18"></TextBox>
+								<Label Text="{x:Static resource:Resources.PARALLEL_REQ}"></Label>
+								<TextBox x:Name="parallel-requests" PlaceholderText="18"></TextBox>
 							</TableRow>
 							<TableRow>
-								<Label Text="Max Hops"></Label>
-								<TextBox Text="30"></TextBox>
+								<Label Text="{x:Static resource:Resources.MAX_HOPS}"></Label>
+								<TextBox x:Name="max-hops" PlaceholderText="30"></TextBox>
 							</TableRow>
 							<TableRow>
-								<Label Text="First TTL Hop"></Label>
-								<TextBox Text="1"></TextBox>
+								<Label Text="{x:Static resource:Resources.FIRST_TTL_HOP}"></Label>
+								<TextBox x:Name="first" PlaceholderText="1"></TextBox>
 							</TableRow>
 							<TableRow>
-								<Label Text="Packet Interval"></Label>
-								<TextBox Text="100"></TextBox>
+								<Label Text="{x:Static resource:Resources.PACKET_INTERVAL}"></Label>
+								<TextBox x:Name="send-time" PlaceholderText="100"></TextBox>
 							</TableRow>
 							<TableRow>
-								<Label Text="Packet Group Interval"></Label>
-								<TextBox Text="500"></TextBox>
+								<Label Text="{x:Static resource:Resources.PACKET_GROUP_INTERVAL}"></Label>
+								<TextBox x:Name="ttl-time" PlaceholderText="500"></TextBox>
 							</TableRow>
 							<TableRow>
-								<Label Text="Source Address"></Label>
-								<TextBox Text=""></TextBox>
+								<Label Text="{x:Static resource:Resources.SRC_ADDR_SETTING}"></Label>
+								<TextBox x:Name="source" Text=""></TextBox>
 							</TableRow>
 							<TableRow>
-								<Label Text="Source Interface"></Label>
-								<TextBox Text=""></TextBox>
+								<Label Text="{x:Static resource:Resources.SRC_INTERFACE_SETTING}"></Label>
+								<TextBox x:Name="dev" Text=""></TextBox>
 							</TableRow>
 							<TableRow>
-								<CheckBox Text="No Reverse DNS Lookup"></CheckBox>
+								<CheckBox x:Name="no-rdns" Text="{x:Static resource:Resources.NO_RDNS}"></CheckBox>
 							</TableRow>
 							<TableRow ScaleHeight="True"></TableRow>
 						</TableLayout>
@@ -81,15 +82,15 @@
 						<TableLayout Padding="10" Spacing="5,5">
 							<TableRow>
 								<Label Text="IPInsight Token"></Label>
-								<TextBox Text=""></TextBox>
+								<TextBox x:Name="IPInsightToken" Text=""></TextBox>
 							</TableRow>
 							<TableRow>
 								<Label Text="IPInfo Token"></Label>
-								<TextBox Text=""></TextBox>
+								<TextBox x:Name="IPInfoToken" Text=""></TextBox>
 							</TableRow>
 							<TableRow>
-								<Label Text="CHUNZHEN Endpoint"></Label>
-								<TextBox Text="http://127.0.0.1:2060"></TextBox>
+								<Label Text="{x:Static resource:Resources.CHUNZHEN_ENDPOINT}"></Label>
+								<TextBox x:Name="ChunZhenEndpoint" PlaceholderText="http://127.0.0.1:2060"></TextBox>
 							</TableRow>
 							<TableRow ScaleHeight="True"></TableRow>
 						</TableLayout>
@@ -102,10 +103,11 @@
 			<TableLayout Spacing="5, 5">
 				<TableRow>
 					<TableCell ScaleWidth="True"></TableCell>
-					<Button Text="Save"></Button>
-					<Button Text="Cancel" Click="CancelButton_Click"></Button>
+					<Button Text="{x:Static resource:Resources.SAVE}" Click="SaveButton_Click"></Button>
+					<Button Text="{x:Static resource:Resources.CANCEL}" Click="CancelButton_Click"></Button>
 				</TableRow>
 			</TableLayout>
 		</TableRow>
 	</TableLayout>
+
 </Dialog>

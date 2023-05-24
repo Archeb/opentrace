@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.IO;
-
+using Resources = traceroute.Properties.Resources;
 namespace traceroute
 {
     internal class NextTraceWrapper
@@ -155,19 +155,19 @@ namespace traceroute
             // 匹配特定网络地址
             if (new Regex(@"^(127\.)|(192\.168\.)|(10\.)|(172\.1[6-9]\.)|(172\.2[0-9]\.)|(172\.3[0-1]\.)|(::1$)|([fF][cCdD])").IsMatch(IP))
             {
-                Geolocation = "Private Address";
+                Geolocation = Resources.PRIVATE_ADDR;
             }
             if (new Regex(@"^(100\.6[4-9]\.)|(100\.[7-9][0-9]\.)|(100\.1[0-1][0-9]\.)|(100\.12[0-7]\.)").IsMatch(IP))
             {
-                Geolocation = "Shared Address";
+                Geolocation = Resources.SHARED_ADDR;
             }
             if (new Regex(@"^(169\.254\.)").IsMatch(IP))
             {
-                Geolocation = "Link-local Address";
+                Geolocation = Resources.LINKLOCAL_ADDR;
             }
             if (new Regex(@"^(127\.)").IsMatch(IP))
             {
-                Geolocation = "Loopback Address";
+                Geolocation = Resources.LOOPBACK_ADDR;
             }
 
 
