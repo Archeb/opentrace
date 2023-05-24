@@ -90,11 +90,9 @@ namespace traceroute
             string Organization = "";
             string Latitude = "";
             string Longitude = "";
-            Debug.Print("NewBlock");
             String[] blockLines = block.Split("\n");
             foreach (string line in blockLines)
             {
-                Debug.Print(line);
                 String[] LineData = line.Split("|");
                 if (LineData.Length > 7)
                 {

@@ -14,6 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Eto.Serialization.Xaml" Version="2.7.5" />
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1774.30" />
   </ItemGroup>
 

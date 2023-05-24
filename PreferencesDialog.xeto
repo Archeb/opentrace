@@ -1,0 +1,111 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Dialog
+	xmlns="http://schema.picoe.ca/eto.forms" 
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="clr-namespace:traceroute;assembly=EtoApp.1"
+	Title="Preferences"
+	MinimumSize="400,350"
+	Closing="PreferencesDialog_Closing"
+	Padding="10"
+	>
+	<TableLayout Spacing="5,5">
+		<TableRow ScaleHeight="True">
+			<TableLayout>
+				<TabControl>
+					<TabPage Text="General">
+						<TableLayout Padding="10" Spacing="5,5">
+							<TableRow>
+								<Label Text="Exectuable Path"></Label>
+								<TextBox Text="(Auto Detect)"></TextBox>
+							</TableRow>
+							<TableRow>
+								<Label Text="Additional Arguments"></Label>
+								<TextBox Text=""></TextBox>
+							</TableRow>
+							<TableRow>
+								<Label Text="Language (语言)"></Label>
+								<DropDown SelectedIndex="0">
+									<ListItem Text="English" Key="en"></ListItem>
+									<ListItem Text="简体中文" Key="zh-Hans"></ListItem>
+									<ListItem Text="繁體中文" Key="zh-Hant"></ListItem>
+								</DropDown>
+							</TableRow>
+							<TableRow ScaleHeight="True"></TableRow>
+						</TableLayout>
+					</TabPage>
+					<TabPage Text="Tracerouting">
+						<TableLayout Padding="10" Spacing="5,5">
+							<TableRow>
+								<Label Text="Queries (probes per each hop)"></Label>
+								<TextBox Text="3"></TextBox>
+							</TableRow>
+							<TableRow>
+								<Label Text="Destination port / Initial seq"></Label>
+								<TextBox Text=""></TextBox>
+							</TableRow>
+							<TableRow>
+								<Label Text="Parallel Requests"></Label>
+								<TextBox Text="18"></TextBox>
+							</TableRow>
+							<TableRow>
+								<Label Text="Max Hops"></Label>
+								<TextBox Text="30"></TextBox>
+							</TableRow>
+							<TableRow>
+								<Label Text="First TTL Hop"></Label>
+								<TextBox Text="1"></TextBox>
+							</TableRow>
+							<TableRow>
+								<Label Text="Packet Interval"></Label>
+								<TextBox Text="100"></TextBox>
+							</TableRow>
+							<TableRow>
+								<Label Text="Packet Group Interval"></Label>
+								<TextBox Text="500"></TextBox>
+							</TableRow>
+							<TableRow>
+								<Label Text="Source Address"></Label>
+								<TextBox Text=""></TextBox>
+							</TableRow>
+							<TableRow>
+								<Label Text="Source Interface"></Label>
+								<TextBox Text=""></TextBox>
+							</TableRow>
+							<TableRow>
+								<CheckBox Text="No Reverse DNS Lookup"></CheckBox>
+							</TableRow>
+							<TableRow ScaleHeight="True"></TableRow>
+						</TableLayout>
+					</TabPage>
+					<TabPage Text="API">
+						<TableLayout Padding="10" Spacing="5,5">
+							<TableRow>
+								<Label Text="IPInsight Token"></Label>
+								<TextBox Text=""></TextBox>
+							</TableRow>
+							<TableRow>
+								<Label Text="IPInfo Token"></Label>
+								<TextBox Text=""></TextBox>
+							</TableRow>
+							<TableRow>
+								<Label Text="CHUNZHEN Endpoint"></Label>
+								<TextBox Text="http://127.0.0.1:2060"></TextBox>
+							</TableRow>
+							<TableRow ScaleHeight="True"></TableRow>
+						</TableLayout>
+					</TabPage>
+
+				</TabControl>
+			</TableLayout>
+		</TableRow>
+		<TableRow>
+			<TableLayout Spacing="5, 5">
+				<TableRow>
+					<TableCell ScaleWidth="True"></TableCell>
+					<Button Text="Save"></Button>
+					<Button Text="Cancel" Click="CancelButton_Click"></Button>
+				</TableRow>
+			</TableLayout>
+		</TableRow>
+	</TableLayout>
+</Dialog>

@@ -40,11 +40,12 @@ namespace traceroute
         private ObservableCollection<TracerouteResult> tracerouteResultCollection = new ObservableCollection<TracerouteResult>();
         private static NextTraceWrapper CurrentInstance { get; set; }
         private static double gridSizePercentage = 0.5;
-        private Form preferenceForm = new PreferencesForm();
+        private Dialog preferenceDialog = new PreferencesDialog();
         private TextBox IPTextBox;
         private GridView tracerouteGridView;
         private WebView mapWebView;
         private DropDown dataProviderSelection;
+        private DropDown protocolSelection;
         private Button startTracerouteButton;
         private bool gridResizing = false;
 
@@ -69,7 +70,7 @@ namespace traceroute
             aboutCommand.Executed += (sender, e) => new AboutDialog().ShowDialog(this);
 
             var preferenceCommand = new Command { MenuText = "&Preferences" };
-            preferenceCommand.Executed += (sender, e) => preferenceForm.Show();
+            preferenceCommand.Executed += (sender, e) => preferenceDialog.ShowModal();
 
             // ´´½¨²Ëµ¥À¸
             Menu = new MenuBar
@@ -99,7 +100,16 @@ namespace traceroute
             IPTextBox = new TextBox { Text = "" };
 
             startTracerouteButton = new Button { Text = "Start" };
-
+            protocolSelection = new DropDown
+            {
+                Items = {
+                    new ListItem{Text = "ICMP" ,Key= ""},
+                    new ListItem{Text = "TCP",Key = "-T" },
+                    new ListItem{Text = "UDP",Key = "-U" },
+                },
+                SelectedIndex = 0,
+                ToolTip = "Protocol for tracerouting"
+            };
             dataProviderSelection = new DropDown
             {
                 Items = {
@@ -193,8 +203,9 @@ namespace traceroute
                                     Cells =
                                     {
                                         new TableCell(IPTextBox,true),
-                                        new TableCell(dataProviderSelection),
-                                        new TableCell (startTracerouteButton)
+                                        protocolSelection,
+                                        dataProviderSelection,
+                                        startTracerouteButton
                                     }
                                 }
                             }
@@ -210,7 +221,6 @@ namespace traceroute
                 }
             };
             Content = layout;
-
         }
 
         private void TracerouteGridView_SelectedRowsChanged(object sender, EventArgs e)
@@ -230,7 +240,7 @@ namespace traceroute
                     Process.Start(new ProcessStartInfo("https://mtr.moe/") { UseShellExecute = true });
                 }
                 return;
-            }            
+            }
             if (CurrentInstance != null)
             {
                 CurrentInstance.Kill();
