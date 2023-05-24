@@ -2,10 +2,8 @@ using Eto.Drawing;
 using Eto.Forms;
 using System.Collections.ObjectModel;
 using System;
-using System.Threading;
 using System.Diagnostics;
 using System.Text.Json;
-using System.Reflection;
 using System.IO;
 
 namespace traceroute
@@ -61,7 +59,7 @@ namespace traceroute
                 Process.Start(Process.GetCurrentProcess().MainModule.FileName);
             };
 
-            var exportCommand = new Command { MenuText = "&Export", ToolBarText = "Export" };
+            var exportCommand = new Command { MenuText = "&Export"};
 
             var quitCommand = new Command { MenuText = "&Quit", Shortcut = Application.Instance.CommonModifier | Keys.Q };
             quitCommand.Executed += (sender, e) => Application.Instance.Quit();
@@ -230,17 +228,6 @@ namespace traceroute
 
         private void StartTracerouteButton_Click(object sender, EventArgs e)
         {
-            // 检查 nexttrace.exe 是否存在
-            if (!File.Exists("nexttrace.exe"))
-            {
-                DialogResult dr = MessageBox.Show("nexttrace.exe is missing. Please put it in the same directory as the OpenTrace executable. Would you like to download it?",
-                     "Missing Component", MessageBoxButtons.YesNo);
-                if (dr == DialogResult.Yes)
-                {
-                    Process.Start(new ProcessStartInfo("https://mtr.moe/") { UseShellExecute = true });
-                }
-                return;
-            }
             if (CurrentInstance != null)
             {
                 CurrentInstance.Kill();
@@ -250,29 +237,41 @@ namespace traceroute
             }
             tracerouteResultCollection.Clear(); // 清空原有GridView
             ResetMap(); // 重置地图
-            startTracerouteButton.Text = "Stop";
-            var instance = new NextTraceWrapper(IPTextBox.Text + " --raw " + dataProviderSelection.SelectedKey);
-            CurrentInstance = instance;
-            instance.Output.CollectionChanged += (sender, e) =>
+            try
             {
-                if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+                var instance = new NextTraceWrapper(IPTextBox.Text + " --raw " + dataProviderSelection.SelectedKey);
+                CurrentInstance = instance;
+                startTracerouteButton.Text = "Stop";
+                instance.Output.CollectionChanged += (sender, e) =>
+                {
+                    if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+                    {
+                        Application.Instance.InvokeAsync(() =>
+                        {
+                            tracerouteResultCollection.Add((TracerouteResult)e.NewItems[0]);
+                            UpdateMap((TracerouteResult)e.NewItems[0]);
+                            tracerouteGridView.ScrollToRow(tracerouteResultCollection.Count - 1);
+                        });
+                    }
+                };
+                instance.OnAppQuit += (sender, e) =>
                 {
                     Application.Instance.InvokeAsync(() =>
                     {
-                        tracerouteResultCollection.Add((TracerouteResult)e.NewItems[0]);
-                        UpdateMap((TracerouteResult)e.NewItems[0]);
-                        tracerouteGridView.ScrollToRow(tracerouteResultCollection.Count - 1);
+                        startTracerouteButton.Text = "Start";
+                        CurrentInstance = null;
                     });
-                }
-            };
-            instance.OnAppQuit += (sender, e) =>
+                };
+            } catch (FileNotFoundException)
             {
-                Application.Instance.InvokeAsync(() =>
+                DialogResult dr = MessageBox.Show("MissingComponentPrompt",
+                     "Missing Component", MessageBoxButtons.YesNo);
+                if (dr == DialogResult.Yes)
                 {
-                    startTracerouteButton.Text = "Start";
-                    CurrentInstance = null;
-                });
-            };
+                    Process.Start(new ProcessStartInfo("https://mtr.moe/") { UseShellExecute = true });
+                }
+                return;
+            }
         }
 
         /*

@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.IO;
 
 namespace traceroute
 {
@@ -16,6 +17,43 @@ namespace traceroute
 
         public NextTraceWrapper(string arguments)
         {
+
+            // 检查 nexttrace.exe 是否存在于当前目录
+            string nexttracePath = null;
+            if (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "nexttrace.exe")))
+            {
+                nexttracePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "nexttrace.exe");
+            }
+            // 检查 Linux / macOS
+            else if (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "nexttrace")))
+            {
+                nexttracePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "nexttrace");
+            }
+            // 检查 PATH 目录
+            if (nexttracePath == null)
+            {
+                string pathVar = Environment.GetEnvironmentVariable("PATH");
+                string[] pathDirs = pathVar.Split(Path.PathSeparator);
+                foreach (string pathDir in pathDirs)
+                {
+                    if (File.Exists(Path.Combine(pathDir, "nexttrace.exe")))
+                    {
+                        nexttracePath = Path.Combine(pathDir, "nexttrace.exe");
+                        break;
+                    }
+                    else if (File.Exists(Path.Combine(pathDir, "nexttrace")))
+                    {
+                        nexttracePath = Path.Combine(pathDir, "nexttrace");
+                        break;
+                    }
+                }
+            }
+            // 未能找到目录
+            if (nexttracePath == null)
+            {
+                throw new FileNotFoundException("nexttrace.exe not found");
+            }
+
             Task.Run(() =>
             {
                 
@@ -23,7 +61,7 @@ namespace traceroute
                 {
                     StartInfo = new ProcessStartInfo
                     {
-                        FileName = "nexttrace.exe",
+                        FileName = nexttracePath,
                         Arguments = arguments,
                         UseShellExecute = false,
                         StandardOutputEncoding = Encoding.GetEncoding(65001),
