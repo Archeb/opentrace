@@ -5,8 +5,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:resource="clr-namespace:traceroute.Properties"
 	Title="{x:Static resource:Resources.PREFERENCES}"
-	MinimumSize="400,350"
-	Closing="PreferencesDialog_Closing"
+	MinimumSize="500,350"
 	Padding="10"
 	>
 	<TableLayout Spacing="5,5">
@@ -14,22 +13,38 @@
 			<TableLayout>
 				<TabControl>
 					<TabPage Text="{x:Static resource:Resources.GENERAL}">
-						<TableLayout Padding="10" Spacing="5,5">
+						<TableLayout Padding="10" Spacing="10,10">
 							<TableRow>
-								<Label Text="{x:Static resource:Resources.EXE_PATH}"></Label>
-								<TextBox x:Name="exectuablePath" PlaceholderText="{x:Static resource:Resources.AUTO_DETECT}"></TextBox>
+								<TableLayout Spacing="5,5">
+									<TableRow>
+										<Label Text="{x:Static resource:Resources.EXE_PATH}"></Label>
+										<TextBox x:Name="exectuablePath" PlaceholderText="{x:Static resource:Resources.AUTO_DETECT}"></TextBox>
+									</TableRow>
+									<TableRow>
+										<Label Text="{x:Static resource:Resources.ADDITIONAL_ARGS}"></Label>
+										<TextBox x:Name="arguments" Text=""></TextBox>
+									</TableRow>
+									<TableRow>
+										<Label Text="Language (语言)"></Label>
+										<DropDown x:Name="language" SelectedIndex="0">
+											<ListItem Text="English" Key="en"></ListItem>
+											<ListItem Text="简体中文" Key="zh-CN"></ListItem>
+											<ListItem Text="繁體中文" Key="zh-HK"></ListItem>
+											<ListItem Text="正體中文" Key="zh-TW"></ListItem>
+										</DropDown>
+									</TableRow>
+								<TableRow>
+										<Label Text="{x:Static resource:Resources.MAP_PROVIDER}"></Label>
+										<DropDown x:Name="mapProvider" SelectedIndex="0">
+											<ListItem Text="{x:Static resource:Resources.MAP_PROVIDER_BAIDU}" Key="baidu"></ListItem>
+											<ListItem Text="{x:Static resource:Resources.MAP_PROVIDER_GOOGLE}" Key="google"></ListItem>
+											<ListItem Text="{x:Static resource:Resources.MAP_PROVIDER_OSM}" Key="openstreetmap"></ListItem>
+										</DropDown>
+									</TableRow>
+								</TableLayout>
 							</TableRow>
 							<TableRow>
-								<Label Text="{x:Static resource:Resources.ADDITIONAL_ARGS}"></Label>
-								<TextBox x:Name="arguments" Text=""></TextBox>
-							</TableRow>
-							<TableRow>
-								<Label Text="Language (语言)"></Label>
-								<DropDown x:Name="language" SelectedIndex="0">
-									<ListItem Text="English" Key="en"></ListItem>
-									<ListItem Text="简体中文" Key="zh-Hans"></ListItem>
-									<ListItem Text="繁體中文" Key="zh-Hant"></ListItem>
-								</DropDown>
+								<CheckBox x:Name="combineGeoOrg" Text="{x:Static resource:Resources.COMBINE_GEO_ORG}"></CheckBox>
 							</TableRow>
 							<TableRow ScaleHeight="True"></TableRow>
 						</TableLayout>

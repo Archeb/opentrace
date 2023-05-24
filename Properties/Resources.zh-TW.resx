@@ -118,118 +118,136 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ABOUT" xml:space="preserve">
-    <value>关于</value>
+    <value>關於</value>
   </data>
   <data name="ADDITIONAL_ARGS" xml:space="preserve">
-    <value>附加参数</value>
+    <value>附加引數</value>
   </data>
   <data name="APPTITLE" xml:space="preserve">
     <value>OpenTrace</value>
   </data>
   <data name="AUTO_DETECT" xml:space="preserve">
-    <value>(留空自动检测)</value>
+    <value>(留空自動檢測)</value>
   </data>
   <data name="CANCEL" xml:space="preserve">
     <value>取消</value>
   </data>
   <data name="CHUNZHEN_ENDPOINT" xml:space="preserve">
-    <value>纯真 API 端点</value>
+    <value>純真 API 端點</value>
+  </data>
+  <data name="COMBINE_GEO_ORG" xml:space="preserve">
+    <value>把地理位置和組織資訊合為一欄</value>
   </data>
   <data name="DST_PORT_INIT_SEQ" xml:space="preserve">
-    <value>目标端口(TCP/UDP) / 初始序号(ICMP)</value>
+    <value>目標埠 / 初始序號</value>
+  </data>
+  <data name="ERR_WRITING_SETTTINGS" xml:space="preserve">
+    <value>儲存設定時出錯</value>
   </data>
   <data name="EXE_PATH" xml:space="preserve">
-    <value>可执行文件目录</value>
+    <value>可執行檔案目錄</value>
   </data>
   <data name="EXPORT" xml:space="preserve">
-    <value>导出</value>
+    <value>匯出</value>
   </data>
   <data name="EXPORT_TO" xml:space="preserve">
-    <value>导出为</value>
+    <value>匯出為</value>
   </data>
   <data name="FILE" xml:space="preserve">
-    <value>文件</value>
+    <value>檔案</value>
   </data>
   <data name="FIRST_TTL_HOP" xml:space="preserve">
-    <value>首个跃点</value>
+    <value>首個躍點</value>
   </data>
   <data name="GENERAL" xml:space="preserve">
-    <value>常规设置</value>
+    <value>常規設定</value>
   </data>
   <data name="GEOLOCATION" xml:space="preserve">
     <value>地理位置</value>
   </data>
   <data name="HELP" xml:space="preserve">
-    <value>帮助</value>
+    <value>幫助</value>
   </data>
   <data name="HOSTNAME" xml:space="preserve">
-    <value>主机名</value>
+    <value>主機名</value>
   </data>
   <data name="IP_GEO_DATA_PROVIDER" xml:space="preserve">
-    <value>IP 地理位置数据源</value>
+    <value>IP 地理位置資料來源</value>
   </data>
   <data name="LANGUAGE" xml:space="preserve">
-    <value>语言</value>
+    <value>語言</value>
   </data>
   <data name="LINKLOCAL_ADDR" xml:space="preserve">
-    <value>链路本地地址</value>
+    <value>鏈路本地地址</value>
   </data>
   <data name="LOOPBACK_ADDR" xml:space="preserve">
-    <value>本地回环地址</value>
+    <value>本地迴環地址</value>
+  </data>
+  <data name="MAP_PROVIDER" xml:space="preserve">
+    <value>地圖資料來源</value>
+  </data>
+  <data name="MAP_PROVIDER_BAIDU" xml:space="preserve">
+    <value>百度地圖</value>
+  </data>
+  <data name="MAP_PROVIDER_GOOGLE" xml:space="preserve">
+    <value>谷歌地圖</value>
+  </data>
+  <data name="MAP_PROVIDER_OSM" xml:space="preserve">
+    <value>OpenStreetMap</value>
   </data>
   <data name="MAX_HOPS" xml:space="preserve">
-    <value>最大跃点</value>
+    <value>最大躍點</value>
   </data>
   <data name="MISSING_COMP" xml:space="preserve">
-    <value>组件缺失</value>
+    <value>元件缺失</value>
   </data>
   <data name="MISSING_COMP_TEXT" xml:space="preserve">
-    <value>OpenTrace 需要 NextTrace 才能正常工作，但未能找到可执行文件。
-您可以把 NextTrace 可执行文件放置于：
-1. 与 OpenTrace 同一目录下
+    <value>OpenTrace 需要 NextTrace 才能正常工作，但未能找到可執行檔案。
+您可以把 NextTrace 可執行檔案放置於：
+1. 與 OpenTrace 同一目錄下
 或
-2. PATH 环境变量中的目录下
+2. PATH 環境變數中的目錄下
 
-是否现在下载 NextTrace？</value>
+是否現在下載 NextTrace？</value>
   </data>
   <data name="NEW" xml:space="preserve">
     <value>新建</value>
   </data>
   <data name="NEW_WINDOW_TEXT" xml:space="preserve">
-    <value>打开一个新的 OpenTrace 窗口</value>
+    <value>開啟一個新的 OpenTrace 視窗</value>
   </data>
   <data name="NO_RDNS" xml:space="preserve">
-    <value>禁用反向DNS查询</value>
+    <value>禁用反向DNS查詢</value>
   </data>
   <data name="ORGANIZATION" xml:space="preserve">
-    <value>组织</value>
+    <value>組織</value>
   </data>
   <data name="PACKET_GROUP_INTERVAL" xml:space="preserve">
-    <value>分组请求间隔</value>
+    <value>分組請求間隔</value>
   </data>
   <data name="PACKET_INTERVAL" xml:space="preserve">
-    <value>请求间隔</value>
+    <value>請求間隔</value>
   </data>
   <data name="PARALLEL_REQ" xml:space="preserve">
-    <value>并行请求数</value>
+    <value>並行請求數</value>
   </data>
   <data name="PREFERENCES" xml:space="preserve">
-    <value>设置</value>
+    <value>設定</value>
   </data>
   <data name="PRIVATE_ADDR" xml:space="preserve">
-    <value>私有地址（局域网）</value>
+    <value>私有地址（區域網）</value>
   </data>
   <data name="PROTOCOL_FOR_TRACEROUTING" xml:space="preserve">
-    <value>Traceroute 使用的协议</value>
+    <value>Traceroute 使用的協議</value>
   </data>
   <data name="QUERIES_SETTING" xml:space="preserve">
-    <value>每跃点探测次数</value>
+    <value>每躍點探測次數</value>
   </data>
   <data name="QUIT" xml:space="preserve">
     <value>退出</value>
   </data>
   <data name="SAVE" xml:space="preserve">
-    <value>保存</value>
+    <value>儲存</value>
   </data>
   <data name="SHARED_ADDR" xml:space="preserve">
     <value>共享地址</value>
@@ -238,18 +256,18 @@
     <value>源地址</value>
   </data>
   <data name="SRC_INTERFACE_SETTING" xml:space="preserve">
-    <value>源接口</value>
+    <value>源介面</value>
   </data>
   <data name="START" xml:space="preserve">
-    <value>开始</value>
+    <value>開始</value>
   </data>
   <data name="STOP" xml:space="preserve">
     <value>停止</value>
   </data>
   <data name="TIME_MS" xml:space="preserve">
-    <value>时间(ms)</value>
+    <value>時間(ms)</value>
   </data>
   <data name="TRACEROUTING" xml:space="preserve">
-    <value>路由追踪</value>
+    <value>路由追蹤</value>
   </data>
 </root>

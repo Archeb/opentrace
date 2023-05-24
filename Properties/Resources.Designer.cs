@@ -142,11 +142,29 @@ namespace traceroute.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Destination port (TCP/UDP) / Initial seq (ICMP) 的本地化字符串。
+        ///   查找类似 Combine Geography and Organization into a single column 的本地化字符串。
+        /// </summary>
+        public static string COMBINE_GEO_ORG {
+            get {
+                return ResourceManager.GetString("COMBINE_GEO_ORG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Destination port / Initial seq 的本地化字符串。
         /// </summary>
         public static string DST_PORT_INIT_SEQ {
             get {
                 return ResourceManager.GetString("DST_PORT_INIT_SEQ", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Error writing app settings. 的本地化字符串。
+        /// </summary>
+        public static string ERR_WRITING_SETTTINGS {
+            get {
+                return ResourceManager.GetString("ERR_WRITING_SETTTINGS", resourceCulture);
             }
         }
         
@@ -264,6 +282,42 @@ namespace traceroute.Properties {
         public static string LOOPBACK_ADDR {
             get {
                 return ResourceManager.GetString("LOOPBACK_ADDR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Map Provider 的本地化字符串。
+        /// </summary>
+        public static string MAP_PROVIDER {
+            get {
+                return ResourceManager.GetString("MAP_PROVIDER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Baidu Maps 的本地化字符串。
+        /// </summary>
+        public static string MAP_PROVIDER_BAIDU {
+            get {
+                return ResourceManager.GetString("MAP_PROVIDER_BAIDU", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Google Maps 的本地化字符串。
+        /// </summary>
+        public static string MAP_PROVIDER_GOOGLE {
+            get {
+                return ResourceManager.GetString("MAP_PROVIDER_GOOGLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OpenStreetMap 的本地化字符串。
+        /// </summary>
+        public static string MAP_PROVIDER_OSM {
+            get {
+                return ResourceManager.GetString("MAP_PROVIDER_OSM", resourceCulture);
             }
         }
         

@@ -39,7 +39,6 @@ namespace traceroute
         private ObservableCollection<TracerouteResult> tracerouteResultCollection = new ObservableCollection<TracerouteResult>();
         private static NextTraceWrapper CurrentInstance { get; set; }
         private static double gridSizePercentage = 0.5;
-        private Dialog preferenceDialog = new PreferencesDialog();
         private TextBox IPTextBox;
         private GridView tracerouteGridView;
         private WebView mapWebView;
@@ -69,7 +68,7 @@ namespace traceroute
             aboutCommand.Executed += (sender, e) => new AboutDialog().ShowDialog(this);
 
             var preferenceCommand = new Command { MenuText = Resources.PREFERENCES };
-            preferenceCommand.Executed += (sender, e) => preferenceDialog.ShowModal();
+            preferenceCommand.Executed += (sender, e) => new PreferencesDialog().ShowModal();
 
             // ´´½¨²Ëµ¥À¸
             Menu = new MenuBar

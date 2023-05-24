@@ -118,162 +118,156 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ABOUT" xml:space="preserve">
-    <value>About...</value>
+    <value>關於</value>
   </data>
   <data name="ADDITIONAL_ARGS" xml:space="preserve">
-    <value>Additional Arguments</value>
+    <value>附加參數</value>
   </data>
   <data name="APPTITLE" xml:space="preserve">
     <value>OpenTrace</value>
   </data>
   <data name="AUTO_DETECT" xml:space="preserve">
-    <value>(Auto Detect)</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="baiduMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\javascript\baiduMap.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+    <value>(留空自動檢測)</value>
   </data>
   <data name="CANCEL" xml:space="preserve">
-    <value>Cancel</value>
+    <value>取消</value>
   </data>
   <data name="CHUNZHEN_ENDPOINT" xml:space="preserve">
-    <value>CHUNZHEN Endpoint</value>
+    <value>純真 API 端點</value>
   </data>
   <data name="COMBINE_GEO_ORG" xml:space="preserve">
-    <value>Combine Geography and Organization into a single column</value>
+    <value>把地理位置和組織信息合為一欄</value>
   </data>
   <data name="DST_PORT_INIT_SEQ" xml:space="preserve">
-    <value>Destination port / Initial seq</value>
+    <value>目標端口 / 初始序號</value>
   </data>
   <data name="ERR_WRITING_SETTTINGS" xml:space="preserve">
-    <value>Error writing app settings.</value>
+    <value>保存設置時出錯</value>
   </data>
   <data name="EXE_PATH" xml:space="preserve">
-    <value>Exectuable Path</value>
+    <value>可執行文件目錄</value>
   </data>
   <data name="EXPORT" xml:space="preserve">
-    <value>Export</value>
+    <value>導出</value>
   </data>
   <data name="EXPORT_TO" xml:space="preserve">
-    <value>Export To</value>
+    <value>導出為</value>
   </data>
   <data name="FILE" xml:space="preserve">
-    <value>File</value>
+    <value>文件</value>
   </data>
   <data name="FIRST_TTL_HOP" xml:space="preserve">
-    <value>First TTL Hop</value>
+    <value>首個躍點</value>
   </data>
   <data name="GENERAL" xml:space="preserve">
-    <value>General</value>
+    <value>常規設置</value>
   </data>
   <data name="GEOLOCATION" xml:space="preserve">
-    <value>Geolocation</value>
+    <value>地理位置</value>
   </data>
   <data name="HELP" xml:space="preserve">
-    <value>Help</value>
+    <value>幫助</value>
   </data>
   <data name="HOSTNAME" xml:space="preserve">
-    <value>Hostname</value>
+    <value>主機名</value>
   </data>
   <data name="IP_GEO_DATA_PROVIDER" xml:space="preserve">
-    <value>IP Geograph Data Provider</value>
+    <value>IP 地理位置數據源</value>
   </data>
   <data name="LANGUAGE" xml:space="preserve">
-    <value>Language</value>
+    <value>語言</value>
   </data>
   <data name="LINKLOCAL_ADDR" xml:space="preserve">
-    <value>Link-local Address</value>
+    <value>鏈路本地地址</value>
   </data>
   <data name="LOOPBACK_ADDR" xml:space="preserve">
-    <value>Loopback Address</value>
+    <value>本地迴環地址</value>
   </data>
   <data name="MAP_PROVIDER" xml:space="preserve">
-    <value>Map Provider</value>
+    <value>地圖數據源</value>
   </data>
   <data name="MAP_PROVIDER_BAIDU" xml:space="preserve">
-    <value>Baidu Maps</value>
+    <value>百度地圖</value>
   </data>
   <data name="MAP_PROVIDER_GOOGLE" xml:space="preserve">
-    <value>Google Maps</value>
+    <value>谷歌地圖</value>
   </data>
   <data name="MAP_PROVIDER_OSM" xml:space="preserve">
     <value>OpenStreetMap</value>
   </data>
   <data name="MAX_HOPS" xml:space="preserve">
-    <value>Max Hops</value>
+    <value>最大躍點</value>
   </data>
   <data name="MISSING_COMP" xml:space="preserve">
-    <value>Missing Component</value>
+    <value>組件缺失</value>
   </data>
   <data name="MISSING_COMP_TEXT" xml:space="preserve">
-    <value>OpenTrace requires the NextTrace utility to function properly. This executable is currently missing.
-NextTrace can be placed in either:
-1. The same directory as the OpenTrace executable
-OR
-2. A directory included in your system's PATH environment variable
+    <value>OpenTrace 需要 NextTrace 才能正常工作，但未能找到可執行文件。
+您可以把 NextTrace 可執行文件放置於：
+1. 與 OpenTrace 同一目錄下
+或
+2. PATH 環境變量中的目錄下
 
-Would you like to download the NextTrace utility now?</value>
+是否現在下載 NextTrace？</value>
   </data>
   <data name="NEW" xml:space="preserve">
-    <value>New</value>
+    <value>新建</value>
   </data>
   <data name="NEW_WINDOW_TEXT" xml:space="preserve">
-    <value>Create a new OpenTrace window.</value>
+    <value>打開一個新的 OpenTrace 窗口</value>
   </data>
   <data name="NO_RDNS" xml:space="preserve">
-    <value>No Reverse DNS Lookup</value>
+    <value>禁用反向DNS查詢</value>
   </data>
   <data name="ORGANIZATION" xml:space="preserve">
-    <value>Organization</value>
+    <value>組織</value>
   </data>
   <data name="PACKET_GROUP_INTERVAL" xml:space="preserve">
-    <value>Packet Group Interval</value>
-    <comment>--ttl-time</comment>
+    <value>分組請求間隔</value>
   </data>
   <data name="PACKET_INTERVAL" xml:space="preserve">
-    <value>Packet Interval</value>
-    <comment>--send-time</comment>
+    <value>請求間隔</value>
   </data>
   <data name="PARALLEL_REQ" xml:space="preserve">
-    <value>Parallel Requests</value>
+    <value>並行請求數</value>
   </data>
   <data name="PREFERENCES" xml:space="preserve">
-    <value>Preferences</value>
+    <value>設置</value>
   </data>
   <data name="PRIVATE_ADDR" xml:space="preserve">
-    <value>Private Address (LAN)</value>
+    <value>私有地址（局域網）</value>
   </data>
   <data name="PROTOCOL_FOR_TRACEROUTING" xml:space="preserve">
-    <value>Protocol for tracerouting</value>
+    <value>Traceroute 使用的協議</value>
   </data>
   <data name="QUERIES_SETTING" xml:space="preserve">
-    <value>Queries (probes per each hop)</value>
+    <value>每躍點探測次數</value>
   </data>
   <data name="QUIT" xml:space="preserve">
-    <value>Quit</value>
+    <value>退出</value>
   </data>
   <data name="SAVE" xml:space="preserve">
-    <value>Save</value>
+    <value>保存</value>
   </data>
   <data name="SHARED_ADDR" xml:space="preserve">
-    <value>Shared Address</value>
+    <value>共享地址</value>
   </data>
   <data name="SRC_ADDR_SETTING" xml:space="preserve">
-    <value>Source Address</value>
+    <value>源地址</value>
   </data>
   <data name="SRC_INTERFACE_SETTING" xml:space="preserve">
-    <value>Source Interface</value>
+    <value>源接口</value>
   </data>
   <data name="START" xml:space="preserve">
-    <value>Start</value>
+    <value>開始</value>
   </data>
   <data name="STOP" xml:space="preserve">
-    <value>Stop</value>
+    <value>停止</value>
   </data>
   <data name="TIME_MS" xml:space="preserve">
-    <value>Time(ms)</value>
+    <value>時間(ms)</value>
   </data>
   <data name="TRACEROUTING" xml:space="preserve">
-    <value>Tracerouting</value>
+    <value>路由追蹤</value>
   </data>
 </root>

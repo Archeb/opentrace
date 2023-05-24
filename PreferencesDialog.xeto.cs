@@ -1,4 +1,3 @@
-using Eto.Drawing;
 using Eto.Forms;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -8,6 +7,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Configuration;
+using Resources = traceroute.Properties.Resources;
 
 namespace traceroute
 {
@@ -18,30 +18,31 @@ namespace traceroute
         public PreferencesDialog()
         {
             XamlReader.Load(this);
+            
             var appSettings = ConfigurationManager.AppSettings;
-
-            if (appSettings.Count == 0)
-            {
-                Debug.Print("AppSettings is empty.");
-            }
-            else
+            if (appSettings.Count != 0)
             {
                 foreach (var key in appSettings.AllKeys)
                 {
-                    TextBox setting = this.FindChild<TextBox>(key);
-                    if (setting != null)
+                    TextBox settingTextBox = this.FindChild<TextBox>(key);
+                    if (settingTextBox != null)
                     {
-                        setting.Text = appSettings[key];
+                        settingTextBox.Text = appSettings[key];
+                    }
+                    CheckBox settingCheckBox = this.FindChild<CheckBox>(key);
+                    if(settingCheckBox != null)
+                    {
+                        settingCheckBox.Checked = Convert.ToBoolean(appSettings[key]);
+                    }
+                    DropDown settingDropDown = this.FindChild<DropDown>(key);
+                    if (settingDropDown != null)
+                    {
+                        settingDropDown.SelectedKey = appSettings[key];
                     }
                 }
             }
         }
 
-        private void PreferencesDialog_Closing(object sender, CancelEventArgs e)
-        {
-            e.Cancel = true;
-            Visible = false;
-        }
         private void CancelButton_Click(object sender, EventArgs e)
         {
             Close();
@@ -49,26 +50,20 @@ namespace traceroute
         private void SaveButton_Click(object sender, EventArgs e)
         {
 
-            IEnumerable<TextBox> TracerouteSettings = this.Children.OfType<TextBox>();
-            foreach (TextBox setting in TracerouteSettings)
+            foreach (TextBox setting in this.Children.OfType<TextBox>())
             {
                 AddUpdateAppSettings(setting.ID, setting.Text);
             }
-        }
-        private static void ReadSetting(string key)
-        {
-            try
+            foreach (CheckBox setting in this.Children.OfType<CheckBox>())
             {
-                var appSettings = ConfigurationManager.AppSettings;
-                string result = appSettings[key] ?? "Not Found";
-                Console.WriteLine(result);
+                AddUpdateAppSettings(setting.ID, setting.Checked.ToString());
             }
-            catch (ConfigurationErrorsException)
+            foreach (DropDown setting in this.Children.OfType<DropDown>())
             {
-                Console.WriteLine("Error reading app settings");
+                AddUpdateAppSettings(setting.ID, setting.SelectedKey);
             }
+            Close();
         }
-
         private static void AddUpdateAppSettings(string key, string value)
         {
             try
@@ -88,7 +83,7 @@ namespace traceroute
             }
             catch (ConfigurationErrorsException)
             {
-                MessageBox.Show("Error writing app settings");
+                MessageBox.Show(Resources.ERR_WRITING_SETTTINGS);
             }
         }
     }
