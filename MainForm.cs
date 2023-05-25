@@ -88,10 +88,6 @@ namespace traceroute
                             quitCommand
                         } },
                      new SubMenuItem { Text = Resources.HELP , Items = {
-                             new SubMenuItem { Text = Resources.LANGUAGE , Items = {
-                                    new Command { MenuText = "English" },
-                                    new Command { MenuText = "简体中文" }
-                            } },
                              aboutCommand
                          } }
                 }
@@ -255,7 +251,8 @@ namespace traceroute
             ResetMap(); // 重置地图
             try
             {
-                var instance = new NextTraceWrapper(HostInputBox.Text + " --raw " + dataProviderSelection.SelectedKey);
+                string language = System.Globalization.CultureInfo.CurrentUICulture.Name.StartsWith("zh") ? " --language cn " : " --language en ";
+                var instance = new NextTraceWrapper(HostInputBox.Text + " --raw " + dataProviderSelection.SelectedKey + language);
                 HostInputBox.Items.Add(new ListItem { Text = HostInputBox.Text });
                 CurrentInstance = instance;
                 startTracerouteButton.Text = Resources.STOP;
