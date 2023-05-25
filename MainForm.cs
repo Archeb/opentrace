@@ -39,13 +39,14 @@ namespace traceroute
         private ObservableCollection<TracerouteResult> tracerouteResultCollection = new ObservableCollection<TracerouteResult>();
         private static NextTraceWrapper CurrentInstance { get; set; }
         private static double gridSizePercentage = 0.5;
-        private TextBox IPTextBox;
+        private ComboBox HostInputBox;
         private GridView tracerouteGridView;
         private WebView mapWebView;
         private DropDown dataProviderSelection;
         private DropDown protocolSelection;
         private Button startTracerouteButton;
         private bool gridResizing = false;
+        private bool appForceExiting = false;
 
         public MainForm()
         {
@@ -95,7 +96,7 @@ namespace traceroute
             };
 
             // 创建控件
-            IPTextBox = new TextBox { Text = "" };
+            HostInputBox = new ComboBox { Text = "" };
 
             startTracerouteButton = new Button { Text = Resources.START };
             protocolSelection = new DropDown
@@ -183,6 +184,7 @@ namespace traceroute
             tracerouteGridView.MouseUp += Dragging_MouseUp;
             tracerouteGridView.SelectedRowsChanged += TracerouteGridView_SelectedRowsChanged;
             startTracerouteButton.Click += StartTracerouteButton_Click;
+            HostInputBox.KeyUp += HostInputBox_KeyUp;
 
             // 使用 Table 布局创建页面
             var layout = new TableLayout
@@ -200,7 +202,7 @@ namespace traceroute
                                 {
                                     Cells =
                                     {
-                                        new TableCell(IPTextBox,true),
+                                        new TableCell(HostInputBox,true),
                                         protocolSelection,
                                         dataProviderSelection,
                                         startTracerouteButton
@@ -221,6 +223,15 @@ namespace traceroute
             Content = layout;
         }
 
+        private void HostInputBox_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Keys.Enter)
+            {
+                if (CurrentInstance != null)  StopTraceroute();
+                StartTracerouteButton_Click(sender, e);
+            }
+        }
+
         private void TracerouteGridView_SelectedRowsChanged(object sender, EventArgs e)
         {
             FocusMapPoint(tracerouteGridView.SelectedRow);
@@ -230,16 +241,15 @@ namespace traceroute
         {
             if (CurrentInstance != null)
             {
-                CurrentInstance.Kill();
-                startTracerouteButton.Text = "Start";
-                CurrentInstance = null;
+                StopTraceroute();
                 return;
             }
             tracerouteResultCollection.Clear(); // 清空原有GridView
             ResetMap(); // 重置地图
             try
             {
-                var instance = new NextTraceWrapper(IPTextBox.Text + " --raw " + dataProviderSelection.SelectedKey);
+                var instance = new NextTraceWrapper(HostInputBox.Text + " --raw " + dataProviderSelection.SelectedKey);
+                HostInputBox.Items.Add(new ListItem { Text = HostInputBox.Text });
                 CurrentInstance = instance;
                 startTracerouteButton.Text = Resources.STOP;
                 instance.Output.CollectionChanged += (sender, e) =>
@@ -258,8 +268,16 @@ namespace traceroute
                 {
                     Application.Instance.InvokeAsync(() =>
                     {
-                        startTracerouteButton.Text = Resources.START;
-                        CurrentInstance = null;
+                        if(appForceExiting != true) { 
+                            // 正常结束
+                            startTracerouteButton.Text = Resources.START;
+                            CurrentInstance = null;
+                        }
+                        else
+                        {
+                            // 强制结束
+                            appForceExiting = false;
+                        }
                     });
                 };
             } catch (FileNotFoundException)
@@ -272,6 +290,13 @@ namespace traceroute
                 }
                 return;
             }
+        }
+        private void StopTraceroute()
+        {
+            appForceExiting = true;
+            CurrentInstance.Kill();
+            startTracerouteButton.Text = Resources.START;
+            CurrentInstance = null;
         }
 
         /*
