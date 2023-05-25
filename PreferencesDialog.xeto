@@ -117,6 +117,7 @@
 		<TableRow>
 			<TableLayout Spacing="5, 5">
 				<TableRow>
+					<Label Text="{x:Static resource:Resources.RESTART_TO_APPLY}"></Label>
 					<TableCell ScaleWidth="True"></TableCell>
 					<Button Text="{x:Static resource:Resources.SAVE}" Click="SaveButton_Click"></Button>
 					<Button Text="{x:Static resource:Resources.CANCEL}" Click="CancelButton_Click"></Button>

@@ -252,6 +252,9 @@ Would you like to download the NextTrace utility now?</value>
   <data name="QUIT" xml:space="preserve">
     <value>Quit</value>
   </data>
+  <data name="RESTART_TO_APPLY" xml:space="preserve">
+    <value>Some settings may require a restart to take effect</value>
+  </data>
   <data name="SAVE" xml:space="preserve">
     <value>Save</value>
   </data>

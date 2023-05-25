@@ -463,6 +463,15 @@ namespace traceroute.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Some settings may require a restart to take effect 的本地化字符串。
+        /// </summary>
+        public static string RESTART_TO_APPLY {
+            get {
+                return ResourceManager.GetString("RESTART_TO_APPLY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Save 的本地化字符串。
         /// </summary>
         public static string SAVE {

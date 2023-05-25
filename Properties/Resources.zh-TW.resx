@@ -246,6 +246,9 @@
   <data name="QUIT" xml:space="preserve">
     <value>退出</value>
   </data>
+  <data name="RESTART_TO_APPLY" xml:space="preserve">
+    <value>部分設定需重啟應用才能生效</value>
+  </data>
   <data name="SAVE" xml:space="preserve">
     <value>儲存</value>
   </data>
