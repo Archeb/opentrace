@@ -6,6 +6,8 @@ using System.Diagnostics;
 using System.Text.Json;
 using System.IO;
 using Resources = traceroute.Properties.Resources;
+using System.Configuration;
+using MS.WindowsAPICodePack.Internal;
 
 namespace traceroute
 {
@@ -143,23 +145,28 @@ namespace traceroute
                 DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteResult, string>(r => r.Time) },
                 HeaderText = Resources.TIME_MS
             });
-            /* 合并位置和运营商功能
-            tracerouteGridView.Columns.Add(new GridColumn
+            // 合并位置和运营商
+            bool combineGeoOrg;
+            if (!Boolean.TryParse(ConfigurationManager.AppSettings["combineGeoOrg"] ?? "False", out combineGeoOrg)) combineGeoOrg = false;
+            if (combineGeoOrg == true)
             {
-                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteResult, string>(r => r.Geolocation + " " + r.Organization) },
-                HeaderText = "Geolocation"
-            });
-            */
-            tracerouteGridView.Columns.Add(new GridColumn
-            {
-                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteResult, string>(r => r.Geolocation) },
-                HeaderText = Resources.GEOLOCATION
-            });
-            tracerouteGridView.Columns.Add(new GridColumn
-            {
-                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteResult, string>(r => r.Organization) },
-                HeaderText = Resources.ORGANIZATION
-            });
+                tracerouteGridView.Columns.Add(new GridColumn
+                {
+                    DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteResult, string>(r => r.Geolocation + " " + r.Organization) },
+                    HeaderText = Resources.GEOLOCATION
+                });
+            }else { 
+                tracerouteGridView.Columns.Add(new GridColumn
+                {
+                    DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteResult, string>(r => r.Geolocation) },
+                    HeaderText = Resources.GEOLOCATION
+                });
+                tracerouteGridView.Columns.Add(new GridColumn
+                {
+                    DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteResult, string>(r => r.Organization) },
+                    HeaderText = Resources.ORGANIZATION
+                });
+                }
             tracerouteGridView.Columns.Add(new GridColumn
             {
                 DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteResult, string>(r => r.AS) },
