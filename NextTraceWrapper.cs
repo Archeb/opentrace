@@ -5,8 +5,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.IO;
-using Resources = traceroute.Properties.Resources;
-namespace traceroute
+using Resources = OpenTrace.Properties.Resources;
+namespace OpenTrace
 {
     internal class NextTraceWrapper
     {

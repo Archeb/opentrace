@@ -5,7 +5,7 @@ using System.Configuration;
 using System.Globalization;
 using System.Windows.Input;
 
-namespace traceroute
+namespace OpenTrace
 {
     internal class Program
     {

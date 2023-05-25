@@ -7,9 +7,9 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Configuration;
-using Resources = traceroute.Properties.Resources;
+using Resources = OpenTrace.Properties.Resources;
 
-namespace traceroute
+namespace OpenTrace
 {
     public partial class PreferencesDialog : Dialog
     {

@@ -5,11 +5,10 @@ using System;
 using System.Diagnostics;
 using System.Text.Json;
 using System.IO;
-using Resources = traceroute.Properties.Resources;
+using Resources = OpenTrace.Properties.Resources;
 using System.Configuration;
-using MS.WindowsAPICodePack.Internal;
 
-namespace traceroute
+namespace OpenTrace
 {
     class TracerouteResult
     {
@@ -366,7 +365,7 @@ namespace traceroute
         private void ResetMap()
         {
             // 重置或者初始化地图
-            mapWebView.ExecuteScriptAsync(traceroute.Properties.Resources.baiduMap);
+            mapWebView.ExecuteScriptAsync(OpenTrace.Properties.Resources.baiduMap);
         }
     }
 }

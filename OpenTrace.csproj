@@ -10,8 +10,16 @@
     <TargetFramework>net6.0</TargetFramework>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <OutputType>Exe</OutputType>
+    <PackageProjectUrl>https://github.com/Archeb/opentrace</PackageProjectUrl>
+    <Title>OpenTrace</Title>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <PackageIcon>icon.png</PackageIcon>
 
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="icon.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Eto.Serialization.Xaml" Version="2.7.5" />
@@ -51,6 +59,13 @@
       <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
