@@ -6,6 +6,11 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.IO;
 using Resources = OpenTrace.Properties.Resources;
+using System.Configuration;
+using System.Windows.Documents;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace OpenTrace
 {
     internal class NextTraceWrapper
@@ -13,9 +18,8 @@ namespace OpenTrace
         private Process _process;
         public event EventHandler OnAppQuit;
         public ObservableCollection<TracerouteResult> Output { get; } = new ObservableCollection<TracerouteResult>();
-        private int queries = 3;
 
-        public NextTraceWrapper(string arguments)
+        public NextTraceWrapper(string host, string extraArgs)
         {
 
             // 检查 nexttrace.exe 是否存在于当前目录
@@ -62,17 +66,17 @@ namespace OpenTrace
                     StartInfo = new ProcessStartInfo
                     {
                         FileName = nexttracePath,
-                        Arguments = arguments,
+                        Arguments = ArgumentBuilder(host,extraArgs),
                         UseShellExecute = false,
                         StandardOutputEncoding = Encoding.GetEncoding(65001),
                         RedirectStandardOutput = true,
                         CreateNoWindow = true
                     }
                 };
-                int readRestLine = 0;
 
                 Regex match1stLine = new Regex(@"^\d{1,2}\|");
-                string tracerouteBlock = "";
+                string lastHop = "";
+                List<string> tracerouteBlock = new List<string>();
                 _process.OutputDataReceived += (sender, e) =>
                 {
                     if (e.Data != null)
@@ -87,27 +91,21 @@ namespace OpenTrace
                         if (line.StartsWith("[NextTrace API]")) return;
                         if (line.StartsWith("traceroute to")) return;
 
-                        if (readRestLine > 0)
-                        {
-                            readRestLine--;
-
-                            if (readRestLine == 0)
-                            {
-                                tracerouteBlock += line;
-                                Output.Add(ProcessBlock(tracerouteBlock));
-                            }
-                            else
-                            {
-                                tracerouteBlock += line + "\n";
-                            }
-                            return;
-                        }
                         Match match1 = match1stLine.Match(line);
                         if (match1.Success)
                         {
                             // 以块为单位处理
-                            tracerouteBlock = line + "\n";
-                            readRestLine = queries - 1;
+                            string hop = line.Split("|")[0];
+                            if(hop != lastHop)
+                            {
+                                lastHop = hop;
+                                if(tracerouteBlock.Count>0) Output.Add(ProcessBlock(tracerouteBlock));
+                                tracerouteBlock = new List<string>();
+                                tracerouteBlock.Add(line);
+                            } else {
+                                tracerouteBlock.Add(line);
+                            }
+
                         }
                     }
                 };
@@ -117,7 +115,7 @@ namespace OpenTrace
                 OnAppQuit?.Invoke(this, null);
             });
         }
-        private TracerouteResult ProcessBlock(string block)
+        private TracerouteResult ProcessBlock(List<string> block)
         {
             string No = "";
             string IP = "*";
@@ -128,8 +126,8 @@ namespace OpenTrace
             string Organization = "";
             string Latitude = "";
             string Longitude = "";
-            String[] blockLines = block.Split("\n");
-            foreach (string line in blockLines)
+            Debug.Print(String.Join("\n",block));
+            foreach (string line in block)
             {
                 String[] LineData = line.Split("|");
                 if (LineData.Length > 7)
@@ -172,6 +170,27 @@ namespace OpenTrace
 
 
             return new TracerouteResult(No, IP, Time, Geolocation, AS, Hostname, Organization, Latitude, Longitude);
+        }
+        private string ArgumentBuilder(string host, string extraArgs)
+        {
+            List<string> finalArgs = new List<string>();
+            finalArgs.Add(host);
+            finalArgs.Add("--raw");
+            string[] checkArgsFromConfList = { "queries", "port", "parallel-requests", "max-hops", "first", "send-time", "ttl-time", "source", "dev"};
+            foreach(string checkArgs in checkArgsFromConfList)
+            {
+                if (ConfigurationManager.AppSettings[checkArgs] != null && ConfigurationManager.AppSettings[checkArgs] != "")
+                {
+                    finalArgs.Add("--" + checkArgs + " " + ConfigurationManager.AppSettings[checkArgs]);
+                }
+            }
+
+            if (bool.Parse(ConfigurationManager.AppSettings["no-rdns"] ?? "False") == true)
+                finalArgs.Add("--no-rdns");
+            finalArgs.Add(System.Globalization.CultureInfo.CurrentUICulture.Name.StartsWith("zh") ? "--language cn" : "--language en");
+            finalArgs.Add(extraArgs);
+            Debug.Print(String.Join(" ", finalArgs));
+            return String.Join(" ", finalArgs);
         }
         public void Kill()
         {

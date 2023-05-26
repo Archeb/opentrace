@@ -12,6 +12,7 @@ namespace OpenTrace
         [STAThread]
         static void Main(string[] args)
         {
+
             if (ConfigurationManager.AppSettings["language"] != null)
             {
                 System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(ConfigurationManager.AppSettings["language"]);

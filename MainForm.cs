@@ -250,8 +250,7 @@ namespace OpenTrace
             ResetMap(); // ÷ÿ÷√µÿÕº
             try
             {
-                string language = System.Globalization.CultureInfo.CurrentUICulture.Name.StartsWith("zh") ? " --language cn " : " --language en ";
-                var instance = new NextTraceWrapper(HostInputBox.Text + " --raw " + dataProviderSelection.SelectedKey + language);
+                var instance = new NextTraceWrapper(HostInputBox.Text, dataProviderSelection.SelectedKey);
                 HostInputBox.Items.Add(new ListItem { Text = HostInputBox.Text });
                 CurrentInstance = instance;
                 startTracerouteButton.Text = Resources.STOP;

@@ -68,4 +68,10 @@
     </None>
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Update="Eto.Platform.Wpf">
+      <NoWarn>NU1701</NoWarn>
+    </PackageReference>
+  </ItemGroup>
+
 </Project>

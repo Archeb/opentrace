@@ -37,8 +37,10 @@
 										<Label Text="{x:Static resource:Resources.MAP_PROVIDER}"></Label>
 										<DropDown x:Name="mapProvider" SelectedIndex="0">
 											<ListItem Text="{x:Static resource:Resources.MAP_PROVIDER_BAIDU}" Key="baidu"></ListItem>
+											<!--
 											<ListItem Text="{x:Static resource:Resources.MAP_PROVIDER_GOOGLE}" Key="google"></ListItem>
 											<ListItem Text="{x:Static resource:Resources.MAP_PROVIDER_OSM}" Key="openstreetmap"></ListItem>
+											-->
 										</DropDown>
 									</TableRow>
 								</TableLayout>
