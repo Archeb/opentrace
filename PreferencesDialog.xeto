@@ -63,11 +63,11 @@
 							</TableRow>
 							<TableRow>
 								<Label Text="{x:Static resource:Resources.PARALLEL_REQ}"></Label>
-								<TextBox x:Name="parallel-requests" PlaceholderText="18"></TextBox>
+								<TextBox x:Name="parallel_requests" PlaceholderText="18"></TextBox>
 							</TableRow>
 							<TableRow>
 								<Label Text="{x:Static resource:Resources.MAX_HOPS}"></Label>
-								<TextBox x:Name="max-hops" PlaceholderText="30"></TextBox>
+								<TextBox x:Name="max_hops" PlaceholderText="30"></TextBox>
 							</TableRow>
 							<TableRow>
 								<Label Text="{x:Static resource:Resources.FIRST_TTL_HOP}"></Label>
@@ -75,11 +75,11 @@
 							</TableRow>
 							<TableRow>
 								<Label Text="{x:Static resource:Resources.PACKET_INTERVAL}"></Label>
-								<TextBox x:Name="send-time" PlaceholderText="100"></TextBox>
+								<TextBox x:Name="send_time" PlaceholderText="100"></TextBox>
 							</TableRow>
 							<TableRow>
 								<Label Text="{x:Static resource:Resources.PACKET_GROUP_INTERVAL}"></Label>
-								<TextBox x:Name="ttl-time" PlaceholderText="500"></TextBox>
+								<TextBox x:Name="ttl_time" PlaceholderText="500"></TextBox>
 							</TableRow>
 							<TableRow>
 								<Label Text="{x:Static resource:Resources.SRC_ADDR_SETTING}"></Label>
@@ -90,7 +90,7 @@
 								<TextBox x:Name="dev" Text=""></TextBox>
 							</TableRow>
 							<TableRow>
-								<CheckBox x:Name="no-rdns" Text="{x:Static resource:Resources.NO_RDNS}"></CheckBox>
+								<CheckBox x:Name="no_rdns" Text="{x:Static resource:Resources.NO_RDNS}"></CheckBox>
 							</TableRow>
 							<TableRow ScaleHeight="True"></TableRow>
 						</TableLayout>

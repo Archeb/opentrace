@@ -12,10 +12,10 @@ namespace OpenTrace
         [STAThread]
         static void Main(string[] args)
         {
-
-            if (ConfigurationManager.AppSettings["language"] != null)
+            
+            if (Properties.UserSettings.Default.language != "")
             {
-                System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(ConfigurationManager.AppSettings["language"]);
+                System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(Properties.UserSettings.Default.language);
             }
             
             new Application(Eto.Platform.Detect).Run(new MainForm());

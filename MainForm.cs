@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Text.Json;
 using System.IO;
 using Resources = OpenTrace.Properties.Resources;
-using System.Configuration;
+using OpenTrace.Properties;
 
 namespace OpenTrace
 {
@@ -141,9 +141,7 @@ namespace OpenTrace
                 HeaderText = Resources.TIME_MS
             });
             // 合并位置和运营商
-            bool combineGeoOrg;
-            if (!Boolean.TryParse(ConfigurationManager.AppSettings["combineGeoOrg"] ?? "False", out combineGeoOrg)) combineGeoOrg = false;
-            if (combineGeoOrg == true)
+            if (UserSettings.Default.combineGeoOrg == true)
             {
                 tracerouteGridView.Columns.Add(new GridColumn
                 {

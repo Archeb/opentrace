@@ -6,10 +6,8 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.IO;
 using Resources = OpenTrace.Properties.Resources;
-using System.Configuration;
-using System.Windows.Documents;
+using OpenTrace.Properties;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace OpenTrace
 {
@@ -176,16 +174,16 @@ namespace OpenTrace
             List<string> finalArgs = new List<string>();
             finalArgs.Add(host);
             finalArgs.Add("--raw");
-            string[] checkArgsFromConfList = { "queries", "port", "parallel-requests", "max-hops", "first", "send-time", "ttl-time", "source", "dev"};
+            string[] checkArgsFromConfList = { "queries", "port", "parallel_requests", "max_hops", "first", "send_time", "ttl_time", "source", "dev"};
             foreach(string checkArgs in checkArgsFromConfList)
             {
-                if (ConfigurationManager.AppSettings[checkArgs] != null && ConfigurationManager.AppSettings[checkArgs] != "")
+                if ((string)UserSettings.Default[checkArgs] != "")
                 {
-                    finalArgs.Add("--" + checkArgs + " " + ConfigurationManager.AppSettings[checkArgs]);
+                    finalArgs.Add("--" + checkArgs.Replace('_', '-') + " " + (string)UserSettings.Default[checkArgs]);
                 }
             }
 
-            if (bool.Parse(ConfigurationManager.AppSettings["no-rdns"] ?? "False") == true)
+            if ((bool)UserSettings.Default["no_rdns"] == true)
                 finalArgs.Add("--no-rdns");
             finalArgs.Add(System.Globalization.CultureInfo.CurrentUICulture.Name.StartsWith("zh") ? "--language cn" : "--language en");
             finalArgs.Add(extraArgs);

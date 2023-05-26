@@ -7,7 +7,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Configuration;
-using Resources = OpenTrace.Properties.Resources;
+using OpenTrace.Properties;
 
 namespace OpenTrace
 {
@@ -19,28 +19,24 @@ namespace OpenTrace
         {
             XamlReader.Load(this);
             
-            var appSettings = ConfigurationManager.AppSettings;
-            if (appSettings.Count != 0)
-            {
-                foreach (var key in appSettings.AllKeys)
+                foreach (SettingsProperty setting in UserSettings.Default.Properties)
                 {
-                    TextBox settingTextBox = this.FindChild<TextBox>(key);
+                    TextBox settingTextBox = this.FindChild<TextBox>(setting.Name);
                     if (settingTextBox != null)
                     {
-                        settingTextBox.Text = appSettings[key];
+                    settingTextBox.Text = (string)UserSettings.Default[setting.Name];
                     }
-                    CheckBox settingCheckBox = this.FindChild<CheckBox>(key);
+                    CheckBox settingCheckBox = this.FindChild<CheckBox>(setting.Name);
                     if(settingCheckBox != null)
                     {
-                        settingCheckBox.Checked = Convert.ToBoolean(appSettings[key]);
-                    }
-                    DropDown settingDropDown = this.FindChild<DropDown>(key);
+                        settingCheckBox.Checked = (bool)UserSettings.Default[setting.Name];
+                }
+                    DropDown settingDropDown = this.FindChild<DropDown>(setting.Name);
                     if (settingDropDown != null)
                     {
-                        settingDropDown.SelectedKey = appSettings[key];
-                    }
+                        settingDropDown.SelectedKey = (string)UserSettings.Default[setting.Name];
                 }
-            }
+                }
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
@@ -52,39 +48,18 @@ namespace OpenTrace
 
             foreach (TextBox setting in this.Children.OfType<TextBox>())
             {
-                AddUpdateAppSettings(setting.ID, setting.Text);
+                UserSettings.Default[setting.ID] = setting.Text;
             }
             foreach (CheckBox setting in this.Children.OfType<CheckBox>())
             {
-                AddUpdateAppSettings(setting.ID, setting.Checked.ToString());
+                UserSettings.Default[setting.ID] = setting.Checked;
             }
             foreach (DropDown setting in this.Children.OfType<DropDown>())
             {
-                AddUpdateAppSettings(setting.ID, setting.SelectedKey);
+                UserSettings.Default[setting.ID] = setting.SelectedKey;
             }
+            UserSettings.Default.Save();
             Close();
-        }
-        private static void AddUpdateAppSettings(string key, string value)
-        {
-            try
-            {
-                var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                var settings = configFile.AppSettings.Settings;
-                if (settings[key] == null)
-                {
-                    settings.Add(key, value);
-                }
-                else
-                {
-                    settings[key].Value = value;
-                }
-                configFile.Save(ConfigurationSaveMode.Modified);
-                ConfigurationManager.RefreshSection(configFile.AppSettings.SectionInformation.Name);
-            }
-            catch (ConfigurationErrorsException)
-            {
-                MessageBox.Show(Resources.ERR_WRITING_SETTTINGS);
-            }
         }
     }
 }
