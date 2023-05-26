@@ -12,6 +12,12 @@ namespace OpenTrace
         [STAThread]
         static void Main(string[] args)
         {
+            var settings = Properties.UserSettings.Default;
+            if (settings.settingsNeedUpgrade) {
+                settings.Upgrade();
+                settings.settingsNeedUpgrade = false;
+                settings.Save();
+            }
             
             if (Properties.UserSettings.Default.language != "")
             {

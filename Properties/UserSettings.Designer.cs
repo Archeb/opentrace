@@ -238,5 +238,17 @@ namespace OpenTrace.Properties {
                 this["mapProvider"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool settingsNeedUpgrade {
+            get {
+                return ((bool)(this["settingsNeedUpgrade"]));
+            }
+            set {
+                this["settingsNeedUpgrade"] = value;
+            }
+        }
     }
 }
