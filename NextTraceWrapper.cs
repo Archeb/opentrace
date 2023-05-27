@@ -11,10 +11,23 @@ using System.Collections.Generic;
 
 namespace OpenTrace
 {
+    class HostResolvedEventArgs : EventArgs
+    {
+        public string Host { get; set; }
+        public string IP { get; set; }
+        public HostResolvedEventArgs(string host, string ip)
+        {
+            Host = host;
+            IP = ip;
+        }
+    }
     internal class NextTraceWrapper
     {
         private Process _process;
-        public event EventHandler OnAppQuit;
+        public event EventHandler AppQuit;
+        public event EventHandler<HostResolvedEventArgs> HostResolved;
+
+
         public ObservableCollection<TracerouteResult> Output { get; } = new ObservableCollection<TracerouteResult>();
 
         public NextTraceWrapper(string host, string extraArgs)
@@ -50,7 +63,7 @@ namespace OpenTrace
                     }
                 }
             }
-            // 未能找到目录
+            // 未能找到可执行文件
             if (nexttracePath == null)
             {
                 throw new FileNotFoundException("nexttrace.exe not found");
@@ -58,16 +71,17 @@ namespace OpenTrace
 
             Task.Run(() =>
             {
-                
+
                 _process = new Process
                 {
                     StartInfo = new ProcessStartInfo
                     {
                         FileName = nexttracePath,
-                        Arguments = ArgumentBuilder(host,extraArgs),
+                        Arguments = ArgumentBuilder(host, extraArgs),
                         UseShellExecute = false,
                         StandardOutputEncoding = Encoding.GetEncoding(65001),
                         RedirectStandardOutput = true,
+                        RedirectStandardError = true,
                         CreateNoWindow = true
                     }
                 };
@@ -83,34 +97,50 @@ namespace OpenTrace
                         Regex formatCleanup = new Regex(@"(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]");
                         string line = formatCleanup.Replace(e.Data, "");
 
-                        // 忽略一些行
-                        if (line.StartsWith("NextTrace v")) return;
-                        if (line.StartsWith("IP Geo Data Provider")) return;
-                        if (line.StartsWith("[NextTrace API]")) return;
-                        if (line.StartsWith("traceroute to")) return;
+                        Match matchHostResolve = new Regex(@"^traceroute to (.*?) \((.*?)\),").Match(line);
+                        if (matchHostResolve.Success)
+                        {
+                            HostResolved.Invoke(this, new HostResolvedEventArgs(matchHostResolve.Groups[2].Value, matchHostResolve.Groups[1].Value));
+                        }
 
                         Match match1 = match1stLine.Match(line);
                         if (match1.Success)
                         {
                             // 以块为单位处理
                             string hop = line.Split("|")[0];
-                            if(hop != lastHop)
+                            if (hop != lastHop)
                             {
                                 lastHop = hop;
-                                if(tracerouteBlock.Count>0) Output.Add(ProcessBlock(tracerouteBlock));
+                                if (tracerouteBlock.Count > 0) Output.Add(ProcessBlock(tracerouteBlock));
                                 tracerouteBlock = new List<string>();
                                 tracerouteBlock.Add(line);
-                            } else {
+                            }
+                            else
+                            {
                                 tracerouteBlock.Add(line);
                             }
 
                         }
+                        else
+                        {
+                            Debug.Print(line);
+                        }
+                    }
+                };
+                _process.ErrorDataReceived += (sender, e) =>
+                {
+                    if (e.Data != null)
+                    {
+                        Debug.Print(e.Data);
+
                     }
                 };
                 _process.Start();
                 _process.BeginOutputReadLine();
                 _process.WaitForExit();
-                OnAppQuit?.Invoke(this, null);
+                // 传递最后的输出
+                if (tracerouteBlock.Count > 0) Output.Add(ProcessBlock(tracerouteBlock));
+                AppQuit?.Invoke(this, null);
             });
         }
         private TracerouteResult ProcessBlock(List<string> block)
@@ -124,7 +154,7 @@ namespace OpenTrace
             string Organization = "";
             string Latitude = "";
             string Longitude = "";
-            Debug.Print(String.Join("\n",block));
+            Debug.Print(String.Join("\n", block));
             foreach (string line in block)
             {
                 String[] LineData = line.Split("|");
@@ -174,8 +204,8 @@ namespace OpenTrace
             List<string> finalArgs = new List<string>();
             finalArgs.Add(host);
             finalArgs.Add("--raw");
-            string[] checkArgsFromConfList = { "queries", "port", "parallel_requests", "max_hops", "first", "send_time", "ttl_time", "source", "dev"};
-            foreach(string checkArgs in checkArgsFromConfList)
+            string[] checkArgsFromConfList = { "queries", "port", "parallel_requests", "max_hops", "first", "send_time", "ttl_time", "source", "dev" };
+            foreach (string checkArgs in checkArgsFromConfList)
             {
                 if ((string)UserSettings.Default[checkArgs] != "")
                 {
@@ -193,6 +223,12 @@ namespace OpenTrace
         public void Kill()
         {
             _process.Kill();
+        }
+
+        // 验证IP有效性，返回处理后的IP（如把IPv6转为缩写形式等）IP无效则返回null。
+        private string ValidateIP(string IP)
+        {
+            return null;
         }
     }
 }

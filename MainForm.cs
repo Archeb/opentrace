@@ -246,6 +246,7 @@ namespace OpenTrace
             }
             tracerouteResultCollection.Clear(); // 清空原有GridView
             ResetMap(); // 重置地图
+            Title = Resources.APPTITLE;
             try
             {
                 var instance = new NextTraceWrapper(HostInputBox.Text, dataProviderSelection.SelectedKey);
@@ -264,11 +265,18 @@ namespace OpenTrace
                         });
                     }
                 };
-                instance.OnAppQuit += (sender, e) =>
+                instance.HostResolved += (object sender, HostResolvedEventArgs e) =>
                 {
                     Application.Instance.InvokeAsync(() =>
                     {
-                        if(appForceExiting != true) { 
+                        Title = Resources.APPTITLE + ": " + e.Host + " (" + e.IP + ")";
+                    });
+                };
+                instance.AppQuit += (sender, e) =>
+                {
+                    Application.Instance.InvokeAsync(() =>
+                    {
+                        if(appForceExiting != true) {
                             // 正常结束
                             startTracerouteButton.Text = Resources.START;
                             CurrentInstance = null;
@@ -282,6 +290,7 @@ namespace OpenTrace
                 };
             } catch (FileNotFoundException)
             {
+                // 询问是否下载 NextTrace
                 DialogResult dr = MessageBox.Show(Resources.MISSING_COMP_TEXT,
                      Resources.MISSING_COMP, MessageBoxButtons.YesNo);
                 if (dr == DialogResult.Yes)
