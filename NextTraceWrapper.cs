@@ -21,11 +21,30 @@ namespace OpenTrace
             IP = ip;
         }
     }
+    class ExceptionalOutputEventArgs : EventArgs
+    {
+        public bool IsErrorOutput { get; set; }
+        public string Output { get; set; }
+        public ExceptionalOutputEventArgs(bool isErrorOutput, string output)
+        {
+            IsErrorOutput = isErrorOutput;
+            Output = output;
+        }
+    }
+    class AppQuitEventArgs : EventArgs
+    {
+        public int ExitCode { get; set; }
+        public AppQuitEventArgs(int exitCode)
+        {
+            ExitCode = exitCode;
+        }
+    }
     internal class NextTraceWrapper
     {
         private Process _process;
-        public event EventHandler AppQuit;
+        public event EventHandler<AppQuitEventArgs> AppQuit;
         public event EventHandler<HostResolvedEventArgs> HostResolved;
+        public event EventHandler<ExceptionalOutputEventArgs> ExceptionalOutput;
 
 
         public ObservableCollection<TracerouteResult> Output { get; } = new ObservableCollection<TracerouteResult>();
@@ -131,7 +150,11 @@ namespace OpenTrace
                         }
                         else
                         {
+                            if (line.StartsWith("NextTrace ")) return;
+                            if (line.StartsWith("traceroute to ")) return;
+                            if (line.StartsWith("IP Geo Data Provider")) return;
                             Debug.Print(line);
+                            ExceptionalOutput?.Invoke(this, new ExceptionalOutputEventArgs(false, line));
                         }
                     }
                 };
@@ -140,15 +163,16 @@ namespace OpenTrace
                     if (e.Data != null)
                     {
                         Debug.Print(e.Data);
-
+                        ExceptionalOutput?.Invoke(this, new ExceptionalOutputEventArgs(true, e.Data));
                     }
                 };
                 _process.Start();
                 _process.BeginOutputReadLine();
+                _process.BeginErrorReadLine();
                 _process.WaitForExit();
                 // 传递最后的输出
                 if (tracerouteBlock.Count > 0) Output.Add(ProcessBlock(tracerouteBlock));
-                AppQuit?.Invoke(this, null);
+                AppQuit?.Invoke(this, new AppQuitEventArgs(_process.ExitCode));
             });
         }
         private TracerouteResult ProcessBlock(List<string> block)
@@ -212,6 +236,7 @@ namespace OpenTrace
             List<string> finalArgs = new List<string>();
             finalArgs.Add(host);
             finalArgs.Add("--raw");
+            finalArgs.Add("--map");
             string[] checkArgsFromConfList = { "queries", "port", "parallel_requests", "max_hops", "first", "send_time", "ttl_time", "source", "dev" };
             foreach (string checkArgs in checkArgsFromConfList)
             {

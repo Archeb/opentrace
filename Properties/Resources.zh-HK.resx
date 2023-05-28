@@ -141,8 +141,14 @@
   <data name="DST_PORT_INIT_SEQ" xml:space="preserve">
     <value>目標端口 / 初始序號</value>
   </data>
+  <data name="ERR_MSG" xml:space="preserve">
+    <value>錯誤消息</value>
+  </data>
   <data name="ERR_WRITING_SETTTINGS" xml:space="preserve">
     <value>保存設置時出錯</value>
+  </data>
+  <data name="EXCEPTIONAL_EXIT_MSG" xml:space="preserve">
+    <value>NextTrace 進程異常退出，請參考錯誤消息以了解更多信息並及時向我們報告此問題。 退出代碼：</value>
   </data>
   <data name="EXE_PATH" xml:space="preserve">
     <value>可執行文件目錄</value>

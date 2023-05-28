@@ -145,8 +145,14 @@
   <data name="DST_PORT_INIT_SEQ" xml:space="preserve">
     <value>Destination port / Initial seq</value>
   </data>
+  <data name="ERR_MSG" xml:space="preserve">
+    <value>Error Message</value>
+  </data>
   <data name="ERR_WRITING_SETTTINGS" xml:space="preserve">
     <value>Error writing app settings.</value>
+  </data>
+  <data name="EXCEPTIONAL_EXIT_MSG" xml:space="preserve">
+    <value>NextTrace process exited exceptionally. Please refer to the error message to learn more and report this issue to us promptly. Exit Code: </value>
   </data>
   <data name="EXE_PATH" xml:space="preserve">
     <value>Exectuable Path</value>

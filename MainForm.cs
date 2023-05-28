@@ -62,7 +62,7 @@ namespace OpenTrace
                 Process.Start(Process.GetCurrentProcess().MainModule.FileName);
             };
 
-            var exportCommand = new Command { MenuText = Resources.EXPORT};
+            // var exportCommand = new Command { MenuText = Resources.EXPORT};
 
             var quitCommand = new Command { MenuText = Resources.QUIT, Shortcut = Application.Instance.CommonModifier | Keys.Q };
             quitCommand.Executed += (sender, e) => Application.Instance.Quit();
@@ -80,10 +80,10 @@ namespace OpenTrace
                 {
                     new SubMenuItem { Text = Resources.FILE, Items = {
                             newWindowCommand,
-                            new SubMenuItem { Text = Resources.EXPORT_TO , Items = {
+                            /* new SubMenuItem { Text = Resources.EXPORT_TO , Items = {
                                     new Command { MenuText = "HTML" },
                                     new Command { MenuText = "Plain text (CSV)" }
-                            } },
+                            } }, */
                             preferenceCommand,
                             quitCommand
                         } },
@@ -274,14 +274,25 @@ namespace OpenTrace
                         Title = Resources.APPTITLE + ": " + e.Host + " (" + e.IP + ")";
                     });
                 };
-                instance.AppQuit += (sender, e) =>
+                instance.ExceptionalOutput += (object sender, ExceptionalOutputEventArgs e) =>
+                {
+                    Application.Instance.InvokeAsync(() =>
+                    {
+                        MessageBox.Show(e.Output, Resources.ERR_MSG, e.IsErrorOutput ? MessageBoxType.Warning : MessageBoxType.Information);
+                    });
+                };
+                instance.AppQuit += (object sender, AppQuitEventArgs e) =>
                 {
                     Application.Instance.InvokeAsync(() =>
                     {
                         if(appForceExiting != true) {
-                            // 正常结束
+                            // 主动结束
                             startTracerouteButton.Text = Resources.START;
                             CurrentInstance = null;
+                            if(e.ExitCode != 0)
+                            {
+                                MessageBox.Show(Resources.EXCEPTIONAL_EXIT_MSG + e.ExitCode, MessageBoxType.Warning);
+                            }
                         }
                         else
                         {

@@ -160,11 +160,29 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Error Message 的本地化字符串。
+        /// </summary>
+        public static string ERR_MSG {
+            get {
+                return ResourceManager.GetString("ERR_MSG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Error writing app settings. 的本地化字符串。
         /// </summary>
         public static string ERR_WRITING_SETTTINGS {
             get {
                 return ResourceManager.GetString("ERR_WRITING_SETTTINGS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 NextTrace process exited exceptionally. Please refer to the error message to learn more and report this issue to us promptly. Exit Code:  的本地化字符串。
+        /// </summary>
+        public static string EXCEPTIONAL_EXIT_MSG {
+            get {
+                return ResourceManager.GetString("EXCEPTIONAL_EXIT_MSG", resourceCulture);
             }
         }
         
