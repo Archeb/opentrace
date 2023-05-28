@@ -210,6 +210,9 @@
 
 是否现在下载 NextTrace？</value>
   </data>
+  <data name="MTR_MODE" xml:space="preserve">
+    <value>MTR 模式</value>
+  </data>
   <data name="NEW" xml:space="preserve">
     <value>新建</value>
   </data>

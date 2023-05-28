@@ -214,6 +214,9 @@ OR
 
 Would you like to download the NextTrace utility now?</value>
   </data>
+  <data name="MTR_MODE" xml:space="preserve">
+    <value>MTR Mode</value>
+  </data>
   <data name="NEW" xml:space="preserve">
     <value>New</value>
   </data>

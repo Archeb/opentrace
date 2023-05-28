@@ -42,6 +42,7 @@ namespace OpenTrace
         private static double gridSizePercentage = 0.5;
         private ComboBox HostInputBox;
         private GridView tracerouteGridView;
+        private CheckBox MTRMode;
         private WebView mapWebView;
         private DropDown dataProviderSelection;
         private DropDown protocolSelection;
@@ -94,7 +95,7 @@ namespace OpenTrace
 
             // ´´½¨¿Ø¼þ
             HostInputBox = new ComboBox { Text = "" };
-
+            MTRMode = new CheckBox { Text = Resources.MTR_MODE };
             startTracerouteButton = new Button { Text = Resources.START };
             protocolSelection = new DropDown
             {
@@ -203,6 +204,7 @@ namespace OpenTrace
                                     Cells =
                                     {
                                         new TableCell(HostInputBox,true),
+                                        MTRMode,
                                         protocolSelection,
                                         dataProviderSelection,
                                         startTracerouteButton

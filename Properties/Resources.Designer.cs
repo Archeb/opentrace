@@ -355,6 +355,15 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 MTR Mode 的本地化字符串。
+        /// </summary>
+        public static string MTR_MODE {
+            get {
+                return ResourceManager.GetString("MTR_MODE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 New 的本地化字符串。
         /// </summary>
         public static string NEW {
