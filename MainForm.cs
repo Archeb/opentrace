@@ -7,9 +7,20 @@ using System.Text.Json;
 using System.IO;
 using Resources = OpenTrace.Properties.Resources;
 using OpenTrace.Properties;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
+using System.Linq;
 
 namespace OpenTrace
 {
+    class TracerouteHop
+    {
+        public TracerouteHop(TracerouteResult hopData)
+        {
+            HopData = new ObservableCollection<TracerouteResult>();
+            HopData.Add(hopData);
+        }
+        public ObservableCollection<TracerouteResult> HopData { get; set; }
+    }
     class TracerouteResult
     {
         public TracerouteResult(string no, string ip, string time, string geolocation, string ASNumber, string hostname, string organization, string latitude, string longitude)
@@ -37,7 +48,7 @@ namespace OpenTrace
 
     public partial class MainForm : Form
     {
-        private ObservableCollection<TracerouteResult> tracerouteResultCollection = new ObservableCollection<TracerouteResult>();
+        private ObservableCollection<TracerouteHop> tracerouteResultCollection = new ObservableCollection<TracerouteHop>();
         private static NextTraceWrapper CurrentInstance { get; set; }
         private static double gridSizePercentage = 0.5;
         private ComboBox HostInputBox;
@@ -128,17 +139,19 @@ namespace OpenTrace
             // 绑定数据源
             tracerouteGridView.Columns.Add(new GridColumn
             {
-                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteResult, string>(r => r.No) },
+                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.HopData[0].No ) },
                 HeaderText = "#"
             });
             tracerouteGridView.Columns.Add(new GridColumn
             {
-                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteResult, string>(r => r.IP) },
+                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.HopData[0].IP) },
                 HeaderText = "IP"
             });
             tracerouteGridView.Columns.Add(new GridColumn
             {
-                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteResult, string>(r => r.Time) },
+                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => 
+                    String.Join(" / ", r.HopData.Select(d => d.Time))
+                ) } ,
                 HeaderText = Resources.TIME_MS
             });
             // 合并位置和运营商
@@ -146,29 +159,29 @@ namespace OpenTrace
             {
                 tracerouteGridView.Columns.Add(new GridColumn
                 {
-                    DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteResult, string>(r => r.Geolocation + " " + r.Organization) },
+                    DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.HopData[0].Geolocation + " " + r.HopData[0].Organization) },
                     HeaderText = Resources.GEOLOCATION
                 });
             }else { 
                 tracerouteGridView.Columns.Add(new GridColumn
                 {
-                    DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteResult, string>(r => r.Geolocation) },
+                    DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.HopData[0].Geolocation) },
                     HeaderText = Resources.GEOLOCATION
                 });
                 tracerouteGridView.Columns.Add(new GridColumn
                 {
-                    DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteResult, string>(r => r.Organization) },
+                    DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.HopData[0].Organization) },
                     HeaderText = Resources.ORGANIZATION
                 });
                 }
             tracerouteGridView.Columns.Add(new GridColumn
             {
-                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteResult, string>(r => r.AS) },
+                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.HopData[0].AS) },
                 HeaderText = "AS"
             });
             tracerouteGridView.Columns.Add(new GridColumn
             {
-                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteResult, string>(r => r.Hostname) },
+                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.HopData[0].Hostname) },
                 HeaderText = Resources.HOSTNAME
             });
 
@@ -249,58 +262,68 @@ namespace OpenTrace
             tracerouteResultCollection.Clear(); // 清空原有GridView
             ResetMap(); // 重置地图
             Title = Resources.APPTITLE;
-            try
+            var instance = new NextTraceWrapper(HostInputBox.Text, dataProviderSelection.SelectedKey);
+            HostInputBox.Items.Add(new ListItem { Text = HostInputBox.Text });
+            CurrentInstance = instance;
+            startTracerouteButton.Text = Resources.STOP;
+            instance.Output.CollectionChanged += (sender, e) =>
             {
-                var instance = new NextTraceWrapper(HostInputBox.Text, dataProviderSelection.SelectedKey);
-                HostInputBox.Items.Add(new ListItem { Text = HostInputBox.Text });
-                CurrentInstance = instance;
-                startTracerouteButton.Text = Resources.STOP;
-                instance.Output.CollectionChanged += (sender, e) =>
+                if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
                 {
-                    if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+                    Application.Instance.InvokeAsync(() =>
                     {
-                        Application.Instance.InvokeAsync(() =>
+                        int HopNo = int.Parse(((TracerouteResult)e.NewItems[0]).No);
+                        if (HopNo > tracerouteResultCollection.Count)
                         {
-                            tracerouteResultCollection.Add((TracerouteResult)e.NewItems[0]);
+                            // 正常添加新的跳
+                            tracerouteResultCollection.Add(new TracerouteHop((TracerouteResult)e.NewItems[0]));
                             UpdateMap((TracerouteResult)e.NewItems[0]);
                             tracerouteGridView.ScrollToRow(tracerouteResultCollection.Count - 1);
-                        });
-                    }
-                };
-                instance.HostResolved += (object sender, HostResolvedEventArgs e) =>
-                {
-                    Application.Instance.InvokeAsync(() =>
-                    {
-                        Title = Resources.APPTITLE + ": " + e.Host + " (" + e.IP + ")";
-                    });
-                };
-                instance.ExceptionalOutput += (object sender, ExceptionalOutputEventArgs e) =>
-                {
-                    Application.Instance.InvokeAsync(() =>
-                    {
-                        MessageBox.Show(e.Output, Resources.ERR_MSG, e.IsErrorOutput ? MessageBoxType.Warning : MessageBoxType.Information);
-                    });
-                };
-                instance.AppQuit += (object sender, AppQuitEventArgs e) =>
-                {
-                    Application.Instance.InvokeAsync(() =>
-                    {
-                        if(appForceExiting != true) {
-                            // 主动结束
-                            startTracerouteButton.Text = Resources.START;
-                            CurrentInstance = null;
-                            if(e.ExitCode != 0)
-                            {
-                                MessageBox.Show(Resources.EXCEPTIONAL_EXIT_MSG + e.ExitCode, MessageBoxType.Warning);
-                            }
+                        } else {
+                            tracerouteResultCollection[HopNo - 1].HopData.Add((TracerouteResult)e.NewItems[0]);
+                            tracerouteGridView.ReloadData(HopNo - 1);
                         }
-                        else
+                    });
+                }
+            };
+            instance.HostResolved += (object sender, HostResolvedEventArgs e) =>
+            {
+                Application.Instance.InvokeAsync(() =>
+                {
+                    Title = Resources.APPTITLE + ": " + e.Host + " (" + e.IP + ")";
+                });
+            };
+            instance.ExceptionalOutput += (object sender, ExceptionalOutputEventArgs e) =>
+            {
+                Application.Instance.InvokeAsync(() =>
+                {
+                    MessageBox.Show(e.Output, Resources.ERR_MSG, e.IsErrorOutput ? MessageBoxType.Warning : MessageBoxType.Information);
+                });
+            };
+            instance.AppQuit += (object sender, AppQuitEventArgs e) =>
+            {
+                Application.Instance.InvokeAsync(() =>
+                {
+                    if (appForceExiting != true)
+                    {
+                        // 主动结束
+                        startTracerouteButton.Text = Resources.START;
+                        CurrentInstance = null;
+                        if (e.ExitCode != 0)
                         {
-                            // 强制结束
-                            appForceExiting = false;
+                            MessageBox.Show(Resources.EXCEPTIONAL_EXIT_MSG + e.ExitCode, MessageBoxType.Warning);
                         }
-                    });
-                };
+                    }
+                    else
+                    {
+                        // 强制结束
+                        appForceExiting = false;
+                    }
+                });
+            };
+            try
+            {
+                instance.RunTraceroute();
             } catch (FileNotFoundException)
             {
                 // 询问是否下载 NextTrace

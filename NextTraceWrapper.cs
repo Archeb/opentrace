@@ -46,14 +46,15 @@ namespace OpenTrace
         public event EventHandler<HostResolvedEventArgs> HostResolved;
         public event EventHandler<ExceptionalOutputEventArgs> ExceptionalOutput;
 
-
+        private string nexttracePath;
+        private string host;
+        private string arguments;
         public ObservableCollection<TracerouteResult> Output { get; } = new ObservableCollection<TracerouteResult>();
 
         public NextTraceWrapper(string host, string extraArgs)
         {
 
             // 检查 nexttrace.exe 是否存在于当前目录
-            string nexttracePath = null;
             if (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "nexttrace.exe")))
             {
                 nexttracePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "nexttrace.exe");
@@ -92,6 +93,11 @@ namespace OpenTrace
             {
                 throw new FileNotFoundException("nexttrace.exe not found");
             }
+            arguments = ArgumentBuilder(host, extraArgs);
+        }
+
+        public void RunTraceroute()
+        {
 
             Task.Run(() =>
             {
@@ -101,7 +107,7 @@ namespace OpenTrace
                     StartInfo = new ProcessStartInfo
                     {
                         FileName = nexttracePath,
-                        Arguments = ArgumentBuilder(host, extraArgs),
+                        Arguments = arguments,
                         UseShellExecute = false,
                         StandardOutputEncoding = Encoding.GetEncoding(65001),
                         RedirectStandardOutput = true,
@@ -114,8 +120,6 @@ namespace OpenTrace
                 if (Properties.UserSettings.Default.ChunZhenEndpoint != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_CHUNZHENURL", Properties.UserSettings.Default.ChunZhenEndpoint);
 
                 Regex match1stLine = new Regex(@"^\d{1,2}\|");
-                string lastHop = "";
-                List<string> tracerouteBlock = new List<string>();
                 _process.OutputDataReceived += (sender, e) =>
                 {
                     if (e.Data != null)
@@ -133,20 +137,7 @@ namespace OpenTrace
                         Match match1 = match1stLine.Match(line);
                         if (match1.Success)
                         {
-                            // 以块为单位处理
-                            string hop = line.Split("|")[0];
-                            if (hop != lastHop)
-                            {
-                                lastHop = hop;
-                                if (tracerouteBlock.Count > 0) Output.Add(ProcessBlock(tracerouteBlock));
-                                tracerouteBlock = new List<string>();
-                                tracerouteBlock.Add(line);
-                            }
-                            else
-                            {
-                                tracerouteBlock.Add(line);
-                            }
-
+                            Output.Add(ProcessLine(line));
                         }
                         else
                         {
@@ -170,12 +161,14 @@ namespace OpenTrace
                 _process.BeginOutputReadLine();
                 _process.BeginErrorReadLine();
                 _process.WaitForExit();
-                // 传递最后的输出
-                if (tracerouteBlock.Count > 0) Output.Add(ProcessBlock(tracerouteBlock));
                 AppQuit?.Invoke(this, new AppQuitEventArgs(_process.ExitCode));
             });
         }
-        private TracerouteResult ProcessBlock(List<string> block)
+        public void RunMTR()
+        {
+
+        }
+        private TracerouteResult ProcessLine(string line)
         {
             string No = "";
             string IP = "*";
@@ -186,20 +179,18 @@ namespace OpenTrace
             string Organization = "";
             string Latitude = "";
             string Longitude = "";
-            Debug.Print(String.Join("\n", block));
-            foreach (string line in block)
+            string[] LineData = line.Split("|");
+            if (LineData.Length > 7)
             {
-                String[] LineData = line.Split("|");
-                if (LineData.Length > 7)
+                No = LineData[0];
+                if (LineData[1] == "*")
                 {
-                    No = LineData[0];
-                    if (LineData[1] == "*")
-                    {
-                        Time += "* / ";
-                        continue;
-                    }
+                    Time = "*";
+                }
+                else
+                {
                     IP = LineData[1];
-                    Time += LineData[3] + " / ";
+                    Time = LineData[3];
                     Geolocation = LineData[5] + " " + LineData[6] + " " + LineData[7] + " " + LineData[8];
                     AS = LineData[4];
                     Hostname = LineData[2];
@@ -208,7 +199,6 @@ namespace OpenTrace
                     Longitude = LineData[11];
                 }
             }
-            Time = Time[..^3]; // 去掉最末尾多余的东西
 
             // 匹配特定网络地址
             if (new Regex(@"^(127\.)|(192\.168\.)|(10\.)|(172\.1[6-9]\.)|(172\.2[0-9]\.)|(172\.3[0-1]\.)|(::1$)|([fF][cCdD])").IsMatch(IP))
