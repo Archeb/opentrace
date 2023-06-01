@@ -178,6 +178,7 @@ namespace NextTrace
                             if (line.StartsWith("NextTrace ")) return;
                             if (line.StartsWith("traceroute to ")) return;
                             if (line.StartsWith("IP Geo Data Provider")) return;
+                            if (line.StartsWith("[NextTrace API]")) return;
                             Debug.Print(line);
                             ExceptionalOutput?.Invoke(this, new ExceptionalOutputEventArgs(false, line));
                         }
@@ -248,6 +249,7 @@ namespace NextTrace
                                 if (line.StartsWith("NextTrace ")) return;
                                 if (line.StartsWith("traceroute to ")) return;
                                 if (line.StartsWith("IP Geo Data Provider")) return;
+                                if (line.StartsWith("[NextTrace API]")) return;
                                 Debug.Print(line);
                                 Quitting = true; // 非正常输出，结束MTR
                                 ExceptionalOutput?.Invoke(this, new ExceptionalOutputEventArgs(false, line));
