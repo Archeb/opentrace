@@ -7,44 +7,12 @@ using System.Text.Json;
 using System.IO;
 using Resources = OpenTrace.Properties.Resources;
 using OpenTrace.Properties;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using System.Linq;
+using NextTrace;
 
 namespace OpenTrace
 {
-    class TracerouteHop
-    {
-        public TracerouteHop(TracerouteResult hopData)
-        {
-            HopData = new ObservableCollection<TracerouteResult>();
-            HopData.Add(hopData);
-        }
-        public ObservableCollection<TracerouteResult> HopData { get; set; }
-    }
-    class TracerouteResult
-    {
-        public TracerouteResult(string no, string ip, string time, string geolocation, string ASNumber, string hostname, string organization, string latitude, string longitude)
-        {
-            No = no;
-            IP = ip;
-            Time = time;
-            Geolocation = geolocation;
-            AS = ASNumber;
-            Hostname = hostname;
-            Organization = organization;
-            Latitude = latitude;
-            Longitude = longitude;
-        }
-        public string No { get; set; }
-        public string IP { get; set; }
-        public string Time { get; set; }
-        public string Geolocation { get; set; }
-        public string AS { get; set; }
-        public string Hostname { get; set; }
-        public string Organization { get; set; }
-        public string Latitude { get; set; }
-        public string Longitude { get; set; }
-    }
+    
 
     public partial class MainForm : Form
     {
@@ -135,62 +103,14 @@ namespace OpenTrace
             };
 
             tracerouteGridView = new GridView { DataStore = tracerouteResultCollection };
-
-            // 绑定数据源
-            tracerouteGridView.Columns.Add(new GridColumn
-            {
-                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.HopData[0].No ) },
-                HeaderText = "#"
-            });
-            tracerouteGridView.Columns.Add(new GridColumn
-            {
-                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.HopData[0].IP) },
-                HeaderText = "IP"
-            });
-            tracerouteGridView.Columns.Add(new GridColumn
-            {
-                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => 
-                    String.Join(" / ", r.HopData.Select(d => d.Time))
-                ) } ,
-                HeaderText = Resources.TIME_MS
-            });
-            // 合并位置和运营商
-            if (UserSettings.Default.combineGeoOrg == true)
-            {
-                tracerouteGridView.Columns.Add(new GridColumn
-                {
-                    DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.HopData[0].Geolocation + " " + r.HopData[0].Organization) },
-                    HeaderText = Resources.GEOLOCATION
-                });
-            }else { 
-                tracerouteGridView.Columns.Add(new GridColumn
-                {
-                    DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.HopData[0].Geolocation) },
-                    HeaderText = Resources.GEOLOCATION
-                });
-                tracerouteGridView.Columns.Add(new GridColumn
-                {
-                    DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.HopData[0].Organization) },
-                    HeaderText = Resources.ORGANIZATION
-                });
-                }
-            tracerouteGridView.Columns.Add(new GridColumn
-            {
-                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.HopData[0].AS) },
-                HeaderText = "AS"
-            });
-            tracerouteGridView.Columns.Add(new GridColumn
-            {
-                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.HopData[0].Hostname) },
-                HeaderText = Resources.HOSTNAME
-            });
+            AddGridColumnsTraceroute();
 
             mapWebView = new WebView
             {
                 Url = new Uri("https://lbs.baidu.com/jsdemo/demo/webgl0_0.htm")
             };
 
-            // 绑定控件事件，允许拖拽改变 GridView 高度。
+            // 绑定控件事件
             SizeChanged += MainForm_SizeChanged;
             MouseDown += Dragging_MouseDown;
             MouseUp += Dragging_MouseUp;
@@ -199,6 +119,7 @@ namespace OpenTrace
             tracerouteGridView.SelectedRowsChanged += TracerouteGridView_SelectedRowsChanged;
             startTracerouteButton.Click += StartTracerouteButton_Click;
             HostInputBox.KeyUp += HostInputBox_KeyUp;
+            MTRMode.CheckedChanged += MTRMode_CheckedChanged;
 
             // 使用 Table 布局创建页面
             var layout = new TableLayout
@@ -238,6 +159,18 @@ namespace OpenTrace
             Content = layout;
         }
 
+        private void MTRMode_CheckedChanged(object sender, EventArgs e)
+        {
+            if ((bool)MTRMode.Checked)
+            {
+                AddGridColumnsMTR();
+            }
+            else
+            {
+                AddGridColumnsTraceroute();
+            }
+        }
+
         private void HostInputBox_KeyUp(object sender, KeyEventArgs e)
         {
             if(e.Key == Keys.Enter)
@@ -266,6 +199,8 @@ namespace OpenTrace
             HostInputBox.Items.Add(new ListItem { Text = HostInputBox.Text });
             CurrentInstance = instance;
             startTracerouteButton.Text = Resources.STOP;
+            
+            // 处理NextTrace实例发回的结果
             instance.Output.CollectionChanged += (sender, e) =>
             {
                 if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
@@ -280,6 +215,7 @@ namespace OpenTrace
                             UpdateMap((TracerouteResult)e.NewItems[0]);
                             tracerouteGridView.ScrollToRow(tracerouteResultCollection.Count - 1);
                         } else {
+                            // 修改现有的跳
                             tracerouteResultCollection[HopNo - 1].HopData.Add((TracerouteResult)e.NewItems[0]);
                             tracerouteGridView.ReloadData(HopNo - 1);
                         }
@@ -323,7 +259,14 @@ namespace OpenTrace
             };
             try
             {
-                instance.RunTraceroute();
+                if ((bool)MTRMode.Checked)
+                {
+                    instance.RunMTR();
+                }
+                else
+                {
+                    instance.RunTraceroute();
+                }
             } catch (FileNotFoundException)
             {
                 // 询问是否下载 NextTrace
@@ -408,6 +351,156 @@ namespace OpenTrace
         {
             // 重置或者初始化地图
             mapWebView.ExecuteScriptAsync(OpenTrace.Properties.Resources.baiduMap);
+        }
+        private void AddGridColumnsTraceroute()
+        {
+            tracerouteGridView.Columns.Clear();
+            // 指定栏位数据源
+            tracerouteGridView.Columns.Add(new GridColumn
+            {
+                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.HopData[0].No) },
+                HeaderText = "#"
+            });
+            tracerouteGridView.Columns.Add(new GridColumn
+            {
+                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.HopData[0].IP) },
+                HeaderText = "IP"
+            });
+            tracerouteGridView.Columns.Add(new GridColumn
+            {
+                DataCell = new TextBoxCell
+                {
+                    Binding = Binding.Property<TracerouteHop, string>(r =>
+                    String.Join(" / ", r.HopData.Select(d => d.Time))
+                )
+                },
+                HeaderText = Resources.TIME_MS
+            });
+            // 合并位置和运营商
+            if (UserSettings.Default.combineGeoOrg == true)
+            {
+                tracerouteGridView.Columns.Add(new GridColumn
+                {
+                    DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.HopData[0].Geolocation + " " + r.HopData[0].Organization) },
+                    HeaderText = Resources.GEOLOCATION
+                });
+            }
+            else
+            {
+                tracerouteGridView.Columns.Add(new GridColumn
+                {
+                    DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.HopData[0].Geolocation) },
+                    HeaderText = Resources.GEOLOCATION
+                });
+                tracerouteGridView.Columns.Add(new GridColumn
+                {
+                    DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.HopData[0].Organization) },
+                    HeaderText = Resources.ORGANIZATION
+                });
+            }
+            tracerouteGridView.Columns.Add(new GridColumn
+            {
+                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.HopData[0].AS) },
+                HeaderText = "AS"
+            });
+            tracerouteGridView.Columns.Add(new GridColumn
+            {
+                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.HopData[0].Hostname) },
+                HeaderText = Resources.HOSTNAME
+            });
+        }
+        private void AddGridColumnsMTR()
+        {
+            tracerouteGridView.Columns.Clear();
+            // 指定栏位数据源
+            tracerouteGridView.Columns.Add(new GridColumn
+            {
+                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.No) },
+                HeaderText = "#"
+            });
+            tracerouteGridView.Columns.Add(new GridColumn
+            {
+                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.IP) },
+                HeaderText = "IP"
+            });
+            // 合并位置和运营商
+            if (UserSettings.Default.combineGeoOrg == true)
+            {
+                tracerouteGridView.Columns.Add(new GridColumn
+                {
+                    DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.GeolocationAndOrganization) },
+                    HeaderText = Resources.GEOLOCATION
+                });
+            }
+            else
+            {
+                tracerouteGridView.Columns.Add(new GridColumn
+                {
+                    DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.Geolocation) },
+                    HeaderText = Resources.GEOLOCATION
+                });
+                tracerouteGridView.Columns.Add(new GridColumn
+                {
+                    DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.Organization) },
+                    HeaderText = Resources.ORGANIZATION
+                });
+            }
+            tracerouteGridView.Columns.Add(new GridColumn
+            {
+                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.Loss.ToString()) },
+                HeaderText = Resources.LOSS
+            });
+
+            tracerouteGridView.Columns.Add(new GridColumn
+            {
+                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.Sent.ToString()) },
+                HeaderText = Resources.SENT
+            });
+
+            tracerouteGridView.Columns.Add(new GridColumn
+            {
+                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.Recv.ToString()) },
+                HeaderText = Resources.RECV
+            });
+            tracerouteGridView.Columns.Add(new GridColumn
+            {
+                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.Last.ToString()) },
+                HeaderText = Resources.LAST
+            });
+
+            tracerouteGridView.Columns.Add(new GridColumn
+            {
+                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.Worst.ToString()) },
+                HeaderText = Resources.WORST
+            });
+
+            tracerouteGridView.Columns.Add(new GridColumn
+            {
+                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.Best.ToString()) },
+                HeaderText = Resources.BEST
+            });
+
+            tracerouteGridView.Columns.Add(new GridColumn
+            {
+                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.Average.ToString("0.##")) },
+                HeaderText = Resources.AVRG
+            });
+            tracerouteGridView.Columns.Add(new GridColumn
+            {
+                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.StandardDeviation.ToString("0.##")) },
+                HeaderText = Resources.STDEV
+            });
+            /* TODO
+            tracerouteGridView.Columns.Add(new GridColumn
+            {
+                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => "TODO") },
+                HeaderText = Resources.HISTORY
+            }); */
+            tracerouteGridView.Columns.Add(new GridColumn
+            {
+                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.Hostname) },
+                HeaderText = Resources.HOSTNAME
+            });
         }
     }
 }

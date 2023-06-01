@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Configuration;
 using OpenTrace.Properties;
+using NextTrace;
 
 namespace OpenTrace
 {

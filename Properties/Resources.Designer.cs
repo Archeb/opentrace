@@ -97,6 +97,15 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Avg. 的本地化字符串。
+        /// </summary>
+        public static string AVRG {
+            get {
+                return ResourceManager.GetString("AVRG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 window.opentrace = {
         ///	Hops: [],
         ///	reset: function () {
@@ -120,6 +129,15 @@ namespace OpenTrace.Properties {
         public static string baiduMap {
             get {
                 return ResourceManager.GetString("baiduMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Best 的本地化字符串。
+        /// </summary>
+        public static string BEST {
+            get {
+                return ResourceManager.GetString("BEST", resourceCulture);
             }
         }
         
@@ -259,6 +277,15 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 History 的本地化字符串。
+        /// </summary>
+        public static string HISTORY {
+            get {
+                return ResourceManager.GetString("HISTORY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Hostname 的本地化字符串。
         /// </summary>
         public static string HOSTNAME {
@@ -286,6 +313,15 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Last 的本地化字符串。
+        /// </summary>
+        public static string LAST {
+            get {
+                return ResourceManager.GetString("LAST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Link-local Address 的本地化字符串。
         /// </summary>
         public static string LINKLOCAL_ADDR {
@@ -300,6 +336,15 @@ namespace OpenTrace.Properties {
         public static string LOOPBACK_ADDR {
             get {
                 return ResourceManager.GetString("LOOPBACK_ADDR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Loss% 的本地化字符串。
+        /// </summary>
+        public static string LOSS {
+            get {
+                return ResourceManager.GetString("LOSS", resourceCulture);
             }
         }
         
@@ -490,6 +535,15 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Recv 的本地化字符串。
+        /// </summary>
+        public static string RECV {
+            get {
+                return ResourceManager.GetString("RECV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Some settings may require a restart to take effect 的本地化字符串。
         /// </summary>
         public static string RESTART_TO_APPLY {
@@ -504,6 +558,15 @@ namespace OpenTrace.Properties {
         public static string SAVE {
             get {
                 return ResourceManager.GetString("SAVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Sent 的本地化字符串。
+        /// </summary>
+        public static string SENT {
+            get {
+                return ResourceManager.GetString("SENT", resourceCulture);
             }
         }
         
@@ -544,6 +607,15 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Std. Dev. 的本地化字符串。
+        /// </summary>
+        public static string STDEV {
+            get {
+                return ResourceManager.GetString("STDEV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Stop 的本地化字符串。
         /// </summary>
         public static string STOP {
@@ -567,6 +639,15 @@ namespace OpenTrace.Properties {
         public static string TRACEROUTING {
             get {
                 return ResourceManager.GetString("TRACEROUTING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Worst 的本地化字符串。
+        /// </summary>
+        public static string WORST {
+            get {
+                return ResourceManager.GetString("WORST", resourceCulture);
             }
         }
     }

@@ -8,8 +8,9 @@ using System.IO;
 using Resources = OpenTrace.Properties.Resources;
 using OpenTrace.Properties;
 using System.Collections.Generic;
+using OpenTrace;
 
-namespace OpenTrace
+namespace NextTrace
 {
     class HostResolvedEventArgs : EventArgs
     {
@@ -39,8 +40,14 @@ namespace OpenTrace
             ExitCode = exitCode;
         }
     }
+    enum Modes
+    {
+        MTR,
+        Traceroute
+    }
     internal class NextTraceWrapper
     {
+        
         private Process _process;
         public event EventHandler<AppQuitEventArgs> AppQuit;
         public event EventHandler<HostResolvedEventArgs> HostResolved;
@@ -84,9 +91,9 @@ namespace OpenTrace
                 }
             }
             // 检查是否手动指定了可执行文件
-            if (File.Exists(Properties.UserSettings.Default.exectuablePath))
+            if (File.Exists(UserSettings.Default.exectuablePath))
             {
-                nexttracePath = Properties.UserSettings.Default.exectuablePath;
+                nexttracePath = UserSettings.Default.exectuablePath;
             }
             // 未能找到可执行文件
             if (nexttracePath == null)
@@ -115,9 +122,9 @@ namespace OpenTrace
                         CreateNoWindow = true
                     }
                 };
-                if (Properties.UserSettings.Default.IPInsightToken != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_IPINSIGHT_TOKEN", Properties.UserSettings.Default.IPInsightToken);
-                if (Properties.UserSettings.Default.IPInfoToken != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_IPINFO_TOKEN", Properties.UserSettings.Default.IPInfoToken);
-                if (Properties.UserSettings.Default.ChunZhenEndpoint != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_CHUNZHENURL", Properties.UserSettings.Default.ChunZhenEndpoint);
+                if (UserSettings.Default.IPInsightToken != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_IPINSIGHT_TOKEN", UserSettings.Default.IPInsightToken);
+                if (UserSettings.Default.IPInfoToken != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_IPINFO_TOKEN", UserSettings.Default.IPInfoToken);
+                if (UserSettings.Default.ChunZhenEndpoint != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_CHUNZHENURL", UserSettings.Default.ChunZhenEndpoint);
 
                 Regex match1stLine = new Regex(@"^\d{1,2}\|");
                 _process.OutputDataReceived += (sender, e) =>
