@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace OpenTrace
 {
@@ -129,7 +126,7 @@ namespace OpenTrace
                     if (hop.IP == "*")
                         count++;
                 }
-                return count / HopData.Count * 100;
+                return (int)((float)count / HopData.Count * 100);
             }
         }
         public int Recv

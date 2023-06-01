@@ -47,18 +47,17 @@ namespace NextTrace
     }
     internal class NextTraceWrapper
     {
-        
+        public Modes RunningMode;
+        public bool Quitting;
         private Process _process;
         public event EventHandler<AppQuitEventArgs> AppQuit;
         public event EventHandler<HostResolvedEventArgs> HostResolved;
         public event EventHandler<ExceptionalOutputEventArgs> ExceptionalOutput;
 
         private string nexttracePath;
-        private string host;
-        private string arguments;
         public ObservableCollection<TracerouteResult> Output { get; } = new ObservableCollection<TracerouteResult>();
 
-        public NextTraceWrapper(string host, string extraArgs)
+        public NextTraceWrapper()
         {
 
             // 检查 nexttrace.exe 是否存在于当前目录
@@ -100,12 +99,12 @@ namespace NextTrace
             {
                 throw new FileNotFoundException("nexttrace.exe not found");
             }
-            arguments = ArgumentBuilder(host, extraArgs);
         }
 
-        public void RunTraceroute()
+        public void RunTraceroute(string host, string extraArgs)
         {
-
+            Quitting = false;
+            RunningMode = Modes.Traceroute;
             Task.Run(() =>
             {
 
@@ -114,7 +113,7 @@ namespace NextTrace
                     StartInfo = new ProcessStartInfo
                     {
                         FileName = nexttracePath,
-                        Arguments = arguments,
+                        Arguments = ArgumentBuilder(host, extraArgs),
                         UseShellExecute = false,
                         StandardOutputEncoding = Encoding.GetEncoding(65001),
                         RedirectStandardOutput = true,
@@ -171,9 +170,79 @@ namespace NextTrace
                 AppQuit?.Invoke(this, new AppQuitEventArgs(_process.ExitCode));
             });
         }
-        public void RunMTR()
+        public void RunMTR(string host, string extraArgs)
         {
+            Quitting = false;
+            RunningMode = Modes.MTR;
+            Task.Run(() =>
+            {
+                while(Quitting != true)
+                {
+                    _process = new Process
+                    {
+                        StartInfo = new ProcessStartInfo
+                        {
+                            FileName = nexttracePath,
+                            Arguments = ArgumentBuilder(host, extraArgs + " --queries 1", new List<string> {"queries"}),
+                            UseShellExecute = false,
+                            StandardOutputEncoding = Encoding.GetEncoding(65001),
+                            RedirectStandardOutput = true,
+                            RedirectStandardError = true,
+                            CreateNoWindow = true
+                        }
+                    };
+                    if (UserSettings.Default.IPInsightToken != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_IPINSIGHT_TOKEN", UserSettings.Default.IPInsightToken);
+                    if (UserSettings.Default.IPInfoToken != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_IPINFO_TOKEN", UserSettings.Default.IPInfoToken);
+                    if (UserSettings.Default.ChunZhenEndpoint != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_CHUNZHENURL", UserSettings.Default.ChunZhenEndpoint);
 
+                    Regex match1stLine = new Regex(@"^\d{1,2}\|");
+                    _process.OutputDataReceived += (sender, e) =>
+                    {
+                        if (e.Data != null)
+                        {
+                            // 去除输出中的控制字符
+                            Regex formatCleanup = new Regex(@"(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]");
+                            string line = formatCleanup.Replace(e.Data, "");
+
+                            Match matchHostResolve = new Regex(@"^traceroute to (.*?) \((.*?)\),").Match(line);
+                            if (matchHostResolve.Success)
+                            {
+                                HostResolved.Invoke(this, new HostResolvedEventArgs(matchHostResolve.Groups[2].Value, matchHostResolve.Groups[1].Value));
+                            }
+
+                            Match match1 = match1stLine.Match(line);
+                            if (match1.Success)
+                            {
+                                Output.Add(ProcessLine(line));
+                            }
+                            else
+                            {
+                                if (line.StartsWith("NextTrace ")) return;
+                                if (line.StartsWith("traceroute to ")) return;
+                                if (line.StartsWith("IP Geo Data Provider")) return;
+                                Debug.Print(line);
+                                Quitting = true; // 非正常输出，结束MTR
+                                ExceptionalOutput?.Invoke(this, new ExceptionalOutputEventArgs(false, line));
+                            }
+                        }
+                    };
+                    _process.ErrorDataReceived += (sender, e) =>
+                    {
+                        if (e.Data != null)
+                        {
+                            Debug.Print(e.Data);
+                            Quitting = true; // 非正常输出，结束MTR
+                            ExceptionalOutput?.Invoke(this, new ExceptionalOutputEventArgs(true, e.Data));
+                        }
+                    };
+                    _process.Start();
+                    _process.BeginOutputReadLine();
+                    _process.BeginErrorReadLine();
+                    _process.WaitForExit();
+                    if (_process.ExitCode != 0) Quitting = true; // 非正常退出，结束MTR
+                }
+                AppQuit?.Invoke(this, new AppQuitEventArgs(_process.ExitCode));
+            });
         }
         private TracerouteResult ProcessLine(string line)
         {
@@ -228,7 +297,7 @@ namespace NextTrace
 
             return new TracerouteResult(No, IP, Time, Geolocation, AS, Hostname, Organization, Latitude, Longitude);
         }
-        private string ArgumentBuilder(string host, string extraArgs)
+        private string ArgumentBuilder(string host, string extraArgs, List<string> ignoreUserArgs = null)
         {
             List<string> finalArgs = new List<string>();
             finalArgs.Add(host);
@@ -237,9 +306,9 @@ namespace NextTrace
             string[] checkArgsFromConfList = { "queries", "port", "parallel_requests", "max_hops", "first", "send_time", "ttl_time", "source", "dev" };
             foreach (string checkArgs in checkArgsFromConfList)
             {
-                if ((string)UserSettings.Default[checkArgs] != "")
+                if ((string)UserSettings.Default[checkArgs] != "" && (ignoreUserArgs == null || !ignoreUserArgs.Contains(checkArgs)))
                 {
-                    finalArgs.Add("--" + checkArgs.Replace('_', '-') + " " + (string)UserSettings.Default[checkArgs]);
+                        finalArgs.Add("--" + checkArgs.Replace('_', '-') + " " + (string)UserSettings.Default[checkArgs]);
                 }
             }
 
@@ -252,7 +321,9 @@ namespace NextTrace
         }
         public void Kill()
         {
-            _process.Kill();
+            Quitting = true;
+            if (_process != null)
+                _process.Kill();
         }
 
         // 验证IP有效性，返回处理后的IP（如把IPv6转为缩写形式等）IP无效则返回null。

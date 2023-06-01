@@ -47,7 +47,7 @@ namespace OpenTrace
             quitCommand.Executed += (sender, e) => Application.Instance.Quit();
 
             var aboutCommand = new Command { MenuText = Resources.ABOUT };
-            aboutCommand.Executed += (sender, e) => new AboutDialog().ShowDialog(this);
+            aboutCommand.Executed += (sender, e) => Process.Start(new ProcessStartInfo("https://github.com/Archeb/opentrace") { UseShellExecute = true });
 
             var preferenceCommand = new Command { MenuText = Resources.PREFERENCES };
             preferenceCommand.Executed += (sender, e) => new PreferencesDialog().ShowModal();
@@ -195,7 +195,7 @@ namespace OpenTrace
             tracerouteResultCollection.Clear(); // 清空原有GridView
             ResetMap(); // 重置地图
             Title = Resources.APPTITLE;
-            var instance = new NextTraceWrapper(HostInputBox.Text, dataProviderSelection.SelectedKey);
+            var instance = new NextTraceWrapper();
             HostInputBox.Items.Add(new ListItem { Text = HostInputBox.Text });
             CurrentInstance = instance;
             startTracerouteButton.Text = Resources.STOP;
@@ -261,11 +261,11 @@ namespace OpenTrace
             {
                 if ((bool)MTRMode.Checked)
                 {
-                    instance.RunMTR();
+                    instance.RunMTR(HostInputBox.Text, dataProviderSelection.SelectedKey);
                 }
                 else
                 {
-                    instance.RunTraceroute();
+                    instance.RunTraceroute(HostInputBox.Text, dataProviderSelection.SelectedKey);
                 }
             } catch (FileNotFoundException)
             {
