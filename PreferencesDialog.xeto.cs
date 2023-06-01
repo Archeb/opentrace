@@ -20,24 +20,24 @@ namespace OpenTrace
         {
             XamlReader.Load(this);
             
-                foreach (SettingsProperty setting in UserSettings.Default.Properties)
+            foreach (SettingsProperty setting in UserSettings.Default.Properties)
+            {
+                TextBox settingTextBox = this.FindChild<TextBox>(setting.Name);
+                if (settingTextBox != null)
                 {
-                    TextBox settingTextBox = this.FindChild<TextBox>(setting.Name);
-                    if (settingTextBox != null)
-                    {
-                    settingTextBox.Text = (string)UserSettings.Default[setting.Name];
-                    }
-                    CheckBox settingCheckBox = this.FindChild<CheckBox>(setting.Name);
-                    if(settingCheckBox != null)
-                    {
-                        settingCheckBox.Checked = (bool)UserSettings.Default[setting.Name];
+                settingTextBox.Text = (string)UserSettings.Default[setting.Name];
                 }
-                    DropDown settingDropDown = this.FindChild<DropDown>(setting.Name);
-                    if (settingDropDown != null)
-                    {
-                        settingDropDown.SelectedKey = (string)UserSettings.Default[setting.Name];
-                }
-                }
+                CheckBox settingCheckBox = this.FindChild<CheckBox>(setting.Name);
+                if(settingCheckBox != null)
+                {
+                    settingCheckBox.Checked = (bool)UserSettings.Default[setting.Name];
+            }
+                DropDown settingDropDown = this.FindChild<DropDown>(setting.Name);
+                if (settingDropDown != null)
+                {
+                    settingDropDown.SelectedKey = (string)UserSettings.Default[setting.Name];
+            }
+            }
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
