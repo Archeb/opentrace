@@ -70,9 +70,17 @@ jobs:
     - name: Build the application for Windows
       run: dotnet build OpenTrace.csproj --runtime win-x64 --configuration Release --no-self-contained
 
+    - name: Zip Release
+      # You may pin to the exact commit or the version.
+      # uses: TheDoctor0/zip-release@a24011d8d445e4da5935a7e73c1f98e22a439464
+      uses: TheDoctor0/zip-release@0.7.1
+      with:
+        filename: win-x64.zip
+        path: .\bin\Wpf\Release\net6.0-windows\win-x64
+        
     # Upload the MSIX package: https://github.com/marketplace/actions/upload-a-build-artifact
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: MSIX Package
-        path: ${{ env.Wap_Project_Directory }}\AppPackages
+        name: Windows x64 Binary
+        path: win-x64.zip
