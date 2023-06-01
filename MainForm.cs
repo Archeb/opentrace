@@ -195,7 +195,22 @@ namespace OpenTrace
             tracerouteResultCollection.Clear(); // 清空原有GridView
             ResetMap(); // 重置地图
             Title = Resources.APPTITLE;
-            var instance = new NextTraceWrapper();
+            NextTraceWrapper instance;
+            try
+            {
+                instance = new NextTraceWrapper();
+            }
+            catch (FileNotFoundException)
+            {
+                // 询问是否下载 NextTrace
+                DialogResult dr = MessageBox.Show(Resources.MISSING_COMP_TEXT,
+                     Resources.MISSING_COMP, MessageBoxButtons.YesNo);
+                if (dr == DialogResult.Yes)
+                {
+                    Process.Start(new ProcessStartInfo("https://mtr.moe/") { UseShellExecute = true });
+                }
+                return;
+            }
             HostInputBox.Items.Add(new ListItem { Text = HostInputBox.Text });
             CurrentInstance = instance;
             startTracerouteButton.Text = Resources.STOP;
@@ -257,27 +272,15 @@ namespace OpenTrace
                     }
                 });
             };
-            try
+            if ((bool)MTRMode.Checked)
             {
-                if ((bool)MTRMode.Checked)
-                {
-                    instance.RunMTR(HostInputBox.Text, dataProviderSelection.SelectedKey);
-                }
-                else
-                {
-                    instance.RunTraceroute(HostInputBox.Text, dataProviderSelection.SelectedKey);
-                }
-            } catch (FileNotFoundException)
-            {
-                // 询问是否下载 NextTrace
-                DialogResult dr = MessageBox.Show(Resources.MISSING_COMP_TEXT,
-                     Resources.MISSING_COMP, MessageBoxButtons.YesNo);
-                if (dr == DialogResult.Yes)
-                {
-                    Process.Start(new ProcessStartInfo("https://mtr.moe/") { UseShellExecute = true });
-                }
-                return;
+                instance.RunMTR(HostInputBox.Text, dataProviderSelection.SelectedKey);
             }
+            else
+            {
+                instance.RunTraceroute(HostInputBox.Text, dataProviderSelection.SelectedKey);
+            }
+            
         }
         private void StopTraceroute()
         {
