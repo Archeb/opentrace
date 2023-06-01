@@ -9,6 +9,7 @@ using Resources = OpenTrace.Properties.Resources;
 using OpenTrace.Properties;
 using System.Collections.Generic;
 using OpenTrace;
+using System.Runtime.InteropServices;
 
 namespace NextTrace
 {
@@ -59,36 +60,63 @@ namespace NextTrace
 
         public NextTraceWrapper()
         {
-
-            // 检查 nexttrace.exe 是否存在于当前目录
-            if (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "nexttrace.exe")))
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                nexttracePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "nexttrace.exe");
-            }
-            // 检查 Linux / macOS
-            else if (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "nexttrace")))
-            {
-                nexttracePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "nexttrace");
-            }
-            // 检查 PATH 目录
-            if (nexttracePath == null)
-            {
-                string pathVar = Environment.GetEnvironmentVariable("PATH");
-                string[] pathDirs = pathVar.Split(Path.PathSeparator);
-                foreach (string pathDir in pathDirs)
+                // 检查 Windows 平台可执行文件
+                List<string> winBinaryList = new List<string> { "nexttrace.exe", "nexttrace_windows_amd64.exe", "nexttrace_windows_arm64.exe", "nexttrace_windows_armv7.exe", "nexttrace_windows_386.exe" };
+                foreach (string winBinaryName in winBinaryList)
                 {
-                    if (File.Exists(Path.Combine(pathDir, "nexttrace.exe")))
+                    if (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, winBinaryName)))
                     {
-                        nexttracePath = Path.Combine(pathDir, "nexttrace.exe");
+                        // 先检查根目录
+                        nexttracePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, winBinaryName);
                         break;
-                    }
-                    else if (File.Exists(Path.Combine(pathDir, "nexttrace")))
-                    {
-                        nexttracePath = Path.Combine(pathDir, "nexttrace");
-                        break;
+                    } else {
+                        // 再检查PATH变量
+                        string pathVar = Environment.GetEnvironmentVariable("PATH");
+                        string[] pathDirs = pathVar.Split(Path.PathSeparator);
+                        foreach (string pathDir in pathDirs)
+                        {
+                            if (File.Exists(Path.Combine(pathDir, winBinaryName)))
+                            {
+                                nexttracePath = Path.Combine(pathDir, winBinaryName);
+                                break;
+                            }
+                        }
+                        if (nexttracePath != null) break;
                     }
                 }
             }
+            else
+            {
+                // 检查其他平台可执行文件
+                List<string> otherBinaryList = new List<string> { "nexttrace", "nexttrace_android_arm64", "nexttrace_darwin_amd64", "nexttrace_darwin_arm64", "nexttrace_dragonfly_amd64", "nexttrace_freebsd_386", "nexttrace_freebsd_amd64", "nexttrace_freebsd_arm64", "nexttrace_freebsd_armv7", "nexttrace_linux_386", "nexttrace_linux_amd64", "nexttrace_linux_arm64", "nexttrace_linux_armv5", "nexttrace_linux_armv6", "nexttrace_linux_armv7", "nexttrace_linux_mips", "nexttrace_linux_mips64", "nexttrace_linux_mips64le", "nexttrace_linux_mipsle", "nexttrace_linux_ppc64", "nexttrace_linux_ppc64le", "nexttrace_linux_riscv64", "nexttrace_linux_s390x", "nexttrace_openbsd_386", "nexttrace_openbsd_amd64", "nexttrace_openbsd_arm64", "nexttrace_openbsd_armv7" };
+                foreach (string otherBinaryName in otherBinaryList)
+                {
+                    if (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, otherBinaryName)))
+                    {
+                        // 先检查根目录
+                        nexttracePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, otherBinaryName);
+                        break;
+                    }
+                    else
+                    {
+                        // 再检查PATH变量
+                        string pathVar = Environment.GetEnvironmentVariable("PATH");
+                        string[] pathDirs = pathVar.Split(Path.PathSeparator);
+                        foreach (string pathDir in pathDirs)
+                        {
+                            if (File.Exists(Path.Combine(pathDir, otherBinaryName)))
+                            {
+                                nexttracePath = Path.Combine(pathDir, otherBinaryName);
+                                break;
+                            }
+                        }
+                        if(nexttracePath != null) break; 
+                    }
+                }
+            }
+            
             // 检查是否手动指定了可执行文件
             if (File.Exists(UserSettings.Default.exectuablePath))
             {
