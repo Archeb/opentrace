@@ -223,7 +223,7 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Exceptional Output 的本地化字符串。
+        ///   查找类似 Unexpected Output 的本地化字符串。
         /// </summary>
         public static string EXC_OUTPUT_FORM_TITLE {
             get {
@@ -232,7 +232,7 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 NextTrace process exited exceptionally. Please refer to the error message to learn more and report this issue to us promptly. Exit Code:  的本地化字符串。
+        ///   查找类似 NextTrace process exited unexpectedly. Please refer to the error message to learn more and report this issue to us promptly. Exit Code:  的本地化字符串。
         /// </summary>
         public static string EXCEPTIONAL_EXIT_MSG {
             get {

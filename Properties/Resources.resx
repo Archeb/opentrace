@@ -161,7 +161,7 @@
     <value>Error writing app settings.</value>
   </data>
   <data name="EXCEPTIONAL_EXIT_MSG" xml:space="preserve">
-    <value>NextTrace process exited exceptionally. Please refer to the error message to learn more and report this issue to us promptly. Exit Code: </value>
+    <value>NextTrace process exited unexpectedly. Please refer to the error message to learn more and report this issue to us promptly. Exit Code: </value>
   </data>
   <data name="EXC_OUTPUT_FORM_PROMPT" xml:space="preserve">
     <value>NextTrace generated one or more unexpected outputs during runtime. Please check the output below for troubleshooting. We also encourage you to report this issue to us, which can help us improve OpenTrace.</value>
@@ -170,7 +170,7 @@
     <value>Report this issue</value>
   </data>
   <data name="EXC_OUTPUT_FORM_TITLE" xml:space="preserve">
-    <value>Exceptional Output</value>
+    <value>Unexpected Output</value>
   </data>
   <data name="EXE_PATH" xml:space="preserve">
     <value>Exectuable Path</value>
