@@ -79,7 +79,7 @@ namespace OpenTrace
                 List<String> uniqueHostname = new List<string>();
                 foreach (TracerouteResult hop in HopData)
                 {
-                    if (!uniqueHostname.Contains(hop.Hostname) && hop.IP != "*")
+                    if (!uniqueHostname.Contains(hop.Hostname) && hop.Hostname != "" && hop.IP != "*")
                         uniqueHostname.Add(hop.Hostname);
                 }
                 return String.Join(Environment.NewLine, uniqueHostname);
