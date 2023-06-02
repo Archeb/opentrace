@@ -463,6 +463,15 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 could not find host {0}. Please check the name and try again. 的本地化字符串。
+        /// </summary>
+        public static string NAME_NOT_RESOLVED {
+            get {
+                return ResourceManager.GetString("NAME_NOT_RESOLVED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 New 的本地化字符串。
         /// </summary>
         public static string NEW {
@@ -594,6 +603,24 @@ namespace OpenTrace.Properties {
         public static string SAVE {
             get {
                 return ResourceManager.GetString("SAVE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Select an IP 的本地化字符串。
+        /// </summary>
+        public static string SELECT_IP_DROPDOWN {
+            get {
+                return ResourceManager.GetString("SELECT_IP_DROPDOWN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Please select an IP from the dropdown. 的本地化字符串。
+        /// </summary>
+        public static string SELECT_IP_MSGBOX {
+            get {
+                return ResourceManager.GetString("SELECT_IP_MSGBOX", resourceCulture);
             }
         }
         

@@ -9,6 +9,7 @@ using Resources = OpenTrace.Properties.Resources;
 using OpenTrace.Properties;
 using System.Linq;
 using NextTrace;
+using System.Net;
 
 namespace OpenTrace
 {
@@ -21,6 +22,7 @@ namespace OpenTrace
         private GridView tracerouteGridView;
         private CheckBox MTRMode;
         private WebView mapWebView;
+        private DropDown ResolvedIPSelection;
         private DropDown dataProviderSelection;
         private DropDown protocolSelection;
         private Button startTracerouteButton;
@@ -73,6 +75,7 @@ namespace OpenTrace
             // 创建控件
             HostInputBox = new ComboBox { Text = "" };
             MTRMode = new CheckBox { Text = Resources.MTR_MODE };
+            ResolvedIPSelection = new DropDown { Visible = false };
             startTracerouteButton = new Button { Text = Resources.START };
             protocolSelection = new DropDown
             {
@@ -117,6 +120,7 @@ namespace OpenTrace
             tracerouteGridView.SelectedRowsChanged += TracerouteGridView_SelectedRowsChanged;
             startTracerouteButton.Click += StartTracerouteButton_Click;
             HostInputBox.KeyUp += HostInputBox_KeyUp;
+            HostInputBox.TextChanged += HostInputBox_TextChanged;
             MTRMode.CheckedChanged += MTRMode_CheckedChanged;
 
             // 使用 Table 布局创建页面
@@ -136,6 +140,7 @@ namespace OpenTrace
                                     Cells =
                                     {
                                         new TableCell(HostInputBox,true),
+                                        ResolvedIPSelection,
                                         MTRMode,
                                         protocolSelection,
                                         dataProviderSelection,
@@ -155,6 +160,16 @@ namespace OpenTrace
                 }
             };
             Content = layout;
+        }
+
+        private void HostInputBox_TextChanged(object sender, EventArgs e)
+        {
+            // 如果文本框被修改，则隐藏 DNS 解析选择框
+            if (ResolvedIPSelection.Visible)
+            {
+                ResolvedIPSelection.Items.Clear();
+                ResolvedIPSelection.Visible = false;
+            }
         }
 
         private void MTRMode_CheckedChanged(object sender, EventArgs e)
@@ -209,8 +224,66 @@ namespace OpenTrace
                 }
                 return;
             }
-            
-            // 解析域名
+
+            // 处理文本框输入
+            string readyToUseIP;
+            if (ResolvedIPSelection.Visible == true && ResolvedIPSelection.SelectedIndex != 0)
+            {
+                readyToUseIP = ResolvedIPSelection.SelectedKey;
+                Title = Resources.APPTITLE + ": " + HostInputBox.Text + " (" + readyToUseIP + ")";
+            }
+            else if(ResolvedIPSelection.Visible == true && ResolvedIPSelection.SelectedIndex == 0)
+            {
+                MessageBox.Show(Resources.SELECT_IP_MSGBOX);
+                return;
+            }
+            else
+            {
+                ResolvedIPSelection.Visible = false; // 隐藏 IP 选择框
+                IPAddress userInputAddress;
+                if (IPAddress.TryParse(HostInputBox.Text, out userInputAddress))
+                {
+                    // 是合法的 IPv4 / IPv6，把程序处理后的IP放回文本框
+                    HostInputBox.Text = userInputAddress.ToString();
+                    readyToUseIP = userInputAddress.ToString();
+                    Title = Resources.APPTITLE + ": " + readyToUseIP;
+                }
+                else
+                {
+                    try
+                    {
+                        // 需要域名解析
+                        IPAddress[] resolvedAddresses = Dns.GetHostAddresses(HostInputBox.Text);
+                        if (resolvedAddresses.Length > 1)
+                        {
+                            ResolvedIPSelection.Items.Clear();
+                            ResolvedIPSelection.Items.Add(Resources.SELECT_IP_DROPDOWN);
+                            foreach (IPAddress resolvedAddress in resolvedAddresses)
+                            {
+                                ResolvedIPSelection.Items.Add(resolvedAddress.ToString());
+                            }
+                            ResolvedIPSelection.SelectedIndex = 0;
+                            ResolvedIPSelection.Visible = true;
+                            return;
+                        }
+                        else
+                        {
+                            readyToUseIP = resolvedAddresses[0].ToString();
+                            Title = Resources.APPTITLE + ": " + HostInputBox.Text + " (" + readyToUseIP + ")";
+                        }
+                    }
+                    catch (System.Net.Sockets.SocketException)
+                    {
+                        MessageBox.Show(string.Format(Resources.NAME_NOT_RESOLVED, HostInputBox.Text), MessageBoxType.Warning);
+                        return;
+                    }
+                    catch (Exception exception)
+                    {
+                        MessageBox.Show(exception.Message, MessageBoxType.Error);
+                        return;
+                    }
+                }
+            }
             
             HostInputBox.Items.Add(new ListItem { Text = HostInputBox.Text });
             CurrentInstance = instance;
@@ -275,11 +348,11 @@ namespace OpenTrace
             };
             if ((bool)MTRMode.Checked)
             {
-                instance.RunMTR(HostInputBox.Text, dataProviderSelection.SelectedKey);
+                instance.RunMTR(readyToUseIP, dataProviderSelection.SelectedKey);
             }
             else
             {
-                instance.RunTraceroute(HostInputBox.Text, dataProviderSelection.SelectedKey);
+                instance.RunTraceroute(readyToUseIP, dataProviderSelection.SelectedKey);
             }
             
         }

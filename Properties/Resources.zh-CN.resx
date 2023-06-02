@@ -246,6 +246,9 @@
   <data name="MTR_MODE" xml:space="preserve">
     <value>MTR 模式</value>
   </data>
+  <data name="NAME_NOT_RESOLVED" xml:space="preserve">
+    <value>找不到主机 {0}。请检查该名称，然后重试。</value>
+  </data>
   <data name="NEW" xml:space="preserve">
     <value>新建</value>
   </data>
@@ -253,7 +256,7 @@
     <value>打开一个新的 OpenTrace 窗口</value>
   </data>
   <data name="NO_RDNS" xml:space="preserve">
-    <value>禁用反向DNS查询</value>
+    <value>禁用反向 DNS 查询</value>
   </data>
   <data name="ORGANIZATION" xml:space="preserve">
     <value>组织</value>
@@ -290,6 +293,12 @@
   </data>
   <data name="SAVE" xml:space="preserve">
     <value>保存</value>
+  </data>
+  <data name="SELECT_IP_DROPDOWN" xml:space="preserve">
+    <value>选择一个 IP</value>
+  </data>
+  <data name="SELECT_IP_MSGBOX" xml:space="preserve">
+    <value>请从下拉菜单中选择一个 IP</value>
   </data>
   <data name="SENT" xml:space="preserve">
     <value>已发送</value>

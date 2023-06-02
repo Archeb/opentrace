@@ -250,6 +250,9 @@ Would you like to download the NextTrace utility now?</value>
   <data name="MTR_MODE" xml:space="preserve">
     <value>MTR Mode</value>
   </data>
+  <data name="NAME_NOT_RESOLVED" xml:space="preserve">
+    <value>could not find host {0}. Please check the name and try again.</value>
+  </data>
   <data name="NEW" xml:space="preserve">
     <value>New</value>
   </data>
@@ -296,6 +299,12 @@ Would you like to download the NextTrace utility now?</value>
   </data>
   <data name="SAVE" xml:space="preserve">
     <value>Save</value>
+  </data>
+  <data name="SELECT_IP_DROPDOWN" xml:space="preserve">
+    <value>Select an IP</value>
+  </data>
+  <data name="SELECT_IP_MSGBOX" xml:space="preserve">
+    <value>Please select an IP from the dropdown.</value>
   </data>
   <data name="SENT" xml:space="preserve">
     <value>Sent</value>
