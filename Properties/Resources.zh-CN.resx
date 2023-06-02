@@ -243,6 +243,9 @@
 
 是否现在下载 NextTrace？</value>
   </data>
+  <data name="MISSING_SPECIFIED_COMP" xml:space="preserve">
+    <value>未能在指定的位置 "{0}" 中找到 NextTrace。</value>
+  </data>
   <data name="MTR_MODE" xml:space="preserve">
     <value>MTR 模式</value>
   </data>

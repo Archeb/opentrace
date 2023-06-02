@@ -454,6 +454,15 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 NextTrace could not be found in &quot;{0}&quot;. 的本地化字符串。
+        /// </summary>
+        public static string MISSING_SPECIFIED_COMP {
+            get {
+                return ResourceManager.GetString("MISSING_SPECIFIED_COMP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 MTR Mode 的本地化字符串。
         /// </summary>
         public static string MTR_MODE {

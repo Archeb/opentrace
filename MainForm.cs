@@ -215,13 +215,19 @@ namespace OpenTrace
             }
             catch (FileNotFoundException)
             {
-                // 询问是否下载 NextTrace
+                // 未能在默认搜寻目录中找到NextTrace，询问是否下载 NextTrace
                 DialogResult dr = MessageBox.Show(Resources.MISSING_COMP_TEXT,
                      Resources.MISSING_COMP, MessageBoxButtons.YesNo);
                 if (dr == DialogResult.Yes)
                 {
                     Process.Start(new ProcessStartInfo("https://mtr.moe/") { UseShellExecute = true });
                 }
+                return;
+            }
+            catch(IOException exception)
+            {
+                // 未能在指定的位置找到 NextTrace
+                MessageBox.Show(string.Format(Resources.MISSING_SPECIFIED_COMP, exception.Message), Resources.MISSING_COMP);
                 return;
             }
 
@@ -252,6 +258,12 @@ namespace OpenTrace
                 {
                     try
                     {
+                        Uri uri;
+                        if (Uri.TryCreate(HostInputBox.Text, UriKind.Absolute, out uri) && uri.Host != "")
+                        {
+                            // 是合法的 URL
+                            HostInputBox.Text = uri.Host;
+                        }
                         // 需要域名解析
                         IPAddress[] resolvedAddresses = Dns.GetHostAddresses(HostInputBox.Text);
                         if (resolvedAddresses.Length > 1)

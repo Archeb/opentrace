@@ -247,6 +247,9 @@ OR
 
 Would you like to download the NextTrace utility now?</value>
   </data>
+  <data name="MISSING_SPECIFIED_COMP" xml:space="preserve">
+    <value>NextTrace could not be found in "{0}".</value>
+  </data>
   <data name="MTR_MODE" xml:space="preserve">
     <value>MTR Mode</value>
   </data>

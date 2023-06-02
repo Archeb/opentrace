@@ -107,14 +107,21 @@ namespace NextTrace
             }
             
             // 检查是否手动指定了可执行文件
-            if (File.Exists(UserSettings.Default.exectuablePath))
+            if (UserSettings.Default.exectuablePath != "")
             {
-                nexttracePath = UserSettings.Default.exectuablePath;
+                if (File.Exists(UserSettings.Default.exectuablePath))
+                {
+                    nexttracePath = UserSettings.Default.exectuablePath;
+                }
+                else
+                {
+                    throw new IOException(UserSettings.Default.exectuablePath);
+                }
             }
             // 未能找到可执行文件
             if (nexttracePath == null)
             {
-                throw new FileNotFoundException("nexttrace.exe not found");
+                throw new FileNotFoundException("nexttrace.exe not found in any location");
             }
         }
 
