@@ -30,6 +30,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="ExceptionalOutputForm.xeto.cs">
+      <DependentUpon>ExceptionalOutputForm.xeto</DependentUpon>
+    </Compile>
+    <Compile Update="PreferencesDialog.xeto.cs">
+      <DependentUpon>PreferencesDialog.xeto</DependentUpon>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

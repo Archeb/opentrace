@@ -141,6 +141,9 @@
   <data name="CHUNZHEN_ENDPOINT" xml:space="preserve">
     <value>纯真 API 端点</value>
   </data>
+  <data name="CLOSE" xml:space="preserve">
+    <value>关闭</value>
+  </data>
   <data name="COMBINE_GEO_ORG" xml:space="preserve">
     <value>把地理位置和组织信息合为一栏</value>
   </data>
@@ -155,6 +158,15 @@
   </data>
   <data name="EXCEPTIONAL_EXIT_MSG" xml:space="preserve">
     <value>NextTrace 进程异常退出，请参考错误消息以了解更多信息并及时向我们报告此问题。 退出代码：</value>
+  </data>
+  <data name="EXC_OUTPUT_FORM_PROMPT" xml:space="preserve">
+    <value>NextTrace 产生了一个或多个异常输出，请检查下面的输出信息以排查问题。同时，我们希望您能向我们报告这个问题来帮助我们改进 OpenTrace。</value>
+  </data>
+  <data name="EXC_OUTPUT_FORM_REPORT" xml:space="preserve">
+    <value>报告问题</value>
+  </data>
+  <data name="EXC_OUTPUT_FORM_TITLE" xml:space="preserve">
+    <value>异常输出</value>
   </data>
   <data name="EXE_PATH" xml:space="preserve">
     <value>可执行文件目录</value>

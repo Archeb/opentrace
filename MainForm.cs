@@ -12,8 +12,6 @@ using NextTrace;
 
 namespace OpenTrace
 {
-    
-
     public partial class MainForm : Form
     {
         private ObservableCollection<TracerouteHop> tracerouteResultCollection = new ObservableCollection<TracerouteHop>();
@@ -211,10 +209,15 @@ namespace OpenTrace
                 }
                 return;
             }
+            
+            // 解析域名
+            
             HostInputBox.Items.Add(new ListItem { Text = HostInputBox.Text });
             CurrentInstance = instance;
             startTracerouteButton.Text = Resources.STOP;
-            
+
+            ExceptionalOutputForm exceptionalOutputForm = new ExceptionalOutputForm();
+
             // 处理NextTrace实例发回的结果
             instance.Output.CollectionChanged += (sender, e) =>
             {
@@ -237,18 +240,16 @@ namespace OpenTrace
                     });
                 }
             };
-            instance.HostResolved += (object sender, HostResolvedEventArgs e) =>
-            {
-                Application.Instance.InvokeAsync(() =>
-                {
-                    Title = Resources.APPTITLE + ": " + e.Host + " (" + e.IP + ")";
-                });
-            };
             instance.ExceptionalOutput += (object sender, ExceptionalOutputEventArgs e) =>
             {
                 Application.Instance.InvokeAsync(() =>
                 {
-                    MessageBox.Show(e.Output, Resources.ERR_MSG, e.IsErrorOutput ? MessageBoxType.Warning : MessageBoxType.Information);
+                    exceptionalOutputForm.Show();
+                    if (!exceptionalOutputForm.Visible)
+                    {
+                        exceptionalOutputForm.Visible = true;
+                    }
+                    exceptionalOutputForm.AppendOutput(e.Output);
                 });
             };
             instance.AppQuit += (object sender, AppQuitEventArgs e) =>

@@ -160,6 +160,15 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Close 的本地化字符串。
+        /// </summary>
+        public static string CLOSE {
+            get {
+                return ResourceManager.GetString("CLOSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Combine Geography and Organization into a single column 的本地化字符串。
         /// </summary>
         public static string COMBINE_GEO_ORG {
@@ -192,6 +201,33 @@ namespace OpenTrace.Properties {
         public static string ERR_WRITING_SETTTINGS {
             get {
                 return ResourceManager.GetString("ERR_WRITING_SETTTINGS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 NextTrace generated one or more unexpected outputs during runtime. Please check the output below for troubleshooting. We also encourage you to report this issue to us, which can help us improve OpenTrace. 的本地化字符串。
+        /// </summary>
+        public static string EXC_OUTPUT_FORM_PROMPT {
+            get {
+                return ResourceManager.GetString("EXC_OUTPUT_FORM_PROMPT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Report this issue 的本地化字符串。
+        /// </summary>
+        public static string EXC_OUTPUT_FORM_REPORT {
+            get {
+                return ResourceManager.GetString("EXC_OUTPUT_FORM_REPORT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Exceptional Output 的本地化字符串。
+        /// </summary>
+        public static string EXC_OUTPUT_FORM_TITLE {
+            get {
+                return ResourceManager.GetString("EXC_OUTPUT_FORM_TITLE", resourceCulture);
             }
         }
         

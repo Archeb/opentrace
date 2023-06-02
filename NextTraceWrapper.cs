@@ -13,16 +13,6 @@ using System.Runtime.InteropServices;
 
 namespace NextTrace
 {
-    class HostResolvedEventArgs : EventArgs
-    {
-        public string Host { get; set; }
-        public string IP { get; set; }
-        public HostResolvedEventArgs(string host, string ip)
-        {
-            Host = host;
-            IP = ip;
-        }
-    }
     class ExceptionalOutputEventArgs : EventArgs
     {
         public bool IsErrorOutput { get; set; }
@@ -52,7 +42,6 @@ namespace NextTrace
         public bool Quitting;
         private Process _process;
         public event EventHandler<AppQuitEventArgs> AppQuit;
-        public event EventHandler<HostResolvedEventArgs> HostResolved;
         public event EventHandler<ExceptionalOutputEventArgs> ExceptionalOutput;
 
         private string nexttracePath;
@@ -162,12 +151,6 @@ namespace NextTrace
                         Regex formatCleanup = new Regex(@"(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]");
                         string line = formatCleanup.Replace(e.Data, "");
 
-                        Match matchHostResolve = new Regex(@"^traceroute to (.*?) \((.*?)\),").Match(line);
-                        if (matchHostResolve.Success)
-                        {
-                            HostResolved.Invoke(this, new HostResolvedEventArgs(matchHostResolve.Groups[2].Value, matchHostResolve.Groups[1].Value));
-                        }
-
                         Match match1 = match1stLine.Match(line);
                         if (match1.Success)
                         {
@@ -232,12 +215,6 @@ namespace NextTrace
                             // 去除输出中的控制字符
                             Regex formatCleanup = new Regex(@"(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]");
                             string line = formatCleanup.Replace(e.Data, "");
-
-                            Match matchHostResolve = new Regex(@"^traceroute to (.*?) \((.*?)\),").Match(line);
-                            if (matchHostResolve.Success)
-                            {
-                                HostResolved.Invoke(this, new HostResolvedEventArgs(matchHostResolve.Groups[2].Value, matchHostResolve.Groups[1].Value));
-                            }
 
                             Match match1 = match1stLine.Match(line);
                             if (match1.Success)
