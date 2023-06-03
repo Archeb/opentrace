@@ -1,0 +1,39 @@
+name: build-linux
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    strategy:
+      matrix:
+        runtime: [linux-x64]
+        include:
+          - runtime: linux-x64
+            artifact_path: ./bin/Gtk/Release/net6.0/linux-x64
+            self_contained: "--self-contained"
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+        
+    - name: Build for ${{ matrix.runtime }}
+      run: |
+        dotnet build OpenTrace.csproj --runtime ${{ matrix.runtime }} --configuration Release ${{ matrix.self_contained }}
+        
+    - name: Upload artifact for ${{ matrix.runtime }}
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ matrix.runtime }}
+        path: ${{ matrix.artifact_path }}
