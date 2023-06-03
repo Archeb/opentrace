@@ -8,11 +8,11 @@
 
 OpenTrace is a cross-platform GUI wrapper for NextTrace. Bringing you a sense of familiarity.
 
-You need a working NextTrace (>= 1.1.6) executable to use this.
+You need a working NextTrace (>= 1.1.7) executable to use this.
 
 ### Features
 
-- [x] Cross-platform native GUI (Windows WPF / Linux GTK, and macOS is coming)
+- [x] Cross-platform native GUI (Windows WPF / Linux GTK / macOS)
 
 - [x] An interface you are familiar with, but with even more powerful functionalities
 
