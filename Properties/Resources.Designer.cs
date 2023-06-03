@@ -241,7 +241,7 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Exectuable Path 的本地化字符串。
+        ///   查找类似 Executable Path 的本地化字符串。
         /// </summary>
         public static string EXE_PATH {
             get {

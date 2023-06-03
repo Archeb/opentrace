@@ -18,7 +18,7 @@
 								<TableLayout Spacing="5,5">
 									<TableRow>
 										<Label Text="{x:Static resource:Resources.EXE_PATH}"></Label>
-										<TextBox x:Name="exectuablePath" PlaceholderText="{x:Static resource:Resources.AUTO_DETECT}"></TextBox>
+										<TextBox x:Name="executablePath" PlaceholderText="{x:Static resource:Resources.AUTO_DETECT}"></TextBox>
 									</TableRow>
 									<TableRow>
 										<Label Text="{x:Static resource:Resources.ADDITIONAL_ARGS}"></Label>
