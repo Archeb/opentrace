@@ -10,6 +10,7 @@ using OpenTrace.Properties;
 using System.Collections.Generic;
 using OpenTrace;
 using System.Runtime.InteropServices;
+using System.Linq;
 
 namespace NextTrace
 {
@@ -124,7 +125,7 @@ namespace NextTrace
             }
         }
 
-        public void RunTraceroute(string host, string extraArgs)
+        public void RunTraceroute(string host, params string[] extraArgs)
         {
             Quitting = false;
             RunningMode = Modes.Traceroute;
@@ -188,7 +189,7 @@ namespace NextTrace
                 AppQuit?.Invoke(this, new AppQuitEventArgs(_process.ExitCode));
             });
         }
-        public void RunMTR(string host, string extraArgs)
+        public void RunMTR(string host, params string[] extraArgs)
         {
             Quitting = false;
             RunningMode = Modes.MTR;
@@ -201,7 +202,7 @@ namespace NextTrace
                         StartInfo = new ProcessStartInfo
                         {
                             FileName = nexttracePath,
-                            Arguments = ArgumentBuilder(host, extraArgs + " --queries 1", new List<string> {"queries"}),
+                            Arguments = ArgumentBuilder(host, extraArgs.Concat(new string[] { "--queries 1" }).ToArray() , new string[] {"queries"}),
                             UseShellExecute = false,
                             StandardOutputEncoding = Encoding.GetEncoding(65001),
                             RedirectStandardOutput = true,
@@ -310,7 +311,7 @@ namespace NextTrace
 
             return new TracerouteResult(No, IP, Time, Geolocation, AS, Hostname, Organization, Latitude, Longitude);
         }
-        private string ArgumentBuilder(string host, string extraArgs, List<string> ignoreUserArgs = null)
+        private string ArgumentBuilder(string host, string[] extraArgs, string[] ignoreUserArgs = null)
         {
             List<string> finalArgs = new List<string>();
             finalArgs.Add(host);
@@ -330,7 +331,7 @@ namespace NextTrace
             if (UserSettings.no_rdns)
                 finalArgs.Add("--no-rdns");
             finalArgs.Add(System.Globalization.CultureInfo.CurrentUICulture.Name.StartsWith("zh") ? "--language cn" : "--language en");
-            finalArgs.Add(extraArgs);
+            finalArgs.AddRange(extraArgs);
             Debug.Print(String.Join(" ", finalArgs));
             return String.Join(" ", finalArgs);
         }

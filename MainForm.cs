@@ -360,11 +360,11 @@ namespace OpenTrace
             };
             if ((bool)MTRMode.Checked)
             {
-                instance.RunMTR(readyToUseIP, dataProviderSelection.SelectedKey);
+                instance.RunMTR(readyToUseIP, dataProviderSelection.SelectedKey, protocolSelection.SelectedKey);
             }
             else
             {
-                instance.RunTraceroute(readyToUseIP, dataProviderSelection.SelectedKey);
+                instance.RunTraceroute(readyToUseIP, dataProviderSelection.SelectedKey, protocolSelection.SelectedKey);
             }
             
         }
