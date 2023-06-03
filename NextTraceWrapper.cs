@@ -290,19 +290,19 @@ namespace NextTrace
             }
 
             // 匹配特定网络地址
-            if (new Regex(@"^(127\.)|(192\.168\.)|(10\.)|(172\.1[6-9]\.)|(172\.2[0-9]\.)|(172\.3[0-1]\.)|(::1$)|([fF][cCdD])").IsMatch(IP))
+            if (new Regex(@"^((127\.)|(192\.168\.)|(10\.)|(172\.1[6-9]\.)|(172\.2[0-9]\.)|(172\.3[0-1]\.)|(::1$)|([fF][cCdD]))").IsMatch(IP))
             {
                 Geolocation = Resources.PRIVATE_ADDR;
             }
-            if (new Regex(@"^(100\.6[4-9]\.)|(100\.[7-9][0-9]\.)|(100\.1[0-1][0-9]\.)|(100\.12[0-7]\.)").IsMatch(IP))
+            if (new Regex(@"^((100\.6[4-9]\.)|(100\.[7-9][0-9]\.)|(100\.1[0-1][0-9]\.)|(100\.12[0-7]\.))").IsMatch(IP))
             {
                 Geolocation = Resources.SHARED_ADDR;
             }
-            if (new Regex(@"^(169\.254\.)").IsMatch(IP))
+            if (new Regex(@"^169\.254\.").IsMatch(IP))
             {
                 Geolocation = Resources.LINKLOCAL_ADDR;
             }
-            if (new Regex(@"^(127\.)").IsMatch(IP))
+            if (new Regex(@"^127\.").IsMatch(IP))
             {
                 Geolocation = Resources.LOOPBACK_ADDR;
             }
