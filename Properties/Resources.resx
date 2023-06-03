@@ -257,7 +257,7 @@ Would you like to download the NextTrace utility now?</value>
     <value>MTR Mode</value>
   </data>
   <data name="NAME_NOT_RESOLVED" xml:space="preserve">
-    <value>could not find host {0}. Please check the name and try again.</value>
+    <value>Could not find host {0}. Please check the name and try again.</value>
   </data>
   <data name="NEW" xml:space="preserve">
     <value>New</value>

@@ -161,6 +161,7 @@ namespace OpenTrace
                 }
             };
             Content = layout;
+            HostInputBox.Focus();
         }
 
         private void HostInputBox_TextChanged(object sender, EventArgs e)
@@ -298,7 +299,7 @@ namespace OpenTrace
                 }
             }
             
-            HostInputBox.Items.Add(new ListItem { Text = HostInputBox.Text });
+            HostInputBox.Items.Insert(0, new ListItem { Text = HostInputBox.Text });
             CurrentInstance = instance;
             startTracerouteButton.Text = Resources.STOP;
 
@@ -574,6 +575,11 @@ namespace OpenTrace
                 DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => "TODO") },
                 HeaderText = Resources.HISTORY
             }); */
+            tracerouteGridView.Columns.Add(new GridColumn
+            {
+                DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.AS) },
+                HeaderText = "AS"
+            });
             tracerouteGridView.Columns.Add(new GridColumn
             {
                 DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.Hostname) },

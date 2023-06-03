@@ -481,7 +481,7 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 could not find host {0}. Please check the name and try again. 的本地化字符串。
+        ///   查找类似 Could not find host {0}. Please check the name and try again. 的本地化字符串。
         /// </summary>
         public static string NAME_NOT_RESOLVED {
             get {
