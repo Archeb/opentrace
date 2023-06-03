@@ -1,0 +1,38 @@
+# This workflow will build a .NET project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
+
+name: build-macos
+
+on:
+  push:
+    branches: [ "macos-test" ]
+
+jobs:
+  build:
+  
+    strategy:
+      matrix:
+        runtime: [osx-x64,osx-arm64]
+            
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6.0.x
+        
+    - name: Build for ${{ matrix.runtime }}
+      run: |
+        dotnet build OpenTrace.csproj --runtime ${{ matrix.runtime }} --configuration Release --self-contained
+
+    - name: Make tarball
+      run: cd ./bin/Mac64/Release/net6.0/${{ matrix.runtime }} && tar -cvzf OpenTrace_${{ matrix.runtime }}.app.tar.gz OpenTrace.app
+      
+    - name: Upload artifact for ${{ matrix.runtime }}
+      uses: actions/upload-artifact@v3
+      with:
+        name: OpenTrace_${{ matrix.runtime }}.app.tar.gz
+        path: ./bin/Mac64/Release/net6.0/${{ matrix.runtime }}/OpenTrace_${{ matrix.runtime }}.app.tar.gz
