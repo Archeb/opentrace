@@ -1,4 +1,5 @@
-﻿using Eto.Drawing;
+﻿using Advexp;
+using Eto.Drawing;
 using Eto.Forms;
 using System;
 using System.Configuration;
@@ -12,16 +13,11 @@ namespace OpenTrace
         [STAThread]
         static void Main(string[] args)
         {
-            var settings = Properties.UserSettings.Default;
-            if (settings.settingsNeedUpgrade) {
-                settings.Upgrade();
-                settings.settingsNeedUpgrade = false;
-                settings.Save();
-            }
+            UserSettings.LoadSettings();
             
-            if (Properties.UserSettings.Default.language != "")
+            if (UserSettings.language != null)
             {
-                System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(Properties.UserSettings.Default.language);
+                System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(UserSettings.language);
             }
             
             new Application(Eto.Platform.Detect).Run(new MainForm());

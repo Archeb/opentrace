@@ -39,4 +39,5 @@ More is coming...
 
 ![Windows](https://i.imgur.com/kbQTStm.png)
 ![MTR on Linux](https://i.imgur.com/MxSHIcU.png)
+![macOS](https://i.imgur.com/brB08tl.png)
 ![Preferences on macOS](https://i.imgur.com/X0L6c6S.png)

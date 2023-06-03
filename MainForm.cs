@@ -466,7 +466,7 @@ namespace OpenTrace
                 HeaderText = Resources.TIME_MS
             });
             // 合并位置和运营商
-            if (UserSettings.Default.combineGeoOrg == true)
+            if (UserSettings.combineGeoOrg == true)
             {
                 tracerouteGridView.Columns.Add(new GridColumn
                 {
@@ -513,7 +513,7 @@ namespace OpenTrace
                 HeaderText = "IP"
             });
             // 合并位置和运营商
-            if (UserSettings.Default.combineGeoOrg == true)
+            if (UserSettings.combineGeoOrg == true)
             {
                 tracerouteGridView.Columns.Add(new GridColumn
                 {

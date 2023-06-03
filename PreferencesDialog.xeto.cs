@@ -4,11 +4,8 @@ using System.ComponentModel;
 using Eto.Serialization.Xaml;
 using System;
 using System.Linq;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Configuration;
-using OpenTrace.Properties;
 using NextTrace;
+using System.Diagnostics;
 
 namespace OpenTrace
 {
@@ -16,27 +13,27 @@ namespace OpenTrace
     {
         private ObservableCollection<TracerouteResult> tracerouteResultCollection = new ObservableCollection<TracerouteResult>();
         private static NextTraceWrapper CurrentInstance { get; set; }
+        UserSettings userSettings = new UserSettings();
         public PreferencesDialog()
         {
             XamlReader.Load(this);
-            
-            foreach (SettingsProperty setting in UserSettings.Default.Properties)
+            foreach (var setting in userSettings.GetType().GetProperties())
             {
                 TextBox settingTextBox = this.FindChild<TextBox>(setting.Name);
                 if (settingTextBox != null)
                 {
-                settingTextBox.Text = (string)UserSettings.Default[setting.Name];
+                    settingTextBox.Text = (string)setting.GetValue(userSettings, null);
                 }
                 CheckBox settingCheckBox = this.FindChild<CheckBox>(setting.Name);
-                if(settingCheckBox != null)
+                if (settingCheckBox != null)
                 {
-                    settingCheckBox.Checked = (bool)UserSettings.Default[setting.Name];
-            }
+                    settingCheckBox.Checked = (bool)setting.GetValue(userSettings, null);
+                }
                 DropDown settingDropDown = this.FindChild<DropDown>(setting.Name);
                 if (settingDropDown != null)
                 {
-                    settingDropDown.SelectedKey = (string)UserSettings.Default[setting.Name];
-            }
+                    settingDropDown.SelectedKey = (string)setting.GetValue(userSettings, null);
+                }
             }
         }
 
@@ -46,20 +43,25 @@ namespace OpenTrace
         }
         private void SaveButton_Click(object sender, EventArgs e)
         {
-
-            foreach (TextBox setting in this.Children.OfType<TextBox>())
+            foreach (var setting in userSettings.GetType().GetProperties())
             {
-                UserSettings.Default[setting.ID] = setting.Text;
+                TextBox settingTextBox = this.FindChild<TextBox>(setting.Name);
+                if (settingTextBox != null)
+                {
+                    setting.SetValue(userSettings, settingTextBox.Text);
+                }
+                CheckBox settingCheckBox = this.FindChild<CheckBox>(setting.Name);
+                if (settingCheckBox != null)
+                {
+                    setting.SetValue(userSettings, settingCheckBox.Checked);
+                }
+                DropDown settingDropDown = this.FindChild<DropDown>(setting.Name);
+                if (settingDropDown != null)
+                {
+                    setting.SetValue(userSettings, settingDropDown.SelectedKey);
+                }
             }
-            foreach (CheckBox setting in this.Children.OfType<CheckBox>())
-            {
-                UserSettings.Default[setting.ID] = setting.Checked;
-            }
-            foreach (DropDown setting in this.Children.OfType<DropDown>())
-            {
-                UserSettings.Default[setting.ID] = setting.SelectedKey;
-            }
-            UserSettings.Default.Save();
+            UserSettings.SaveSettings();
             Close();
         }
     }

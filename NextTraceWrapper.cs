@@ -43,7 +43,6 @@ namespace NextTrace
         private Process _process;
         public event EventHandler<AppQuitEventArgs> AppQuit;
         public event EventHandler<ExceptionalOutputEventArgs> ExceptionalOutput;
-
         private string nexttracePath;
         public ObservableCollection<TracerouteResult> Output { get; } = new ObservableCollection<TracerouteResult>();
 
@@ -107,15 +106,15 @@ namespace NextTrace
             }
             
             // 检查是否手动指定了可执行文件
-            if (UserSettings.Default.exectuablePath != "")
+            if (UserSettings.executablePath != "")
             {
-                if (File.Exists(UserSettings.Default.exectuablePath))
+                if (File.Exists(UserSettings.executablePath))
                 {
-                    nexttracePath = UserSettings.Default.exectuablePath;
+                    nexttracePath = UserSettings.executablePath;
                 }
                 else
                 {
-                    throw new IOException(UserSettings.Default.exectuablePath);
+                    throw new IOException(UserSettings.executablePath);
                 }
             }
             // 未能找到可执行文件
@@ -145,9 +144,9 @@ namespace NextTrace
                         CreateNoWindow = true
                     }
                 };
-                if (UserSettings.Default.IPInsightToken != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_IPINSIGHT_TOKEN", UserSettings.Default.IPInsightToken);
-                if (UserSettings.Default.IPInfoToken != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_IPINFO_TOKEN", UserSettings.Default.IPInfoToken);
-                if (UserSettings.Default.ChunZhenEndpoint != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_CHUNZHENURL", UserSettings.Default.ChunZhenEndpoint);
+                if (UserSettings.IPInsightToken != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_IPINSIGHT_TOKEN", UserSettings.IPInsightToken);
+                if (UserSettings.IPInfoToken != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_IPINFO_TOKEN", UserSettings.IPInfoToken);
+                if (UserSettings.ChunZhenEndpoint != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_CHUNZHENURL", UserSettings.ChunZhenEndpoint);
 
                 Regex match1stLine = new Regex(@"^\d{1,2}\|");
                 _process.OutputDataReceived += (sender, e) =>
@@ -210,9 +209,9 @@ namespace NextTrace
                             CreateNoWindow = true
                         }
                     };
-                    if (UserSettings.Default.IPInsightToken != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_IPINSIGHT_TOKEN", UserSettings.Default.IPInsightToken);
-                    if (UserSettings.Default.IPInfoToken != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_IPINFO_TOKEN", UserSettings.Default.IPInfoToken);
-                    if (UserSettings.Default.ChunZhenEndpoint != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_CHUNZHENURL", UserSettings.Default.ChunZhenEndpoint);
+                    if (UserSettings.IPInsightToken != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_IPINSIGHT_TOKEN", UserSettings.IPInsightToken);
+                    if (UserSettings.IPInfoToken != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_IPINFO_TOKEN", UserSettings.IPInfoToken);
+                    if (UserSettings.ChunZhenEndpoint != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_CHUNZHENURL", UserSettings.ChunZhenEndpoint);
 
                     Regex match1stLine = new Regex(@"^\d{1,2}\|");
                     _process.OutputDataReceived += (sender, e) =>
@@ -317,16 +316,18 @@ namespace NextTrace
             finalArgs.Add(host);
             finalArgs.Add("--raw");
             finalArgs.Add("--map");
-            string[] checkArgsFromConfList = { "queries", "port", "parallel_requests", "max_hops", "first", "send_time", "ttl_time", "source", "dev" };
-            foreach (string checkArgs in checkArgsFromConfList)
+            var checkArgsFromConfList = new List<string> { "queries", "port", "parallel_requests", "max_hops", "first", "send_time", "ttl_time", "source", "dev" };
+
+            UserSettings userSettings = new UserSettings();
+            foreach (var setting in userSettings.GetType().GetProperties())
             {
-                if ((string)UserSettings.Default[checkArgs] != "" && (ignoreUserArgs == null || !ignoreUserArgs.Contains(checkArgs)))
+                if(checkArgsFromConfList.Contains(setting.Name) && (ignoreUserArgs == null || !ignoreUserArgs.Contains(setting.Name)))
                 {
-                        finalArgs.Add("--" + checkArgs.Replace('_', '-') + " " + (string)UserSettings.Default[checkArgs]);
+                    if((string)setting.GetValue(userSettings, null) != "")
+                        finalArgs.Add("--" + setting.Name.Replace('_', '-') + " " + (string)setting.GetValue(userSettings, null));
                 }
             }
-
-            if ((bool)UserSettings.Default["no_rdns"] == true)
+            if (UserSettings.no_rdns)
                 finalArgs.Add("--no-rdns");
             finalArgs.Add(System.Globalization.CultureInfo.CurrentUICulture.Name.StartsWith("zh") ? "--language cn" : "--language en");
             finalArgs.Add(extraArgs);
