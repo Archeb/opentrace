@@ -147,6 +147,9 @@
   <data name="COMBINE_GEO_ORG" xml:space="preserve">
     <value>把地理位置和组织信息合为一栏</value>
   </data>
+  <data name="DISABLE_IPGEO" xml:space="preserve">
+    <value>禁用地理位置</value>
+  </data>
   <data name="DST_PORT_INIT_SEQ" xml:space="preserve">
     <value>目标端口 / 初始序号</value>
   </data>

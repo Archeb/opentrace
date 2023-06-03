@@ -151,6 +151,9 @@
   <data name="COMBINE_GEO_ORG" xml:space="preserve">
     <value>Combine Geography and Organization into a single column</value>
   </data>
+  <data name="DISABLE_IPGEO" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
   <data name="DST_PORT_INIT_SEQ" xml:space="preserve">
     <value>Destination port / Initial seq</value>
   </data>

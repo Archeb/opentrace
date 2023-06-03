@@ -178,6 +178,15 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Disabled 的本地化字符串。
+        /// </summary>
+        public static string DISABLE_IPGEO {
+            get {
+                return ResourceManager.GetString("DISABLE_IPGEO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Destination port / Initial seq 的本地化字符串。
         /// </summary>
         public static string DST_PORT_INIT_SEQ {
