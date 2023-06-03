@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace OpenTrace
 {
@@ -30,6 +31,20 @@ namespace OpenTrace
                 }
                 if (uniqueIPs.Count == 0) uniqueIPs.Add("*");
                 return String.Join(Environment.NewLine, uniqueIPs);
+            }
+        }
+        public string Time
+        {
+            get
+            {
+                if (UserSettings.timeRounding)
+                {
+                    return String.Join(" / ", HopData.Select(d => d.Time == "*" ? d.Time : Math.Round(Convert.ToDouble(d.Time)).ToString()));
+                }
+                else
+                {
+                    return String.Join(" / ", HopData.Select(d => d.Time));
+                }
             }
         }
         public string Geolocation
@@ -83,6 +98,19 @@ namespace OpenTrace
                         uniqueHostname.Add(hop.Hostname);
                 }
                 return String.Join(Environment.NewLine, uniqueHostname);
+            }
+        }
+        public string AS
+        {
+            get
+            {
+                List<String> uniqueAS = new List<string>();
+                foreach (TracerouteResult hop in HopData)
+                {
+                    if (!uniqueAS.Contains(hop.AS) && hop.AS != "" && hop.IP != "*")
+                        uniqueAS.Add(hop.AS);
+                }
+                return String.Join(Environment.NewLine, uniqueAS);
             }
         }
         public double StandardDeviation

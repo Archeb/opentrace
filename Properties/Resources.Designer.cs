@@ -715,6 +715,15 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Round hop latency to whole number 的本地化字符串。
+        /// </summary>
+        public static string TIME_ROUNDING {
+            get {
+                return ResourceManager.GetString("TIME_ROUNDING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Tracerouting 的本地化字符串。
         /// </summary>
         public static string TRACEROUTING {

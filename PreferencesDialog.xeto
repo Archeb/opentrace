@@ -48,6 +48,9 @@
 							<TableRow>
 								<CheckBox x:Name="combineGeoOrg" Text="{x:Static resource:Resources.COMBINE_GEO_ORG}"></CheckBox>
 							</TableRow>
+							<TableRow>
+								<CheckBox x:Name="timeRounding" Text="{x:Static resource:Resources.TIME_ROUNDING}"></CheckBox>
+							</TableRow>
 							<TableRow ScaleHeight="True"></TableRow>
 						</TableLayout>
 					</TabPage>
