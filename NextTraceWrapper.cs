@@ -197,7 +197,7 @@ namespace NextTrace
                     StartInfo = new ProcessStartInfo
                     {
                         FileName = nexttracePath,
-                        Arguments = ArgumentBuilder(host, extraArgs.Concat(new string[] { "--queries 1" }).ToArray(), new string[] { "queries" }),
+                        Arguments = ArgumentBuilder(host, extraArgs.Concat(new string[] { "--queries 1" }).ToArray() , new string[] {"queries"}),
                         UseShellExecute = false,
                         StandardOutputEncoding = Encoding.GetEncoding(65001),
                         RedirectStandardOutput = true,
