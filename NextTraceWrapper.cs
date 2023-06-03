@@ -338,8 +338,15 @@ namespace NextTrace
         public void Kill()
         {
             Quitting = true;
-            if (_process != null)
-                _process.Kill();
+            try
+            {
+                if (_process != null && !_process.HasExited)
+                    _process.Kill();
+            }
+            catch
+            {
+                // 无视，可能还没启动
+            }
         }
 
         // 验证IP有效性，返回处理后的IP（如把IPv6转为缩写形式等）IP无效则返回null。
