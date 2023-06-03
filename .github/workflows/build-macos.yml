@@ -5,14 +5,14 @@ name: build-macos
 
 on:
   push:
-    branches: [ "macos-test" ]
+    branches: [ "master" ]
 
 jobs:
   build:
   
     strategy:
       matrix:
-        runtime: [osx-x64,osx-arm64]
+        runtime: [osx-x64]
             
     runs-on: ubuntu-latest
 
