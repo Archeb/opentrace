@@ -359,14 +359,7 @@ namespace OpenTrace
                     }
                 });
             };
-            if ((bool)MTRMode.Checked)
-            {
-                instance.RunMTR(readyToUseIP, dataProviderSelection.SelectedKey, protocolSelection.SelectedKey);
-            }
-            else
-            {
-                instance.RunTraceroute(readyToUseIP, dataProviderSelection.SelectedKey, protocolSelection.SelectedKey);
-            }
+            instance.Run(readyToUseIP, (bool)MTRMode.Checked, dataProviderSelection.SelectedKey, protocolSelection.SelectedKey);
             
         }
         private void StopTraceroute()

@@ -32,14 +32,8 @@ namespace NextTrace
             ExitCode = exitCode;
         }
     }
-    enum Modes
-    {
-        MTR,
-        Traceroute
-    }
     internal class NextTraceWrapper
     {
-        public Modes RunningMode;
         private Process _process;
         public event EventHandler<AppQuitEventArgs> AppQuit;
         public event EventHandler<ExceptionalOutputEventArgs> ExceptionalOutput;
@@ -124,18 +118,25 @@ namespace NextTrace
             }
         }
 
-        public void RunTraceroute(string host, params string[] extraArgs)
+        public void Run(string host,bool MTRMode, params string[] extraArgs)
         {
-            RunningMode = Modes.Traceroute;
             Task.Run(() =>
             {
-
+                string arguments;
+                if (MTRMode)
+                {
+                    arguments = ArgumentBuilder(host, extraArgs.Concat(new string[] { "--queries 1" }).ToArray(), new string[] { "queries" });
+                }
+                else
+                {
+                    arguments = ArgumentBuilder(host, extraArgs);
+                }
                 _process = new Process
                 {
                     StartInfo = new ProcessStartInfo
                     {
                         FileName = nexttracePath,
-                        Arguments = ArgumentBuilder(host, extraArgs),
+                        Arguments = arguments,
                         UseShellExecute = false,
                         StandardOutputEncoding = Encoding.GetEncoding(65001),
                         RedirectStandardOutput = true,
@@ -146,7 +147,10 @@ namespace NextTrace
                 if (UserSettings.IPInsightToken != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_IPINSIGHT_TOKEN", UserSettings.IPInsightToken);
                 if (UserSettings.IPInfoToken != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_IPINFO_TOKEN", UserSettings.IPInfoToken);
                 if (UserSettings.ChunZhenEndpoint != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_CHUNZHENURL", UserSettings.ChunZhenEndpoint);
-
+                
+                if (MTRMode) // 添加环境变量让NextTrace进入持续追踪模式
+                    _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_UNINTERRUPTED", "1");
+                
                 Regex match1stLine = new Regex(@"^\d{1,2}\|");
                 _process.OutputDataReceived += (sender, e) =>
                 {
@@ -185,70 +189,6 @@ namespace NextTrace
                 _process.BeginErrorReadLine();
                 _process.WaitForExit();
                 AppQuit?.Invoke(this, new AppQuitEventArgs(_process.ExitCode));
-            });
-        }
-        public void RunMTR(string host, params string[] extraArgs)
-        {
-            RunningMode = Modes.MTR;
-            Task.Run(() =>
-            {
-                _process = new Process
-                {
-                    StartInfo = new ProcessStartInfo
-                    {
-                        FileName = nexttracePath,
-                        Arguments = ArgumentBuilder(host, extraArgs.Concat(new string[] { "--queries 1" }).ToArray() , new string[] {"queries"}),
-                        UseShellExecute = false,
-                        StandardOutputEncoding = Encoding.GetEncoding(65001),
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true,
-                        CreateNoWindow = true
-                    }
-                };
-                if (UserSettings.IPInsightToken != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_IPINSIGHT_TOKEN", UserSettings.IPInsightToken);
-                if (UserSettings.IPInfoToken != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_IPINFO_TOKEN", UserSettings.IPInfoToken);
-                if (UserSettings.ChunZhenEndpoint != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_CHUNZHENURL", UserSettings.ChunZhenEndpoint);
-                // 添加环境变量让NextTrace进入持续追踪模式
-                _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_UNINTERRUPTED", "1");
-
-                Regex match1stLine = new Regex(@"^\d{1,2}\|");
-                _process.OutputDataReceived += (sender, e) =>
-                {
-                    if (e.Data != null)
-                    {
-                        // 去除输出中的控制字符
-                        Regex formatCleanup = new Regex(@"(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]");
-                        string line = formatCleanup.Replace(e.Data, "");
-
-                            Match match1 = match1stLine.Match(line);
-                            if (match1.Success)
-                            {
-                                Output.Add(ProcessLine(line));
-                            }
-                            else
-                            {
-                                if (line.StartsWith("NextTrace ")) return;
-                                if (line.StartsWith("traceroute to ")) return;
-                                if (line.StartsWith("IP Geo Data Provider")) return;
-                                if (line.StartsWith("[NextTrace API]")) return;
-                                Debug.Print(line);
-                                ExceptionalOutput?.Invoke(this, new ExceptionalOutputEventArgs(false, line));
-                            }
-                        }
-                    };
-                    _process.ErrorDataReceived += (sender, e) =>
-                    {
-                        if (e.Data != null)
-                        {
-                            Debug.Print(e.Data);
-                            ExceptionalOutput?.Invoke(this, new ExceptionalOutputEventArgs(true, e.Data));
-                        }
-                    };
-                    _process.Start();
-                    _process.BeginOutputReadLine();
-                    _process.BeginErrorReadLine();
-                    _process.WaitForExit();
-                    AppQuit?.Invoke(this, new AppQuitEventArgs(_process.ExitCode));
             });
         }
         private TracerouteResult ProcessLine(string line)
