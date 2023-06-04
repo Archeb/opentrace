@@ -26,14 +26,11 @@ More is coming...
 
 ### Usage
 
-- (Windows Only) Download and install [.NET 6.0 Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/6.0).
-
 - Download OpenTrace from [releases](https://github.com/Archeb/opentrace/releases) or build your own binary.
 
 - Follow the instruction to install [NextTrace](https://github.com/sjlleo/nexttrace): Download the latest release from [here](https://github.com/sjlleo/nexttrace/releases), and place it in either the same directory as the OpenTrace executable or a directory included in your system's PATH environment variable.
 
 - Run OpenTrace(.exe)
-
 
 ### Images
 

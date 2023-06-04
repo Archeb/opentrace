@@ -15,7 +15,7 @@ jobs:
         runtime: [win-x64]
         include:
           - runtime: win-x64
-            artifact_path: .\bin\Wpf\Release\net6.0-windows\win-x64
+            artifact_path: .\bin\Wpf\Release\net48\win-x64
             self_contained: "--no-self-contained"
 
     runs-on: windows-latest
@@ -30,7 +30,7 @@ jobs:
         
     - name: Build for ${{ matrix.runtime }}
       run: |
-        dotnet build OpenTrace.csproj --runtime ${{ matrix.runtime }} --configuration Release ${{ matrix.self_contained }}
+        dotnet build OpenTrace.csproj --runtime ${{ matrix.runtime }} --configuration Release ${{ matrix.self_contained }} -f net48
         
     - name: Upload artifact for ${{ matrix.runtime }}
       uses: actions/upload-artifact@v3

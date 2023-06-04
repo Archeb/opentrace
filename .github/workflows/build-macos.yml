@@ -26,7 +26,7 @@ jobs:
         
     - name: Build for ${{ matrix.runtime }}
       run: |
-        dotnet build OpenTrace.csproj --runtime ${{ matrix.runtime }} --configuration Release --self-contained
+        dotnet build OpenTrace.csproj --runtime ${{ matrix.runtime }} --configuration Release --self-contained -f net6.0
 
     - name: Make tarball
       run: cd ./bin/Mac64/Release/net6.0/${{ matrix.runtime }} && tar -cvzf OpenTrace_${{ matrix.runtime }}.app.tar.gz OpenTrace.app

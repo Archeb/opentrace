@@ -202,7 +202,7 @@ namespace NextTrace
             string Organization = "";
             string Latitude = "";
             string Longitude = "";
-            string[] LineData = line.Split("|");
+            string[] LineData = line.Split('|');
             if (LineData.Length > 7)
             {
                 No = LineData[0];

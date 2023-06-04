@@ -30,7 +30,7 @@ jobs:
         
     - name: Build for ${{ matrix.runtime }}
       run: |
-        dotnet build OpenTrace.csproj --runtime ${{ matrix.runtime }} --configuration Release ${{ matrix.self_contained }}
+        dotnet build OpenTrace.csproj --runtime ${{ matrix.runtime }} --configuration Release ${{ matrix.self_contained }} -f net6.0
         
     - name: Upload artifact for ${{ matrix.runtime }}
       uses: actions/upload-artifact@v3

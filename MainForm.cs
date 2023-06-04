@@ -3,13 +3,11 @@ using Eto.Forms;
 using System.Collections.ObjectModel;
 using System;
 using System.Diagnostics;
-using System.Text.Json;
 using System.IO;
 using Resources = OpenTrace.Properties.Resources;
-using OpenTrace.Properties;
-using System.Linq;
 using NextTrace;
 using System.Net;
+using Newtonsoft.Json;
 
 namespace OpenTrace
 {
@@ -306,28 +304,28 @@ namespace OpenTrace
             ExceptionalOutputForm exceptionalOutputForm = new ExceptionalOutputForm();
 
             // 处理NextTrace实例发回的结果
-            instance.Output.CollectionChanged += (sender, e) =>
+            instance.Output.CollectionChanged += (sender1, e1) =>
             {
-                if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+                if (e1.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
                 {
                     Application.Instance.InvokeAsync(() =>
                     {
-                        int HopNo = int.Parse(((TracerouteResult)e.NewItems[0]).No);
+                        int HopNo = int.Parse(((TracerouteResult)e1.NewItems[0]).No);
                         if (HopNo > tracerouteResultCollection.Count)
                         {
                             // 正常添加新的跳
-                            tracerouteResultCollection.Add(new TracerouteHop((TracerouteResult)e.NewItems[0]));
-                            UpdateMap((TracerouteResult)e.NewItems[0]);
+                            tracerouteResultCollection.Add(new TracerouteHop((TracerouteResult)e1.NewItems[0]));
+                            UpdateMap((TracerouteResult)e1.NewItems[0]);
                             tracerouteGridView.ScrollToRow(tracerouteResultCollection.Count - 1);
                         } else {
                             // 修改现有的跳
-                            tracerouteResultCollection[HopNo - 1].HopData.Add((TracerouteResult)e.NewItems[0]);
+                            tracerouteResultCollection[HopNo - 1].HopData.Add((TracerouteResult)e1.NewItems[0]);
                             tracerouteGridView.ReloadData(HopNo - 1);
                         }
                     });
                 }
             };
-            instance.ExceptionalOutput += (object sender, ExceptionalOutputEventArgs e) =>
+            instance.ExceptionalOutput += (object sender2, ExceptionalOutputEventArgs e2) =>
             {
                 Application.Instance.InvokeAsync(() =>
                 {
@@ -336,10 +334,10 @@ namespace OpenTrace
                     {
                         exceptionalOutputForm.Visible = true;
                     }
-                    exceptionalOutputForm.AppendOutput(e.Output);
+                    exceptionalOutputForm.AppendOutput(e2.Output);
                 });
             };
-            instance.AppQuit += (object sender, AppQuitEventArgs e) =>
+            instance.AppQuit += (object sender3, AppQuitEventArgs e3) =>
             {
                 Application.Instance.InvokeAsync(() =>
                 {
@@ -348,9 +346,9 @@ namespace OpenTrace
                         // 主动结束
                         startTracerouteButton.Text = Resources.START;
                         CurrentInstance = null;
-                        if (e.ExitCode != 0)
+                        if (e3.ExitCode != 0)
                         {
-                            MessageBox.Show(Resources.EXCEPTIONAL_EXIT_MSG + e.ExitCode, MessageBoxType.Warning);
+                            MessageBox.Show(Resources.EXCEPTIONAL_EXIT_MSG + e3.ExitCode, MessageBoxType.Warning);
                         }
                     }
                     else
@@ -423,7 +421,7 @@ namespace OpenTrace
         private void UpdateMap(TracerouteResult result)
         {
             // 把 Result 转换为 JSON
-            string resultJson = JsonSerializer.Serialize(result);
+            string resultJson = JsonConvert.SerializeObject(result);
             // 通过 ExecuteScriptAsync 把结果传进去
             mapWebView.ExecuteScriptAsync(@"window.opentrace.addHop(`" + resultJson + "`);");
         }
