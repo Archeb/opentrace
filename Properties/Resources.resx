@@ -196,8 +196,14 @@
   <data name="GEOLOCATION" xml:space="preserve">
     <value>Geolocation</value>
   </data>
+  <data name="googleMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\javascript\googleMap.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="HELP" xml:space="preserve">
     <value>Help</value>
+  </data>
+  <data name="HIDE_MAP_POPUP" xml:space="preserve">
+    <value>Hide the map's info windows</value>
   </data>
   <data name="HISTORY" xml:space="preserve">
     <value>History</value>

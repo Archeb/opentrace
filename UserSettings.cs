@@ -66,5 +66,8 @@ namespace OpenTrace
 
         [Setting(Name = "timeRounding", Default = false)]
         public static bool timeRounding { get; set; }
+
+        [Setting(Name = "hideMapPopup", Default = false)]
+        public static bool hideMapPopup { get; set; }
     }
 }

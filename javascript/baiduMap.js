@@ -1,9 +1,10 @@
 window.opentrace = {
 	Hops: [],
-	reset: function () {
+	reset: function (hideMapPopup = false) {
 		map.enableScrollWheelZoom(true); //滚轮
 		map.clearOverlays(); //清除覆盖物
 		this.Hops = [];
+		this.hideMapPopup = hideMapPopup;
 		if (document.getElementById("opentracePopup")) document.getElementById("opentracePopup").remove();
 	},
 
@@ -39,14 +40,17 @@ window.opentrace = {
 		var hop = this.Hops[hopNo];
 		if (hop == null) return;
 		this.showPopup(hopNo);
+		if (hop.Longitude == 0 || hop.Latitude == 0 || hop.Longitude == "" || hop.Latitude == "") return;
 		var point = new BMapGL.Point(hop.Longitude, hop.Latitude);
 		map.centerAndZoom(point, 8);
+
 	},
 
 	showPopup: function (hopNo) {
 		var hop = this.Hops[hopNo];
 		if (hop == null) return;
 		if (document.getElementById("opentracePopup")) document.getElementById("opentracePopup").remove();
+		if (this.hideMapPopup == true) return;
 		// 创建左上角的悬浮提示
 		var popupElement = document.createElement("div");
 		popupElement.id = "opentracePopup";
@@ -84,5 +88,3 @@ window.opentrace = {
 		document.body.appendChild(popupElement);
 	},
 };
-
-window.opentrace.reset();

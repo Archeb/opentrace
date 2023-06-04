@@ -37,8 +37,8 @@
 										<Label Text="{x:Static resource:Resources.MAP_PROVIDER}"></Label>
 										<DropDown x:Name="mapProvider" SelectedIndex="0">
 											<ListItem Text="{x:Static resource:Resources.MAP_PROVIDER_BAIDU}" Key="baidu"></ListItem>
-											<!--
 											<ListItem Text="{x:Static resource:Resources.MAP_PROVIDER_GOOGLE}" Key="google"></ListItem>
+											<!--
 											<ListItem Text="{x:Static resource:Resources.MAP_PROVIDER_OSM}" Key="openstreetmap"></ListItem>
 											-->
 										</DropDown>
@@ -50,6 +50,9 @@
 							</TableRow>
 							<TableRow>
 								<CheckBox x:Name="timeRounding" Text="{x:Static resource:Resources.TIME_ROUNDING}"></CheckBox>
+							</TableRow>
+							<TableRow>
+								<CheckBox x:Name="hideMapPopup" Text="{x:Static resource:Resources.HIDE_MAP_POPUP}"></CheckBox>
 							</TableRow>
 							<TableRow ScaleHeight="True"></TableRow>
 						</TableLayout>

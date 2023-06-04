@@ -313,11 +313,45 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 window.opentrace = {
+        ///	Hops: [],
+        ///	reset: function () {
+        ///		if (typeof gmap == &quot;undefined&quot;) window.gmap = new google.maps.Map(document.getElementById(&quot;map&quot;), { center: { lat: 0, lng: 0 }, zoom: 2 });
+        ///		this.Hops = [];
+        ///		if (document.getElementById(&quot;opentracePopup&quot;)) document.getElementById(&quot;opentracePopup&quot;).remove();
+        ///	},
+        ///
+        ///	addHop: function (hop) {
+        ///
+        ///		// Parse the JSON string into an object
+        ///		const hopData = JSON.parse(hop);
+        ///
+        ///		console.log(hopData);
+        ///
+        ///		// Clear any existing overlays
+        ///		gmap.overla [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        public static string googleMap {
+            get {
+                return ResourceManager.GetString("googleMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Help 的本地化字符串。
         /// </summary>
         public static string HELP {
             get {
                 return ResourceManager.GetString("HELP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Hide the map&apos;s info windows 的本地化字符串。
+        /// </summary>
+        public static string HIDE_MAP_POPUP {
+            get {
+                return ResourceManager.GetString("HIDE_MAP_POPUP", resourceCulture);
             }
         }
         

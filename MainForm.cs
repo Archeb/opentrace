@@ -106,10 +106,18 @@ namespace OpenTrace
             tracerouteGridView = new GridView { DataStore = tracerouteResultCollection };
             AddGridColumnsTraceroute();
 
-            mapWebView = new WebView
+            mapWebView = new WebView();
+            switch (UserSettings.mapProvider)
             {
-                Url = new Uri("https://lbs.baidu.com/jsdemo/demo/webgl0_0.htm"),
-                
+                case "baidu":
+                    mapWebView.Url = new Uri("https://lbs.baidu.com/jsdemo/demo/webgl0_0.htm");
+                    break;
+                case "google":
+                    mapWebView.Url = new Uri("https://geo-devrel-javascript-samples.web.app/samples/map-simple/app/dist/");
+                    break;
+            }
+            mapWebView.DocumentLoaded += (sender6, e6) => {
+                ResetMap();
             };
 
             // 绑定控件事件
@@ -454,7 +462,16 @@ namespace OpenTrace
         private void ResetMap()
         {
             // 重置或者初始化地图
-            mapWebView.ExecuteScriptAsync(OpenTrace.Properties.Resources.baiduMap);
+            switch (mapWebView.Url.Host)
+            {
+                case "geo-devrel-javascript-samples.web.app":
+                    mapWebView.ExecuteScriptAsync(OpenTrace.Properties.Resources.googleMap);
+                    break;
+                case "lbs.baidu.com":
+                    mapWebView.ExecuteScriptAsync(OpenTrace.Properties.Resources.baiduMap);
+                    break;
+            }
+            mapWebView.ExecuteScriptAsync("window.opentrace.reset(" + UserSettings.hideMapPopup.ToString().ToLower() + ")");
         }
         private void AddGridColumnsTraceroute()
         {

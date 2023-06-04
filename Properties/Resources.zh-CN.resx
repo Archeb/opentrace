@@ -195,6 +195,9 @@
   <data name="HELP" xml:space="preserve">
     <value>帮助</value>
   </data>
+  <data name="HIDE_MAP_POPUP" xml:space="preserve">
+    <value>隐藏地图上的信息窗口</value>
+  </data>
   <data name="HISTORY" xml:space="preserve">
     <value>历史记录</value>
   </data>
