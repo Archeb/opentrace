@@ -8,6 +8,7 @@ using Resources = OpenTrace.Properties.Resources;
 using NextTrace;
 using System.Net;
 using Newtonsoft.Json;
+using System.Runtime.InteropServices;
 
 namespace OpenTrace
 {
@@ -107,7 +108,8 @@ namespace OpenTrace
 
             mapWebView = new WebView
             {
-                Url = new Uri("https://lbs.baidu.com/jsdemo/demo/webgl0_0.htm")
+                Url = new Uri("https://lbs.baidu.com/jsdemo/demo/webgl0_0.htm"),
+                
             };
 
             // 绑定控件事件
@@ -118,7 +120,7 @@ namespace OpenTrace
             tracerouteGridView.MouseUp += Dragging_MouseUp;
             tracerouteGridView.SelectedRowsChanged += TracerouteGridView_SelectedRowsChanged;
             startTracerouteButton.Click += StartTracerouteButton_Click;
-            HostInputBox.KeyUp += HostInputBox_KeyUp;
+            HostInputBox.KeyDown += HostInputBox_KeyDown;
             HostInputBox.TextChanged += HostInputBox_TextChanged;
             MTRMode.CheckedChanged += MTRMode_CheckedChanged;
 
@@ -184,9 +186,9 @@ namespace OpenTrace
             }
         }
 
-        private void HostInputBox_KeyUp(object sender, KeyEventArgs e)
+        private void HostInputBox_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.Key == Keys.Enter)
+            if (e.Key == Keys.Enter)
             {
                 if (CurrentInstance != null)  StopTraceroute();
                 StartTracerouteButton_Click(sender, e);
@@ -200,6 +202,11 @@ namespace OpenTrace
 
         private void StartTracerouteButton_Click(object sender, EventArgs e)
         {
+            if(protocolSelection.SelectedValue.ToString() != "ICMP" && RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                MessageBox.Show(Resources.WINDOWS_TCP_UDP_UNSUPPORTED);
+                return;
+            }
             if (CurrentInstance != null)
             {
                 StopTraceroute();
@@ -265,6 +272,7 @@ namespace OpenTrace
                             HostInputBox.Text = uri.Host;
                         }
                         // 需要域名解析
+                        Title = Resources.APPTITLE + ": " + HostInputBox.Text;
                         IPAddress[] resolvedAddresses = Dns.GetHostAddresses(HostInputBox.Text);
                         if (resolvedAddresses.Length > 1)
                         {
@@ -287,11 +295,13 @@ namespace OpenTrace
                     catch (System.Net.Sockets.SocketException)
                     {
                         MessageBox.Show(string.Format(Resources.NAME_NOT_RESOLVED, HostInputBox.Text), MessageBoxType.Warning);
+                        Title = Resources.APPTITLE;
                         return;
                     }
                     catch (Exception exception)
                     {
                         MessageBox.Show(exception.Message, MessageBoxType.Error);
+                        Title = Resources.APPTITLE;
                         return;
                     }
                 }
@@ -300,6 +310,7 @@ namespace OpenTrace
             HostInputBox.Items.Insert(0, new ListItem { Text = HostInputBox.Text });
             CurrentInstance = instance;
             startTracerouteButton.Text = Resources.STOP;
+            int errorOutputCount = 0;
 
             ExceptionalOutputForm exceptionalOutputForm = new ExceptionalOutputForm();
 
@@ -334,6 +345,14 @@ namespace OpenTrace
                     {
                         exceptionalOutputForm.Visible = true;
                     }
+                    if(errorOutputCount < 100)
+                    {
+                        errorOutputCount++;
+                    }
+                    else
+                    {
+                        StopTraceroute(); // 错误输出过多，强制结束
+                    }
                     exceptionalOutputForm.AppendOutput(e2.Output);
                 });
             };
@@ -363,10 +382,13 @@ namespace OpenTrace
         }
         private void StopTraceroute()
         {
-            appForceExiting = true;
-            CurrentInstance.Kill();
-            startTracerouteButton.Text = Resources.START;
-            CurrentInstance = null;
+            if(CurrentInstance != null)
+            {
+                appForceExiting = true;
+                CurrentInstance.Kill();
+                startTracerouteButton.Text = Resources.START;
+                CurrentInstance = null;
+            }
         }
 
         /*

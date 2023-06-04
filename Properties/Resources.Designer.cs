@@ -733,6 +733,15 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 TCP/UDP Traceroute is not yet supported on Windows. 的本地化字符串。
+        /// </summary>
+        public static string WINDOWS_TCP_UDP_UNSUPPORTED {
+            get {
+                return ResourceManager.GetString("WINDOWS_TCP_UDP_UNSUPPORTED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Worst 的本地化字符串。
         /// </summary>
         public static string WORST {

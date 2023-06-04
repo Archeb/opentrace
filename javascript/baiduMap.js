@@ -29,7 +29,7 @@ window.opentrace = {
 			} catch (e) {}
 		}
 		if (pointlygon_array.length < 2) return;
-		var polygon = new BMapGL.Polyline(pointlygon_array, { strokeColor: "red", strokeWeight: 2, geodesic: true, strokeOpacity: 0.5 }); //创建折线
+		var polygon = new BMapGL.Polyline(pointlygon_array, { strokeColor: "red", strokeWeight: 2, strokeOpacity: 0.5 }); //创建折线
 		//Polyline（坐标值，{线段颜色，线段宽度，线段透明度}）；
 		map.addOverlay(polygon); //添加覆盖物
 		map.setViewport(pointlygon_array); //设置地图的中心点和缩放级别

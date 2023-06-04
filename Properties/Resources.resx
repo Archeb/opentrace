@@ -342,6 +342,9 @@ Would you like to download the NextTrace utility now?</value>
   <data name="TRACEROUTING" xml:space="preserve">
     <value>Tracerouting</value>
   </data>
+  <data name="WINDOWS_TCP_UDP_UNSUPPORTED" xml:space="preserve">
+    <value>TCP/UDP Traceroute is not yet supported on Windows.</value>
+  </data>
   <data name="WORST" xml:space="preserve">
     <value>Worst</value>
   </data>
