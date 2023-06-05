@@ -1,0 +1,23 @@
+---
+name: Bug report 错误报告
+about: Create a report to help us improve
+title: "[BUG] "
+labels: bug
+assignees: ''
+
+---
+
+**Describe the bug 描述你遇到的BUG**
+
+
+**To Reproduce 复现方法**
+
+
+**Screenshots (If applicable) 截图（如果有）**
+
+
+**Environment 使用环境**
+ - OS 操作系统：
+ - Version 程序版本：
+
+**Additional context 补充说明**
