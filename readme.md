@@ -34,7 +34,7 @@ More is coming...
 
 ### Images
 
-![Windows](https://i.imgur.com/kbQTStm.png)
+![Windows](https://github.com/Archeb/opentrace/assets/11910831/510b61a2-712e-4d83-ae94-f396862e68df)
 ![MTR on Linux](https://i.imgur.com/MxSHIcU.png)
 ![macOS](https://i.imgur.com/brB08tl.png)
 ![Preferences on macOS](https://i.imgur.com/X0L6c6S.png)
