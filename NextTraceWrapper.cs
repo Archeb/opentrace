@@ -156,6 +156,7 @@ namespace NextTrace
                 {
                     if (e.Data != null)
                     {
+                        Debug.Print(e.Data);
                         // 去除输出中的控制字符
                         Regex formatCleanup = new Regex(@"(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]");
                         string line = formatCleanup.Replace(e.Data, "");
@@ -171,7 +172,6 @@ namespace NextTrace
                             if (line.StartsWith("traceroute to ")) return;
                             if (line.StartsWith("IP Geo Data Provider")) return;
                             if (line.StartsWith("[NextTrace API]")) return;
-                            Debug.Print(line);
                             ExceptionalOutput?.Invoke(this, new ExceptionalOutputEventArgs(false, line));
                         }
                     }

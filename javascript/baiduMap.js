@@ -62,7 +62,15 @@ window.opentrace = {
 			font-weight:bold;
 			padding-right:5px;
 		}
+		.close-button{
+			position: absolute;
+			right: 5px;
+			top: 0;
+			cursor: pointer;
+			user-select: none;
+		}
 		</style>
+		<div class="close-button">×</div>
 		<table>
 			<tr>
 				<td style="white-space: nowrap;">IP #${hop.No}</td>
@@ -85,6 +93,7 @@ window.opentrace = {
 				<td>${hop.AS}</td>
 			</tr>
 		</table>`;
+		popupElement.querySelector(".close-button").addEventListener("click", () => document.getElementById("opentracePopup").remove());
 		document.body.appendChild(popupElement);
 	},
 };
