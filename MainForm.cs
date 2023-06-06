@@ -40,8 +40,6 @@ namespace OpenTrace
                 Process.Start(Process.GetCurrentProcess().MainModule.FileName);
             };
 
-            // var exportCommand = new Command { MenuText = Resources.EXPORT};
-
             var quitCommand = new Command { MenuText = Resources.QUIT, Shortcut = Application.Instance.CommonModifier | Keys.Q };
             quitCommand.Executed += (sender, e) => Application.Instance.Quit();
 
@@ -58,10 +56,6 @@ namespace OpenTrace
                 {
                     new SubMenuItem { Text = Resources.FILE, Items = {
                             newWindowCommand,
-                            /* new SubMenuItem { Text = Resources.EXPORT_TO , Items = {
-                                    new Command { MenuText = "HTML" },
-                                    new Command { MenuText = "Plain text (CSV)" }
-                            } }, */
                             preferenceCommand,
                             quitCommand
                         } },
@@ -73,9 +67,17 @@ namespace OpenTrace
 
             // 创建控件
             HostInputBox = new ComboBox { Text = "" };
+            HostInputBox.KeyDown += HostInputBox_KeyDown;
+            HostInputBox.TextChanged += HostInputBox_TextChanged;
+
             MTRMode = new CheckBox { Text = Resources.MTR_MODE };
+            MTRMode.CheckedChanged += MTRMode_CheckedChanged;
+
             ResolvedIPSelection = new DropDown { Visible = false };
+
             startTracerouteButton = new Button { Text = Resources.START };
+            startTracerouteButton.Click += StartTracerouteButton_Click;
+
             protocolSelection = new DropDown
             {
                 Items = {
@@ -104,6 +106,8 @@ namespace OpenTrace
             };
 
             tracerouteGridView = new GridView { DataStore = tracerouteResultCollection };
+            tracerouteGridView.MouseUp += Dragging_MouseUp;
+            tracerouteGridView.SelectedRowsChanged += TracerouteGridView_SelectedRowsChanged;
             AddGridColumnsTraceroute();
 
             mapWebView = new WebView();
@@ -120,17 +124,11 @@ namespace OpenTrace
                 ResetMap();
             };
 
-            // 绑定控件事件
+            // 绑定窗口事件
             SizeChanged += MainForm_SizeChanged;
             MouseDown += Dragging_MouseDown;
             MouseUp += Dragging_MouseUp;
             MouseMove += MainForm_MouseMove;
-            tracerouteGridView.MouseUp += Dragging_MouseUp;
-            tracerouteGridView.SelectedRowsChanged += TracerouteGridView_SelectedRowsChanged;
-            startTracerouteButton.Click += StartTracerouteButton_Click;
-            HostInputBox.KeyDown += HostInputBox_KeyDown;
-            HostInputBox.TextChanged += HostInputBox_TextChanged;
-            MTRMode.CheckedChanged += MTRMode_CheckedChanged;
 
             // 使用 Table 布局创建页面
             var layout = new TableLayout
@@ -169,7 +167,8 @@ namespace OpenTrace
                 }
             };
             Content = layout;
-            HostInputBox.Focus();
+
+            HostInputBox.Focus(); // 自动聚焦输入框
         }
 
         private void HostInputBox_TextChanged(object sender, EventArgs e)

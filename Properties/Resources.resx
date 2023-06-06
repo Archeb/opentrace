@@ -272,7 +272,7 @@ Would you like to download the NextTrace utility now?</value>
     <value>Create a new OpenTrace window.</value>
   </data>
   <data name="NO_RDNS" xml:space="preserve">
-    <value>No Reverse DNS Lookup</value>
+    <value>Disable Reverse DNS Lookup</value>
   </data>
   <data name="ORGANIZATION" xml:space="preserve">
     <value>Organization</value>
