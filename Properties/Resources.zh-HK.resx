@@ -129,14 +129,26 @@
   <data name="AUTO_DETECT" xml:space="preserve">
     <value>(留空自動檢測)</value>
   </data>
+  <data name="AVRG" xml:space="preserve">
+    <value>平均延遲</value>
+  </data>
+  <data name="BEST" xml:space="preserve">
+    <value>最佳延遲</value>
+  </data>
   <data name="CANCEL" xml:space="preserve">
     <value>取消</value>
   </data>
   <data name="CHUNZHEN_ENDPOINT" xml:space="preserve">
     <value>純真 API 端點</value>
   </data>
+  <data name="CLOSE" xml:space="preserve">
+    <value>關閉</value>
+  </data>
   <data name="COMBINE_GEO_ORG" xml:space="preserve">
     <value>把地理位置和組織信息合為一欄</value>
+  </data>
+  <data name="DISABLE_IPGEO" xml:space="preserve">
+    <value>禁用地理位置</value>
   </data>
   <data name="DST_PORT_INIT_SEQ" xml:space="preserve">
     <value>目標端口 / 初始序號</value>
@@ -148,7 +160,16 @@
     <value>保存設置時出錯</value>
   </data>
   <data name="EXCEPTIONAL_EXIT_MSG" xml:space="preserve">
-    <value>NextTrace 進程異常退出，請參考錯誤消息以了解更多信息並及時向我們報告此問題。 退出代碼：</value>
+    <value>NextTrace 進程異常退出，請參考錯誤消息以瞭解更多信息並及時向我們報告此問題。 退出代碼：</value>
+  </data>
+  <data name="EXC_OUTPUT_FORM_PROMPT" xml:space="preserve">
+    <value>NextTrace 產生了一個或多個異常輸出，請檢查下面的輸出信息以排查問題。同時，我們希望您能向我們報告這個問題來幫助我們改進 OpenTrace。</value>
+  </data>
+  <data name="EXC_OUTPUT_FORM_REPORT" xml:space="preserve">
+    <value>報告問題</value>
+  </data>
+  <data name="EXC_OUTPUT_FORM_TITLE" xml:space="preserve">
+    <value>異常輸出</value>
   </data>
   <data name="EXE_PATH" xml:space="preserve">
     <value>可執行文件目錄</value>
@@ -174,6 +195,12 @@
   <data name="HELP" xml:space="preserve">
     <value>幫助</value>
   </data>
+  <data name="HIDE_MAP_POPUP" xml:space="preserve">
+    <value>隱藏地圖上的信息窗口</value>
+  </data>
+  <data name="HISTORY" xml:space="preserve">
+    <value>歷史記錄</value>
+  </data>
   <data name="HOSTNAME" xml:space="preserve">
     <value>主機名</value>
   </data>
@@ -183,11 +210,20 @@
   <data name="LANGUAGE" xml:space="preserve">
     <value>語言</value>
   </data>
+  <data name="LAST" xml:space="preserve">
+    <value>當前延遲</value>
+  </data>
+  <data name="LEOMOEAPI_HOSTPORT" xml:space="preserve">
+    <value>LeoMoeAPI 反代地址</value>
+  </data>
   <data name="LINKLOCAL_ADDR" xml:space="preserve">
     <value>鏈路本地地址</value>
   </data>
   <data name="LOOPBACK_ADDR" xml:space="preserve">
     <value>本地迴環地址</value>
+  </data>
+  <data name="LOSS" xml:space="preserve">
+    <value>丟包率%</value>
   </data>
   <data name="MAP_PROVIDER" xml:space="preserve">
     <value>地圖數據源</value>
@@ -216,6 +252,15 @@
 
 是否現在下載 NextTrace？</value>
   </data>
+  <data name="MISSING_SPECIFIED_COMP" xml:space="preserve">
+    <value>未能在指定的位置 "{0}" 中找到 NextTrace。</value>
+  </data>
+  <data name="MTR_MODE" xml:space="preserve">
+    <value>MTR 模式</value>
+  </data>
+  <data name="NAME_NOT_RESOLVED" xml:space="preserve">
+    <value>找不到主機 {0}。請檢查該名稱，然後重試。</value>
+  </data>
   <data name="NEW" xml:space="preserve">
     <value>新建</value>
   </data>
@@ -223,7 +268,7 @@
     <value>打開一個新的 OpenTrace 窗口</value>
   </data>
   <data name="NO_RDNS" xml:space="preserve">
-    <value>禁用反向DNS查詢</value>
+    <value>禁用反向 DNS 查詢</value>
   </data>
   <data name="ORGANIZATION" xml:space="preserve">
     <value>組織</value>
@@ -252,11 +297,23 @@
   <data name="QUIT" xml:space="preserve">
     <value>退出</value>
   </data>
+  <data name="RECV" xml:space="preserve">
+    <value>接收數</value>
+  </data>
   <data name="RESTART_TO_APPLY" xml:space="preserve">
     <value>部分設置需重啓應用才能生效</value>
   </data>
   <data name="SAVE" xml:space="preserve">
     <value>保存</value>
+  </data>
+  <data name="SELECT_IP_DROPDOWN" xml:space="preserve">
+    <value>選擇一個 IP</value>
+  </data>
+  <data name="SELECT_IP_MSGBOX" xml:space="preserve">
+    <value>請從下拉菜單中選擇一個 IP</value>
+  </data>
+  <data name="SENT" xml:space="preserve">
+    <value>已發送</value>
   </data>
   <data name="SHARED_ADDR" xml:space="preserve">
     <value>共享地址</value>
@@ -270,13 +327,25 @@
   <data name="START" xml:space="preserve">
     <value>開始</value>
   </data>
+  <data name="STDEV" xml:space="preserve">
+    <value>標準差</value>
+  </data>
   <data name="STOP" xml:space="preserve">
     <value>停止</value>
   </data>
   <data name="TIME_MS" xml:space="preserve">
     <value>時間(ms)</value>
   </data>
+  <data name="TIME_ROUNDING" xml:space="preserve">
+    <value>保留延遲顯示到整數位</value>
+  </data>
   <data name="TRACEROUTING" xml:space="preserve">
     <value>路由追蹤</value>
+  </data>
+  <data name="WINDOWS_TCP_UDP_UNSUPPORTED" xml:space="preserve">
+    <value>Windows 暫不支持 TCP/UDP Traceroute</value>
+  </data>
+  <data name="WORST" xml:space="preserve">
+    <value>最差延遲</value>
   </data>
 </root>
