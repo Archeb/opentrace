@@ -147,7 +147,8 @@ namespace NextTrace
                 if (UserSettings.IPInsightToken != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_IPINSIGHT_TOKEN", UserSettings.IPInsightToken);
                 if (UserSettings.IPInfoToken != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_IPINFO_TOKEN", UserSettings.IPInfoToken);
                 if (UserSettings.ChunZhenEndpoint != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_CHUNZHENURL", UserSettings.ChunZhenEndpoint);
-                
+                if (UserSettings.LeoMoeAPI_HOSTPORT != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_HOSTPORT", UserSettings.LeoMoeAPI_HOSTPORT);
+
                 if (MTRMode) // 添加环境变量让NextTrace进入持续追踪模式
                     _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_UNINTERRUPTED", "1");
                 

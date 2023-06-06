@@ -220,6 +220,9 @@
   <data name="LAST" xml:space="preserve">
     <value>Last</value>
   </data>
+  <data name="LEOMOEAPI_HOSTPORT" xml:space="preserve">
+    <value>LeoMoeAPI Reverse Proxy</value>
+  </data>
   <data name="LINKLOCAL_ADDR" xml:space="preserve">
     <value>Link-local Address</value>
   </data>

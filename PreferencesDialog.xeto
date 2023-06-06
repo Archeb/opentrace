@@ -104,6 +104,10 @@
 					<TabPage Text="API">
 						<TableLayout Padding="10" Spacing="5,5">
 							<TableRow>
+								<Label Text="{x:Static resource:Resources.LEOMOEAPI_HOSTPORT}"></Label>
+								<TextBox x:Name="LeoMoeAPI_HOSTPORT" PlaceholderText="api.leo.moe:443" Text=""></TextBox>
+							</TableRow>
+							<TableRow>
 								<Label Text="IPInsight Token"></Label>
 								<TextBox x:Name="IPInsightToken" Text=""></TextBox>
 							</TableRow>

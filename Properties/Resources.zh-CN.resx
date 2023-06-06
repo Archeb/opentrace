@@ -213,6 +213,9 @@
   <data name="LAST" xml:space="preserve">
     <value>当前延迟</value>
   </data>
+  <data name="LEOMOEAPI_HOSTPORT" xml:space="preserve">
+    <value>LeoMoeAPI 反代地址</value>
+  </data>
   <data name="LINKLOCAL_ADDR" xml:space="preserve">
     <value>链路本地地址</value>
   </data>

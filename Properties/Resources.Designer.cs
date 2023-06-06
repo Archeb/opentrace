@@ -108,10 +108,11 @@ namespace OpenTrace.Properties {
         /// <summary>
         ///   查找类似 window.opentrace = {
         ///	Hops: [],
-        ///	reset: function () {
+        ///	reset: function (hideMapPopup = false) {
         ///		map.enableScrollWheelZoom(true); //滚轮
         ///		map.clearOverlays(); //清除覆盖物
         ///		this.Hops = [];
+        ///		this.hideMapPopup = hideMapPopup;
         ///		if (document.getElementById(&quot;opentracePopup&quot;)) document.getElementById(&quot;opentracePopup&quot;).remove();
         ///	},
         ///
@@ -122,9 +123,7 @@ namespace OpenTrace.Properties {
         ///		// 重新计算中心点并画图
         ///		map.clearOverlays(); //清除覆盖物
         ///		var pointlygon_array = []; //折线需要的数组
-        ///		for (var i = 0; i &lt; this.Hops.length; i++) {
-        ///			try {
-        ///				if (t [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///		for (var [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string baiduMap {
             get {
@@ -315,21 +314,18 @@ namespace OpenTrace.Properties {
         /// <summary>
         ///   查找类似 window.opentrace = {
         ///	Hops: [],
-        ///	reset: function () {
-        ///		if (typeof gmap == &quot;undefined&quot;) window.gmap = new google.maps.Map(document.getElementById(&quot;map&quot;), { center: { lat: 0, lng: 0 }, zoom: 2 });
+        ///	reset: function (hideMapPopup = false) {
+        ///		window.gmap = new google.maps.Map(document.getElementById(&quot;map&quot;), { center: { lat: 0, lng: 0 }, zoom: 2, disableDefaultUI: true });
+        ///		gmap.overlayMapTypes.clear();
         ///		this.Hops = [];
+        ///		this.hideMapPopup = hideMapPopup;
         ///		if (document.getElementById(&quot;opentracePopup&quot;)) document.getElementById(&quot;opentracePopup&quot;).remove();
         ///	},
         ///
         ///	addHop: function (hop) {
         ///
         ///		// Parse the JSON string into an object
-        ///		const hopData = JSON.parse(hop);
-        ///
-        ///		console.log(hopData);
-        ///
-        ///		// Clear any existing overlays
-        ///		gmap.overla [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///		const hopData = JSON.parse(h [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string googleMap {
             get {
@@ -397,6 +393,15 @@ namespace OpenTrace.Properties {
         public static string LAST {
             get {
                 return ResourceManager.GetString("LAST", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 LeoMoeAPI Reverse Proxy 的本地化字符串。
+        /// </summary>
+        public static string LEOMOEAPI_HOSTPORT {
+            get {
+                return ResourceManager.GetString("LEOMOEAPI_HOSTPORT", resourceCulture);
             }
         }
         
@@ -542,7 +547,7 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 No Reverse DNS Lookup 的本地化字符串。
+        ///   查找类似 Disable Reverse DNS Lookup 的本地化字符串。
         /// </summary>
         public static string NO_RDNS {
             get {
