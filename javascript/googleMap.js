@@ -1,7 +1,7 @@
 window.opentrace = {
 	Hops: [],
 	reset: function (hideMapPopup = false) {
-		if (typeof gmap == "undefined") window.gmap = new google.maps.Map(document.getElementById("map"), { center: { lat: 0, lng: 0 }, zoom: 2 });
+		window.gmap = new google.maps.Map(document.getElementById("map"), { center: { lat: 0, lng: 0 }, zoom: 2 });
 		gmap.overlayMapTypes.clear();
 		this.Hops = [];
 		this.hideMapPopup = hideMapPopup;
