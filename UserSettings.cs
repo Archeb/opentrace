@@ -13,15 +13,15 @@ namespace OpenTrace
         [Setting(Name = "executablePath", Default = "")]
         public static string executablePath { get; set; }
 
-        [Setting(Name = "arguments", Default = "")]        
+        [Setting(Name = "arguments", Default = "")]
         public static string arguments { get; set; }
 
         [Setting(Name = "queries", Default = "")]
         public static string queries { get; set; }
-        
+
         [Setting(Name = "port", Default = "")]
         public static string port { get; set; }
-        
+
         [Setting(Name = "parallel_request", Default = "")]
         public static string parallel_request { get; set; }
 
@@ -69,5 +69,8 @@ namespace OpenTrace
 
         [Setting(Name = "hideMapPopup", Default = false)]
         public static bool hideMapPopup { get; set; }
+
+        [Setting(Name = "traceHistory", Default = "")]
+        public static string traceHistory { get; set; }
     }
 }

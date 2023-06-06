@@ -9,6 +9,9 @@ using NextTrace;
 using System.Net;
 using Newtonsoft.Json;
 using System.Runtime.InteropServices;
+using System.Linq;
+using Advexp;
+using System.Collections.Generic;
 
 namespace OpenTrace
 {
@@ -69,6 +72,16 @@ namespace OpenTrace
             HostInputBox = new ComboBox { Text = "" };
             HostInputBox.KeyDown += HostInputBox_KeyDown;
             HostInputBox.TextChanged += HostInputBox_TextChanged;
+            if(UserSettings.traceHistory != null || UserSettings.traceHistory!= "")
+            {
+                foreach (string item in UserSettings.traceHistory.Split('\n'))
+                {
+                    if(item != "")
+                    {
+                        HostInputBox.Items.Add(item);
+                    }
+                }
+            }
 
             MTRMode = new CheckBox { Text = Resources.MTR_MODE };
             MTRMode.CheckedChanged += MTRMode_CheckedChanged;
@@ -313,8 +326,22 @@ namespace OpenTrace
                     }
                 }
             }
-            
-            HostInputBox.Items.Insert(0, new ListItem { Text = HostInputBox.Text });
+
+            string newText = HostInputBox.Text;
+            // 清理重复记录
+            IList<IListItem> clone = HostInputBox.Items.ToList();
+            foreach (var toRemove in clone.Where(s => s.Text == newText))
+            {
+                HostInputBox.Items.Remove(toRemove); // 不知道为什么清理掉 ComboBox 的 Item 会把同名文本框的内容一起清掉
+            }
+            HostInputBox.Text = newText; // 所以得在这里重新放回去
+            HostInputBox.Items.Insert(0, new ListItem { Text = newText });
+            while (HostInputBox.Items.Count > 20) // 清理20条以上记录
+            {
+                HostInputBox.Items.RemoveAt(HostInputBox.Items.Count - 1);
+            }
+            UserSettings.traceHistory = String.Join("\n", HostInputBox.Items.Select(item => item.Text));
+            UserSettings.SaveSettings();
             CurrentInstance = instance;
             startTracerouteButton.Text = Resources.STOP;
             int errorOutputCount = 0;
