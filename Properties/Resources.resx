@@ -274,6 +274,9 @@ Would you like to download the NextTrace utility now?</value>
   <data name="NEW_WINDOW_TEXT" xml:space="preserve">
     <value>Create a new OpenTrace window.</value>
   </data>
+  <data name="NEXTTRACE_PROXY" xml:space="preserve">
+    <value>Proxy</value>
+  </data>
   <data name="NO_RDNS" xml:space="preserve">
     <value>Disable Reverse DNS Lookup</value>
   </data>

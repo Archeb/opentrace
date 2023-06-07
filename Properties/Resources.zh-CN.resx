@@ -267,6 +267,9 @@
   <data name="NEW_WINDOW_TEXT" xml:space="preserve">
     <value>打开一个新的 OpenTrace 窗口</value>
   </data>
+  <data name="NEXTTRACE_PROXY" xml:space="preserve">
+    <value>代理设置</value>
+  </data>
   <data name="NO_RDNS" xml:space="preserve">
     <value>禁用反向 DNS 查询</value>
   </data>

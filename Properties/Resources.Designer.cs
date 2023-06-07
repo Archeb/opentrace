@@ -547,6 +547,15 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Proxy 的本地化字符串。
+        /// </summary>
+        public static string NEXTTRACE_PROXY {
+            get {
+                return ResourceManager.GetString("NEXTTRACE_PROXY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Disable Reverse DNS Lookup 的本地化字符串。
         /// </summary>
         public static string NO_RDNS {

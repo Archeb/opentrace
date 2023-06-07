@@ -72,7 +72,11 @@ namespace OpenTrace
 
         [Setting(Name = "traceHistory", Default = "")]
         public static string traceHistory { get; set; }
+
         [Setting(Name = "LeoMoeAPI_HOSTPORT", Default = "")]
-        public static string LeoMoeAPI_HOSTPORT { get; set;}
+        public static string LeoMoeAPI_HOSTPORT { get; set; }
+
+        [Setting(Name = "NextTraceProxy", Default = "")]
+        public static string NextTraceProxy { get; set; }
     }
 }

@@ -108,6 +108,10 @@
 								<TextBox x:Name="LeoMoeAPI_HOSTPORT" PlaceholderText="api.leo.moe:443" Text=""></TextBox>
 							</TableRow>
 							<TableRow>
+								<Label Text="{x:Static resource:Resources.NEXTTRACE_PROXY}"></Label>
+								<TextBox x:Name="NextTraceProxy" PlaceholderText="protocol://username:password@host:port" Text=""></TextBox>
+							</TableRow>
+							<TableRow>
 								<Label Text="IPInsight Token"></Label>
 								<TextBox x:Name="IPInsightToken" Text=""></TextBox>
 							</TableRow>
