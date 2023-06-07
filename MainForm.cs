@@ -476,28 +476,48 @@ namespace OpenTrace
         }
         private void UpdateMap(TracerouteResult result)
         {
-            // 把 Result 转换为 JSON
-            string resultJson = JsonConvert.SerializeObject(result);
-            // 通过 ExecuteScriptAsync 把结果传进去
-            mapWebView.ExecuteScriptAsync(@"window.opentrace.addHop(`" + resultJson + "`);");
+            try
+            {
+                // 把 Result 转换为 JSON
+                string resultJson = JsonConvert.SerializeObject(result);
+                // 通过 ExecuteScriptAsync 把结果传进去
+                mapWebView.ExecuteScriptAsync(@"window.opentrace.addHop(`" + resultJson + "`);");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Message: ${e.Message} \nSource: ${e.Source} \nStackTrace: ${e.StackTrace}", "Exception Occurred");
+            }
         }
         private void FocusMapPoint(int hopNo)
         {
-            mapWebView.ExecuteScriptAsync(@"window.opentrace.focusHop(" + hopNo + ");");
+            try
+            {
+                mapWebView.ExecuteScriptAsync(@"window.opentrace.focusHop(" + hopNo + ");");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Message: ${e.Message} \nSource: ${e.Source} \nStackTrace: ${e.StackTrace}", "Exception Occurred");
+            }
         }
         private void ResetMap()
         {
-            // 重置或者初始化地图
-            switch (mapWebView.Url.Host)
+            try
             {
-                case "geo-devrel-javascript-samples.web.app":
-                    mapWebView.ExecuteScriptAsync(OpenTrace.Properties.Resources.googleMap);
-                    break;
-                case "lbs.baidu.com":
-                    mapWebView.ExecuteScriptAsync(OpenTrace.Properties.Resources.baiduMap);
-                    break;
+                // 重置或者初始化地图
+                switch (mapWebView.Url.Host)
+                {
+                    case "geo-devrel-javascript-samples.web.app":
+                        mapWebView.ExecuteScriptAsync(OpenTrace.Properties.Resources.googleMap);
+                        break;
+                    case "lbs.baidu.com":
+                        mapWebView.ExecuteScriptAsync(OpenTrace.Properties.Resources.baiduMap);
+                        break;
+                }
+                mapWebView.ExecuteScriptAsync("window.opentrace.reset(" + UserSettings.hideMapPopup.ToString().ToLower() + ")");
+            } catch (Exception e)
+            {
+                MessageBox.Show($"Message: ${e.Message} \nSource: ${e.Source} \nStackTrace: ${e.StackTrace}", "Exception Occurred");
             }
-            mapWebView.ExecuteScriptAsync("window.opentrace.reset(" + UserSettings.hideMapPopup.ToString().ToLower() + ")");
         }
         private void AddGridColumnsTraceroute()
         {
