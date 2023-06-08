@@ -31,6 +31,8 @@ namespace OpenTrace
         private bool gridResizing = false;
         private bool appForceExiting = false;
 
+        private ExceptionalOutputForm exceptionalOutputForm = new ExceptionalOutputForm();
+
         public MainForm()
         {
             Title = Resources.APPTITLE;
@@ -344,76 +346,74 @@ namespace OpenTrace
             UserSettings.SaveSettings();
             CurrentInstance = instance;
             startTracerouteButton.Text = Resources.STOP;
-            int errorOutputCount = 0;
-
-            ExceptionalOutputForm exceptionalOutputForm = new ExceptionalOutputForm();
 
             // 处理NextTrace实例发回的结果
-            instance.Output.CollectionChanged += (sender1, e1) =>
-            {
-                if (e1.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
-                {
-                    Application.Instance.InvokeAsync(() =>
-                    {
-                        int HopNo = int.Parse(((TracerouteResult)e1.NewItems[0]).No);
-                        if (HopNo > tracerouteResultCollection.Count)
-                        {
-                            // 正常添加新的跳
-                            tracerouteResultCollection.Add(new TracerouteHop((TracerouteResult)e1.NewItems[0]));
-                            UpdateMap((TracerouteResult)e1.NewItems[0]);
-                            tracerouteGridView.ScrollToRow(tracerouteResultCollection.Count - 1);
-                        } else {
-                            // 修改现有的跳
-                            tracerouteResultCollection[HopNo - 1].HopData.Add((TracerouteResult)e1.NewItems[0]);
-                            tracerouteGridView.ReloadData(HopNo - 1);
-                        }
-                    });
-                }
-            };
-            instance.ExceptionalOutput += (object sender2, ExceptionalOutputEventArgs e2) =>
-            {
-                Application.Instance.InvokeAsync(() =>
-                {
-                    exceptionalOutputForm.Show();
-                    if (!exceptionalOutputForm.Visible)
-                    {
-                        exceptionalOutputForm.Visible = true;
-                    }
-                    if(errorOutputCount < 100)
-                    {
-                        errorOutputCount++;
-                    }
-                    else
-                    {
-                        StopTraceroute(); // 错误输出过多，强制结束
-                    }
-                    exceptionalOutputForm.AppendOutput(e2.Output);
-                });
-            };
-            instance.AppQuit += (object sender3, AppQuitEventArgs e3) =>
-            {
-                Application.Instance.InvokeAsync(() =>
-                {
-                    if (appForceExiting != true)
-                    {
-                        // 主动结束
-                        startTracerouteButton.Text = Resources.START;
-                        CurrentInstance = null;
-                        if (e3.ExitCode != 0)
-                        {
-                            MessageBox.Show(Resources.EXCEPTIONAL_EXIT_MSG + e3.ExitCode, MessageBoxType.Warning);
-                        }
-                    }
-                    else
-                    {
-                        // 强制结束
-                        appForceExiting = false;
-                    }
-                });
-            };
+            instance.Output.CollectionChanged += Instance_OutputCollectionChanged;
+            instance.ExceptionalOutput += Instance_ExceptionalOutput;
+            instance.AppQuit += Instance_AppQuit;
             instance.Run(readyToUseIP, (bool)MTRMode.Checked, dataProviderSelection.SelectedKey, protocolSelection.SelectedKey);
             
         }
+
+        private void Instance_AppQuit(object sender, AppQuitEventArgs e)
+        {
+            Application.Instance.InvokeAsync(() =>
+            {
+                if (appForceExiting != true)
+                {
+                    // 主动结束
+                    startTracerouteButton.Text = Resources.START;
+                    CurrentInstance = null;
+                    if (e.ExitCode != 0)
+                    {
+                        MessageBox.Show(Resources.EXCEPTIONAL_EXIT_MSG + e.ExitCode, MessageBoxType.Warning);
+                    }
+                }
+                else
+                {
+                    // 强制结束
+                    appForceExiting = false;
+                }
+            });
+        }
+
+        private void Instance_ExceptionalOutput(object sender, ExceptionalOutputEventArgs e)
+        {
+            Application.Instance.InvokeAsync(() =>
+            {
+                exceptionalOutputForm.Show();
+                if (!exceptionalOutputForm.Visible)
+                {
+                    exceptionalOutputForm.Visible = true;
+                }
+                exceptionalOutputForm.AppendOutput(e.Output);
+            });
+        }
+
+        private void Instance_OutputCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
+            {
+                Application.Instance.InvokeAsync(() =>
+                {
+                    int HopNo = int.Parse(((TracerouteResult)e.NewItems[0]).No);
+                    if (HopNo > tracerouteResultCollection.Count)
+                    {
+                        // 正常添加新的跳
+                        tracerouteResultCollection.Add(new TracerouteHop((TracerouteResult)e.NewItems[0]));
+                        UpdateMap((TracerouteResult)e.NewItems[0]);
+                        tracerouteGridView.ScrollToRow(tracerouteResultCollection.Count - 1);
+                    }
+                    else
+                    {
+                        // 修改现有的跳
+                        tracerouteResultCollection[HopNo - 1].HopData.Add((TracerouteResult)e.NewItems[0]);
+                        tracerouteGridView.ReloadData(HopNo - 1);
+                    }
+                });
+            }
+        }
+
         private void StopTraceroute()
         {
             if(CurrentInstance != null)
@@ -421,6 +421,9 @@ namespace OpenTrace
                 appForceExiting = true;
                 CurrentInstance.Kill();
                 startTracerouteButton.Text = Resources.START;
+                CurrentInstance.Output.CollectionChanged -= Instance_OutputCollectionChanged;
+                CurrentInstance.AppQuit -= Instance_AppQuit;
+                CurrentInstance.ExceptionalOutput -= Instance_ExceptionalOutput;
                 CurrentInstance = null;
             }
         }
@@ -480,8 +483,8 @@ namespace OpenTrace
             {
                 // 把 Result 转换为 JSON
                 string resultJson = JsonConvert.SerializeObject(result);
-                // 通过 ExecuteScriptAsync 把结果传进去
-                mapWebView.ExecuteScriptAsync(@"window.opentrace.addHop(`" + resultJson + "`);");
+                // 通过 ExecuteScript 把结果传进去
+                mapWebView.ExecuteScript(@"window.opentrace.addHop(`" + resultJson + "`);");
             }
             catch (Exception e)
             {
@@ -492,7 +495,7 @@ namespace OpenTrace
         {
             try
             {
-                mapWebView.ExecuteScriptAsync(@"window.opentrace.focusHop(" + hopNo + ");");
+                mapWebView.ExecuteScript(@"window.opentrace.focusHop(" + hopNo + ");");
             }
             catch (Exception e)
             {
@@ -507,13 +510,13 @@ namespace OpenTrace
                 switch (mapWebView.Url.Host)
                 {
                     case "geo-devrel-javascript-samples.web.app":
-                        mapWebView.ExecuteScriptAsync(OpenTrace.Properties.Resources.googleMap);
+                        mapWebView.ExecuteScript(OpenTrace.Properties.Resources.googleMap);
                         break;
                     case "lbs.baidu.com":
-                        mapWebView.ExecuteScriptAsync(OpenTrace.Properties.Resources.baiduMap);
+                        mapWebView.ExecuteScript(OpenTrace.Properties.Resources.baiduMap);
                         break;
                 }
-                mapWebView.ExecuteScriptAsync("window.opentrace.reset(" + UserSettings.hideMapPopup.ToString().ToLower() + ")");
+                mapWebView.ExecuteScript("window.opentrace.reset(" + UserSettings.hideMapPopup.ToString().ToLower() + ")");
             } catch (Exception e)
             {
                 MessageBox.Show($"Message: ${e.Message} \nSource: ${e.Source} \nStackTrace: ${e.StackTrace}", "Exception Occurred");
