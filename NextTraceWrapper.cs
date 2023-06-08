@@ -32,9 +32,17 @@ namespace NextTrace
             ExitCode = exitCode;
         }
     }
+    enum AppStatus
+    {
+        Init,
+        Start,
+        Quit
+    }
     internal class NextTraceWrapper
     {
         private Process _process;
+        public AppStatus Status { get; set; } = AppStatus.Init;
+        public event EventHandler AppStart;
         public event EventHandler<AppQuitEventArgs> AppQuit;
         public event EventHandler<ExceptionalOutputEventArgs> ExceptionalOutput;
         private string nexttracePath;
@@ -203,11 +211,18 @@ namespace NextTrace
                         }
                     }
                 };
+                _process.Exited += (sender, e) =>
+                {
+                    Debug.Print("Exited");
+                    Status = AppStatus.Quit;
+                    AppQuit?.Invoke(this, new AppQuitEventArgs(_process.ExitCode));
+                };
+                _process.EnableRaisingEvents = true;
                 _process.Start();
                 _process.BeginOutputReadLine();
                 _process.BeginErrorReadLine();
-                _process.WaitForExit();
-                AppQuit?.Invoke(this, new AppQuitEventArgs(_process.ExitCode));
+                Status = AppStatus.Start;
+                AppStart?.Invoke(this, null);
             });
         }
         private TracerouteResult ProcessLine(string line)
