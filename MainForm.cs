@@ -255,14 +255,17 @@ namespace OpenTrace
                      Resources.MISSING_COMP, MessageBoxButtons.YesNo);
                 if (dr == DialogResult.Yes)
                 {
-                    Process.Start(new ProcessStartInfo("https://mtr.moe/") { UseShellExecute = true });
+                    Process.Start(new ProcessStartInfo("https://github.com/sjlleo/nexttrace-core") { UseShellExecute = true });
                 }
+                CurrentInstance = null;
                 return;
             }
             catch(IOException exception)
             {
                 // 未能在指定的位置找到 NextTrace
                 MessageBox.Show(string.Format(Resources.MISSING_SPECIFIED_COMP, exception.Message), Resources.MISSING_COMP);
+
+                CurrentInstance = null;
                 return;
             }
 
@@ -279,6 +282,7 @@ namespace OpenTrace
             else if(ResolvedIPSelection.Visible == true && ResolvedIPSelection.SelectedIndex == 0)
             {
                 MessageBox.Show(Resources.SELECT_IP_MSGBOX);
+                CurrentInstance = null;
                 return;
             }
             else
@@ -315,6 +319,7 @@ namespace OpenTrace
                             }
                             ResolvedIPSelection.SelectedIndex = 0;
                             ResolvedIPSelection.Visible = true;
+                            CurrentInstance = null;
                             return;
                         }
                         else
@@ -327,12 +332,14 @@ namespace OpenTrace
                     {
                         MessageBox.Show(string.Format(Resources.NAME_NOT_RESOLVED, HostInputBox.Text), MessageBoxType.Warning);
                         Title = Resources.APPTITLE;
+                        CurrentInstance = null;
                         return;
                     }
                     catch (Exception exception)
                     {
                         MessageBox.Show(exception.Message, MessageBoxType.Error);
                         Title = Resources.APPTITLE;
+                        CurrentInstance = null;
                         return;
                     }
                 }
