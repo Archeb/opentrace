@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://github.com/sjlleo/nexttrace/raw/main/asset/logo.png" height="200px" alt="Logo"/>
+<img src="https://github.com/nxtrace/Ntrace-core/raw/main/asset/logo.png" height="200px" alt="Logo"/>
 
 </div>
 
@@ -28,7 +28,7 @@ More is coming...
 
 - Download OpenTrace from [releases](https://github.com/Archeb/opentrace/releases) or build your own binary.
 
-- Follow the instruction to install [NextTrace](https://github.com/sjlleo/nexttrace): Download the latest release from [here](https://github.com/sjlleo/nexttrace/releases), and place it in either the same directory as the OpenTrace executable or a directory included in your system's PATH environment variable.
+- Follow the instruction to install [NextTrace](https://github.com/nxtrace/Ntrace-V1/releases): Download the latest release from [here](https://github.com/nxtrace/Ntrace-V1/releases), and place it in either the same directory as the OpenTrace executable or a directory included in your system's PATH environment variable.
 
 - Run OpenTrace(.exe)
 
