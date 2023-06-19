@@ -255,7 +255,7 @@ namespace OpenTrace
                      Resources.MISSING_COMP, MessageBoxButtons.YesNo);
                 if (dr == DialogResult.Yes)
                 {
-                    Process.Start(new ProcessStartInfo("https://github.com/sjlleo/nexttrace-core") { UseShellExecute = true });
+                    Process.Start(new ProcessStartInfo("https://github.com/nxtrace/Ntrace-V1/releases/tag/v1.1.7-2") { UseShellExecute = true });
                 }
                 CurrentInstance = null;
                 return;
