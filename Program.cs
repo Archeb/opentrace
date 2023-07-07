@@ -15,11 +15,11 @@ namespace OpenTrace
         {
             UserSettings.LoadSettings();
             
-            if (UserSettings.language != "")
+            if (UserSettings.language != "" && UserSettings.language != null)
             {
                 System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(UserSettings.language);
             }
-            if(UserSettings.mapProvider == "")
+            if(UserSettings.mapProvider == "" && UserSettings.mapProvider != null)
             {
                 // 本地化地图供应商设置
                 if (System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "zh-CN")
