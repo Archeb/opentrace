@@ -31,9 +31,14 @@ jobs:
     - name: Build for ${{ matrix.runtime }}
       run: |
         dotnet build OpenTrace.csproj --runtime ${{ matrix.runtime }} --configuration Release ${{ matrix.self_contained }} -f net6.0
-        
+
+    - name: Make tarball
+      run: cd ${{ matrix.artifact_path }} && chmod +x ./OpenTrace && tar -cvzf ../${{ matrix.runtime }}.tar.gz ./
+      
+
     - name: Upload artifact for ${{ matrix.runtime }}
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ matrix.runtime }}
-        path: ${{ matrix.artifact_path }}
+        name: ${{ matrix.runtime }}.tar.gz
+        path: ./bin/Gtk/Release/net6.0/${{ matrix.runtime }}.tar.gz
+
