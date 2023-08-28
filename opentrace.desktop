@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=OpenTrace
+Exec=opentrace
+Icon=opentrace
+Type=Application
+Categories=Network;
