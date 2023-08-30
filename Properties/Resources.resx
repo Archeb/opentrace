@@ -126,6 +126,10 @@
   <data name="APPTITLE" xml:space="preserve">
     <value>OpenTrace</value>
   </data>
+  <data name="ASK_ADD_ICMP_FIREWALL_RULE" xml:space="preserve">
+    <value>NextTrace needs certain types (11 and 3) of ICMP messages to fully trace routes. But Windows firewall blocks these ICMP by default, causing only the last hop to be displayed.
+Would you like to add a firewall rule to allow needed ICMP for NextTrace?</value>
+  </data>
   <data name="AUTO_DETECT" xml:space="preserve">
     <value>(Auto Detect)</value>
   </data>
@@ -184,6 +188,9 @@
   <data name="EXPORT_TO" xml:space="preserve">
     <value>Export To</value>
   </data>
+  <data name="FAILED_TO_ADD_RULES" xml:space="preserve">
+    <value>Failed to add firewall rules.</value>
+  </data>
   <data name="FILE" xml:space="preserve">
     <value>File</value>
   </data>
@@ -201,6 +208,9 @@
   </data>
   <data name="HELP" xml:space="preserve">
     <value>Help</value>
+  </data>
+  <data name="HIDE_ADD_FIREWALL_PROMPT" xml:space="preserve">
+    <value>Hide the prompt to add firewall rules</value>
   </data>
   <data name="HIDE_MAP_POPUP" xml:space="preserve">
     <value>Hide the map's info windows</value>
@@ -313,7 +323,7 @@ Would you like to download the NextTrace utility now?</value>
     <value>Recv</value>
   </data>
   <data name="RESTART_TO_APPLY" xml:space="preserve">
-    <value>Some settings may require a restart to take effect</value>
+    <value>Some settings will not be applied before the application is restarted</value>
   </data>
   <data name="SAVE" xml:space="preserve">
     <value>Save</value>

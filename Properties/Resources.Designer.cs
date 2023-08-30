@@ -88,6 +88,16 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 NextTrace needs certain types (11 and 3) of ICMP messages to fully trace routes. But Windows firewall blocks these ICMP by default, causing only the last hop to be displayed.
+        ///Would you like to add a firewall rule to allow needed ICMP for NextTrace? 的本地化字符串。
+        /// </summary>
+        public static string ASK_ADD_ICMP_FIREWALL_RULE {
+            get {
+                return ResourceManager.GetString("ASK_ADD_ICMP_FIREWALL_RULE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 (Auto Detect) 的本地化字符串。
         /// </summary>
         public static string AUTO_DETECT {
@@ -276,6 +286,15 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Failed to add firewall rules. 的本地化字符串。
+        /// </summary>
+        public static string FAILED_TO_ADD_RULES {
+            get {
+                return ResourceManager.GetString("FAILED_TO_ADD_RULES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 File 的本地化字符串。
         /// </summary>
         public static string FILE {
@@ -339,6 +358,15 @@ namespace OpenTrace.Properties {
         public static string HELP {
             get {
                 return ResourceManager.GetString("HELP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Hide the prompt to add firewall rules 的本地化字符串。
+        /// </summary>
+        public static string HIDE_ADD_FIREWALL_PROMPT {
+            get {
+                return ResourceManager.GetString("HIDE_ADD_FIREWALL_PROMPT", resourceCulture);
             }
         }
         
@@ -655,7 +683,7 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Some settings may require a restart to take effect 的本地化字符串。
+        ///   查找类似 Some settings will not be applied before the application is restarted 的本地化字符串。
         /// </summary>
         public static string RESTART_TO_APPLY {
             get {

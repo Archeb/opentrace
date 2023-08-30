@@ -126,6 +126,13 @@
   <data name="APPTITLE" xml:space="preserve">
     <value>OpenTrace</value>
   </data>
+  <data name="ASK_ADD_ICMP_FIREWALL_RULE" xml:space="preserve">
+    <value>NextTrace 需要接收特殊的 ICMP 響應報文來構建完整的 traceroute 信息；但默認情況下，Windows 防火牆會攔截此類消息，導致您只能看到 traceroute 的最後一跳。
+
+您可以點擊“是”來自動添加防火牆規則，也可以點“否”取消這一操作。
+
+若要獲得更多信息，請參考 https://github.com/nxtrace/Ntrace-core/issues/52</value>
+  </data>
   <data name="AUTO_DETECT" xml:space="preserve">
     <value>(留空自動檢測)</value>
   </data>
@@ -180,6 +187,9 @@
   <data name="EXPORT_TO" xml:space="preserve">
     <value>導出為</value>
   </data>
+  <data name="FAILED_TO_ADD_RULES" xml:space="preserve">
+    <value>新增防火墻規則失敗</value>
+  </data>
   <data name="FILE" xml:space="preserve">
     <value>文件</value>
   </data>
@@ -194,6 +204,9 @@
   </data>
   <data name="HELP" xml:space="preserve">
     <value>幫助</value>
+  </data>
+  <data name="HIDE_ADD_FIREWALL_PROMPT" xml:space="preserve">
+    <value>不再提示新增防火牆規則</value>
   </data>
   <data name="HIDE_MAP_POPUP" xml:space="preserve">
     <value>隱藏地圖上的信息窗口</value>
@@ -332,6 +345,9 @@
   </data>
   <data name="STOP" xml:space="preserve">
     <value>停止</value>
+  </data>
+  <data name="String1" xml:space="preserve">
+    <value />
   </data>
   <data name="TIME_MS" xml:space="preserve">
     <value>時間(ms)</value>

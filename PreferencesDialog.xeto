@@ -54,6 +54,9 @@
 							<TableRow>
 								<CheckBox x:Name="hideMapPopup" Text="{x:Static resource:Resources.HIDE_MAP_POPUP}"></CheckBox>
 							</TableRow>
+							<TableRow>
+								<CheckBox x:Name="hideAddICMPFirewallRule" Text="{x:Static resource:Resources.HIDE_ADD_FIREWALL_PROMPT}"></CheckBox>
+							</TableRow>
 							<TableRow ScaleHeight="True"></TableRow>
 						</TableLayout>
 					</TabPage>

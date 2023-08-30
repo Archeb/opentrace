@@ -126,6 +126,13 @@
   <data name="APPTITLE" xml:space="preserve">
     <value>OpenTrace</value>
   </data>
+  <data name="ASK_ADD_ICMP_FIREWALL_RULE" xml:space="preserve">
+    <value>NextTrace需要型態3和11的ICMP封包來建立完整追蹤路徑。Windows 系統防火牆默認阻擋相關封包，以致只有最後一個節點會被顯示。
+
+您希望NextTrace幫您增加防火牆例外規則以利運行嗎？
+
+若要獲得更多資訊，請參考 https://github.com/nxtrace/Ntrace-core/issues/52</value>
+  </data>
   <data name="AUTO_DETECT" xml:space="preserve">
     <value>(留空自動檢測)</value>
   </data>
@@ -180,6 +187,9 @@
   <data name="EXPORT_TO" xml:space="preserve">
     <value>匯出為</value>
   </data>
+  <data name="FAILED_TO_ADD_RULES" xml:space="preserve">
+    <value>新增防火墻規則失敗</value>
+  </data>
   <data name="FILE" xml:space="preserve">
     <value>檔案</value>
   </data>
@@ -194,6 +204,9 @@
   </data>
   <data name="HELP" xml:space="preserve">
     <value>幫助</value>
+  </data>
+  <data name="HIDE_ADD_FIREWALL_PROMPT" xml:space="preserve">
+    <value>不再提示新增防火牆規則</value>
   </data>
   <data name="HIDE_MAP_POPUP" xml:space="preserve">
     <value>隱藏地圖上的資訊視窗</value>

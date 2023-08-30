@@ -4,6 +4,7 @@ using Eto.Forms;
 using System;
 using System.Configuration;
 using System.Globalization;
+using System.Runtime.InteropServices;
 using System.Windows.Input;
 
 namespace OpenTrace
@@ -31,7 +32,7 @@ namespace OpenTrace
                     UserSettings.mapProvider = "google";
                 }
             }
-            
+
             new Application(Eto.Platform.Detect).Run(new MainForm());
         }
     }

@@ -12,6 +12,8 @@ using System.Runtime.InteropServices;
 using System.Linq;
 using Advexp;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Reflection;
 
 namespace OpenTrace
 {
@@ -140,6 +142,35 @@ namespace OpenTrace
             mapWebView.DocumentLoaded += (sender6, e6) => {
                 ResetMap();
             };
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && UserSettings.hideAddICMPFirewallRule != true)
+            {
+                // 提示 Windows 用户添加防火墙规则放行 ICMP 
+                if(MessageBox.Show(Resources.ASK_ADD_ICMP_FIREWALL_RULE, MessageBoxButtons.YesNo,MessageBoxType.Question) == DialogResult.Yes)
+                {
+                    // 以管理员权限运行命令
+                    var allowIcmp = new Process();
+                    allowIcmp.StartInfo.FileName = "cmd.exe";
+                    allowIcmp.StartInfo.UseShellExecute = true;
+                    allowIcmp.StartInfo.Verb = "runas";
+                    allowIcmp.StartInfo.Arguments = "/c \"netsh advfirewall firewall add rule name=\"\"\"All ICMP v4 (NextTrace)\"\"\" dir=in action=allow protocol=icmpv4:any,any && netsh advfirewall firewall add rule name=\"\"\"All ICMP v6 (NextTrace)\"\"\" dir=in action=allow protocol=icmpv6:any,any\"";
+                    try
+                    {
+                        allowIcmp.Start();
+                        UserSettings.hideAddICMPFirewallRule = true;
+                        UserSettings.SaveSettings();
+                    }
+                    catch (Win32Exception)
+                    {
+                        MessageBox.Show(Resources.FAILED_TO_ADD_RULES, MessageBoxType.Error);
+                    }
+                }
+                else
+                {
+                    UserSettings.hideAddICMPFirewallRule = true;
+                    UserSettings.SaveSettings();
+                }
+            }
 
             // 绑定窗口事件
             SizeChanged += MainForm_SizeChanged;
