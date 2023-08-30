@@ -530,6 +530,24 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 OpenTrace requires the NextTrace utility to function properly. This executable is currently missing.
+        ///Please download NextTrace and set the permissions as follows:
+        ///
+        ///sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
+        ///sudo chown root:admin /path/to/nexttrace
+        ///sudo chmod +sx /path/to/nexttrace
+        ///
+        ///And specify the path in the settings.
+        ///
+        ///Would you like to download the NextTrace utility now? 的本地化字符串。
+        /// </summary>
+        public static string MISSING_COMP_TEXT_MACOS {
+            get {
+                return ResourceManager.GetString("MISSING_COMP_TEXT_MACOS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 NextTrace could not be found in &quot;{0}&quot;. 的本地化字符串。
         /// </summary>
         public static string MISSING_SPECIFIED_COMP {

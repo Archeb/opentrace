@@ -179,7 +179,7 @@
     <value>异常输出</value>
   </data>
   <data name="EXE_PATH" xml:space="preserve">
-    <value>可执行文件目录</value>
+    <value>可执行文件路径</value>
   </data>
   <data name="EXPORT" xml:space="preserve">
     <value>导出</value>
@@ -262,6 +262,18 @@
 1. 与 OpenTrace 同一目录下
 或
 2. PATH 环境变量中的目录下
+
+是否现在下载 NextTrace？</value>
+  </data>
+  <data name="MISSING_COMP_TEXT_MACOS" xml:space="preserve">
+    <value>OpenTrace 需要 NextTrace 才能正常工作，但未能找到可执行文件。
+请下载 NextTrace 并设置好权限：
+
+sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
+sudo chown root:admin /path/to/nexttrace
+sudo chmod +sx /path/to/nexttrace
+
+然后在设置中指定 NextTrace 路径。
 
 是否现在下载 NextTrace？</value>
   </data>
@@ -362,6 +374,6 @@
     <value>Windows 暂不支持 TCP/UDP Traceroute</value>
   </data>
   <data name="WORST" xml:space="preserve">
-    <value>最差延迟</value>
+    <value>最大延迟</value>
   </data>
 </root>

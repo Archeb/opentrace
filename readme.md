@@ -6,33 +6,39 @@
 
 ## OpenTrace
 
+OpenTrace 是 NextTrace 的跨平台 GUI 界面，带来您熟悉但更强大的用户体验。
+
 OpenTrace is a cross-platform GUI wrapper for NextTrace. Bringing you a sense of familiarity.
+
+您需要 NextTrace V1 (>= 1.1.7) 的可执行文件才能使用 OpenTrace
 
 You need a working **NextTrace V1** (>= 1.1.7) executable to use this.
 
-### Features
+[English Version](readme_en.md)
 
-- [x] Cross-platform native GUI (Windows WPF / Linux GTK / macOS)
+### 功能
 
-- [x] An interface you are familiar with, but with even more powerful functionalities
+- [x] 跨平台原生GUI（Windows WPF / Linux GTK / macOS）
 
-- [x] User-friendly GUI and easy-to-understand parameter descriptions
+- [x] 您熟悉但功能更强大的界面
 
-- [x] MTR (My Traceroute) functionality
+- [x] 用户友好的GUI和易于理解的参数描述
 
-- [x] Multi-language support
+- [x] MTR (My Traceroute) 功能
 
-More is coming...
+- [x] 多语言支持
 
-### Usage
+新功能不断添加中...欢迎向我们[提出功能请求](https://github.com/Archeb/opentrace/issues/new/choose)！
 
-- Download OpenTrace from [releases](https://github.com/Archeb/opentrace/releases) or build your own binary.
+### 使用方法
 
-- Follow the instruction to install [NextTrace V1](https://github.com/nxtrace/Ntrace-V1/releases): Download the latest release from [here](https://github.com/nxtrace/Ntrace-V1/releases), and place it in either the same directory as the OpenTrace executable or a directory included in your system's PATH environment variable.
+- 自行编译或从 [releases](https://github.com/Archeb/opentrace/releases) 里下载 OpenTrace
 
-- Run OpenTrace(.exe)
+- 下载并安装 [NextTrace V1](https://github.com/nxtrace/Ntrace-V1/releases): 从 [这里](https://github.com/nxtrace/Ntrace-V1/releases) 下载对应系统架构的 NextTrace，然后将其放置于 OpenTrace 目录下，或者放置到系统 PATH 环境变量包含的目录中；您亦可以放到任意位置并手动指定路径（macOS 用户推荐）。
 
-### Images
+- 运行 OpenTrace(.exe)
+
+### 预览图
 
 ![Windows](https://github.com/Archeb/opentrace/assets/11910831/510b61a2-712e-4d83-ae94-f396862e68df)
 ![MTR on Linux](https://i.imgur.com/MxSHIcU.png)

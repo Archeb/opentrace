@@ -54,7 +54,7 @@ namespace OpenTrace
             var aboutCommand = new Command { MenuText = Resources.ABOUT };
             aboutCommand.Executed += (sender, e) => Process.Start(new ProcessStartInfo("https://github.com/Archeb/opentrace") { UseShellExecute = true });
 
-            var preferenceCommand = new Command { MenuText = Resources.PREFERENCES };
+            var preferenceCommand = new Command { MenuText = Resources.PREFERENCES, Shortcut = Application.Instance.CommonModifier | Keys.Comma };
             preferenceCommand.Executed += (sender, e) => new PreferencesDialog().ShowModal();
 
             // 创建菜单栏
@@ -282,11 +282,11 @@ namespace OpenTrace
             catch (FileNotFoundException)
             {
                 // 未能在默认搜寻目录中找到NextTrace，询问是否下载 NextTrace
-                DialogResult dr = MessageBox.Show(Resources.MISSING_COMP_TEXT,
-                     Resources.MISSING_COMP, MessageBoxButtons.YesNo);
+                DialogResult dr = MessageBox.Show(RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? Resources.MISSING_COMP_TEXT_MACOS : Resources.MISSING_COMP_TEXT ,
+                 Resources.MISSING_COMP, MessageBoxButtons.YesNo);
                 if (dr == DialogResult.Yes)
                 {
-                    Process.Start(new ProcessStartInfo("https://github.com/nxtrace/Ntrace-V1/releases/tag/v1.1.7-2") { UseShellExecute = true });
+                    Process.Start(new ProcessStartInfo("https://github.com/nxtrace/Ntrace-V1/releases/") { UseShellExecute = true });
                 }
                 CurrentInstance = null;
                 return;

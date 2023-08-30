@@ -269,6 +269,18 @@ OR
 
 Would you like to download the NextTrace utility now?</value>
   </data>
+  <data name="MISSING_COMP_TEXT_MACOS" xml:space="preserve">
+    <value>OpenTrace requires the NextTrace utility to function properly. This executable is currently missing.
+Please download NextTrace and set the permissions as follows:
+
+sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
+sudo chown root:admin /path/to/nexttrace
+sudo chmod +sx /path/to/nexttrace
+
+And specify the path in the settings.
+
+Would you like to download the NextTrace utility now?</value>
+  </data>
   <data name="MISSING_SPECIFIED_COMP" xml:space="preserve">
     <value>NextTrace could not be found in "{0}".</value>
   </data>

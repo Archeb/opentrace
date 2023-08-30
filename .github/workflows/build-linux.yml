@@ -2,10 +2,22 @@ name: build-linux
 
 on:
   push:
-    branches: [ "master" ]
+    branches:
+      - master
+    paths:
+      - "**/*.cs"
+      - "**/*.csproj"
+      - "**/*.resx"
+      - ".github/workflows/*.yml"
   pull_request:
-    branches: [ "master" ]
-
+    branches:
+      - master
+    types: [opened, synchronize, reopened]
+    paths:
+      - "**/*.cs"
+      - "**/*.csproj"
+      - "**/*.resx"
+      - ".github/workflows/*.yml"
 jobs:
 
   build:
