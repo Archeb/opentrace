@@ -43,7 +43,7 @@ namespace OpenTrace
         public MainForm()
         {
             Title = Resources.APPTITLE;
-            MinimumSize = new Size(860, 600);
+            MinimumSize = new Size(900, 600);
 
             // 创建菜单项
             var newWindowCommand = new Command { MenuText = Resources.NEW, ToolBarText = Resources.NEW_WINDOW_TEXT, Shortcut = Application.Instance.CommonModifier | Keys.N };
@@ -290,6 +290,10 @@ namespace OpenTrace
             if (e.Key == Keys.Enter && enterPressed)
             {
                 enterPressed = false;
+                StartTracerouteButton_Click(sender, e);
+            } else if (e.Key == Keys.Enter && RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                // 似乎是上游兼容性问题
                 StartTracerouteButton_Click(sender, e);
             }
         }

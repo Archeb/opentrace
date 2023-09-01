@@ -16,6 +16,14 @@ You need a working **NextTrace V1** (>= 1.1.7) executable to use this.
 
 [English Version](readme_en.md)
 
+### 使用方法
+
+- 自行编译或从 [releases](https://github.com/Archeb/opentrace/releases) 里下载 OpenTrace
+
+- 下载并安装 [NextTrace V1](https://github.com/nxtrace/Ntrace-V1/releases): 从 [这里](https://github.com/nxtrace/Ntrace-V1/releases) 下载对应系统架构的 NextTrace，然后将其放置于 OpenTrace 目录下，或者放置到系统 PATH 环境变量包含的目录中；您亦可以放到任意位置并手动指定路径（macOS 用户推荐）。
+
+- 运行 OpenTrace(.exe)
+
 ### 功能
 
 - [x] 跨平台原生GUI（Windows WPF / Linux GTK / macOS）
@@ -32,13 +40,7 @@ You need a working **NextTrace V1** (>= 1.1.7) executable to use this.
 
 新功能不断添加中...欢迎向我们[提出功能请求](https://github.com/Archeb/opentrace/issues/new/choose)！
 
-### 使用方法
-
-- 自行编译或从 [releases](https://github.com/Archeb/opentrace/releases) 里下载 OpenTrace
-
-- 下载并安装 [NextTrace V1](https://github.com/nxtrace/Ntrace-V1/releases): 从 [这里](https://github.com/nxtrace/Ntrace-V1/releases) 下载对应系统架构的 NextTrace，然后将其放置于 OpenTrace 目录下，或者放置到系统 PATH 环境变量包含的目录中；您亦可以放到任意位置并手动指定路径（macOS 用户推荐）。
-
-- 运行 OpenTrace(.exe)
+提示：您也可以在[本项目的 Actions 页面](https://github.com/Archeb/opentrace/actions) 下载对应架构的最新测试版；但其可能包含错误或者漏洞，或出现运行不稳定等现象。
 
 ### 预览图
 

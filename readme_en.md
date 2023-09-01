@@ -10,6 +10,14 @@ OpenTrace is a cross-platform GUI wrapper for NextTrace. Bringing you a sense of
 
 You need a working **NextTrace V1** (>= 1.1.7) executable to use this.
 
+### Usage
+
+- Download OpenTrace from [releases](https://github.com/Archeb/opentrace/releases) or build your own binary.
+
+- Follow the instruction to install [NextTrace V1](https://github.com/nxtrace/Ntrace-V1/releases): Download the latest release from [here](https://github.com/nxtrace/Ntrace-V1/releases), and place it in either the same directory as the OpenTrace executable or a directory included in your system's PATH environment variable. You can also put it anywhere and specify the path manually (recommended for macOS users).
+
+- Run OpenTrace(.exe)
+
 ### Features
 
 - [x] Cross-platform native GUI (Windows WPF / Linux GTK / macOS)
@@ -26,13 +34,7 @@ You need a working **NextTrace V1** (>= 1.1.7) executable to use this.
 
 More is coming... [Feature request](https://github.com/Archeb/opentrace/issues/new/choose) is welcome!
 
-### Usage
-
-- Download OpenTrace from [releases](https://github.com/Archeb/opentrace/releases) or build your own binary.
-
-- Follow the instruction to install [NextTrace V1](https://github.com/nxtrace/Ntrace-V1/releases): Download the latest release from [here](https://github.com/nxtrace/Ntrace-V1/releases), and place it in either the same directory as the OpenTrace executable or a directory included in your system's PATH environment variable. You can also put it anywhere and specify the path manually (recommended for macOS users).
-
-- Run OpenTrace(.exe)
+Tip: You can also download the latest beta version of the corresponding architecture from the [Actions page of this project](https://github.com/Archeb/opentrace/actions); however, it may contain bugs or vulnerabilities, or may be unstable.
 
 ### Images
 
