@@ -160,6 +160,12 @@
   <data name="DST_PORT_INIT_SEQ" xml:space="preserve">
     <value>目标端口 / 初始序号</value>
   </data>
+  <data name="ENABLE_IP2REGION" xml:space="preserve">
+    <value>启用 Ip2region 离线库 (ip2region.db)</value>
+  </data>
+  <data name="ENABLE_IPINFOLOCAL" xml:space="preserve">
+    <value>启用 IPInfo 离线库 (ipinfoLocal.mmdb)</value>
+  </data>
   <data name="ERR_MSG" xml:space="preserve">
     <value>错误消息</value>
   </data>
@@ -217,11 +223,14 @@
   <data name="HOSTNAME" xml:space="preserve">
     <value>主机名</value>
   </data>
+  <data name="IPINFO_TOKEN" xml:space="preserve">
+    <value>IPInfo Token (可选)</value>
+  </data>
   <data name="IP_GEO_DATA_PROVIDER" xml:space="preserve">
     <value>IP 地理位置数据源</value>
   </data>
   <data name="LANGUAGE" xml:space="preserve">
-    <value>语言</value>
+    <value>Language (语言)</value>
   </data>
   <data name="LAST" xml:space="preserve">
     <value>当前延迟</value>
@@ -300,6 +309,10 @@ sudo chmod +sx /path/to/nexttrace
   </data>
   <data name="ORGANIZATION" xml:space="preserve">
     <value>组织</value>
+  </data>
+  <data name="OTHER_DATABASE_TIPS" xml:space="preserve">
+    <value>部分数据源只有在设置了 API 端点 / Token 之后才可被选择；
+若要使用离线数据库，请参考 NextTrace 文档进行设置。</value>
   </data>
   <data name="PACKET_GROUP_INTERVAL" xml:space="preserve">
     <value>分组请求间隔</value>

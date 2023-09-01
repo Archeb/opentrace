@@ -81,5 +81,11 @@ namespace OpenTrace
         
         [Setting(Name = "hideAddICMPFirewallRule", Default = false)]
         public static bool hideAddICMPFirewallRule { get; set; }
+
+        [Setting(Name = "enable_ip2region", Default = false)]
+        public static bool enable_ip2region { get; set; }
+        
+        [Setting(Name = "enable_ipinfolocal", Default = false)]
+        public static bool enable_ipinfolocal { get; set; }
     }
 }

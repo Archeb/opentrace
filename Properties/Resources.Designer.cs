@@ -205,6 +205,24 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Enable offline database Ip2region (ip2region.db) 的本地化字符串。
+        /// </summary>
+        public static string ENABLE_IP2REGION {
+            get {
+                return ResourceManager.GetString("ENABLE_IP2REGION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Enable offline database IPInfo (ipinfoLocal.mmdb) 的本地化字符串。
+        /// </summary>
+        public static string ENABLE_IPINFOLOCAL {
+            get {
+                return ResourceManager.GetString("ENABLE_IPINFOLOCAL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Error Message 的本地化字符串。
         /// </summary>
         public static string ERR_MSG {
@@ -407,7 +425,16 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Language 的本地化字符串。
+        ///   查找类似 IPInfo Token (Optional) 的本地化字符串。
+        /// </summary>
+        public static string IPINFO_TOKEN {
+            get {
+                return ResourceManager.GetString("IPINFO_TOKEN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Language (语言) 的本地化字符串。
         /// </summary>
         public static string LANGUAGE {
             get {
@@ -616,6 +643,16 @@ namespace OpenTrace.Properties {
         public static string ORGANIZATION {
             get {
                 return ResourceManager.GetString("ORGANIZATION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Some data sources can only be selected after setting up an API endpoint/token.
+        ///To use an offline database, please refer to the NextTrace documentation to set it up. 的本地化字符串。
+        /// </summary>
+        public static string OTHER_DATABASE_TIPS {
+            get {
+                return ResourceManager.GetString("OTHER_DATABASE_TIPS", resourceCulture);
             }
         }
         

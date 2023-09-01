@@ -160,6 +160,12 @@
   <data name="DST_PORT_INIT_SEQ" xml:space="preserve">
     <value>目標埠 / 初始序號</value>
   </data>
+  <data name="ENABLE_IP2REGION" xml:space="preserve">
+    <value>使用本地 Ip2region 數據庫  (ip2region.db)</value>
+  </data>
+  <data name="ENABLE_IPINFOLOCAL" xml:space="preserve">
+    <value>使用本地 IPInfo 數據庫 (ipinfoLocal.mmdb)</value>
+  </data>
   <data name="ERR_MSG" xml:space="preserve">
     <value>錯誤訊息</value>
   </data>
@@ -217,11 +223,14 @@
   <data name="HOSTNAME" xml:space="preserve">
     <value>主機名</value>
   </data>
+  <data name="IPINFO_TOKEN" xml:space="preserve">
+    <value>IPInfo Token (可選)</value>
+  </data>
   <data name="IP_GEO_DATA_PROVIDER" xml:space="preserve">
     <value>IP 地理位置資料來源</value>
   </data>
   <data name="LANGUAGE" xml:space="preserve">
-    <value>語言</value>
+    <value>Language (語言)</value>
   </data>
   <data name="LAST" xml:space="preserve">
     <value>當前延遲</value>
@@ -297,6 +306,10 @@ sudo chmod +sx /path/to/nexttrace
   </data>
   <data name="ORGANIZATION" xml:space="preserve">
     <value>組織</value>
+  </data>
+  <data name="OTHER_DATABASE_TIPS" xml:space="preserve">
+    <value>有些數據源只有在設置 API 端點 / Token 後才能選擇；
+ 要使用離線數據庫，請參閱 NextTrace 文檔進行設置。</value>
   </data>
   <data name="PACKET_GROUP_INTERVAL" xml:space="preserve">
     <value>分組請求間隔</value>

@@ -161,6 +161,12 @@ Would you like to add a firewall rule to allow needed ICMP for NextTrace?</value
   <data name="DST_PORT_INIT_SEQ" xml:space="preserve">
     <value>Destination port / Initial seq</value>
   </data>
+  <data name="ENABLE_IP2REGION" xml:space="preserve">
+    <value>Enable offline database Ip2region (ip2region.db)</value>
+  </data>
+  <data name="ENABLE_IPINFOLOCAL" xml:space="preserve">
+    <value>Enable offline database IPInfo (ipinfoLocal.mmdb)</value>
+  </data>
   <data name="ERR_MSG" xml:space="preserve">
     <value>Error Message</value>
   </data>
@@ -221,11 +227,14 @@ Would you like to add a firewall rule to allow needed ICMP for NextTrace?</value
   <data name="HOSTNAME" xml:space="preserve">
     <value>Hostname</value>
   </data>
+  <data name="IPINFO_TOKEN" xml:space="preserve">
+    <value>IPInfo Token (Optional)</value>
+  </data>
   <data name="IP_GEO_DATA_PROVIDER" xml:space="preserve">
     <value>IP Geograph Data Provider</value>
   </data>
   <data name="LANGUAGE" xml:space="preserve">
-    <value>Language</value>
+    <value>Language (语言)</value>
   </data>
   <data name="LAST" xml:space="preserve">
     <value>Last</value>
@@ -304,6 +313,10 @@ Would you like to download the NextTrace utility now?</value>
   </data>
   <data name="ORGANIZATION" xml:space="preserve">
     <value>Organization</value>
+  </data>
+  <data name="OTHER_DATABASE_TIPS" xml:space="preserve">
+    <value>Some data sources can only be selected after setting up an API endpoint/token.
+To use an offline database, please refer to the NextTrace documentation to set it up.</value>
   </data>
   <data name="PACKET_GROUP_INTERVAL" xml:space="preserve">
     <value>Packet Group Interval</value>

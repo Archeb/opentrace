@@ -112,17 +112,18 @@ namespace OpenTrace
                 Items = {
                     new ListItem{Text = "LeoMoeAPI", Key= ""},
                     new ListItem{Text = "IPInfo", Key = "--data-provider IPInfo" },
-                    new ListItem{Text = "IP.SB", Key = "--data-provider IP.SB" },
-                    new ListItem{Text = "Ip2region", Key = "--data-provider Ip2region" },
-                    new ListItem{Text = "IPInsight", Key = "--data-provider IPInsight" },
-                    new ListItem{Text = "IPAPI.com", Key = "--data-provider IPAPI.com" },
-                    new ListItem{Text = "IPInfoLocal", Key = "--data-provider IPInfoLocal" },
-                    new ListItem{Text = "CHUNZHEN", Key = "--data-provider chunzhen"},
+                    new ListItem{Text = "IP.SB ", Key = "--data-provider IP.SB" },
+                    new ListItem{Text = "IP-API.com", Key = "--data-provider IPAPI.com" },
                     new ListItem{Text = Resources.DISABLE_IPGEO, Key = "--data-provider disable-geoip"}
                 },
                 SelectedIndex = 0,
                 ToolTip = Resources.IP_GEO_DATA_PROVIDER
             };
+
+            if (UserSettings.ChunZhenEndpoint != "") dataProviderSelection.Items.Add(new ListItem { Text = "CHUNZHEN", Key = "--data-provider chunzhen" });
+            if (UserSettings.IPInsightToken != "") dataProviderSelection.Items.Add(new ListItem { Text = "IPInsight", Key = "--data-provider IPInsight" });
+            if (UserSettings.enable_ip2region == true) dataProviderSelection.Items.Add(new ListItem { Text = "Ip2region", Key = "--data-provider Ip2region" });
+            if (UserSettings.enable_ipinfolocal == true) dataProviderSelection.Items.Add(new ListItem { Text = "IPInfoLocal", Key = "--data-provider IPInfoLocal" });
 
             tracerouteGridView = new GridView { DataStore = tracerouteResultCollection };
             tracerouteGridView.MouseUp += Dragging_MouseUp;
