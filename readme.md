@@ -28,6 +28,8 @@ You need a working **NextTrace V1** (>= 1.1.7) executable to use this.
 
 - [x] 多语言支持
 
+- [x] 自定义 DNS 服务器 (DNS、DoH)
+
 新功能不断添加中...欢迎向我们[提出功能请求](https://github.com/Archeb/opentrace/issues/new/choose)！
 
 ### 使用方法

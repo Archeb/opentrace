@@ -22,6 +22,8 @@ You need a working **NextTrace V1** (>= 1.1.7) executable to use this.
 
 - [x] Multi-language support
 
+- [x] Custom DNS Resolvers (DNS, DoH)
+
 More is coming... [Feature request](https://github.com/Archeb/opentrace/issues/new/choose) is welcome!
 
 ### Usage

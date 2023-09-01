@@ -43,6 +43,10 @@
 											-->
 										</DropDown>
 									</TableRow>
+									<TableRow>
+										<Label Text="{x:Static resource:Resources.CUSTOM_DNS_RESOLVERS}"></Label>
+										<TextArea x:Name="customDNSResolvers"></TextArea>
+									</TableRow>
 								</TableLayout>
 							</TableRow>
 							<TableRow>

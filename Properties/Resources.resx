@@ -155,6 +155,10 @@ Would you like to add a firewall rule to allow needed ICMP for NextTrace?</value
   <data name="COMBINE_GEO_ORG" xml:space="preserve">
     <value>Combine Geography and Organization into a single column</value>
   </data>
+  <data name="CUSTOM_DNS_RESOLVERS" xml:space="preserve">
+    <value>Custom DNS Resolvers
+(DNS / DoH Supported)</value>
+  </data>
   <data name="DISABLE_IPGEO" xml:space="preserve">
     <value>Disabled</value>
   </data>
@@ -379,6 +383,9 @@ To use an offline database, please refer to the NextTrace documentation to set i
   </data>
   <data name="STOP" xml:space="preserve">
     <value>Stop</value>
+  </data>
+  <data name="SYSTEM_DNS_RESOLVER" xml:space="preserve">
+    <value>System DNS</value>
   </data>
   <data name="TIME_MS" xml:space="preserve">
     <value>Time(ms)</value>

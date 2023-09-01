@@ -10,11 +10,13 @@ using System.Net;
 using Newtonsoft.Json;
 using System.Runtime.InteropServices;
 using System.Linq;
-using Advexp;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Reflection;
-using Eto.Wpf.Forms;
+using Ae.Dns.Client;
+using Ae.Dns.Protocol;
+using System.Threading.Tasks;
+using System.Net.Sockets;
+using Ae.Dns.Protocol.Records;
 
 namespace OpenTrace
 {
@@ -30,6 +32,7 @@ namespace OpenTrace
         private DropDown ResolvedIPSelection;
         private DropDown dataProviderSelection;
         private DropDown protocolSelection;
+        private DropDown dnsResolverSelection;
         private Button startTracerouteButton;
         private bool gridResizing = false;
         private bool appForceExiting = false;
@@ -56,7 +59,12 @@ namespace OpenTrace
             aboutCommand.Executed += (sender, e) => Process.Start(new ProcessStartInfo("https://github.com/Archeb/opentrace") { UseShellExecute = true });
 
             var preferenceCommand = new Command { MenuText = Resources.PREFERENCES, Shortcut = Application.Instance.CommonModifier | Keys.Comma };
-            preferenceCommand.Executed += (sender, e) => new PreferencesDialog().ShowModal(this);
+            preferenceCommand.Executed += (sender, e) =>
+            {
+                new PreferencesDialog().ShowModal(this);
+                // 关闭设置后刷新 DNS 服务器列表
+                LoadDNSResolvers();
+            };
 
             // 创建菜单栏
             Menu = new MenuBar
@@ -78,7 +86,7 @@ namespace OpenTrace
             HostInputBox = new ComboBox { Text = "" };
             HostInputBox.KeyDown += HostInputBox_KeyDown;
             HostInputBox.KeyUp += HostInputBox_KeyUp;
-            HostInputBox.TextChanged += HostInputBox_TextChanged;
+            HostInputBox.TextChanged += resolveParamChanged;
             if(UserSettings.traceHistory != null || UserSettings.traceHistory!= "")
             {
                 foreach (string item in UserSettings.traceHistory.Split('\n'))
@@ -126,6 +134,10 @@ namespace OpenTrace
             if (UserSettings.enable_ip2region == true) dataProviderSelection.Items.Add(new ListItem { Text = "Ip2region", Key = "--data-provider Ip2region" });
             if (UserSettings.enable_ipinfolocal == true) dataProviderSelection.Items.Add(new ListItem { Text = "IPInfoLocal", Key = "--data-provider IPInfoLocal" });
 
+            dnsResolverSelection = new DropDown();
+            dnsResolverSelection.SelectedKeyChanged += resolveParamChanged;
+            LoadDNSResolvers();
+
             tracerouteGridView = new GridView { DataStore = tracerouteResultCollection };
             tracerouteGridView.MouseUp += Dragging_MouseUp;
             tracerouteGridView.SelectedRowsChanged += TracerouteGridView_SelectedRowsChanged;
@@ -145,34 +157,7 @@ namespace OpenTrace
                 ResetMap();
             };
 
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && UserSettings.hideAddICMPFirewallRule != true)
-            {
-                // 提示 Windows 用户添加防火墙规则放行 ICMP 
-                if(MessageBox.Show(Resources.ASK_ADD_ICMP_FIREWALL_RULE, MessageBoxButtons.YesNo,MessageBoxType.Question) == DialogResult.Yes)
-                {
-                    // 以管理员权限运行命令
-                    var allowIcmp = new Process();
-                    allowIcmp.StartInfo.FileName = "cmd.exe";
-                    allowIcmp.StartInfo.UseShellExecute = true;
-                    allowIcmp.StartInfo.Verb = "runas";
-                    allowIcmp.StartInfo.Arguments = "/c \"netsh advfirewall firewall add rule name=\"\"\"All ICMP v4 (NextTrace)\"\"\" dir=in action=allow protocol=icmpv4:any,any && netsh advfirewall firewall add rule name=\"\"\"All ICMP v6 (NextTrace)\"\"\" dir=in action=allow protocol=icmpv6:any,any\"";
-                    try
-                    {
-                        allowIcmp.Start();
-                        UserSettings.hideAddICMPFirewallRule = true;
-                        UserSettings.SaveSettings();
-                    }
-                    catch (Win32Exception)
-                    {
-                        MessageBox.Show(Resources.FAILED_TO_ADD_RULES, MessageBoxType.Error);
-                    }
-                }
-                else
-                {
-                    UserSettings.hideAddICMPFirewallRule = true;
-                    UserSettings.SaveSettings();
-                }
-            }
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && UserSettings.hideAddICMPFirewallRule != true) tryAddICMPFirewallRule();
 
             // 绑定窗口事件
             SizeChanged += MainForm_SizeChanged;
@@ -200,6 +185,7 @@ namespace OpenTrace
                                         ResolvedIPSelection,
                                         MTRMode,
                                         protocolSelection,
+                                        dnsResolverSelection,
                                         dataProviderSelection,
                                         startTracerouteButton
                                     }
@@ -221,7 +207,56 @@ namespace OpenTrace
             HostInputBox.Focus(); // 自动聚焦输入框
         }
 
-        private void HostInputBox_TextChanged(object sender, EventArgs e)
+        private void LoadDNSResolvers()
+        {
+            dnsResolverSelection.Items.Clear();
+            dnsResolverSelection.Items.Add(new ListItem { Text = Resources.SYSTEM_DNS_RESOLVER, Key = "system" });
+            if (UserSettings.customDNSResolvers != null || UserSettings.customDNSResolvers != "")
+            {
+                string resolvers = UserSettings.customDNSResolvers.Replace("\r", "");
+                foreach (string item in resolvers.Split('\n'))
+                {
+                    string[] resolver = item.Split('#');
+                    IPAddress resolverIP;
+                    if (resolver[0] != "" && (resolver[0].IndexOf("https://") == 0 || IPAddress.TryParse(resolver[0], out resolverIP)))
+                    {
+                        dnsResolverSelection.Items.Add(new ListItem { Text = resolver.Length == 2 ? resolver[1] : resolver[0], Key = resolver[0] });
+                    }
+                }
+            }
+            dnsResolverSelection.SelectedIndex = 0;
+        }
+
+        private void tryAddICMPFirewallRule()
+        {
+            // 提示 Windows 用户添加防火墙规则放行 ICMP 
+            if (MessageBox.Show(Resources.ASK_ADD_ICMP_FIREWALL_RULE, MessageBoxButtons.YesNo, MessageBoxType.Question) == DialogResult.Yes)
+            {
+                // 以管理员权限运行命令
+                var allowIcmp = new Process();
+                allowIcmp.StartInfo.FileName = "cmd.exe";
+                allowIcmp.StartInfo.UseShellExecute = true;
+                allowIcmp.StartInfo.Verb = "runas";
+                allowIcmp.StartInfo.Arguments = "/c \"netsh advfirewall firewall add rule name=\"\"\"All ICMP v4 (NextTrace)\"\"\" dir=in action=allow protocol=icmpv4:any,any && netsh advfirewall firewall add rule name=\"\"\"All ICMP v6 (NextTrace)\"\"\" dir=in action=allow protocol=icmpv6:any,any\"";
+                try
+                {
+                    allowIcmp.Start();
+                    UserSettings.hideAddICMPFirewallRule = true;
+                    UserSettings.SaveSettings();
+                }
+                catch (Win32Exception)
+                {
+                    MessageBox.Show(Resources.FAILED_TO_ADD_RULES, MessageBoxType.Error);
+                }
+            }
+            else
+            {
+                UserSettings.hideAddICMPFirewallRule = true;
+                UserSettings.SaveSettings();
+            }
+        }
+
+        private void resolveParamChanged(object sender, EventArgs e)
         {
             // 如果文本框被修改，则隐藏 DNS 解析选择框
             if (ResolvedIPSelection.Visible)
@@ -341,7 +376,7 @@ namespace OpenTrace
                         }
                         // 需要域名解析
                         Title = Resources.APPTITLE + ": " + HostInputBox.Text;
-                        IPAddress[] resolvedAddresses = Dns.GetHostAddresses(HostInputBox.Text);
+                        IPAddress[] resolvedAddresses = ResolveHost(HostInputBox.Text);
                         if (resolvedAddresses.Length > 1)
                         {
                             ResolvedIPSelection.Items.Clear();
@@ -403,6 +438,65 @@ namespace OpenTrace
             CurrentInstance.Run(readyToUseIP, (bool)MTRMode.Checked, dataProviderSelection.SelectedKey, protocolSelection.SelectedKey);
             
         }
+
+        private IPAddress[] ResolveHost(string host)
+        {
+            string resolver = dnsResolverSelection.SelectedKey;
+            if(resolver == "system")
+            {
+                // 使用系统解析
+                return Dns.GetHostAddresses(host);
+            }else if (resolver.IndexOf("https://") == 0)
+            {
+                // 使用DoH
+                var httpClient = new System.Net.Http.HttpClient
+                {
+                    BaseAddress = new Uri(resolver)
+                };
+                IDnsClient dnsClient = new DnsHttpClient(httpClient);
+                DnsMessage result = Task.Run(() => dnsClient.Query(DnsQueryFactory.CreateQuery(host))).Result;
+                if(result.Answers.Count == 0)
+                {
+                    throw new SocketException();
+                }
+                else
+                {
+                    List<IPAddress> addressList = new List<IPAddress>();
+                    foreach (DnsResourceRecord answer in result.Answers)
+                    {
+                        if (answer.Type == Ae.Dns.Protocol.Enums.DnsQueryType.A || answer.Type == Ae.Dns.Protocol.Enums.DnsQueryType.AAAA)
+                        {
+                            addressList.Add(((DnsIpAddressResource)answer.Resource).IPAddress);
+                        }
+                    }
+                    return addressList.ToArray();
+                }
+            }
+            else
+            {
+                // 使用传统 DNS
+                IDnsClient dnsClient = new DnsUdpClient(IPAddress.Parse(resolver));
+                DnsMessage result = Task.Run(() => dnsClient.Query(DnsQueryFactory.CreateQuery(host))).Result;
+
+                if (result.Answers.Count == 0)
+                {
+                    throw new SocketException();
+                }
+                else
+                {
+                    List<IPAddress> addressList = new List<IPAddress>();
+                    foreach (DnsResourceRecord answer in result.Answers)
+                    {
+                        if (answer.Type == Ae.Dns.Protocol.Enums.DnsQueryType.A || answer.Type == Ae.Dns.Protocol.Enums.DnsQueryType.AAAA)
+                        {
+                            addressList.Add(((DnsIpAddressResource)answer.Resource).IPAddress);
+                        }
+                    }
+                    return addressList.ToArray();
+                }
+            }
+        }
+
         private void Instance_AppQuit(object sender, AppQuitEventArgs e)
         {
             Application.Instance.InvokeAsync(() =>

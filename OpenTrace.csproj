@@ -25,10 +25,12 @@
 
   <ItemGroup>
     <PackageReference Include="Advexp.Settings.Local" Version="2.7.0" />
+    <PackageReference Include="Ae.Dns.Client" Version="1.0.0" />
     <PackageReference Include="Eto.Serialization.Xaml" Version="2.7.5" />
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1774.30" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1938.49" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
+    <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
 
   <ItemGroup>

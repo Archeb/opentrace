@@ -87,5 +87,8 @@ namespace OpenTrace
         
         [Setting(Name = "enable_ipinfolocal", Default = false)]
         public static bool enable_ipinfolocal { get; set; }
+        
+        [Setting(Name = "customDNSResolvers", Default = "8.8.8.8#Google DNS\nhttps://cloudflare-dns.com/dns-query#CloudFlare DoH")]
+        public static string customDNSResolvers { get; set; }
     }
 }

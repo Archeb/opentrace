@@ -33,6 +33,11 @@ namespace OpenTrace
                 if (settingDropDown != null)
                 {
                     settingDropDown.SelectedKey = (string)setting.GetValue(userSettings, null);
+                }                
+                TextArea settingTextArea = this.FindChild<TextArea>(setting.Name);
+                if (settingTextArea != null)
+                {
+                    settingTextArea.Text = (string)setting.GetValue(userSettings, null);
                 }
             }
         }
@@ -59,6 +64,11 @@ namespace OpenTrace
                 if (settingDropDown != null)
                 {
                     setting.SetValue(userSettings, settingDropDown.SelectedKey);
+                }
+                TextArea settingTextArea = this.FindChild<TextArea>(setting.Name);
+                if (settingTextArea != null)
+                {
+                    setting.SetValue(userSettings, settingTextArea.Text);
                 }
             }
             UserSettings.SaveSettings();

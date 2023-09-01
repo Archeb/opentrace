@@ -154,6 +154,10 @@
   <data name="COMBINE_GEO_ORG" xml:space="preserve">
     <value>把地理位置和组织信息合为一栏</value>
   </data>
+  <data name="CUSTOM_DNS_RESOLVERS" xml:space="preserve">
+    <value>自定义DNS服务器
+(支持 UDP / DoH)</value>
+  </data>
   <data name="DISABLE_IPGEO" xml:space="preserve">
     <value>禁用地理位置</value>
   </data>
@@ -373,6 +377,9 @@ sudo chmod +sx /path/to/nexttrace
   </data>
   <data name="STOP" xml:space="preserve">
     <value>停止</value>
+  </data>
+  <data name="SYSTEM_DNS_RESOLVER" xml:space="preserve">
+    <value>系统 DNS</value>
   </data>
   <data name="TIME_MS" xml:space="preserve">
     <value>时间(ms)</value>

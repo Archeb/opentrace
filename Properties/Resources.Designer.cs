@@ -187,6 +187,16 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Custom DNS Resolvers
+        ///(DNS / DoH Supported) 的本地化字符串。
+        /// </summary>
+        public static string CUSTOM_DNS_RESOLVERS {
+            get {
+                return ResourceManager.GetString("CUSTOM_DNS_RESOLVERS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Disabled 的本地化字符串。
         /// </summary>
         public static string DISABLE_IPGEO {
@@ -833,6 +843,15 @@ namespace OpenTrace.Properties {
         public static string STOP {
             get {
                 return ResourceManager.GetString("STOP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 System DNS 的本地化字符串。
+        /// </summary>
+        public static string SYSTEM_DNS_RESOLVER {
+            get {
+                return ResourceManager.GetString("SYSTEM_DNS_RESOLVER", resourceCulture);
             }
         }
         
