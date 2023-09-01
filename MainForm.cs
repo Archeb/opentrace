@@ -14,6 +14,7 @@ using Advexp;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Reflection;
+using Eto.Wpf.Forms;
 
 namespace OpenTrace
 {
@@ -55,7 +56,7 @@ namespace OpenTrace
             aboutCommand.Executed += (sender, e) => Process.Start(new ProcessStartInfo("https://github.com/Archeb/opentrace") { UseShellExecute = true });
 
             var preferenceCommand = new Command { MenuText = Resources.PREFERENCES, Shortcut = Application.Instance.CommonModifier | Keys.Comma };
-            preferenceCommand.Executed += (sender, e) => new PreferencesDialog().ShowModal();
+            preferenceCommand.Executed += (sender, e) => new PreferencesDialog().ShowModal(this);
 
             // ´´½¨²Ëµ¥À¸
             Menu = new MenuBar
