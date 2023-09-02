@@ -2,6 +2,7 @@
 using Eto.Drawing;
 using Eto.Forms;
 using System;
+using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Globalization;
 using System.Runtime.InteropServices;
@@ -20,17 +21,17 @@ namespace OpenTrace
             {
                 System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(UserSettings.language);
             }
-            if(UserSettings.mapProvider == "" && UserSettings.mapProvider != null)
+            
+            // 本地化设置
+            if (System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "zh-CN" && TimeZoneInfo.Local.Id == "China Standard Time")
             {
-                // 本地化地图供应商设置
-                if (System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "zh-CN")
-                {
-                    UserSettings.mapProvider = "baidu"; 
-                }
-                else
-                {
-                    UserSettings.mapProvider = "google";
-                }
+                if (UserSettings.mapProvider == "" && UserSettings.mapProvider != null) UserSettings.mapProvider = "baidu";
+                if (UserSettings.POWProvider == "" && UserSettings.POWProvider != null) UserSettings.POWProvider = "sakura";
+            }
+            else
+            {
+                if (UserSettings.mapProvider == "" && UserSettings.mapProvider != null) UserSettings.mapProvider = "google";
+                if (UserSettings.POWProvider == "" && UserSettings.POWProvider != null) UserSettings.POWProvider = "api.leo.moe";
             }
 
             new Application(Eto.Platform.Detect).Run(new MainForm());

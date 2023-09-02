@@ -694,6 +694,33 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 LeoMoeAPI PoW Provider 的本地化字符串。
+        /// </summary>
+        public static string POW_PROVIDER {
+            get {
+                return ResourceManager.GetString("POW_PROVIDER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 api.leo.moe (Default) 的本地化字符串。
+        /// </summary>
+        public static string POW_PROVIDER_LEOMOE {
+            get {
+                return ResourceManager.GetString("POW_PROVIDER_LEOMOE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Nya Labs (China Mainland Optimized) 的本地化字符串。
+        /// </summary>
+        public static string POW_PROVIDER_SAKURA {
+            get {
+                return ResourceManager.GetString("POW_PROVIDER_SAKURA", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Preferences 的本地化字符串。
         /// </summary>
         public static string PREFERENCES {

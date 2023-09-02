@@ -333,6 +333,15 @@ To use an offline database, please refer to the NextTrace documentation to set i
   <data name="PARALLEL_REQ" xml:space="preserve">
     <value>Parallel Requests</value>
   </data>
+  <data name="POW_PROVIDER" xml:space="preserve">
+    <value>LeoMoeAPI PoW Provider</value>
+  </data>
+  <data name="POW_PROVIDER_LEOMOE" xml:space="preserve">
+    <value>api.leo.moe (Default)</value>
+  </data>
+  <data name="POW_PROVIDER_SAKURA" xml:space="preserve">
+    <value>Nya Labs (China Mainland Optimized)</value>
+  </data>
   <data name="PREFERENCES" xml:space="preserve">
     <value>Preferences</value>
   </data>

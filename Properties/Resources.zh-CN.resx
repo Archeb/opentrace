@@ -327,6 +327,15 @@ sudo chmod +sx /path/to/nexttrace
   <data name="PARALLEL_REQ" xml:space="preserve">
     <value>并行请求数</value>
   </data>
+  <data name="POW_PROVIDER" xml:space="preserve">
+    <value>LeoMoeAPI PoW 服务器</value>
+  </data>
+  <data name="POW_PROVIDER_LEOMOE" xml:space="preserve">
+    <value>api.leo.moe (默认)</value>
+  </data>
+  <data name="POW_PROVIDER_SAKURA" xml:space="preserve">
+    <value>Nya Labs (中国大陆优化)</value>
+  </data>
   <data name="PREFERENCES" xml:space="preserve">
     <value>设置</value>
   </data>

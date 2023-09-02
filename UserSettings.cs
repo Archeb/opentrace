@@ -90,5 +90,8 @@ namespace OpenTrace
         
         [Setting(Name = "customDNSResolvers", Default = "8.8.8.8#Google DNS\nhttps://cloudflare-dns.com/dns-query#CloudFlare DoH")]
         public static string customDNSResolvers { get; set; }
+
+        [Setting(Name = "POWProvider", Default = "")]
+        public static string POWProvider { get; set; }
     }
 }
