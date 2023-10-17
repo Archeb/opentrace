@@ -141,6 +141,37 @@ namespace OpenTrace
             tracerouteGridView = new GridView { DataStore = tracerouteResultCollection };
             tracerouteGridView.MouseUp += Dragging_MouseUp;
             tracerouteGridView.SelectedRowsChanged += TracerouteGridView_SelectedRowsChanged;
+            var copyIPCommand = new Command { MenuText = Resources.COPY + "IP" };
+            var copyGeolocationCommand = new Command { MenuText = Resources.COPY + Resources.GEOLOCATION };
+            var copyHostnameCommand = new Command { MenuText = Resources.COPY + Resources.HOSTNAME };
+            tracerouteGridView.ContextMenu = new ContextMenu
+            {
+                Items = {
+                    copyIPCommand,
+                    copyGeolocationCommand,
+                    copyHostnameCommand
+                }
+            };
+            copyIPCommand.Executed += (sender, e) =>
+            {
+                Clipboard.Instance.Text = tracerouteResultCollection[tracerouteGridView.SelectedRow].IP;
+            };
+            copyGeolocationCommand.Executed += (sender, e) =>
+            {
+                if (UserSettings.combineGeoOrg)
+                {
+                    Clipboard.Instance.Text = tracerouteResultCollection[tracerouteGridView.SelectedRow].GeolocationAndOrganization;
+                }
+                else
+                {
+                    Clipboard.Instance.Text = tracerouteResultCollection[tracerouteGridView.SelectedRow].Geolocation;
+                }
+            };
+            copyHostnameCommand.Executed += (sender, e) =>
+            {
+                Clipboard.Instance.Text = tracerouteResultCollection[tracerouteGridView.SelectedRow].Hostname;
+            };
+
             AddGridColumnsTraceroute();
 
             mapWebView = new WebView();

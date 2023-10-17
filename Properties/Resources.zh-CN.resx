@@ -154,6 +154,9 @@
   <data name="COMBINE_GEO_ORG" xml:space="preserve">
     <value>把地理位置和组织信息合为一栏</value>
   </data>
+  <data name="COPY" xml:space="preserve">
+    <value>复制</value>
+  </data>
   <data name="CUSTOM_DNS_RESOLVERS" xml:space="preserve">
     <value>自定义DNS服务器
 (支持 UDP / DoH)</value>

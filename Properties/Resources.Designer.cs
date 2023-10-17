@@ -187,6 +187,15 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Copy  的本地化字符串。
+        /// </summary>
+        public static string COPY {
+            get {
+                return ResourceManager.GetString("COPY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Custom DNS Resolvers
         ///(DNS / DoH Supported) 的本地化字符串。
         /// </summary>
