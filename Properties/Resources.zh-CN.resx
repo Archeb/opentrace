@@ -215,6 +215,9 @@
   <data name="GEOLOCATION" xml:space="preserve">
     <value>地理位置</value>
   </data>
+  <data name="GRID_SIZE_RATIO" xml:space="preserve">
+    <value>表格高度占比</value>
+  </data>
   <data name="HELP" xml:space="preserve">
     <value>帮助</value>
   </data>

@@ -93,5 +93,8 @@ namespace OpenTrace
 
         [Setting(Name = "POWProvider", Default = "")]
         public static string POWProvider { get; set; }
+
+        [Setting(Name = "gridSizePercentage", Default = 0.5)]
+        public static double gridSizePercentage { get; set; }
     }
 }

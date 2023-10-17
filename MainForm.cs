@@ -24,7 +24,6 @@ namespace OpenTrace
     {
         private ObservableCollection<TracerouteHop> tracerouteResultCollection = new ObservableCollection<TracerouteHop>();
         private static NextTraceWrapper CurrentInstance { get; set; }
-        private static double gridSizePercentage = 0.5;
         private ComboBox HostInputBox;
         private GridView tracerouteGridView;
         private CheckBox MTRMode;
@@ -64,6 +63,8 @@ namespace OpenTrace
                 new PreferencesDialog().ShowModal(this);
                 // 关闭设置后刷新 DNS 服务器列表
                 LoadDNSResolvers();
+                // 刷新grid高度大小
+                MainForm_SizeChanged(sender, e);
             };
 
             // 创建菜单栏
@@ -603,6 +604,8 @@ namespace OpenTrace
         {
             gridResizing = false;
             mapWebView.Enabled = true;
+            // save grid size percentage
+            UserSettings.SaveSettings();
         }
 
         private void Dragging_MouseDown(object sender, MouseEventArgs e)
@@ -633,7 +636,7 @@ namespace OpenTrace
                 {
 
                     tracerouteGridView.Height = (int)e.Location.Y - tracerouteGridView.Bounds.Top - 15;
-                    gridSizePercentage = (double)tracerouteGridView.Height / (Height - 75); // 保存比例
+                    UserSettings.gridSizePercentage = (double)tracerouteGridView.Height / (Height - 75); // 保存比例
                 }
             }
         }
@@ -642,7 +645,7 @@ namespace OpenTrace
         {
             int gridHeight;
             int totalHeight = this.Height - 75; // 减去边距和上面的文本框的75px
-            gridHeight = (int)(totalHeight * gridSizePercentage);
+            gridHeight = (int)(totalHeight * UserSettings.gridSizePercentage);
             tracerouteGridView.Height = gridHeight; // 按比例还原高度
         }
         private void UpdateMap(TracerouteResult result)

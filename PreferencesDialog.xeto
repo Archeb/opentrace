@@ -47,6 +47,11 @@
 										<Label Text="{x:Static resource:Resources.CUSTOM_DNS_RESOLVERS}"></Label>
 										<TextArea x:Name="customDNSResolvers"></TextArea>
 									</TableRow>
+									
+									<TableRow>
+										<Label Text="{x:Static resource:Resources.GRID_SIZE_RATIO}"></Label>
+										<NumericStepper x:Name="gridSizePercentage" MaxValue="90" MinValue="10" ></NumericStepper>
+									</TableRow>
 								</TableLayout>
 							</TableRow>
 							<TableRow>

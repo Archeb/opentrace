@@ -390,6 +390,15 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Grid Height Ratio 的本地化字符串。
+        /// </summary>
+        public static string GRID_SIZE_RATIO {
+            get {
+                return ResourceManager.GetString("GRID_SIZE_RATIO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Help 的本地化字符串。
         /// </summary>
         public static string HELP {

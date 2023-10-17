@@ -219,6 +219,9 @@ Would you like to add a firewall rule to allow needed ICMP for NextTrace?</value
   <data name="googleMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\javascript\googleMap.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="GRID_SIZE_RATIO" xml:space="preserve">
+    <value>Grid Height Ratio</value>
+  </data>
   <data name="HELP" xml:space="preserve">
     <value>Help</value>
   </data>
