@@ -167,6 +167,9 @@
   <data name="DST_PORT_INIT_SEQ" xml:space="preserve">
     <value>目標埠 / 初始序號</value>
   </data>
+  <data name="EMPTY_HOSTNAME_MSGBOX" xml:space="preserve">
+    <value>主機或 IP 不能為空</value>
+  </data>
   <data name="ENABLE_IP2REGION" xml:space="preserve">
     <value>使用本地 Ip2region 數據庫  (ip2region.db)</value>
   </data>

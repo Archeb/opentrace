@@ -224,6 +224,15 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Host or IP cannot be empty 的本地化字符串。
+        /// </summary>
+        public static string EMPTY_HOSTNAME_MSGBOX {
+            get {
+                return ResourceManager.GetString("EMPTY_HOSTNAME_MSGBOX", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Enable offline database Ip2region (ip2region.db) 的本地化字符串。
         /// </summary>
         public static string ENABLE_IP2REGION {

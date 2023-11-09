@@ -372,6 +372,12 @@ namespace OpenTrace
                 CurrentInstance = null;
                 return;
             }
+            if(HostInputBox.Text == "")
+            {
+                MessageBox.Show(Resources.EMPTY_HOSTNAME_MSGBOX);
+                CurrentInstance = null;
+                return;
+            }
 
             tracerouteResultCollection.Clear(); // 清空原有GridView
             ResetMap(); // 重置地图

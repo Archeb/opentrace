@@ -168,6 +168,9 @@ Would you like to add a firewall rule to allow needed ICMP for NextTrace?</value
   <data name="DST_PORT_INIT_SEQ" xml:space="preserve">
     <value>Destination port / Initial seq</value>
   </data>
+  <data name="EMPTY_HOSTNAME_MSGBOX" xml:space="preserve">
+    <value>Host or IP cannot be empty</value>
+  </data>
   <data name="ENABLE_IP2REGION" xml:space="preserve">
     <value>Enable offline database Ip2region (ip2region.db)</value>
   </data>
