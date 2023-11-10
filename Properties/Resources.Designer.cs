@@ -133,7 +133,7 @@ namespace OpenTrace.Properties {
         ///		// 重新计算中心点并画图
         ///		map.clearOverlays(); //清除覆盖物
         ///		var pointlygon_array = []; //折线需要的数组
-        ///		for (var [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///		for (var i = 0; i &lt; this. [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string baiduMap {
             get {
@@ -390,7 +390,9 @@ namespace OpenTrace.Properties {
         ///	addHop: function (hop) {
         ///
         ///		// Parse the JSON string into an object
-        ///		const hopData = JSON.parse(h [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///		const hopData = JSON.parse(hop);
+        ///
+        ///		conso [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string googleMap {
             get {
@@ -503,6 +505,115 @@ namespace OpenTrace.Properties {
         public static string LINKLOCAL_ADDR {
             get {
                 return ResourceManager.GetString("LINKLOCAL_ADDR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Local MMDB 的本地化字符串。
+        /// </summary>
+        public static string LOCAL_MMDB {
+            get {
+                return ResourceManager.GetString("LOCAL_MMDB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Address Template 的本地化字符串。
+        /// </summary>
+        public static string LOCAL_MMDB_ADDR {
+            get {
+                return ResourceManager.GetString("LOCAL_MMDB_ADDR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ASN Template 的本地化字符串。
+        /// </summary>
+        public static string LOCAL_MMDB_ASN {
+            get {
+                return ResourceManager.GetString("LOCAL_MMDB_ASN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Hostname Template 的本地化字符串。
+        /// </summary>
+        public static string LOCAL_MMDB_HOSTNAME {
+            get {
+                return ResourceManager.GetString("LOCAL_MMDB_HOSTNAME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Latitude Template 的本地化字符串。
+        /// </summary>
+        public static string LOCAL_MMDB_LAT {
+            get {
+                return ResourceManager.GetString("LOCAL_MMDB_LAT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Longitude Template 的本地化字符串。
+        /// </summary>
+        public static string LOCAL_MMDB_LON {
+            get {
+                return ResourceManager.GetString("LOCAL_MMDB_LON", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Organization Template 的本地化字符串。
+        /// </summary>
+        public static string LOCAL_MMDB_ORG {
+            get {
+                return ResourceManager.GetString("LOCAL_MMDB_ORG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Local MMDB Path 的本地化字符串。
+        /// </summary>
+        public static string LOCAL_MMDB_PATH {
+            get {
+                return ResourceManager.GetString("LOCAL_MMDB_PATH", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Preview MMDB File 的本地化字符串。
+        /// </summary>
+        public static string LOCAL_MMDB_PREVIEW {
+            get {
+                return ResourceManager.GetString("LOCAL_MMDB_PREVIEW", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Preview MMDB IP 的本地化字符串。
+        /// </summary>
+        public static string LOCAL_MMDB_PREVIEW_IP {
+            get {
+                return ResourceManager.GetString("LOCAL_MMDB_PREVIEW_IP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Select MMDB File 的本地化字符串。
+        /// </summary>
+        public static string LOCAL_MMDB_SELECT {
+            get {
+                return ResourceManager.GetString("LOCAL_MMDB_SELECT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Template Example: {.country}-{.city}
+        ///Leave empty to avoid overwrite field 的本地化字符串。
+        /// </summary>
+        public static string LOCAL_MMDB_TIPS {
+            get {
+                return ResourceManager.GetString("LOCAL_MMDB_TIPS", resourceCulture);
             }
         }
         

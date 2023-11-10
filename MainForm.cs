@@ -135,6 +135,8 @@ namespace OpenTrace
             if (UserSettings.enable_ip2region == true) dataProviderSelection.Items.Add(new ListItem { Text = "Ip2region", Key = "--data-provider Ip2region" });
             if (UserSettings.enable_ipinfolocal == true) dataProviderSelection.Items.Add(new ListItem { Text = "IPInfoLocal", Key = "--data-provider IPInfoLocal" });
 
+            if (UserSettings.localDBPath != "") IPDBLoader.Load();
+
             dnsResolverSelection = new DropDown();
             dnsResolverSelection.SelectedKeyChanged += resolveParamChanged;
             LoadDNSResolvers();
@@ -576,21 +578,26 @@ namespace OpenTrace
                 {
                     try
                     {
-                        int HopNo = int.Parse(((TracerouteResult)e.NewItems[0]).No);
+                        TracerouteResult result = (TracerouteResult)e.NewItems[0];
+                        result = IPDBLoader.Rewrite(result);
+                        int HopNo = int.Parse(result.No);
                         if (HopNo > tracerouteResultCollection.Count)
                         {
                             // 正常添加新的跳
-                            tracerouteResultCollection.Add(new TracerouteHop((TracerouteResult)e.NewItems[0]));
-                            UpdateMap((TracerouteResult)e.NewItems[0]);
+                            tracerouteResultCollection.Add(new TracerouteHop(result));
+                            UpdateMap(result);
                             tracerouteGridView.ScrollToRow(tracerouteResultCollection.Count - 1);
                         }
                         else
                         {
                             // 修改现有的跳
-                            tracerouteResultCollection[HopNo - 1].HopData.Add((TracerouteResult)e.NewItems[0]);
+                            tracerouteResultCollection[HopNo - 1].HopData.Add(result);
                             tracerouteGridView.ReloadData(HopNo - 1);
                         }
-                    } catch { }
+                    } catch (Exception exception)
+                    {
+                        MessageBox.Show($"Message: ${exception.Message} \nSource: ${exception.Source} \nStackTrace: ${exception.StackTrace}", "Exception Occurred");
+                    }
                 });
             }
         }

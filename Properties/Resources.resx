@@ -258,6 +258,43 @@ Would you like to add a firewall rule to allow needed ICMP for NextTrace?</value
   <data name="LINKLOCAL_ADDR" xml:space="preserve">
     <value>Link-local Address</value>
   </data>
+  <data name="LOCAL_MMDB" xml:space="preserve">
+    <value>Local MMDB</value>
+  </data>
+  <data name="LOCAL_MMDB_ADDR" xml:space="preserve">
+    <value>Address Template</value>
+  </data>
+  <data name="LOCAL_MMDB_ASN" xml:space="preserve">
+    <value>ASN Template</value>
+  </data>
+  <data name="LOCAL_MMDB_HOSTNAME" xml:space="preserve">
+    <value>Hostname Template</value>
+  </data>
+  <data name="LOCAL_MMDB_LAT" xml:space="preserve">
+    <value>Latitude Template</value>
+  </data>
+  <data name="LOCAL_MMDB_LON" xml:space="preserve">
+    <value>Longitude Template</value>
+  </data>
+  <data name="LOCAL_MMDB_ORG" xml:space="preserve">
+    <value>Organization Template</value>
+  </data>
+  <data name="LOCAL_MMDB_PATH" xml:space="preserve">
+    <value>Local MMDB Path</value>
+  </data>
+  <data name="LOCAL_MMDB_PREVIEW" xml:space="preserve">
+    <value>Preview MMDB File</value>
+  </data>
+  <data name="LOCAL_MMDB_PREVIEW_IP" xml:space="preserve">
+    <value>Preview MMDB IP</value>
+  </data>
+  <data name="LOCAL_MMDB_SELECT" xml:space="preserve">
+    <value>Select MMDB File</value>
+  </data>
+  <data name="LOCAL_MMDB_TIPS" xml:space="preserve">
+    <value>Template Example: {.country}-{.city}
+Leave empty to avoid overwrite field</value>
+  </data>
   <data name="LOOPBACK_ADDR" xml:space="preserve">
     <value>Loopback Address</value>
   </data>

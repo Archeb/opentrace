@@ -158,6 +158,58 @@
 								</TableRow>
 						</TableLayout>
 					</TabPage>
+					<TabPage x:Name="LocalMMDBPage" Text="{x:Static resource:Resources.LOCAL_MMDB}">
+						<TableLayout Padding="10" Spacing="10,10">
+							<TableRow>
+								<TableLayout Spacing="5,5">
+									<TableRow>
+										<Label Text="{x:Static resource:Resources.LOCAL_MMDB_PATH}"></Label>
+										<TextBox x:Name="localDBPath"></TextBox>
+									</TableRow>
+									<TableRow>
+										<Label Text=""></Label>
+										<Button Text="{x:Static resource:Resources.LOCAL_MMDB_SELECT}" Click="HandleSelectMMDB"></Button>
+									</TableRow>
+									<TableRow>
+										<Label Text="{x:Static resource:Resources.LOCAL_MMDB_PREVIEW_IP}"></Label>
+										<TextBox x:Name="testMMDBIP" Text="223.5.5.5"></TextBox>
+									</TableRow>
+									<TableRow>
+										<Label Text=""></Label>
+										<Button Text="{x:Static resource:Resources.LOCAL_MMDB_PREVIEW}" Click="HandlePreviewMMDB"></Button>
+									</TableRow>
+									<TableRow>
+										<Label Text="{x:Static resource:Resources.LOCAL_MMDB_ADDR}"></Label>
+										<TextBox x:Name="localDBAddr"></TextBox>
+									</TableRow>
+									<TableRow>
+										<Label Text="{x:Static resource:Resources.LOCAL_MMDB_ORG}"></Label>
+										<TextBox x:Name="localDBOrg"></TextBox>
+									</TableRow>
+									<TableRow>
+										<Label Text="{x:Static resource:Resources.LOCAL_MMDB_LAT}"></Label>
+										<TextBox x:Name="localDBLat"></TextBox>
+									</TableRow>
+									<TableRow>
+										<Label Text="{x:Static resource:Resources.LOCAL_MMDB_LON}"></Label>
+										<TextBox x:Name="localDBLon"></TextBox>
+									</TableRow>
+									<TableRow>
+										<Label Text="{x:Static resource:Resources.LOCAL_MMDB_ASN}"></Label>
+										<TextBox x:Name="localDBASN"></TextBox>
+									</TableRow>
+									<TableRow>
+										<Label Text="{x:Static resource:Resources.LOCAL_MMDB_HOSTNAME}"></Label>
+										<TextBox x:Name="localDBHostname"></TextBox>
+									</TableRow>
+									<TableRow ScaleHeight="True"></TableRow>
+									<TableRow>
+										<Label Text="{x:Static resource:Resources.LOCAL_MMDB_TIPS}"></Label>
+									</TableRow>
+								</TableLayout>
+							</TableRow>
+						</TableLayout>
+					</TabPage>
 
 				</TabControl>
 			</TableLayout>

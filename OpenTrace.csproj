@@ -27,6 +27,7 @@
     <PackageReference Include="Advexp.Settings.Local" Version="2.7.0" />
     <PackageReference Include="Ae.Dns.Client" Version="1.0.0" />
     <PackageReference Include="Eto.Serialization.Xaml" Version="2.7.5" />
+    <PackageReference Include="MaxMind.Db" Version="4.0.0" />
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1938.49" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
@@ -34,6 +35,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="TextOutputForm.xeto.cs">
+      <DependentUpon>TextOutputForm.xeto</DependentUpon>
+    </Compile>
     <Compile Update="ExceptionalOutputForm.xeto.cs">
       <DependentUpon>ExceptionalOutputForm.xeto</DependentUpon>
     </Compile>
