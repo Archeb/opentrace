@@ -661,7 +661,7 @@ namespace OpenTrace
                 // 把 Result 转换为 JSON
                 string resultJson = JsonConvert.SerializeObject(result);
                 // 通过 ExecuteScript 把结果传进去
-                mapWebView.ExecuteScript(@"window.opentrace.addHop(`" + resultJson + "`);");
+                mapWebView.ExecuteScriptAsync(@"window.opentrace.addHop(`" + resultJson + "`);");
             }
             catch (Exception e)
             {
