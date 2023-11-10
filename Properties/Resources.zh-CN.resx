@@ -270,7 +270,7 @@
     <value>纬度模板</value>
   </data>
   <data name="LOCAL_MMDB_LON" xml:space="preserve">
-    <value>精度模板</value>
+    <value>经度模板</value>
   </data>
   <data name="LOCAL_MMDB_ORG" xml:space="preserve">
     <value>组织模板</value>
