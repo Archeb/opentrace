@@ -28,17 +28,9 @@ namespace OpenTrace
                 MaxMind.Db.Reader reader = new MaxMind.Db.Reader(UserSettings.localDBPath);
                 DB = reader;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return false;
-            }
-            try
-            {
-                var row = DB.Find<Dictionary<string, object>>(IPAddress.Parse("223.5.5.5"));
-            }
-            catch (Exception)
-            {
-                return false;
+                Eto.Forms.MessageBox.Show($"Cannot load MMDB, Message: ${e.Message} \nSource: ${e.Source} \nStackTrace: ${e.StackTrace}", "Exception Occurred");
             }
             foreach (var key in new List<String> { UserSettings.localDBAddr, UserSettings.localDBOrg, UserSettings.localDBLat, UserSettings.localDBLon, UserSettings.localDBASN, UserSettings.localDBHostname })
             {
@@ -46,15 +38,8 @@ namespace OpenTrace
                 {
                     continue;
                 }
-                try
-                {
-                    var t = new Templator(key);
-                    templates.Add(key, t);
-                }
-                catch (Exception)
-                {
-                    return false;
-                }
+                var t = new Templator(key);
+                templates.Add(key, t);
             }
             return true;
         }
