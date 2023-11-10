@@ -74,7 +74,15 @@ namespace OpenTrace
             {
                 return r;
             }
-            var row = DB.Find<Dictionary<string, object>>(IPAddress.Parse(r.IP));
+            Dictionary<string, object> row;
+            try
+            {
+                row = DB.Find<Dictionary<string, object>>(IPAddress.Parse(r.IP));
+            }
+            catch (Exception)
+            {
+                return r;
+            }
             if (row != null)
             {
                 r.Geolocation = Render(UserSettings.localDBAddr, r.Geolocation, row);
@@ -114,7 +122,7 @@ namespace OpenTrace
             }
             return state;
         }
-        
+
         private string render(string state, string key, Dictionary<string, object> data)
         {
             foreach (var item in data)
@@ -124,7 +132,7 @@ namespace OpenTrace
             return state;
         }
 
-        private string render( string state, string key, List<object> data)
+        private string render(string state, string key, List<object> data)
         {
             for (int i = 0; i < data.Count; i++)
             {
