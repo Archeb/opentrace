@@ -107,7 +107,12 @@ namespace OpenTrace
             var oldPath = UserSettings.localDBPath;
             UserSettings.localDBPath = settingTextBox.Text;
             IPDBLoader.Load();
-            var result = IPDBLoader.DB.Find<Dictionary<string, object>>(IPAddress.Parse("223.5.5.5"));
+            settingTextBox = this.FindChild<TextBox>("testMMDBIP");
+            if (settingTextBox == null || settingTextBox.Text == "")
+            {
+                return;
+            }
+            var result = IPDBLoader.DB.Find<Dictionary<string, object>>(IPAddress.Parse(settingTextBox.Text));
             textOutputForm.ClearOutput();
             reduceResult(0, result);
             textOutputForm.Show();
@@ -141,7 +146,6 @@ namespace OpenTrace
             var i = 0;
             foreach (var item in result)
             {
-                i++;
                 if (item is Dictionary<string, object>)
                 {
                     textOutputForm.AppendOutput(prefix + (i + ": "));
@@ -156,6 +160,7 @@ namespace OpenTrace
                 {
                     textOutputForm.AppendOutput(prefix + item);
                 }
+                i++;
             }
         }
     }
