@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Text.RegularExpressions;
 
 namespace OpenTrace
 {
@@ -134,7 +135,9 @@ namespace OpenTrace
 
         public string Render(Dictionary<string, object> data)
         {
-            return render(tpl, "", data);
+            var result = render(tpl, "", data);
+            var pattern = @"{\..*?}";
+            return Regex.Replace(result, pattern, "");
         }
     }
 }
