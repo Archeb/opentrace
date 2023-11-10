@@ -254,6 +254,43 @@
   <data name="LINKLOCAL_ADDR" xml:space="preserve">
     <value>鏈路本地地址</value>
   </data>
+  <data name="LOCAL_MMDB" xml:space="preserve">
+    <value>本地 MMDB</value>
+  </data>
+  <data name="LOCAL_MMDB_ADDR" xml:space="preserve">
+    <value>地理位置模板</value>
+  </data>
+  <data name="LOCAL_MMDB_ASN" xml:space="preserve">
+    <value>ASN 模板</value>
+  </data>
+  <data name="LOCAL_MMDB_HOSTNAME" xml:space="preserve">
+    <value>主機名模板</value>
+  </data>
+  <data name="LOCAL_MMDB_LAT" xml:space="preserve">
+    <value>緯度模板</value>
+  </data>
+  <data name="LOCAL_MMDB_LON" xml:space="preserve">
+    <value>經度模板</value>
+  </data>
+  <data name="LOCAL_MMDB_ORG" xml:space="preserve">
+    <value>組織模板</value>
+  </data>
+  <data name="LOCAL_MMDB_PATH" xml:space="preserve">
+    <value>本地 MMDB 路徑</value>
+  </data>
+  <data name="LOCAL_MMDB_PREVIEW" xml:space="preserve">
+    <value>預覽 MMDB</value>
+  </data>
+  <data name="LOCAL_MMDB_PREVIEW_IP" xml:space="preserve">
+    <value>預覽 IP</value>
+  </data>
+  <data name="LOCAL_MMDB_SELECT" xml:space="preserve">
+    <value>選擇 MMDB 檔案</value>
+  </data>
+  <data name="LOCAL_MMDB_TIPS" xml:space="preserve">
+    <value>模板舉例: {.country}-{.city}
+留空以避免覆寫對應欄位</value>
+  </data>
   <data name="LOOPBACK_ADDR" xml:space="preserve">
     <value>本地迴環地址</value>
   </data>
