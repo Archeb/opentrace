@@ -594,7 +594,10 @@ namespace OpenTrace
                             tracerouteResultCollection[HopNo - 1].HopData.Add(result);
                             tracerouteGridView.ReloadData(HopNo - 1);
                         }
-                    } catch { }
+                    } catch (Exception exception)
+                    {
+                        MessageBox.Show($"Message: ${exception.Message} \nSource: ${exception.Source} \nStackTrace: ${exception.StackTrace}", "Exception Occurred");
+                    }
                 });
             }
         }
