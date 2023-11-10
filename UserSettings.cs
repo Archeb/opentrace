@@ -96,5 +96,26 @@ namespace OpenTrace
 
         [Setting(Name = "gridSizePercentage", Default = 0.5)]
         public static double gridSizePercentage { get; set; }
+
+        [Setting(Name = "localDBPath", Default = "")]
+        public static string localDBPath { get; set; }
+
+        [Setting(Name = "localDBAddr", Default = "")]
+        public static string localDBAddr { get; set; }
+
+        [Setting(Name = "localDBOrg", Default = "")]
+        public static string localDBOrg { get; set; }
+
+        [Setting(Name = "localDBLat", Default = "")]
+        public static string localDBLat { get; set; }
+
+        [Setting(Name = "localDBLon", Default = "")]
+        public static string localDBLon { get; set; }
+
+        [Setting(Name = "localDBASN", Default = "")]
+        public static string localDBASN { get; set; }
+        
+        [Setting(Name = "localDBHostname", Default = "")]
+        public static string localDBHostname { get; set; }
     }
 }

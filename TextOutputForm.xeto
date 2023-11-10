@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<Form
+	xmlns="http://schema.picoe.ca/eto.forms"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:resource="clr-namespace:OpenTrace.Properties"
+	Title="{x:Static resource:Resources.APPTITLE}"
+	MinimumSize="600,450"
+	Padding="10"
+	Closing="Form_Closing"
+	>
+	<TableLayout Spacing="5,5">
+		<TableRow>
+		</TableRow>
+		<TableRow ScaleHeight="True">
+			<TextArea x:Name="OutputContainer" ReadOnly="True"></TextArea>
+		</TableRow>
+		<TableLayout Spacing="5,5">
+			<TableRow>
+				<TableCell ScaleWidth="True"></TableCell>
+				<TableCell>
+					<Button Click="CloseButton_Click" Text="{x:Static resource:Resources.CLOSE}"></Button>
+				</TableCell>
+			</TableRow>
+		</TableLayout>
+	</TableLayout>
+
+</Form>

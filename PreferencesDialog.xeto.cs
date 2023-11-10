@@ -4,6 +4,8 @@ using System.ComponentModel;
 using Eto.Serialization.Xaml;
 using System;
 using System.Linq;
+using System.Net;
+using System.Collections.Generic;
 using NextTrace;
 using System.Diagnostics;
 
@@ -12,6 +14,7 @@ namespace OpenTrace
     public partial class PreferencesDialog : Dialog
     {
         private ObservableCollection<TracerouteResult> tracerouteResultCollection = new ObservableCollection<TracerouteResult>();
+        private TextOutputForm textOutputForm = new TextOutputForm();
         private static NextTraceWrapper CurrentInstance { get; set; }
         UserSettings userSettings = new UserSettings();
         public PreferencesDialog()
@@ -33,7 +36,7 @@ namespace OpenTrace
                 if (settingDropDown != null)
                 {
                     settingDropDown.SelectedKey = (string)setting.GetValue(userSettings, null);
-                }                
+                }
                 TextArea settingTextArea = this.FindChild<TextArea>(setting.Name);
                 if (settingTextArea != null)
                 {
@@ -74,7 +77,86 @@ namespace OpenTrace
             }
             UserSettings.gridSizePercentage = this.FindChild<NumericStepper>("gridSizePercentage").Value / 100;
             UserSettings.SaveSettings();
+            IPDBLoader.Load();
             Close();
+        }
+
+        private void HandleSelectMMDB(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filters.Add(new FileFilter("MaxMind DB", ".mmdb"));
+            openFileDialog.Filters.Add(new FileFilter("All Files", ".*"));
+            openFileDialog.CheckFileExists = true;
+            openFileDialog.MultiSelect = false;
+            openFileDialog.Title = "Select MaxMind DB";
+            openFileDialog.ShowDialog(this);
+            if (openFileDialog.FileName != null && openFileDialog.FileName != "")
+            {
+                TextBox settingTextBox = this.FindChild<TextBox>("localDBPath");
+                settingTextBox.Text = openFileDialog.FileName;
+            }
+        }
+
+        private void HandlePreviewMMDB(object sender, EventArgs e)
+        {
+            TextBox settingTextBox = this.FindChild<TextBox>("localDBPath");
+            if (settingTextBox == null || settingTextBox.Text == "")
+            {
+                return;
+            }
+            var oldPath = UserSettings.localDBPath;
+            UserSettings.localDBPath = settingTextBox.Text;
+            IPDBLoader.Load();
+            var result = IPDBLoader.DB.Find<Dictionary<string, object>>(IPAddress.Parse("223.5.5.5"));
+            textOutputForm.ClearOutput();
+            reduceResult(0, result);
+            textOutputForm.Show();
+        }
+
+        private void reduceResult(int depth, Dictionary<string, object> result)
+        {
+            var prefix = Enumerable.Range(1, depth).Aggregate("", (current, _) => current + "  ");
+            foreach (var item in result)
+            {
+                if (item.Value is Dictionary<string, object>)
+                {
+                    textOutputForm.AppendOutput(prefix + (item.Key + ": "));
+                    reduceResult(depth + 1, (Dictionary<string, object>)item.Value);
+                }
+                else if (item.Value is List<object>)
+                {
+                    textOutputForm.AppendOutput(prefix + (item.Key + ": "));
+                    reduceResult(depth + 1, (List<object>)item.Value);
+                }
+                else
+                {
+                    textOutputForm.AppendOutput(prefix + (item.Key + ": " + item.Value));
+                }
+            }
+        }
+
+        private void reduceResult(int depth, List<object> result)
+        {
+            var prefix = Enumerable.Range(1, depth).Aggregate("", (current, _) => current + "  ");
+            var i = 0;
+            foreach (var item in result)
+            {
+                i++;
+                if (item is Dictionary<string, object>)
+                {
+                    textOutputForm.AppendOutput(prefix + (i + ": "));
+                    reduceResult(depth + 1, (Dictionary<string, object>)item);
+                }
+                else if (item is List<object>)
+                {
+                    textOutputForm.AppendOutput(prefix + (i + ": "));
+                    reduceResult(depth + 1, (List<object>)item);
+                }
+                else
+                {
+                    textOutputForm.AppendOutput(prefix + item);
+                }
+            }
         }
     }
 }
