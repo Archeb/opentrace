@@ -9,7 +9,6 @@ namespace OpenTrace
     class IPDBLoader
     {
         public static MaxMind.Db.Reader DB;
-        private static Dictionary<string, Templator> templates = new Dictionary<string, Templator>();
 
 
         public static bool Load()
@@ -32,23 +31,14 @@ namespace OpenTrace
             {
                 Eto.Forms.MessageBox.Show($"Cannot load MMDB, Message: ${e.Message} \nSource: ${e.Source} \nStackTrace: ${e.StackTrace}", "Exception Occurred");
             }
-            foreach (var key in new List<String> { UserSettings.localDBAddr, UserSettings.localDBOrg, UserSettings.localDBLat, UserSettings.localDBLon, UserSettings.localDBASN, UserSettings.localDBHostname })
-            {
-                if (key == "")
-                {
-                    continue;
-                }
-                var t = new Templator(key);
-                templates.Add(key, t);
-            }
             return true;
         }
 
-        public static string Render(string key, string original, Dictionary<string, object> data)
+        public static string Render(string tpl, string original, Dictionary<string, object> data)
         {
-            if (templates.ContainsKey(key))
+            if (tpl != "")
             {
-                return templates[key].Render(data);
+                return Templator.Render(tpl, data);
             }
             return original;
         }
@@ -83,13 +73,7 @@ namespace OpenTrace
 
     class Templator
     {
-        private string tpl;
-        public Templator(string template)
-        {
-            tpl = template;
-        }
-
-        private string render(string state, string curKey, object key, object value)
+        private static string render(string state, string curKey, object key, object value)
         {
             if (value is Dictionary<string, object>)
             {
@@ -108,7 +92,7 @@ namespace OpenTrace
             return state;
         }
 
-        private string render(string state, string key, Dictionary<string, object> data)
+        private static string render(string state, string key, Dictionary<string, object> data)
         {
             foreach (var item in data)
             {
@@ -117,7 +101,7 @@ namespace OpenTrace
             return state;
         }
 
-        private string render(string state, string key, List<object> data)
+        private static string render(string state, string key, List<object> data)
         {
             for (int i = 0; i < data.Count; i++)
             {
@@ -126,7 +110,7 @@ namespace OpenTrace
             return state;
         }
 
-        public string Render(Dictionary<string, object> data)
+        public static string Render(string tpl, Dictionary<string, object> data)
         {
             var result = render(tpl, "", data);
             var pattern = @"{\..*?}";
