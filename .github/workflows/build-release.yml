@@ -1,0 +1,79 @@
+name: Build for Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions: 
+      contents: write
+
+    strategy:
+      matrix:
+        runtime: [win-x64, linux-x64, osx-x64]
+        include:
+          - runtime: win-x64
+            artifact_path: ./bin/Wpf/Release/net48/win-x64
+            self_contained: "--no-self-contained"
+            framework: net48
+            nt_file: nexttrace_windows_amd64.exe
+            nt_fn: nexttrace.exe
+          - runtime: linux-x64
+            artifact_path: ./bin/Gtk/Release/net6.0/linux-x64
+            self_contained: "--self-contained"
+            framework: net6.0
+            nt_file: nexttrace_linux_amd64
+            nt_fn: nexttrace
+          - runtime: osx-x64
+            artifact_path: ./bin/Mac64/Release/net6.0/osx-x64
+            self_contained: "--self-contained"
+            framework: net6.0
+            nt_file: nexttrace_darwin_amd64
+            nt_fn: OpenTrace.app/Contents/MacOS/nexttrace
+            pack_target: OpenTrace.app
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 6
+
+    - name: Build
+      run: dotnet build OpenTrace.csproj --runtime ${{ matrix.runtime }} --configuration Release ${{ matrix.self_contained }} -f ${{ matrix.framework }}
+
+    - name: Fetch Nexttrace Version
+      run: |
+        release="${{ github.event.release.body }} "
+        echo "ntver=$(echo $release | grep -E -o nexttrace_version:.\*? | cut -d':' -f2)" >> $GITHUB_ENV
+    
+    - name: Download Nexttrace
+      uses: robinraju/release-downloader@v1.8
+      with: 
+        repository: nxtrace/NTrace-V1
+        fileName: ${{ matrix.nt_file }}
+        latest: ${{ env.ntver == '' && true || false }}
+        tag: ${{ env.ntver }}
+        token: ${{ secrets.GITHUB_TOKEN }}
+        out-file-path: ${{ matrix.artifact_path }}
+
+    - name: Package
+      run: |
+        cd ${{ matrix.artifact_path }}
+        mv ./nexttrace_* ./${{ matrix.nt_fn }}
+        chmod +x ./${{ matrix.nt_fn }}
+        tar -cvzf ${{ github.workspace }}/${{ matrix.runtime }}.tar.gz ${{ matrix.pack_target == '' && '.' || matrix.pack_target }}
+
+    - name: Edit release for ${{ matrix.runtime }}
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: ${{ matrix.runtime }}.tar.gz
+        asset_name: ${{ matrix.runtime }}.tar.gz
+        tag: ${{ github.ref }}

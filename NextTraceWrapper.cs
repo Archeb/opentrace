@@ -103,7 +103,12 @@ namespace NextTrace
                                 break;
                             }
                         }
-                        if(nexttracePath != null) break; 
+                        if (nexttracePath != null) break;
+                        else if (File.Exists(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "OpenTrace.app/Contents/MacOS", otherBinaryName)))
+                        {
+                            nexttracePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "OpenTrace.app/Contents/MacOS", otherBinaryName);
+                            break;
+                        }
                     }
                 }
             }
