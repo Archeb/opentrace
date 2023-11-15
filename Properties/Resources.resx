@@ -259,7 +259,7 @@ Would you like to add a firewall rule to allow needed ICMP for NextTrace?</value
     <value>Link-local Address</value>
   </data>
   <data name="LOCAL_MMDB" xml:space="preserve">
-    <value>Local MMDB</value>
+    <value>Local MMDB Overwrite</value>
   </data>
   <data name="LOCAL_MMDB_ADDR" xml:space="preserve">
     <value>Address Template</value>
@@ -282,6 +282,9 @@ Would you like to add a firewall rule to allow needed ICMP for NextTrace?</value
   <data name="LOCAL_MMDB_PATH" xml:space="preserve">
     <value>Local MMDB Path</value>
   </data>
+  <data name="LOCAL_MMDB_PRESETS" xml:space="preserve">
+    <value>Presets</value>
+  </data>
   <data name="LOCAL_MMDB_PREVIEW" xml:space="preserve">
     <value>Preview MMDB File</value>
   </data>
@@ -292,8 +295,9 @@ Would you like to add a firewall rule to allow needed ICMP for NextTrace?</value
     <value>Select MMDB File</value>
   </data>
   <data name="LOCAL_MMDB_TIPS" xml:space="preserve">
-    <value>Template Example: {.country}-{.city}
-Leave empty to avoid overwrite field</value>
+    <value>Use MMDB query result overwrite original result
+Leave empty to avoid overwrite field
+Template Example: {.country}-{.city}</value>
   </data>
   <data name="LOOPBACK_ADDR" xml:space="preserve">
     <value>Loopback Address</value>

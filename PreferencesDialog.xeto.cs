@@ -20,6 +20,11 @@ namespace OpenTrace
         public PreferencesDialog()
         {
             XamlReader.Load(this);
+            ApplyUserSettings();
+        }
+
+        private void ApplyUserSettings()
+        {
             foreach (var setting in userSettings.GetType().GetProperties())
             {
                 TextBox settingTextBox = this.FindChild<TextBox>(setting.Name);
@@ -81,7 +86,7 @@ namespace OpenTrace
             Close();
         }
 
-        private void HandleSelectMMDB(object sender, EventArgs e)
+        private void HandleMMDBSelect(object sender, EventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filters.Add(new FileFilter("MaxMind DB", ".mmdb"));
@@ -97,7 +102,7 @@ namespace OpenTrace
             }
         }
 
-        private void HandlePreviewMMDB(object sender, EventArgs e)
+        private void HandleMMDBPreview(object sender, EventArgs e)
         {
             TextBox settingTextBox = this.FindChild<TextBox>("localDBPath");
             if (settingTextBox == null || settingTextBox.Text == "")
@@ -162,6 +167,42 @@ namespace OpenTrace
                 }
                 i++;
             }
+        }
+
+        private void HandleMMDBPreset(object sender, EventArgs e)
+        {
+
+            var setting = this.FindChild<DropDown>("localDBPreset");
+            switch (setting.SelectedKey)
+            {
+                case "geoip2-city":
+                    UserSettings.localDBAddr = "{.country.names.zh-CN} {.subdivisions.0.names.zh-CN} {.city.names.zh-CN}";
+                    UserSettings.localDBOrg = "";
+                    UserSettings.localDBLat = "{.location.latitude}";
+                    UserSettings.localDBLon = "{.location.longitude}";
+                    UserSettings.localDBASN = "";
+                    UserSettings.localDBHostname = "";
+                    break;
+                case "ipinfo-loc":
+                    UserSettings.localDBAddr = "{.country} {.region} {.city}";
+                    UserSettings.localDBOrg = "";
+                    UserSettings.localDBLat = "{.lat}";
+                    UserSettings.localDBLon = "{.lng}";
+                    UserSettings.localDBASN = "";
+                    UserSettings.localDBHostname = "";
+                    break;
+                case "ipinfo-org":
+                    UserSettings.localDBAddr = "";
+                    UserSettings.localDBOrg = "{.name} {.hosting} {.domain}";
+                    UserSettings.localDBLat = "";
+                    UserSettings.localDBLon = "";
+                    UserSettings.localDBASN = "";
+                    UserSettings.localDBHostname = "";
+                    break;
+                default:
+                    return;
+            }
+            ApplyUserSettings();
         }
     }
 }

@@ -168,7 +168,7 @@
 									</TableRow>
 									<TableRow>
 										<Label Text=""></Label>
-										<Button Text="{x:Static resource:Resources.LOCAL_MMDB_SELECT}" Click="HandleSelectMMDB"></Button>
+										<Button Text="{x:Static resource:Resources.LOCAL_MMDB_SELECT}" Click="HandleMMDBSelect"></Button>
 									</TableRow>
 									<TableRow>
 										<Label Text="{x:Static resource:Resources.LOCAL_MMDB_PREVIEW_IP}"></Label>
@@ -176,7 +176,16 @@
 									</TableRow>
 									<TableRow>
 										<Label Text=""></Label>
-										<Button Text="{x:Static resource:Resources.LOCAL_MMDB_PREVIEW}" Click="HandlePreviewMMDB"></Button>
+										<Button Text="{x:Static resource:Resources.LOCAL_MMDB_PREVIEW}" Click="HandleMMDBPreview"></Button>
+									</TableRow>
+									<TableRow>
+										<Label Text="{x:Static resource:Resources.LOCAL_MMDB_PRESETS}"></Label>
+										<DropDown x:Name="localDBPreset" SelectedIndex="0" DropDownClosed="HandleMMDBPreset">
+											<ListItem Text="" Key="none"></ListItem>
+											<ListItem Text="GeoIP2 City" Key="geoip2-city"></ListItem>
+											<ListItem Text="IPInfo.io Location" Key="ipinfo-loc"></ListItem>
+											<ListItem Text="IPInfo.io Org" Key="ipinfo-org"></ListItem>
+										</DropDown>
 									</TableRow>
 									<TableRow>
 										<Label Text="{x:Static resource:Resources.LOCAL_MMDB_ADDR}"></Label>

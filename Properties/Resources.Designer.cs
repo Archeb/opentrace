@@ -509,7 +509,7 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Local MMDB 的本地化字符串。
+        ///   查找类似 Local MMDB Overwrite 的本地化字符串。
         /// </summary>
         public static string LOCAL_MMDB {
             get {
@@ -581,6 +581,15 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Presets 的本地化字符串。
+        /// </summary>
+        public static string LOCAL_MMDB_PRESETS {
+            get {
+                return ResourceManager.GetString("LOCAL_MMDB_PRESETS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Preview MMDB File 的本地化字符串。
         /// </summary>
         public static string LOCAL_MMDB_PREVIEW {
@@ -608,8 +617,9 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Template Example: {.country}-{.city}
-        ///Leave empty to avoid overwrite field 的本地化字符串。
+        ///   查找类似 Use MMDB query result overwrite original result
+        ///Leave empty to avoid overwrite field
+        ///Template Example: {.country}-{.city} 的本地化字符串。
         /// </summary>
         public static string LOCAL_MMDB_TIPS {
             get {
