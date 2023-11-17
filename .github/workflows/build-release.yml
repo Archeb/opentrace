@@ -20,12 +20,16 @@ jobs:
             framework: net48
             nt_file: nexttrace_windows_amd64.exe
             nt_fn: nexttrace.exe
+            archive_command: "zip -r"
+            archive_extension: zip
           - runtime: linux-x64
             artifact_path: ./bin/Gtk/Release/net6.0/linux-x64
             self_contained: "--self-contained"
             framework: net6.0
             nt_file: nexttrace_linux_amd64
             nt_fn: nexttrace
+            archive_command: "tar -cvzf"
+            archive_extension: tar.gz
           - runtime: osx-x64
             artifact_path: ./bin/Mac64/Release/net6.0/osx-x64
             self_contained: "--self-contained"
@@ -33,6 +37,8 @@ jobs:
             nt_file: nexttrace_darwin_amd64
             nt_fn: OpenTrace.app/Contents/MacOS/nexttrace
             pack_target: OpenTrace.app
+            archive_command: "tar -cvzf"
+            archive_extension: tar.gz
 
     steps:
     - name: Checkout
@@ -68,12 +74,12 @@ jobs:
         cd ${{ matrix.artifact_path }}
         mv ./nexttrace_* ./${{ matrix.nt_fn }}
         chmod +x ./${{ matrix.nt_fn }}
-        tar -cvzf ${{ github.workspace }}/${{ matrix.runtime }}.tar.gz ${{ matrix.pack_target == '' && '.' || matrix.pack_target }}
+        ${{ matrix.archive_command }} ${{ github.workspace }}/${{ matrix.runtime }}.${{ matrix.archive_extension }} ${{ matrix.pack_target == '' && '.' || matrix.pack_target }}
 
     - name: Edit release for ${{ matrix.runtime }}
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
-        file: ${{ matrix.runtime }}.tar.gz
-        asset_name: ${{ matrix.runtime }}.tar.gz
+        file: ${{ matrix.runtime }}.${{ matrix.archive_extension }}
+        asset_name: ${{ matrix.runtime }}.${{ matrix.archive_extension }}
         tag: ${{ github.ref }}
