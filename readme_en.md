@@ -32,6 +32,8 @@ You need a working **NextTrace V1** (>= 1.1.7) executable to use this.
 
 - [x] Custom DNS Resolvers (DNS, DoH)
 
+- [x] Supports local .MMDB database
+
 More is coming... [Feature request](https://github.com/Archeb/opentrace/issues/new/choose) is welcome!
 
 Tip: You can also download the latest beta version of the corresponding architecture from the [Actions page of this project](https://github.com/Archeb/opentrace/actions); however, it may contain bugs or vulnerabilities, or may be unstable.

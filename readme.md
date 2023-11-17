@@ -38,6 +38,8 @@ You need a working **NextTrace V1** (>= 1.1.7) executable to use this.
 
 - [x] 自定义 DNS 服务器 (DNS、DoH)
 
+- [x] 支持使用本地 MMDB 格式的 IP 数据库
+
 新功能不断添加中...欢迎向我们[提出功能请求](https://github.com/Archeb/opentrace/issues/new/choose)！
 
 提示：您也可以在[本项目的 Actions 页面](https://github.com/Archeb/opentrace/actions) 下载对应架构的最新测试版；但其可能包含错误或者漏洞，或出现运行不稳定等现象。
