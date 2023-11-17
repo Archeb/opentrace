@@ -211,11 +211,11 @@
 										<Label Text="{x:Static resource:Resources.LOCAL_MMDB_HOSTNAME}"></Label>
 										<TextBox x:Name="localDBHostname"></TextBox>
 									</TableRow>
-									<TableRow ScaleHeight="True"></TableRow>
-									<TableRow>
-										<Label Text="{x:Static resource:Resources.LOCAL_MMDB_TIPS}"></Label>
-									</TableRow>
 								</TableLayout>
+							</TableRow>
+							<TableRow ScaleHeight="True"></TableRow>
+							<TableRow>
+								<Label Text="{x:Static resource:Resources.LOCAL_MMDB_TIPS}"></Label>
 							</TableRow>
 						</TableLayout>
 					</TabPage>
