@@ -145,6 +145,45 @@ namespace NextTrace
                 {
                     arguments = ArgumentBuilder(host, extraArgs);
                 }
+
+#if NET8_0_OR_GREATER
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) && 
+                    Array.Find(extraArgs, e => e == "-T" || e == "-U") != null &&
+                    Environment.UserName != "root")
+                {
+                    FileSystemInfo fa = new FileInfo(nexttracePath);
+                    if ((fa.UnixFileMode & UnixFileMode.SetUser) == 0) 
+                    {
+                        if (!builtinNT)
+                            App.app.Invoke(() => {
+                                Eto.Forms.MessageBox.Show(Resources.MISSING_COMP_PRIV_MACOS);
+                            });
+                        else 
+                        {
+                            var elvp = new Process
+                            {
+                                StartInfo = new ProcessStartInfo
+                                {
+                                    FileName = "/usr/bin/osascript",
+                                    ArgumentList = {
+                                        "-e",
+                                        $"do shell script \"chown root:admin '{nexttracePath}' && chmod +sx '{nexttracePath}'\" with administrator privileges with prompt \"{Resources.MISSING_PRIV_MACOS}\"",
+                                    },
+                                    UseShellExecute = false,
+                                    RedirectStandardOutput = false,
+                                    RedirectStandardError = false,
+                                    CreateNoWindow = true
+                                }
+                            };
+                            elvp.Start();
+                            elvp.WaitForExit();
+                        }
+                        Status = AppStatus.Quit;
+                        AppQuit?.Invoke(this, new AppQuitEventArgs(0));
+                        return;
+                    }
+                }
+#endif
                 _process = new Process
                 {
                     StartInfo = new ProcessStartInfo

@@ -12,6 +12,12 @@ using OpenTrace.Properties;
 
 namespace OpenTrace
 {
+    
+    class App 
+    {
+        public static Application app;
+    }
+
     internal class Program
     {
         [STAThread]
@@ -63,7 +69,8 @@ namespace OpenTrace
                 if (UserSettings.POWProvider == "" && UserSettings.POWProvider != null) UserSettings.POWProvider = "api.leo.moe";
             }
 
-            new Application(Eto.Platform.Detect).Run(new MainForm());
+            App.app = new Application(Eto.Platform.Detect);
+            App.app.Run(new MainForm());
         }
     }
 }

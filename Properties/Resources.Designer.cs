@@ -646,6 +646,20 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 OpenTrace is quarantined by macOS, something may be inoperative.
+        ///Please release OpenTrace as follows:
+        ///
+        ///sudo xattr -r -d com.apple.quarantine &lt;drag and drop OpenTrace here&gt;
+        ///
+        ///And restart OpenTrace after execution. 的本地化字符串。
+        /// </summary>
+        public static string MACOS_QUARANTINE {
+            get {
+                return ResourceManager.GetString("MACOS_QUARANTINE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Map Provider 的本地化字符串。
         /// </summary>
         public static string MAP_PROVIDER {
@@ -700,6 +714,20 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 OpenTrace requires privileges to perform TCP/UDP trace.
+        ///Please set the permissions of NextTrace as follows:
+        ///
+        ///sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
+        ///sudo chown root:admin /path/to/nexttrace
+        ///sudo chmod +sx /path/to/nexttrace 的本地化字符串。
+        /// </summary>
+        public static string MISSING_COMP_PRIV_MACOS {
+            get {
+                return ResourceManager.GetString("MISSING_COMP_PRIV_MACOS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 OpenTrace requires the NextTrace utility to function properly. This executable is currently missing.
         ///NextTrace can be placed in either:
         ///1. The same directory as the OpenTrace executable
@@ -729,6 +757,15 @@ namespace OpenTrace.Properties {
         public static string MISSING_COMP_TEXT_MACOS {
             get {
                 return ResourceManager.GetString("MISSING_COMP_TEXT_MACOS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 OpenTrace requires privileges to perform TCP/UDP trace 的本地化字符串。
+        /// </summary>
+        public static string MISSING_PRIV_MACOS {
+            get {
+                return ResourceManager.GetString("MISSING_PRIV_MACOS", resourceCulture);
             }
         }
         

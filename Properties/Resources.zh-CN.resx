@@ -341,6 +341,17 @@ sudo chmod +sx /path/to/nexttrace
 
 是否现在下载 NextTrace？</value>
   </data>
+  <data name="MISSING_COMP_PRIV_MACOS" xml:space="preserve">
+    <value>OpenTrace 需要权限才能进行 TCP/UDP 追踪。
+请为 NextTrace 设置权限:
+
+sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
+sudo chown root:admin /path/to/nexttrace
+sudo chmod +sx /path/to/nexttrace</value>
+  </data>
+  <data name="MISSING_PRIV_MACOS" xml:space="preserve">
+    <value>OpenTrace 需要权限才能进行 TCP/UDP 追踪</value>
+  </data>
   <data name="MISSING_SPECIFIED_COMP" xml:space="preserve">
     <value>未能在指定的位置 "{0}" 中找到 NextTrace。</value>
   </data>
@@ -455,5 +466,13 @@ sudo chmod +sx /path/to/nexttrace
   </data>
   <data name="WORST" xml:space="preserve">
     <value>最大延迟</value>
+  </data>
+  <data name="MACOS_QUARANTINE" xml:space="preserve">
+    <value>OpenTrace 被 macOS 隔离，工作可能不完全正常。
+请打开终端，使用下面的命令释放 OpenTrace:
+
+sudo xattr -r -d com.apple.quarantine &lt;将 OpenTrace 拖放至此&gt;
+
+并在完成释放后重启 OpenTrace.</value>
   </data>
 </root>
