@@ -25,9 +25,13 @@ namespace OpenTrace
         {
             UserSettings.LoadSettings();
             
+            if (!string.IsNullOrWhiteSpace(UserSettings.language))
+            {
+                CultureInfo.CurrentUICulture = new CultureInfo(UserSettings.language);
+            }
 #if NET8_0_OR_GREATER
             // 为 macOS 载入正确的 locale
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
                 var asp = new Process
                 {
@@ -51,12 +55,7 @@ namespace OpenTrace
                 catch (Exception e) {}
             }
 #endif
-            
-            if (!string.IsNullOrWhiteSpace(UserSettings.language))
-            {
-                CultureInfo.CurrentUICulture = new CultureInfo(UserSettings.language);
-            }
-            
+
             // 本地化设置
             if (CultureInfo.CurrentUICulture.Name == "zh-CN" && TimeZoneInfo.Local.Id == "China Standard Time")
             {
