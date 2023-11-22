@@ -262,9 +262,9 @@ namespace OpenTrace.Properties {
         /// <summary>
         ///   查找类似 Error writing app settings. 的本地化字符串。
         /// </summary>
-        public static string ERR_WRITING_SETTTINGS {
+        public static string ERR_WRITING_SETTINGS {
             get {
-                return ResourceManager.GetString("ERR_WRITING_SETTTINGS", resourceCulture);
+                return ResourceManager.GetString("ERR_WRITING_SETTINGS", resourceCulture);
             }
         }
         

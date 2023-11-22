@@ -180,7 +180,7 @@ Would you like to add a firewall rule to allow needed ICMP for NextTrace?</value
   <data name="ERR_MSG" xml:space="preserve">
     <value>Error Message</value>
   </data>
-  <data name="ERR_WRITING_SETTTINGS" xml:space="preserve">
+  <data name="ERR_WRITING_SETTINGS" xml:space="preserve">
     <value>Error writing app settings.</value>
   </data>
   <data name="EXCEPTIONAL_EXIT_MSG" xml:space="preserve">
