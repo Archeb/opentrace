@@ -35,17 +35,17 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
-        dotnet-version: 6.0.x
+        dotnet-version: 8
         
     - name: Build for ${{ matrix.runtime }}
       run: |
-        dotnet build OpenTrace.csproj --runtime ${{ matrix.runtime }} --configuration Release --self-contained -f net6.0
+        dotnet build OpenTrace.csproj --runtime ${{ matrix.runtime }} --configuration Release --self-contained -f net8.0
 
     - name: Make tarball
-      run: cd ./bin/Mac64/Release/net6.0/${{ matrix.runtime }} && tar -cvzf OpenTrace_${{ matrix.runtime }}.app.tar.gz OpenTrace.app
+      run: cd ./bin/Mac64/Release/net8.0/${{ matrix.runtime }} && tar -cvzf OpenTrace_${{ matrix.runtime }}.app.tar.gz OpenTrace.app
       
     - name: Upload artifact for ${{ matrix.runtime }}
       uses: actions/upload-artifact@v3
       with:
         name: OpenTrace_${{ matrix.runtime }}.app.tar.gz
-        path: ./bin/Mac64/Release/net6.0/${{ matrix.runtime }}/OpenTrace_${{ matrix.runtime }}.app.tar.gz
+        path: ./bin/Mac64/Release/net8.0/${{ matrix.runtime }}/OpenTrace_${{ matrix.runtime }}.app.tar.gz

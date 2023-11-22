@@ -4,12 +4,20 @@ using Eto.Forms;
 using System;
 using System.Collections.ObjectModel;
 using System.Configuration;
+using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Windows.Input;
+using OpenTrace.Properties;
 
 namespace OpenTrace
 {
+    
+    class App 
+    {
+        public static Application app;
+    }
+
     internal class Program
     {
         [STAThread]
@@ -17,13 +25,40 @@ namespace OpenTrace
         {
             UserSettings.LoadSettings();
             
-            if (UserSettings.language != "" && UserSettings.language != null)
+#if NET8_0_OR_GREATER
+            // 为 macOS 载入正确的 locale
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                System.Threading.Thread.CurrentThread.CurrentUICulture = new CultureInfo(UserSettings.language);
+                var asp = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = "/usr/bin/osascript",
+                        ArgumentList = { "-e", "user locale of (get system info)" },
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = false,
+                        CreateNoWindow = true
+                    }
+                };
+                asp.Start();
+                try
+                {
+                    var line = asp.StandardOutput.ReadLine()?.Replace("_","-");
+                    var curCulture = new CultureInfo(line?.Trim()??"");
+                    CultureInfo.CurrentUICulture = curCulture;
+                }
+                catch (Exception e) {}
+            }
+#endif
+            
+            if (!string.IsNullOrWhiteSpace(UserSettings.language))
+            {
+                CultureInfo.CurrentUICulture = new CultureInfo(UserSettings.language);
             }
             
             // 本地化设置
-            if (System.Threading.Thread.CurrentThread.CurrentUICulture.Name == "zh-CN" && TimeZoneInfo.Local.Id == "China Standard Time")
+            if (CultureInfo.CurrentUICulture.Name == "zh-CN" && TimeZoneInfo.Local.Id == "China Standard Time")
             {
                 if (UserSettings.mapProvider == "" && UserSettings.mapProvider != null) UserSettings.mapProvider = "baidu";
                 if (UserSettings.POWProvider == "" && UserSettings.POWProvider != null) UserSettings.POWProvider = "sakura";
@@ -34,7 +69,8 @@ namespace OpenTrace
                 if (UserSettings.POWProvider == "" && UserSettings.POWProvider != null) UserSettings.POWProvider = "api.leo.moe";
             }
 
-            new Application(Eto.Platform.Detect).Run(new MainForm());
+            App.app = new Application(Eto.Platform.Detect);
+            App.app.Run(new MainForm());
         }
     }
 }

@@ -191,8 +191,8 @@ namespace OpenTrace
                 ResetMap();
             };
 
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && UserSettings.hideAddICMPFirewallRule != true) tryAddICMPFirewallRule();
-
+            platformChecks();
+            
             // 绑定窗口事件
             SizeChanged += MainForm_SizeChanged;
             MouseDown += Dragging_MouseDown;
@@ -261,6 +261,21 @@ namespace OpenTrace
             dnsResolverSelection.SelectedIndex = 0;
         }
 
+        // 初始化期间进行平台特定检查
+        private void platformChecks()
+        {
+            
+            // macOS 被隔离，请求释放
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) && AppDomain.CurrentDomain.BaseDirectory.StartsWith("/private/var/folders"))
+            {
+                App.app.Invoke(() => {
+                    MessageBox.Show(Resources.MACOS_QUARANTINE);
+                });
+            }
+            
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && UserSettings.hideAddICMPFirewallRule != true) tryAddICMPFirewallRule();
+        }
+        
         private void tryAddICMPFirewallRule()
         {
             // 提示 Windows 用户添加防火墙规则放行 ICMP 
