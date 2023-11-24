@@ -694,7 +694,7 @@ namespace OpenTrace
         {
             try
             {
-                mapWebView.ExecuteScript(@"window.opentrace.focusHop(" + hopNo + ");");
+                mapWebView.ExecuteScriptAsync(@"window.opentrace.focusHop(" + hopNo + ");");
             }
             catch (Exception e)
             {
@@ -709,13 +709,13 @@ namespace OpenTrace
                 switch (mapWebView.Url.Host)
                 {
                     case "geo-devrel-javascript-samples.web.app":
-                        mapWebView.ExecuteScript(OpenTrace.Properties.Resources.googleMap);
+                        mapWebView.ExecuteScriptAsync(OpenTrace.Properties.Resources.googleMap);
                         break;
                     case "lbs.baidu.com":
-                        mapWebView.ExecuteScript(OpenTrace.Properties.Resources.baiduMap);
+                        mapWebView.ExecuteScriptAsync(OpenTrace.Properties.Resources.baiduMap);
                         break;
                 }
-                mapWebView.ExecuteScript("window.opentrace.reset(" + UserSettings.hideMapPopup.ToString().ToLower() + ")");
+                mapWebView.ExecuteScriptAsync("window.opentrace.reset(" + UserSettings.hideMapPopup.ToString().ToLower() + ")");
             } catch (Exception e)
             {
                 MessageBox.Show($"Message: ${e.Message} \nSource: ${e.Source} \nStackTrace: ${e.StackTrace}", "Exception Occurred");
