@@ -108,7 +108,12 @@
 								<TextBox x:Name="dev" Text=""></TextBox>
 							</TableRow>
 							<TableRow>
-								<CheckBox x:Name="no_rdns" Text="{x:Static resource:Resources.NO_RDNS}"></CheckBox>
+								<Label Text="{x:Static resource:Resources.RDNS_MODE}"></Label>
+								<DropDown x:Name="rdns_mode" SelectedIndex="0">
+									<ListItem Text="{x:Static resource:Resources.RDNS_MODE_DEFAULT}" Key="default"></ListItem>
+									<ListItem Text="{x:Static resource:Resources.RDNS_MODE_DISABLE}" Key="disable"></ListItem>
+									<ListItem Text="{x:Static resource:Resources.RDNS_MODE_ALWAYS}" Key="always"></ListItem>
+								</DropDown>
 							</TableRow>
 							<TableRow ScaleHeight="True"></TableRow>
 						</TableLayout>

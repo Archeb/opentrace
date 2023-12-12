@@ -25,7 +25,7 @@ namespace OpenTrace
         }
         private void ReportButton_Click(object sender, EventArgs e)
         {
-            Process.Start(new ProcessStartInfo("https://github.com/Archeb/opentrace/issues/new") { UseShellExecute = true });
+            Process.Start(new ProcessStartInfo("https://github.com/Archeb/opentrace/issues/new/choose") { UseShellExecute = true });
         }
         public void AppendOutput(string Output)
         {

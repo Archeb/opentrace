@@ -22,6 +22,9 @@
 			<TableRow>
 				<TableCell ScaleWidth="True"></TableCell>
 				<TableCell>
+					<Button Click="ReportButton_Click" Text="NextTrace Wiki"></Button>
+				</TableCell>
+				<TableCell>
 					<Button Click="ReportButton_Click" Text="{x:Static resource:Resources.EXC_OUTPUT_FORM_REPORT}"></Button>
 				</TableCell>
 				<TableCell>

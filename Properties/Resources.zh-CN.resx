@@ -186,7 +186,7 @@
     <value>NextTrace 进程异常退出，请参考错误消息以了解更多信息并及时向我们报告此问题。 退出代码：</value>
   </data>
   <data name="EXC_OUTPUT_FORM_PROMPT" xml:space="preserve">
-    <value>NextTrace 产生了一个或多个异常输出，请检查下面的输出信息以排查问题。同时，我们希望您能向我们报告这个问题来帮助我们改进 OpenTrace。</value>
+    <value>NextTrace 产生了一个或多个异常输出，请检查下面的输出信息以排查问题。您可以参考 NextTrace Wiki 来查看是否已经有解答；如未能找到答案，请向我们报告。</value>
   </data>
   <data name="EXC_OUTPUT_FORM_REPORT" xml:space="preserve">
     <value>报告问题</value>
@@ -370,8 +370,8 @@ sudo chmod +sx /path/to/nexttrace</value>
   <data name="NEXTTRACE_PROXY" xml:space="preserve">
     <value>代理设置</value>
   </data>
-  <data name="NO_RDNS" xml:space="preserve">
-    <value>禁用反向 DNS 查询</value>
+  <data name="RDNS_MODE" xml:space="preserve">
+    <value>反向 DNS 查询模式</value>
   </data>
   <data name="ORGANIZATION" xml:space="preserve">
     <value>组织</value>
@@ -474,5 +474,17 @@ sudo chmod +sx /path/to/nexttrace</value>
 sudo xattr -r -d com.apple.quarantine &lt;将 OpenTrace 拖放至此&gt;
 
 并在完成释放后重启 OpenTrace.</value>
+  </data>
+  <data name="HOMEPAGE" xml:space="preserve">
+    <value>项目主页</value>
+  </data>
+  <data name="RDNS_MODE_ALWAYS" xml:space="preserve">
+    <value>尝试获取完整 rDNS</value>
+  </data>
+  <data name="RDNS_MODE_DEFAULT" xml:space="preserve">
+    <value>快速 rDNS（默认）</value>
+  </data>
+  <data name="RDNS_MODE_DISABLE" xml:space="preserve">
+    <value>禁用 rDNS 查询</value>
   </data>
 </root>

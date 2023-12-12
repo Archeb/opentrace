@@ -341,8 +341,8 @@ namespace NextTrace
                         finalArgs.Add("--" + setting.Name.Replace('_', '-') + " " + (string)setting.GetValue(userSettings, null));
                 }
             }
-            if (UserSettings.no_rdns)
-                finalArgs.Add("--no-rdns");
+            if (UserSettings.rdns_mode == "disable") finalArgs.Add("-n");
+            if (UserSettings.rdns_mode == "always") finalArgs.Add("-a");
             finalArgs.Add(System.Globalization.CultureInfo.CurrentUICulture.Name.StartsWith("zh") ? "--language cn" : "--language en");
             finalArgs.Add(UserSettings.arguments);
             finalArgs.AddRange(extraArgs);

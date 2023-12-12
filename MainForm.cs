@@ -54,8 +54,15 @@ namespace OpenTrace
             var quitCommand = new Command { MenuText = Resources.QUIT, Shortcut = Application.Instance.CommonModifier | Keys.Q };
             quitCommand.Executed += (sender, e) => Application.Instance.Quit();
 
-            var aboutCommand = new Command { MenuText = Resources.ABOUT };
-            aboutCommand.Executed += (sender, e) => Process.Start(new ProcessStartInfo("https://github.com/Archeb/opentrace") { UseShellExecute = true });
+            var OTHomePageCommand = new Command { MenuText = "OpenTrace " + Resources.HOMEPAGE };
+            OTHomePageCommand.Executed += (sender, e) => Process.Start(new ProcessStartInfo("https://github.com/Archeb/opentrace") { UseShellExecute = true });
+
+            var NTHomePageCommand = new Command { MenuText = "NextTrace " + Resources.HOMEPAGE };
+            NTHomePageCommand.Executed += (sender, e) => Process.Start(new ProcessStartInfo("https://www.nxtrace.org/") { UseShellExecute = true });
+
+            var NTWikiCommand = new Command { MenuText = "NextTrace Wiki" };
+            NTWikiCommand.Executed += (sender, e) => Process.Start(new ProcessStartInfo("https://github.com/nxtrace/NTrace-core/wiki") { UseShellExecute = true });
+
 
             var preferenceCommand = new Command { MenuText = Resources.PREFERENCES, Shortcut = Application.Instance.CommonModifier | Keys.Comma };
             preferenceCommand.Executed += (sender, e) =>
@@ -78,7 +85,9 @@ namespace OpenTrace
                             quitCommand
                         } },
                      new SubMenuItem { Text = Resources.HELP , Items = {
-                             aboutCommand
+                             OTHomePageCommand,
+                             NTHomePageCommand,
+                             NTWikiCommand
                          } }
                 }
             };

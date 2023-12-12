@@ -184,10 +184,10 @@ Would you like to add a firewall rule to allow needed ICMP for NextTrace?</value
     <value>Error writing app settings.</value>
   </data>
   <data name="EXCEPTIONAL_EXIT_MSG" xml:space="preserve">
-    <value>NextTrace process exited unexpectedly. Please refer to the error message to learn more and report this issue to us promptly. Exit Code: </value>
+    <value>NextTrace process exited unexpectedly. Please refer to the error message to learn more and report this issue to us. Exit Code: </value>
   </data>
   <data name="EXC_OUTPUT_FORM_PROMPT" xml:space="preserve">
-    <value>NextTrace generated one or more unexpected outputs during runtime. Please check the output below for troubleshooting. We also encourage you to report this issue to us, which can help us improve OpenTrace.</value>
+    <value>NextTrace generated one or more unexpected outputs during runtime. Please check the output below for troubleshooting. You can refer to the NextTrace Wiki to see if there is already an answer; if you cannot find the answer, please report it to us.</value>
   </data>
   <data name="EXC_OUTPUT_FORM_REPORT" xml:space="preserve">
     <value>Report this issue</value>
@@ -373,8 +373,8 @@ sudo chmod +sx /path/to/nexttrace</value>
   <data name="NEXTTRACE_PROXY" xml:space="preserve">
     <value>Proxy</value>
   </data>
-  <data name="NO_RDNS" xml:space="preserve">
-    <value>Disable Reverse DNS Lookup</value>
+  <data name="RDNS_MODE" xml:space="preserve">
+    <value>Reverse DNS Lookup Mode</value>
   </data>
   <data name="ORGANIZATION" xml:space="preserve">
     <value>Organization</value>
@@ -479,5 +479,17 @@ Please release OpenTrace as follows:
 sudo xattr -r -d com.apple.quarantine &lt;drag and drop OpenTrace here&gt;
 
 And restart OpenTrace after execution.</value>
+  </data>
+  <data name="HOMEPAGE" xml:space="preserve">
+    <value>Homepage</value>
+  </data>
+  <data name="RDNS_MODE_ALWAYS" xml:space="preserve">
+    <value>Attempt to Retrieve Full rDNS</value>
+  </data>
+  <data name="RDNS_MODE_DEFAULT" xml:space="preserve">
+    <value>Fast rDNS (Default)</value>
+  </data>
+  <data name="RDNS_MODE_DISABLE" xml:space="preserve">
+    <value>Disable rDNS Query</value>
   </data>
 </root>

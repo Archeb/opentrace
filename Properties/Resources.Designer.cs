@@ -133,7 +133,7 @@ namespace OpenTrace.Properties {
         ///		// 重新计算中心点并画图
         ///		map.clearOverlays(); //清除覆盖物
         ///		var pointlygon_array = []; //折线需要的数组
-        ///		for (var i = 0; i &lt; this. [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///		for (var [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string baiduMap {
             get {
@@ -269,7 +269,7 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 NextTrace generated one or more unexpected outputs during runtime. Please check the output below for troubleshooting. We also encourage you to report this issue to us, which can help us improve OpenTrace. 的本地化字符串。
+        ///   查找类似 NextTrace generated one or more unexpected outputs during runtime. Please check the output below for troubleshooting. You can refer to the NextTrace Wiki to see if there is already an answer; if you cannot find the answer, please report it to us. 的本地化字符串。
         /// </summary>
         public static string EXC_OUTPUT_FORM_PROMPT {
             get {
@@ -296,7 +296,7 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 NextTrace process exited unexpectedly. Please refer to the error message to learn more and report this issue to us promptly. Exit Code:  的本地化字符串。
+        ///   查找类似 NextTrace process exited unexpectedly. Please refer to the error message to learn more and report this issue to us. Exit Code:  的本地化字符串。
         /// </summary>
         public static string EXCEPTIONAL_EXIT_MSG {
             get {
@@ -390,9 +390,7 @@ namespace OpenTrace.Properties {
         ///	addHop: function (hop) {
         ///
         ///		// Parse the JSON string into an object
-        ///		const hopData = JSON.parse(hop);
-        ///
-        ///		conso [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///		const hopData = JSON.parse(h [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string googleMap {
             get {
@@ -442,6 +440,15 @@ namespace OpenTrace.Properties {
         public static string HISTORY {
             get {
                 return ResourceManager.GetString("HISTORY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Homepage 的本地化字符串。
+        /// </summary>
+        public static string HOMEPAGE {
+            get {
+                return ResourceManager.GetString("HOMEPAGE", resourceCulture);
             }
         }
         
@@ -824,15 +831,6 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Disable Reverse DNS Lookup 的本地化字符串。
-        /// </summary>
-        public static string NO_RDNS {
-            get {
-                return ResourceManager.GetString("NO_RDNS", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 Organization 的本地化字符串。
         /// </summary>
         public static string ORGANIZATION {
@@ -947,6 +945,42 @@ namespace OpenTrace.Properties {
         public static string QUIT {
             get {
                 return ResourceManager.GetString("QUIT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Reverse DNS Lookup Mode 的本地化字符串。
+        /// </summary>
+        public static string RDNS_MODE {
+            get {
+                return ResourceManager.GetString("RDNS_MODE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Attempt to Retrieve Full rDNS 的本地化字符串。
+        /// </summary>
+        public static string RDNS_MODE_ALWAYS {
+            get {
+                return ResourceManager.GetString("RDNS_MODE_ALWAYS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Fast rDNS (Default) 的本地化字符串。
+        /// </summary>
+        public static string RDNS_MODE_DEFAULT {
+            get {
+                return ResourceManager.GetString("RDNS_MODE_DEFAULT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Disable rDNS Query 的本地化字符串。
+        /// </summary>
+        public static string RDNS_MODE_DISABLE {
+            get {
+                return ResourceManager.GetString("RDNS_MODE_DISABLE", resourceCulture);
             }
         }
         

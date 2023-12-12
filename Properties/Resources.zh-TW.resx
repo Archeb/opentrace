@@ -186,7 +186,7 @@
     <value>NextTrace 程序異常退出，請參考錯誤訊息以瞭解更多資訊並及時向我們報告此問題。 退出程式碼：</value>
   </data>
   <data name="EXC_OUTPUT_FORM_PROMPT" xml:space="preserve">
-    <value>NextTrace 產生了一個或多個異常輸出，請檢查下面的輸出資訊以排查問題。同時，我們希望您能向我們報告這個問題來幫助我們改進 OpenTrace。</value>
+    <value>NextTrace 產生了一個或多個異常輸出，請檢查下面的輸出資訊以排查問題。 您可以參考 NextTrace Wiki 來查看是否已經有解答；如未能找到答案，請向我們報告。</value>
   </data>
   <data name="EXC_OUTPUT_FORM_REPORT" xml:space="preserve">
     <value>報告問題</value>
@@ -232,6 +232,9 @@
   </data>
   <data name="HISTORY" xml:space="preserve">
     <value>歷史記錄</value>
+  </data>
+  <data name="HOMEPAGE" xml:space="preserve">
+    <value>項目主頁</value>
   </data>
   <data name="HOSTNAME" xml:space="preserve">
     <value>主機名</value>
@@ -374,9 +377,6 @@ sudo chmod +sx /path/to/nexttrace
   <data name="NEW_WINDOW_TEXT" xml:space="preserve">
     <value>開啟一個新的 OpenTrace 視窗</value>
   </data>
-  <data name="NO_RDNS" xml:space="preserve">
-    <value>禁用反向 DNS 查詢</value>
-  </data>
   <data name="ORGANIZATION" xml:space="preserve">
     <value>組織</value>
   </data>
@@ -416,6 +416,18 @@ sudo chmod +sx /path/to/nexttrace
   </data>
   <data name="QUIT" xml:space="preserve">
     <value>退出</value>
+  </data>
+  <data name="RDNS_MODE" xml:space="preserve">
+    <value>反向 DNS 查找模式</value>
+  </data>
+  <data name="RDNS_MODE_ALWAYS" xml:space="preserve">
+    <value>嘗試擷取完整 rDNS</value>
+  </data>
+  <data name="RDNS_MODE_DEFAULT" xml:space="preserve">
+    <value>快速 rDNS（預設）</value>
+  </data>
+  <data name="RDNS_MODE_DISABLE" xml:space="preserve">
+    <value>禁用 rDNS 查詢</value>
   </data>
   <data name="RECV" xml:space="preserve">
     <value>接收數</value>

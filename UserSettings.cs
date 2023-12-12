@@ -61,8 +61,8 @@ namespace OpenTrace
         [Setting(Name = "combineGeoOrg", Default = false)]
         public static bool combineGeoOrg { get; set; }
 
-        [Setting(Name = "no_rdns", Default = false)]
-        public static bool no_rdns { get; set; }
+        [Setting(Name = "rdns_mode", Default = "default")]
+        public static string rdns_mode { get; set; }
 
         [Setting(Name = "timeRounding", Default = false)]
         public static bool timeRounding { get; set; }
