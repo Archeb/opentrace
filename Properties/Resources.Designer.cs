@@ -160,6 +160,15 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Check update on startup 的本地化字符串。
+        /// </summary>
+        public static string CHECK_UPDATE_ON_STARTUP {
+            get {
+                return ResourceManager.GetString("CHECK_UPDATE_ON_STARTUP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 CHUNZHEN Endpoint 的本地化字符串。
         /// </summary>
         public static string CHUNZHEN_ENDPOINT {
@@ -211,6 +220,15 @@ namespace OpenTrace.Properties {
         public static string DISABLE_IPGEO {
             get {
                 return ResourceManager.GetString("DISABLE_IPGEO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Download latest OpenTrace 的本地化字符串。
+        /// </summary>
+        public static string DOWNLOAD_LATEST {
+            get {
+                return ResourceManager.GetString("DOWNLOAD_LATEST", resourceCulture);
             }
         }
         
@@ -1125,6 +1143,15 @@ namespace OpenTrace.Properties {
         public static string TRACEROUTING {
             get {
                 return ResourceManager.GetString("TRACEROUTING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 (Version {0} now available. Download it from the Help menu.) 的本地化字符串。
+        /// </summary>
+        public static string UPDATE_AVAILABLE {
+            get {
+                return ResourceManager.GetString("UPDATE_AVAILABLE", resourceCulture);
             }
         }
         

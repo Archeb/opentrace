@@ -66,6 +66,9 @@
 							<TableRow>
 								<CheckBox x:Name="hideAddICMPFirewallRule" Text="{x:Static resource:Resources.HIDE_ADD_FIREWALL_PROMPT}"></CheckBox>
 							</TableRow>
+							<TableRow>
+								<CheckBox x:Name="checkUpdateOnStartup" Text="{x:Static resource:Resources.CHECK_UPDATE_ON_STARTUP}"></CheckBox>
+							</TableRow>
 							<TableRow ScaleHeight="True"></TableRow>
 						</TableLayout>
 					</TabPage>

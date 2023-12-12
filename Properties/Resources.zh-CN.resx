@@ -487,4 +487,13 @@ sudo xattr -r -d com.apple.quarantine &lt;将 OpenTrace 拖放至此&gt;
   <data name="RDNS_MODE_DISABLE" xml:space="preserve">
     <value>禁用 rDNS 查询</value>
   </data>
+  <data name="CHECK_UPDATE_ON_STARTUP" xml:space="preserve">
+    <value>启动时检查更新</value>
+  </data>
+  <data name="DOWNLOAD_LATEST" xml:space="preserve">
+    <value>下载最新版 OpenTrace</value>
+  </data>
+  <data name="UPDATE_AVAILABLE" xml:space="preserve">
+    <value>(最新版 {0} 已发布，可到帮助菜单下载)</value>
+  </data>
 </root>

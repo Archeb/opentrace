@@ -492,4 +492,13 @@ And restart OpenTrace after execution.</value>
   <data name="RDNS_MODE_DISABLE" xml:space="preserve">
     <value>Disable rDNS Query</value>
   </data>
+  <data name="CHECK_UPDATE_ON_STARTUP" xml:space="preserve">
+    <value>Check update on startup</value>
+  </data>
+  <data name="DOWNLOAD_LATEST" xml:space="preserve">
+    <value>Download latest OpenTrace</value>
+  </data>
+  <data name="UPDATE_AVAILABLE" xml:space="preserve">
+    <value>(Version {0} now available. Download it from the Help menu.)</value>
+  </data>
 </root>

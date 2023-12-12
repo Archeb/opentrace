@@ -57,12 +57,14 @@ namespace OpenTrace
             var OTHomePageCommand = new Command { MenuText = "OpenTrace " + Resources.HOMEPAGE };
             OTHomePageCommand.Executed += (sender, e) => Process.Start(new ProcessStartInfo("https://github.com/Archeb/opentrace") { UseShellExecute = true });
 
+            var DownloadLatestCommand = new Command { MenuText = Resources.DOWNLOAD_LATEST };
+            DownloadLatestCommand.Executed += (sender, e) => Process.Start(new ProcessStartInfo("https://github.com/Archeb/opentrace/releases") { UseShellExecute = true });
+
             var NTHomePageCommand = new Command { MenuText = "NextTrace " + Resources.HOMEPAGE };
             NTHomePageCommand.Executed += (sender, e) => Process.Start(new ProcessStartInfo("https://www.nxtrace.org/") { UseShellExecute = true });
 
             var NTWikiCommand = new Command { MenuText = "NextTrace Wiki" };
             NTWikiCommand.Executed += (sender, e) => Process.Start(new ProcessStartInfo("https://github.com/nxtrace/NTrace-core/wiki") { UseShellExecute = true });
-
 
             var preferenceCommand = new Command { MenuText = Resources.PREFERENCES, Shortcut = Application.Instance.CommonModifier | Keys.Comma };
             preferenceCommand.Executed += (sender, e) =>
@@ -86,6 +88,7 @@ namespace OpenTrace
                         } },
                      new SubMenuItem { Text = Resources.HELP , Items = {
                              OTHomePageCommand,
+                             DownloadLatestCommand,
                              NTHomePageCommand,
                              NTWikiCommand
                          } }
@@ -247,7 +250,40 @@ namespace OpenTrace
             };
             Content = layout;
 
+            // check update async
+            Task.Run(() => CheckUpdateAsync());
+
             HostInputBox.Focus(); // ×Ô¶¯¾Û½¹ÊäÈë¿ò
+        }
+
+        private void CheckUpdateAsync()
+        {
+            if(!UserSettings.checkUpdateOnStartup) return;
+            var httpClient = new System.Net.Http.HttpClient
+            {
+                BaseAddress = new Uri("https://api.github.com/repos/Archeb/opentrace/releases/latest")
+            };
+            httpClient.DefaultRequestHeaders.Add("User-Agent", "OpenTrace");
+            var response = httpClient.GetAsync("").Result;
+            if (response.IsSuccessStatusCode)
+            {
+                try
+                {
+                    var result = response.Content.ReadAsStringAsync().Result;
+                    var definition = new { tag_name = "" };
+                    var json = JsonConvert.DeserializeAnonymousType(result, definition);
+                    string latestVersion = json.tag_name;
+                    string currentVersion = "v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                    if (latestVersion != currentVersion)
+                    {
+                        App.app.Invoke(() =>
+                        {
+                            App.app.MainForm.Title += " " + string.Format(Resources.UPDATE_AVAILABLE, latestVersion);
+                        });
+                    }
+                }
+                catch { }
+            }
         }
 
         private void LoadDNSResolvers()

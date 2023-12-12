@@ -117,5 +117,8 @@ namespace OpenTrace
         
         [Setting(Name = "localDBHostname", Default = "")]
         public static string localDBHostname { get; set; }
+
+        [Setting(Name = "checkUpdateOnStartup", Default = true)]
+        public static bool checkUpdateOnStartup { get; set; }
     }
 }
