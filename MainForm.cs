@@ -41,7 +41,7 @@ namespace OpenTrace
 
         public MainForm()
         {
-            Title = Resources.APPTITLE;
+            Title = Resources.APPTITLE + " v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             MinimumSize = new Size(900, 600);
 
             // 创建菜单项
