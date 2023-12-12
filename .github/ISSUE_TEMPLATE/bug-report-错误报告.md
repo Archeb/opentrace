@@ -8,6 +8,7 @@ assignees: ''
 ---
 
 **Describe the bug 描述你遇到的BUG**
+（如果您遇到了 websocket: bad handshake，请参考 #44）
 
 
 **To Reproduce 复现方法**
