@@ -425,23 +425,32 @@ namespace OpenTrace
             {
                 ResolvedIPSelection.Visible = false; // 隐藏 IP 选择框
                 IPAddress userInputAddress;
-                if (IPAddress.TryParse(HostInputBox.Text, out userInputAddress))
+                string userInputBoxText = HostInputBox.Text;
+                // 去除输入框两侧的空格
+                userInputBoxText = userInputBoxText.Trim();
+
+                Uri uri;
+                if (Uri.TryCreate(HostInputBox.Text, UriKind.Absolute, out uri) && uri.Host != "")
+                {
+                    // 是合法的 URL
+                    userInputBoxText = uri.Host;
+                }
+
+                // 如果有冒号而且有点(IPv4)，去除冒号后面的内容
+                if (userInputBoxText.IndexOf(":") != -1 && userInputBoxText.IndexOf(".") != -1)
+                {
+                    userInputBoxText = userInputBoxText.Split(':')[0];
+                }
+                if (IPAddress.TryParse(userInputBoxText, out userInputAddress))
                 {
                     // 是合法的 IPv4 / IPv6，把程序处理后的IP放回文本框
                     HostInputBox.Text = userInputAddress.ToString();
                     readyToUseIP = userInputAddress.ToString();
                     Title = Resources.APPTITLE + ": " + readyToUseIP;
                 }
-                else
-                {
+                else { 
                     try
                     {
-                        Uri uri;
-                        if (Uri.TryCreate(HostInputBox.Text, UriKind.Absolute, out uri) && uri.Host != "")
-                        {
-                            // 是合法的 URL
-                            HostInputBox.Text = uri.Host;
-                        }
                         // 需要域名解析
                         Title = Resources.APPTITLE + ": " + HostInputBox.Text;
                         IPAddress[] resolvedAddresses = ResolveHost(HostInputBox.Text);
