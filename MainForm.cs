@@ -461,23 +461,22 @@ namespace OpenTrace
             {
                 ResolvedIPSelection.Visible = false; // 隐藏 IP 选择框
                 IPAddress userInputAddress;
-                string userInputBoxText = HostInputBox.Text;
                 // 去除输入框两侧的空格
-                userInputBoxText = userInputBoxText.Trim();
+                HostInputBox.Text = HostInputBox.Text.Trim();
 
                 Uri uri;
                 if (Uri.TryCreate(HostInputBox.Text, UriKind.Absolute, out uri) && uri.Host != "")
                 {
                     // 是合法的 URL
-                    userInputBoxText = uri.Host;
+                    HostInputBox.Text = uri.Host;
                 }
 
                 // 如果有冒号而且有点(IPv4)，去除冒号后面的内容
-                if (userInputBoxText.IndexOf(":") != -1 && userInputBoxText.IndexOf(".") != -1)
+                if (HostInputBox.Text.IndexOf(":") != -1 && HostInputBox.Text.IndexOf(".") != -1)
                 {
-                    userInputBoxText = userInputBoxText.Split(':')[0];
+                    HostInputBox.Text = HostInputBox.Text.Split(':')[0];
                 }
-                if (IPAddress.TryParse(userInputBoxText, out userInputAddress))
+                if (IPAddress.TryParse(HostInputBox.Text, out userInputAddress))
                 {
                     // 是合法的 IPv4 / IPv6，把程序处理后的IP放回文本框
                     HostInputBox.Text = userInputAddress.ToString();
