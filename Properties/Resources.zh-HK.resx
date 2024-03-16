@@ -411,6 +411,24 @@ sudo chmod +sx /path/to/nexttrace
   <data name="PREFERENCES" xml:space="preserve">
     <value>設置</value>
   </data>
+  <data name="PRIVACY_MASKING" xml:space="preserve">
+    <value>私隱保護</value>
+  </data>
+  <data name="PRIVACY_MASKING_ALL" xml:space="preserve">
+    <value>跳的所有訊息</value>
+  </data>
+  <data name="PRIVACY_MASKING_DESCR" xml:space="preserve">
+    <value>隱藏前</value>
+  </data>
+  <data name="PRIVACY_MASKING_IP_FULL" xml:space="preserve">
+    <value>跳的完整 IP</value>
+  </data>
+  <data name="PRIVACY_MASKING_IP_GEO" xml:space="preserve">
+    <value>跳的 IP 與地理位置</value>
+  </data>
+  <data name="PRIVACY_MASKING_IP_HALF" xml:space="preserve">
+    <value>跳的部分 IP</value>
+  </data>
   <data name="PRIVATE_ADDR" xml:space="preserve">
     <value>私有地址（局域網）</value>
   </data>

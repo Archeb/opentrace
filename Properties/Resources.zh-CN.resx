@@ -496,4 +496,22 @@ sudo xattr -r -d com.apple.quarantine &lt;将 OpenTrace 拖放至此&gt;
   <data name="UPDATE_AVAILABLE" xml:space="preserve">
     <value>(最新版 {0} 已发布，可到帮助菜单下载)</value>
   </data>
+  <data name="PRIVACY_MASKING" xml:space="preserve">
+    <value>隐私保护</value>
+  </data>
+  <data name="PRIVACY_MASKING_ALL" xml:space="preserve">
+    <value>跳的所有信息</value>
+  </data>
+  <data name="PRIVACY_MASKING_DESCR" xml:space="preserve">
+    <value>打码前</value>
+  </data>
+  <data name="PRIVACY_MASKING_IP_FULL" xml:space="preserve">
+    <value>跳的完整 IP</value>
+  </data>
+  <data name="PRIVACY_MASKING_IP_GEO" xml:space="preserve">
+    <value>跳的 IP 和地理位置</value>
+  </data>
+  <data name="PRIVACY_MASKING_IP_HALF" xml:space="preserve">
+    <value>跳的部分 IP</value>
+  </data>
 </root>

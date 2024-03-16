@@ -52,6 +52,22 @@
 										<Label Text="{x:Static resource:Resources.GRID_SIZE_RATIO}"></Label>
 										<NumericStepper x:Name="gridSizePercentage" MaxValue="90" MinValue="10" ></NumericStepper>
 									</TableRow>
+
+									<TableRow>
+										<Label Text="{x:Static resource:Resources.PRIVACY_MASKING}"></Label>
+										<TableLayout Spacing="5,5">
+											<TableRow>
+												<Label Text="{x:Static resource:Resources.PRIVACY_MASKING_DESCR}"></Label>
+												<NumericStepper x:Name="maskedHops" MaxValue="30" MinValue="0" ></NumericStepper>
+												<DropDown x:Name="maskedHopsMode" SelectedIndex="0">
+													<ListItem Text="{x:Static resource:Resources.PRIVACY_MASKING_IP_HALF}" Key="ip_half"></ListItem>
+													<ListItem Text="{x:Static resource:Resources.PRIVACY_MASKING_IP_FULL}" Key="ip_full"></ListItem>
+													<ListItem Text="{x:Static resource:Resources.PRIVACY_MASKING_IP_GEO}" Key="ip_geo"></ListItem>
+													<ListItem Text="{x:Static resource:Resources.PRIVACY_MASKING_ALL}" Key="all"></ListItem>
+												</DropDown>
+											</TableRow>
+										</TableLayout>
+									</TableRow>
 								</TableLayout>
 							</TableRow>
 							<TableRow>

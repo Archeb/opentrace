@@ -120,5 +120,11 @@ namespace OpenTrace
 
         [Setting(Name = "checkUpdateOnStartup", Default = true)]
         public static bool checkUpdateOnStartup { get; set; }
+
+        [Setting(Name = "maskedHops", Default = 0)]
+        public static int maskedHops { get; set; }
+
+        [Setting(Name = "maskedHopsMode", Default = "ip_half")]
+        public static string maskedHopsMode { get; set; }
     }
 }

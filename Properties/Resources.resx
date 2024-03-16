@@ -501,4 +501,22 @@ And restart OpenTrace after execution.</value>
   <data name="UPDATE_AVAILABLE" xml:space="preserve">
     <value>(Version {0} now available. Download it from the Help menu.)</value>
   </data>
+  <data name="PRIVACY_MASKING" xml:space="preserve">
+    <value>Privacy Masking</value>
+  </data>
+  <data name="PRIVACY_MASKING_ALL" xml:space="preserve">
+    <value>hops by masking all info</value>
+  </data>
+  <data name="PRIVACY_MASKING_DESCR" xml:space="preserve">
+    <value>Protect the first</value>
+  </data>
+  <data name="PRIVACY_MASKING_IP_FULL" xml:space="preserve">
+    <value>hops by fully masking IP</value>
+  </data>
+  <data name="PRIVACY_MASKING_IP_GEO" xml:space="preserve">
+    <value>hops by masking IP and Geo</value>
+  </data>
+  <data name="PRIVACY_MASKING_IP_HALF" xml:space="preserve">
+    <value>hops by partially masking IP</value>
+  </data>
 </root>

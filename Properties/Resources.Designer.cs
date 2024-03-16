@@ -133,7 +133,7 @@ namespace OpenTrace.Properties {
         ///		// 重新计算中心点并画图
         ///		map.clearOverlays(); //清除覆盖物
         ///		var pointlygon_array = []; //折线需要的数组
-        ///		for (var [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///		for (var i = 0; i &lt; this. [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string baiduMap {
             get {
@@ -408,7 +408,9 @@ namespace OpenTrace.Properties {
         ///	addHop: function (hop) {
         ///
         ///		// Parse the JSON string into an object
-        ///		const hopData = JSON.parse(h [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///		const hopData = JSON.parse(hop);
+        ///
+        ///		conso [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string googleMap {
             get {
@@ -927,6 +929,60 @@ namespace OpenTrace.Properties {
         public static string PREFERENCES {
             get {
                 return ResourceManager.GetString("PREFERENCES", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Privacy Masking 的本地化字符串。
+        /// </summary>
+        public static string PRIVACY_MASKING {
+            get {
+                return ResourceManager.GetString("PRIVACY_MASKING", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 hops by masking all info 的本地化字符串。
+        /// </summary>
+        public static string PRIVACY_MASKING_ALL {
+            get {
+                return ResourceManager.GetString("PRIVACY_MASKING_ALL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Protect the first 的本地化字符串。
+        /// </summary>
+        public static string PRIVACY_MASKING_DESCR {
+            get {
+                return ResourceManager.GetString("PRIVACY_MASKING_DESCR", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 hops by fully masking IP 的本地化字符串。
+        /// </summary>
+        public static string PRIVACY_MASKING_IP_FULL {
+            get {
+                return ResourceManager.GetString("PRIVACY_MASKING_IP_FULL", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 hops by masking IP and Geo 的本地化字符串。
+        /// </summary>
+        public static string PRIVACY_MASKING_IP_GEO {
+            get {
+                return ResourceManager.GetString("PRIVACY_MASKING_IP_GEO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 hops by partially masking IP 的本地化字符串。
+        /// </summary>
+        public static string PRIVACY_MASKING_IP_HALF {
+            get {
+                return ResourceManager.GetString("PRIVACY_MASKING_IP_HALF", resourceCulture);
             }
         }
         

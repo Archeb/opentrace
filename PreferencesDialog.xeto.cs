@@ -49,6 +49,7 @@ namespace OpenTrace
                 }
             }
             this.FindChild<NumericStepper>("gridSizePercentage").Value = UserSettings.gridSizePercentage * 100;
+            this.FindChild<NumericStepper>("maskedHops").Value = UserSettings.maskedHops;
         }
 
         private void CancelButton_Click(object sender, EventArgs e)
@@ -81,6 +82,7 @@ namespace OpenTrace
                 }
             }
             UserSettings.gridSizePercentage = this.FindChild<NumericStepper>("gridSizePercentage").Value / 100;
+            UserSettings.maskedHops = (int)this.FindChild<NumericStepper>("maskedHops").Value;
             UserSettings.SaveSettings();
             IPDBLoader.Load();
             Close();

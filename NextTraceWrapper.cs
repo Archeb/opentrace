@@ -321,6 +321,53 @@ namespace NextTrace
                 Geolocation = Resources.LOOPBACK_ADDR;
             }
 
+            // 打码 IP 地址
+            // maskedHopsMode 设置包含 ip_half, ip_full, ip_geo, all 四种打码模式
+            // maskedHops 指示打码的跳数
+            
+            
+            if (UserSettings.maskedHops > 0 && int.Parse(No) <= UserSettings.maskedHops)
+            {
+                if (UserSettings.maskedHopsMode == "ip_half")
+                {
+                    if (IP.Contains(":"))
+                    {
+                        // IPv6 全部打码
+                        IP = "****";
+                    }
+                    else if (IP.Contains("."))
+                    {
+                        // IPv4 打码后 2 节
+                        IP = string.Join(".", IP.Split('.').Take(2).Concat(new string[] { "xx", "xx" }));   
+                    }
+                    // 删除主机名
+                    Hostname = "";
+                }
+                else if (UserSettings.maskedHopsMode == "ip_full")
+                {
+                    IP = "****";
+                    // 删除主机名
+                    Hostname = "";
+                }
+                else if (UserSettings.maskedHopsMode == "ip_geo")
+                {
+                    IP = "****";
+                    Geolocation = "****";
+                    // 删除主机名
+                    Hostname = "";
+                }
+                else if (UserSettings.maskedHopsMode == "all")
+                {
+                    IP = "****";
+                    Geolocation = "****";
+                    AS = "****";
+                    Hostname = "";
+                    Organization = "****";
+                    Latitude = "****";
+                    Longitude = "****";
+                }
+            }
+
 
             return new TracerouteResult(No, IP, Time, Geolocation, AS, Hostname, Organization, Latitude, Longitude);
         }
