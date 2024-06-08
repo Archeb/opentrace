@@ -129,6 +129,13 @@ namespace OpenTrace
                 SelectedIndex = 0,
                 ToolTip = Resources.PROTOCOL_FOR_TRACEROUTING
             };
+            protocolSelection.SelectedKey = UserSettings.selectedProtocol;
+            protocolSelection.SelectedKeyChanged += (sender, e) =>
+            {
+                UserSettings.selectedProtocol = protocolSelection.SelectedKey;
+                UserSettings.SaveSettings();
+            };
+
             dataProviderSelection = new DropDown
             {
                 Items = {
@@ -147,11 +154,24 @@ namespace OpenTrace
             if (UserSettings.enable_ip2region == true) dataProviderSelection.Items.Add(new ListItem { Text = "Ip2region", Key = "--data-provider Ip2region" });
             if (UserSettings.enable_ipinfolocal == true) dataProviderSelection.Items.Add(new ListItem { Text = "IPInfoLocal", Key = "--data-provider IPInfoLocal" });
 
+            dataProviderSelection.SelectedKey = UserSettings.selectedDataProvider;
+            dataProviderSelection.SelectedKeyChanged += (sender, e) =>
+            {
+                UserSettings.selectedDataProvider = dataProviderSelection.SelectedKey;
+                UserSettings.SaveSettings();
+            };
+
             if (UserSettings.localDBPath != "") IPDBLoader.Load();
 
             dnsResolverSelection = new DropDown();
             dnsResolverSelection.SelectedKeyChanged += resolveParamChanged;
             LoadDNSResolvers();
+            dnsResolverSelection.SelectedKey = UserSettings.selectedDnsResolver;
+            dnsResolverSelection.SelectedKeyChanged += (sender, e) =>
+            {
+                UserSettings.selectedDnsResolver = dnsResolverSelection.SelectedKey;
+                UserSettings.SaveSettings();
+            };
 
             tracerouteGridView = new GridView { DataStore = tracerouteResultCollection };
             tracerouteGridView.MouseUp += Dragging_MouseUp;

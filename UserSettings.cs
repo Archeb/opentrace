@@ -126,5 +126,14 @@ namespace OpenTrace
 
         [Setting(Name = "maskedHopsMode", Default = "ip_half")]
         public static string maskedHopsMode { get; set; }
+
+        [Setting(Name = "selectedDnsResolver", Default = "system")]
+        public static string selectedDnsResolver { get; set; }
+
+        [Setting(Name = "selectedProtocol", Default = "")]
+        public static string selectedProtocol { get; set; }
+
+        [Setting(Name = "selectedDataProvider", Default = "")]
+        public static string selectedDataProvider { get; set; }
     }
 }
