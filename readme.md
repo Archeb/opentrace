@@ -6,45 +6,47 @@
 
 ## OpenTrace
 
-OpenTrace ÊÇ NextTrace µÄ¿çÆ½Ì¨ GUI ½çÃæ£¬´øÀ´ÄúÊìÏ¤µ«¸üÇ¿´óµÄÓÃ»§ÌåÑé¡£
+OpenTrace æ˜¯ NextTrace çš„è·¨å¹³å° GUI ç•Œé¢ï¼Œå¸¦æ¥æ‚¨ç†Ÿæ‚‰ä½†æ›´å¼ºå¤§çš„ç”¨æˆ·ä½“éªŒã€‚
 
 OpenTrace is a cross-platform GUI wrapper for NextTrace. Bringing you a sense of familiarity.
 
-ÄúĞèÒª NextTrace V1 (>= 1.1.7) µÄ¿ÉÖ´ĞĞÎÄ¼ş²ÅÄÜÊ¹ÓÃ OpenTrace
+æ‚¨éœ€è¦ NextTrace V1 (>= 1.1.7) çš„å¯æ‰§è¡Œæ–‡ä»¶æ‰èƒ½ä½¿ç”¨ OpenTrace
 
 You need a working **NextTrace V1** (>= 1.1.7) executable to use this.
 
 [English Version](readme_en.md)
 
-### Ê¹ÓÃ·½·¨
+### ä½¿ç”¨æ–¹æ³•
 
-- ×ÔĞĞ±àÒë»ò´Ó [releases](https://github.com/Archeb/opentrace/releases) ÀïÏÂÔØ OpenTrace
+- è‡ªè¡Œç¼–è¯‘æˆ–ä» [releases](https://github.com/Archeb/opentrace/releases) é‡Œä¸‹è½½ OpenTrace
 
-- ÏÂÔØ²¢°²×° [NextTrace V1](https://github.com/nxtrace/Ntrace-V1/releases): ´Ó [ÕâÀï](https://github.com/nxtrace/Ntrace-V1/releases) ÏÂÔØ¶ÔÓ¦ÏµÍ³¼Ü¹¹µÄ NextTrace£¬È»ºó½«Æä·ÅÖÃÓÚ OpenTrace Ä¿Â¼ÏÂ£¬»òÕß·ÅÖÃµ½ÏµÍ³ PATH »·¾³±äÁ¿°üº¬µÄÄ¿Â¼ÖĞ£»ÄúÒà¿ÉÒÔ·Åµ½ÈÎÒâÎ»ÖÃ²¢ÊÖ¶¯Ö¸¶¨Â·¾¶£¨macOS ÓÃ»§ÍÆ¼ö£©¡£
+- ä¸‹è½½å¹¶å®‰è£… [NextTrace V1](https://github.com/nxtrace/Ntrace-V1/releases): ä» [è¿™é‡Œ](https://github.com/nxtrace/Ntrace-V1/releases) ä¸‹è½½å¯¹åº”ç³»ç»Ÿæ¶æ„çš„ NextTraceï¼Œç„¶åå°†å…¶æ”¾ç½®äº OpenTrace ç›®å½•ä¸‹ï¼Œæˆ–è€…æ”¾ç½®åˆ°ç³»ç»Ÿ PATH ç¯å¢ƒå˜é‡åŒ…å«çš„ç›®å½•ä¸­ï¼›æ‚¨äº¦å¯ä»¥æ”¾åˆ°ä»»æ„ä½ç½®å¹¶æ‰‹åŠ¨æŒ‡å®šè·¯å¾„ï¼ˆmacOS ç”¨æˆ·æ¨èï¼‰ã€‚
 
-- ÔËĞĞ OpenTrace(.exe)
+- è¿è¡Œ OpenTrace(.exe)
 
-### ¹¦ÄÜ
+### åŠŸèƒ½
 
-- [x] ¿çÆ½Ì¨Ô­ÉúGUI£¨Windows WPF / Linux GTK / macOS£©
+- [x] è·¨å¹³å°åŸç”ŸGUIï¼ˆWindows WPF / Linux GTK / macOSï¼‰
 
-- [x] ÄúÊìÏ¤µ«¹¦ÄÜ¸üÇ¿´óµÄ½çÃæ
+- [x] æ‚¨ç†Ÿæ‚‰ä½†åŠŸèƒ½æ›´å¼ºå¤§çš„ç•Œé¢
 
-- [x] ÓÃ»§ÓÑºÃµÄGUIºÍÒ×ÓÚÀí½âµÄ²ÎÊıÃèÊö
+- [x] ç”¨æˆ·å‹å¥½çš„GUIå’Œæ˜“äºç†è§£çš„å‚æ•°æè¿°
 
-- [x] MTR (My Traceroute) ¹¦ÄÜ
+- [x] MTR (My Traceroute) åŠŸèƒ½
 
-- [x] ¶àÓïÑÔÖ§³Ö
+- [x] å¤šè¯­è¨€æ”¯æŒ
 
-- [x] ×Ô¶¨Òå DNS ·şÎñÆ÷ (DNS¡¢DoH)
+- [x] è‡ªå®šä¹‰ DNS æœåŠ¡å™¨ (DNSã€DoH)
 
-- [x] Ö§³ÖÊ¹ÓÃ±¾µØ MMDB ¸ñÊ½µÄ IP Êı¾İ¿â
+- [x] æ”¯æŒä½¿ç”¨æœ¬åœ° MMDB æ ¼å¼çš„ IP æ•°æ®åº“
 
-ĞÂ¹¦ÄÜ²»¶ÏÌí¼ÓÖĞ...»¶Ó­ÏòÎÒÃÇ[Ìá³ö¹¦ÄÜÇëÇó](https://github.com/Archeb/opentrace/issues/new/choose)£¡
+- [x] éšç§æ‰“ç åŠŸèƒ½ï¼Œå¯ä»¥éšè—å‰å‡ è·³çš„IPã€rDNSä¸ä½ç½®ä¿¡æ¯
 
-ÌáÊ¾£ºÄúÒ²¿ÉÒÔÔÚ[±¾ÏîÄ¿µÄ Actions Ò³Ãæ](https://github.com/Archeb/opentrace/actions) ÏÂÔØ¶ÔÓ¦¼Ü¹¹µÄ×îĞÂ²âÊÔ°æ£»µ«Æä¿ÉÄÜ°üº¬´íÎó»òÕßÂ©¶´£¬»ò³öÏÖÔËĞĞ²»ÎÈ¶¨µÈÏÖÏó¡£
+æ–°åŠŸèƒ½ä¸æ–­æ·»åŠ ä¸­...æ¬¢è¿å‘æˆ‘ä»¬[æå‡ºåŠŸèƒ½è¯·æ±‚](https://github.com/Archeb/opentrace/issues/new/choose)ï¼
 
-### Ô¤ÀÀÍ¼
+æç¤ºï¼šæ‚¨ä¹Ÿå¯ä»¥åœ¨[æœ¬é¡¹ç›®çš„ Actions é¡µé¢](https://github.com/Archeb/opentrace/actions) ä¸‹è½½å¯¹åº”æ¶æ„çš„æœ€æ–°æµ‹è¯•ç‰ˆï¼›ä½†å…¶å¯èƒ½åŒ…å«é”™è¯¯æˆ–è€…æ¼æ´ï¼Œæˆ–å‡ºç°è¿è¡Œä¸ç¨³å®šç­‰ç°è±¡ã€‚
+
+### é¢„è§ˆå›¾
 
 ![Windows](https://github.com/Archeb/opentrace/assets/11910831/510b61a2-712e-4d83-ae94-f396862e68df)
 ![MTR on Linux](https://i.imgur.com/MxSHIcU.png)
