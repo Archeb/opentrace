@@ -156,6 +156,10 @@
 											<TextBox x:Name="NextTraceProxy" PlaceholderText="protocol://username:password@host:port" Text=""></TextBox>
 										</TableRow>
 										<TableRow>
+											<Label Text="API Base"></Label>
+											<TextBox x:Name="IPAPI_Base" Text=""></TextBox>
+										</TableRow>
+										<TableRow>
 											<Label Text="IPInsight Token"></Label>
 											<TextBox x:Name="IPInsightToken" Text=""></TextBox>
 										</TableRow>

@@ -204,6 +204,7 @@ namespace NextTrace
                 if (UserSettings.LeoMoeAPI_HOSTPORT != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_HOSTPORT", UserSettings.LeoMoeAPI_HOSTPORT);
                 if (UserSettings.NextTraceProxy != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_PROXY", UserSettings.NextTraceProxy);
                 if (UserSettings.POWProvider != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_POWPROVIDER", UserSettings.POWProvider);
+                if (UserSettings.IPAPI_Base != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_IPAPI_BASE", UserSettings.IPAPI_Base);
 
                 if (MTRMode) // 添加环境变量让NextTrace进入持续追踪模式
                     _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_UNINTERRUPTED", "1");

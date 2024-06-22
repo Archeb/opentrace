@@ -78,7 +78,10 @@ namespace OpenTrace
 
         [Setting(Name = "NextTraceProxy", Default = "")]
         public static string NextTraceProxy { get; set; }
-        
+
+        [Setting(Name = "IPAPI_Base", Default = "")]
+        public static string IPAPI_Base { get; set; }
+
         [Setting(Name = "hideAddICMPFirewallRule", Default = false)]
         public static bool hideAddICMPFirewallRule { get; set; }
 
