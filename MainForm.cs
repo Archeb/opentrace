@@ -623,18 +623,31 @@ namespace OpenTrace
             {
                 // 使用传统 DNS
                 IDnsClient dnsClient = new DnsUdpClient(IPAddress.Parse(resolver));
-                DnsMessage result = Task.Run(() => dnsClient.Query(DnsQueryFactory.CreateQuery(host))).Result;
+                // 同时查询 A 和 AAAA 记录
+                DnsMessage aResult = Task.Run(() => dnsClient.Query(DnsQueryFactory.CreateQuery(host, Ae.Dns.Protocol.Enums.DnsQueryType.A))).Result;
+                DnsMessage aaaaResult = Task.Run(() => dnsClient.Query(DnsQueryFactory.CreateQuery(host, Ae.Dns.Protocol.Enums.DnsQueryType.AAAA))).Result;
 
-                if (result.Answers.Count == 0)
+                if (aResult.Answers.Count == 0 && aaaaResult.Answers.Count == 0)
                 {
                     throw new SocketException();
                 }
                 else
                 {
                     List<IPAddress> addressList = new List<IPAddress>();
-                    foreach (DnsResourceRecord answer in result.Answers)
+
+                    // 处理 A 记录
+                    foreach (DnsResourceRecord answer in aResult.Answers)
                     {
-                        if (answer.Type == Ae.Dns.Protocol.Enums.DnsQueryType.A || answer.Type == Ae.Dns.Protocol.Enums.DnsQueryType.AAAA)
+                        if (answer.Type == Ae.Dns.Protocol.Enums.DnsQueryType.A)
+                        {
+                            addressList.Add(((DnsIpAddressResource)answer.Resource).IPAddress);
+                        }
+                    }
+
+                    // 处理 AAAA 记录
+                    foreach (DnsResourceRecord answer in aaaaResult.Answers)
+                    {
+                        if (answer.Type == Ae.Dns.Protocol.Enums.DnsQueryType.AAAA)
                         {
                             addressList.Add(((DnsIpAddressResource)answer.Resource).IPAddress);
                         }
