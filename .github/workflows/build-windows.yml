@@ -46,7 +46,7 @@ jobs:
         dotnet build OpenTrace.csproj --runtime ${{ matrix.runtime }} --configuration Release ${{ matrix.self_contained }} -f net48
         
     - name: Upload artifact for ${{ matrix.runtime }}
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: ${{ matrix.runtime }}
         path: ${{ matrix.artifact_path }}
