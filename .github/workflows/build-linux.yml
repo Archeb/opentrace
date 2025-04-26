@@ -32,14 +32,23 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    env:
+        NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
+
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
     
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8
-        
+
+    - name: NuGet Restore
+      run: |
+          dotnet restore OpenTrace.csproj
+          # override for #84 temporarily (until next dep upgrade)
+          cp -f .github/Eto.Gtk.dll ${{ github.workspace }}/.nuget/packages/eto.platform.gtk/2.7.5/lib/netstandard2.0/
+
     - name: Build for ${{ matrix.runtime }}
       run: |
         dotnet build OpenTrace.csproj --runtime ${{ matrix.runtime }} --configuration Release ${{ matrix.self_contained }} -f net8.0

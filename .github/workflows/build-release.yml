@@ -40,16 +40,25 @@ jobs:
             archive_command: "tar -cvzf"
             archive_extension: tar.gz
 
+    env:
+        NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
+
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
       with:
         fetch-depth: 0
 
     - name: Setup .NET
-      uses: actions/setup-dotnet@v3
+      uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8
+
+    - name: NuGet Restore
+      run: |
+          dotnet restore OpenTrace.csproj
+          # override for #84 temporarily (until next dep upgrade)
+          cp -f .github/Eto.Gtk.dll ${{ github.workspace }}/.nuget/packages/eto.platform.gtk/2.7.5/lib/netstandard2.0/
 
     - name: Build
       run: dotnet build OpenTrace.csproj --runtime ${{ matrix.runtime }} --configuration Release ${{ matrix.self_contained }} -f ${{ matrix.framework }}
