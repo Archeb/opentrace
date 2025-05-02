@@ -414,7 +414,7 @@ namespace OpenTrace
 
         private void TracerouteGridView_SelectedRowsChanged(object sender, EventArgs e)
         {
-            FocusMapPoint(tracerouteGridView.SelectedRow);
+            FocusMapPoint(tracerouteGridView.SelectedRow + 1);
         }
 
         private void StartTracerouteButton_Click(object sender, EventArgs e)
@@ -708,6 +708,13 @@ namespace OpenTrace
                         {
                             // 修改现有的跳
                             tracerouteResultCollection[HopNo - 1].HopData.Add(result);
+
+                            // 仅当存在经纬度数据时更新地图
+                            if (result.Latitude != "" && result.Longitude != "")
+                            {
+                                UpdateMap(result, HopNo);
+                            }
+                            
                             tracerouteGridView.ReloadData(HopNo - 1);
                         }
                     } catch (Exception exception)
@@ -784,7 +791,21 @@ namespace OpenTrace
                 // 把 Result 转换为 JSON
                 string resultJson = JsonConvert.SerializeObject(result);
                 // 通过 ExecuteScript 把结果传进去
-                mapWebView.ExecuteScriptAsync(@"window.opentrace.addHop(`" + resultJson + "`);");
+                mapWebView.ExecuteScriptAsync(@"window.opentrace.updateHop(`" + resultJson + "`);");
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"Message: ${e.Message} \nSource: ${e.Source} \nStackTrace: ${e.StackTrace}", "Exception Occurred");
+            }
+        }
+        private void UpdateMap(TracerouteResult result, int hopNo)
+        {
+            try
+            {
+                // 把 Result 转换为 JSON
+                string resultJson = JsonConvert.SerializeObject(result);
+                // 通过 ExecuteScript 把结果传进去
+                mapWebView.ExecuteScriptAsync(@"window.opentrace.updateHop(`" + resultJson + "`" + "," + hopNo.ToString() +");");
             }
             catch (Exception e)
             {

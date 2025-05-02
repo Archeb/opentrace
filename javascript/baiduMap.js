@@ -8,10 +8,16 @@ window.opentrace = {
 		if (document.getElementById("opentracePopup")) document.getElementById("opentracePopup").remove();
 	},
 
-	addHop: function (hop) {
-		hop = JSON.parse(hop);
+	updateHop: function (hop, hopNo = undefined) {
+		hopData = JSON.parse(hop);
 		console.log(hop);
-		this.Hops.push(hop);
+		if (hopNo !== undefined) {
+			// Update the existing hop if hopNo is provided
+			this.Hops[hopNo] = hopData;
+		} else {
+			// Add the new hop to the list of hops
+			this.Hops.push(hopData);
+		}
 		// 重新计算中心点并画图
 		map.clearOverlays(); //清除覆盖物
 		var pointlygon_array = []; //折线需要的数组

@@ -8,7 +8,7 @@ window.opentrace = {
 		if (document.getElementById("opentracePopup")) document.getElementById("opentracePopup").remove();
 	},
 
-	addHop: function (hop) {
+	updateHop: function (hop, hopNo = undefined) {
 
 		// Parse the JSON string into an object
 		const hopData = JSON.parse(hop);
@@ -18,8 +18,13 @@ window.opentrace = {
 		// Clear any existing overlays
 		gmap.overlayMapTypes.clear();
 
-		// Add the new hop to the list of hops
-		this.Hops.push(hopData);
+        if (hopNo !== undefined) {
+            // Update the existing hop if hopNo is provided
+			this.Hops[hopNo] = hopData;
+		} else {
+			// Add the new hop to the list of hops
+			this.Hops.push(hopData);
+		}
 
 		// Loop through all hops and add markers
 		for (let i = 0; i < this.Hops.length; i++) {
