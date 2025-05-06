@@ -107,6 +107,15 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Auto IP Selection 的本地化字符串。
+        /// </summary>
+        public static string AUTO_IP_SELECTION {
+            get {
+                return ResourceManager.GetString("AUTO_IP_SELECTION", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Avg. 的本地化字符串。
         /// </summary>
         public static string AVRG {
@@ -126,14 +135,12 @@ namespace OpenTrace.Properties {
         ///		if (document.getElementById(&quot;opentracePopup&quot;)) document.getElementById(&quot;opentracePopup&quot;).remove();
         ///	},
         ///
-        ///	addHop: function (hop) {
-        ///		hop = JSON.parse(hop);
+        ///	updateHop: function (hop, hopNo = undefined) {
+        ///		hopData = JSON.parse(hop);
         ///		console.log(hop);
-        ///		this.Hops.push(hop);
-        ///		// 重新计算中心点并画图
-        ///		map.clearOverlays(); //清除覆盖物
-        ///		var pointlygon_array = []; //折线需要的数组
-        ///		for (var i = 0; i &lt; this. [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///		if (hopNo !== undefined) {
+        ///			// Update the existing hop if hopNo is provided
+        ///			this.Hops[ho [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string baiduMap {
             get {
@@ -405,12 +412,10 @@ namespace OpenTrace.Properties {
         ///		if (document.getElementById(&quot;opentracePopup&quot;)) document.getElementById(&quot;opentracePopup&quot;).remove();
         ///	},
         ///
-        ///	addHop: function (hop) {
+        ///	updateHop: function (hop, hopNo = undefined) {
         ///
         ///		// Parse the JSON string into an object
-        ///		const hopData = JSON.parse(hop);
-        ///
-        ///		conso [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///		const  [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string googleMap {
             get {
@@ -487,6 +492,33 @@ namespace OpenTrace.Properties {
         public static string IP_GEO_DATA_PROVIDER {
             get {
                 return ResourceManager.GetString("IP_GEO_DATA_PROVIDER", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Auto-select First IPv4 (if available) 的本地化字符串。
+        /// </summary>
+        public static string IP_SELECTION_FIRST_IPV4 {
+            get {
+                return ResourceManager.GetString("IP_SELECTION_FIRST_IPV4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Auto-select First IPv6 (if available) 的本地化字符串。
+        /// </summary>
+        public static string IP_SELECTION_FIRST_IPV6 {
+            get {
+                return ResourceManager.GetString("IP_SELECTION_FIRST_IPV6", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Manual 的本地化字符串。
+        /// </summary>
+        public static string IP_SELECTION_MANUAL {
+            get {
+                return ResourceManager.GetString("IP_SELECTION_MANUAL", resourceCulture);
             }
         }
         

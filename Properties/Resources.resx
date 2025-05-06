@@ -519,4 +519,16 @@ And restart OpenTrace after execution.</value>
   <data name="PRIVACY_MASKING_IP_HALF" xml:space="preserve">
     <value>hops by partially masking IP</value>
   </data>
+  <data name="AUTO_IP_SELECTION" xml:space="preserve">
+    <value>Auto IP Selection</value>
+  </data>
+  <data name="IP_SELECTION_MANUAL" xml:space="preserve">
+    <value>Manual</value>
+  </data>
+  <data name="IP_SELECTION_FIRST_IPV4" xml:space="preserve">
+    <value>Auto-select First IPv4 (if available)</value>
+  </data>
+  <data name="IP_SELECTION_FIRST_IPV6" xml:space="preserve">
+    <value>Auto-select First IPv6 (if available)</value>
+  </data>
 </root>

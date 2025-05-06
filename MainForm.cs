@@ -414,7 +414,7 @@ namespace OpenTrace
 
         private void TracerouteGridView_SelectedRowsChanged(object sender, EventArgs e)
         {
-            FocusMapPoint(tracerouteGridView.SelectedRow + 1);
+            FocusMapPoint(tracerouteGridView.SelectedRow);
         }
 
         private void StartTracerouteButton_Click(object sender, EventArgs e)
@@ -511,22 +511,47 @@ namespace OpenTrace
                         IPAddress[] resolvedAddresses = ResolveHost(HostInputBox.Text);
                         if (resolvedAddresses.Length > 1)
                         {
-                            ResolvedIPSelection.Items.Clear();
-                            ResolvedIPSelection.Items.Add(Resources.SELECT_IP_DROPDOWN);
-                            foreach (IPAddress resolvedAddress in resolvedAddresses)
+                            if (UserSettings.autoIPSelection == "manual")
                             {
-                                ResolvedIPSelection.Items.Add(resolvedAddress.ToString());
+                                // 手动选择 IP
+                                ResolvedIPSelection.Items.Clear();
+                                ResolvedIPSelection.Items.Add(Resources.SELECT_IP_DROPDOWN);
+                                foreach (IPAddress resolvedAddress in resolvedAddresses)
+                                {
+                                    ResolvedIPSelection.Items.Add(resolvedAddress.ToString());
+                                }
+                                ResolvedIPSelection.SelectedIndex = 0;
+                                ResolvedIPSelection.Visible = true;
+                                CurrentInstance = null;
+                                return;
                             }
-                            ResolvedIPSelection.SelectedIndex = 0;
-                            ResolvedIPSelection.Visible = true;
-                            CurrentInstance = null;
-                            return;
+                            else
+                            {
+                                IPAddress selectedIP = null;
+
+                                if (UserSettings.autoIPSelection == "first_ipv4")
+                                {
+                                    selectedIP = resolvedAddresses.FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetwork);
+                                }
+                                else if (UserSettings.autoIPSelection == "first_ipv6")
+                                {
+                                    selectedIP = resolvedAddresses.FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetworkV6);
+                                }
+
+                                // 回退到第一个可用的 IP
+                                if (selectedIP == null)
+                                {
+                                    selectedIP = resolvedAddresses[0];
+                                }
+
+                                readyToUseIP = selectedIP.ToString();
+                            }
                         }
                         else
                         {
                             readyToUseIP = resolvedAddresses[0].ToString();
-                            Title = Resources.APPTITLE + ": " + HostInputBox.Text + " (" + readyToUseIP + ")";
                         }
+                        Title = Resources.APPTITLE + ": " + HostInputBox.Text + " (" + readyToUseIP + ")";
                     }
                     catch (System.Net.Sockets.SocketException)
                     {
@@ -712,7 +737,7 @@ namespace OpenTrace
                             // 仅当存在经纬度数据时更新地图
                             if (result.Latitude != "" && result.Longitude != "")
                             {
-                                UpdateMap(result, HopNo);
+                                UpdateMap(result, HopNo - 1);
                             }
                             
                             tracerouteGridView.ReloadData(HopNo - 1);

@@ -68,6 +68,14 @@
 											</TableRow>
 										</TableLayout>
 									</TableRow>
+									<TableRow>
+										<Label Text="{x:Static resource:Resources.AUTO_IP_SELECTION}"></Label>
+										<DropDown x:Name="autoIPSelection" SelectedIndex="0">
+											<ListItem Text="{x:Static resource:Resources.IP_SELECTION_MANUAL}" Key="manual"></ListItem>
+											<ListItem Text="{x:Static resource:Resources.IP_SELECTION_FIRST_IPV4}" Key="first_ipv4"></ListItem>
+											<ListItem Text="{x:Static resource:Resources.IP_SELECTION_FIRST_IPV6}" Key="first_ipv6"></ListItem>
+										</DropDown>
+									</TableRow>
 								</TableLayout>
 							</TableRow>
 							<TableRow>

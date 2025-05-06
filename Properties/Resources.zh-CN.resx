@@ -139,6 +139,10 @@
   <data name="AVRG" xml:space="preserve">
     <value>平均延迟</value>
   </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="baiduMap" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
   <data name="BEST" xml:space="preserve">
     <value>最佳延迟</value>
   </data>
@@ -513,5 +517,17 @@ sudo xattr -r -d com.apple.quarantine &lt;将 OpenTrace 拖放至此&gt;
   </data>
   <data name="PRIVACY_MASKING_IP_HALF" xml:space="preserve">
     <value>跳的部分 IP</value>
+  </data>
+  <data name="AUTO_IP_SELECTION" xml:space="preserve">
+    <value>自动选择 IP</value>
+  </data>
+  <data name="IP_SELECTION_MANUAL" xml:space="preserve">
+    <value>手动选择</value>
+  </data>
+  <data name="IP_SELECTION_FIRST_IPV4" xml:space="preserve">
+    <value>自动选择首个 IPv4 (如果可用)</value>
+  </data>
+  <data name="IP_SELECTION_FIRST_IPV6" xml:space="preserve">
+    <value>自动选择首个 IPv6 (如果可用)</value>
   </data>
 </root>

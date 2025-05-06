@@ -138,5 +138,8 @@ namespace OpenTrace
 
         [Setting(Name = "selectedDataProvider", Default = "")]
         public static string selectedDataProvider { get; set; }
+
+        [Setting(Name = "autoIPSelection", Default = "manual")]
+        public static string autoIPSelection { get; set; }
     }
 }
