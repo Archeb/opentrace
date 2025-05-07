@@ -61,7 +61,7 @@ window.opentrace = {
 		var popupElement = document.createElement("div");
 		popupElement.id = "opentracePopup";
 		popupElement.style =
-			"position: absolute; top: 10px; max-width: 33%; left: 10px; padding: 5px; background-color: rgba(255,255,255,0.85); border: 1px solid #ccc; border-radius: 5px; z-index: 9999;";
+			"position: absolute; top: 10px; left: 10px; padding: 5px 15px 5px 5px; background-color: rgba(255,255,255,0.85); border: 1px solid #ccc; border-radius: 5px; z-index: 9999;";
 		popupElement.innerHTML = `
 		<style>
 		td:first-child {
