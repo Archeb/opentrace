@@ -39,7 +39,17 @@ namespace OpenTrace
             {
                 if (UserSettings.timeRounding)
                 {
-                    return String.Join(" / ", HopData.Select(d => d.Time == "*" ? d.Time : Math.Round(Convert.ToDouble(d.Time)).ToString()));
+                    var formattedTimes = HopData.Select(d =>
+                    {
+                        if (d.Time == "*") return "*";
+                        double timeValue;
+                        if (double.TryParse(d.Time, out timeValue))
+                        {
+                            return Math.Round(timeValue).ToString();
+                        }
+                        return d.Time; // Return original string if parsing fails
+                    });
+                    return String.Join(" / ", formattedTimes);
                 }
                 else
                 {
@@ -117,37 +127,35 @@ namespace OpenTrace
         {
             get
             {
-                int count = 0;
-                double sum = 0;
-                double mean = 0;
-                double stdDev = 0;
-
-                // Calculate the mean
-                foreach (TracerouteResult hop in HopData)
+                var validTimes = new List<double>();
+                foreach (var hop in HopData)
                 {
-                    if(hop.IP != "*")
+                    double timeValue;
+                    if (hop.IP != "*" && double.TryParse(hop.Time, out timeValue))
                     {
-                        count++;
-                        sum += double.Parse(hop.Time);
+                        validTimes.Add(timeValue);
                     }
                 }
-                mean = sum / count;
 
-                // Calculate the standard deviation
-                foreach (TracerouteResult hop in HopData)
+                if (validTimes.Count < 2)
                 {
-                    if (hop.IP != "*")
-                        stdDev += Math.Pow(double.Parse(hop.Time) - mean, 2);
+                    return 0;
                 }
-                stdDev = Math.Sqrt(stdDev / count);
 
-                return stdDev;
+                double mean = validTimes.Average();
+                double sumOfSquares = validTimes.Sum(time => Math.Pow(time - mean, 2));
+
+                return Math.Sqrt(sumOfSquares / validTimes.Count);
             }
         }
         public int Loss
         {
             get
             {
+                if (HopData.Count == 0)
+                {
+                    return 0;
+                }
                 int count = 0;
                 foreach (TracerouteResult hop in HopData)
                 {
@@ -183,9 +191,14 @@ namespace OpenTrace
             get
             {
                 if (HopData.Count > 0 && HopData[HopData.Count - 1].IP != "*")
-                    return double.Parse(HopData[HopData.Count - 1].Time);
-                else
-                    return 0;
+                {
+                    double timeValue;
+                    if (double.TryParse(HopData[HopData.Count - 1].Time, out timeValue))
+                    {
+                        return timeValue;
+                    }
+                }
+                return 0;
             }
         }
 
@@ -196,8 +209,14 @@ namespace OpenTrace
                 double worst = 0;
                 foreach (TracerouteResult hop in HopData)
                 {
-                    if (hop.IP != "*" && double.Parse(hop.Time) > worst)
-                        worst = double.Parse(hop.Time);
+                    double timeValue;
+                    if (hop.IP != "*" && double.TryParse(hop.Time, out timeValue))
+                    {
+                        if (timeValue > worst)
+                        {
+                            worst = timeValue;
+                        }
+                    }
                 }
                 return worst;
             }
@@ -208,13 +227,20 @@ namespace OpenTrace
             get
             {
                 double best = double.MaxValue;
+                bool foundValue = false;
                 foreach (TracerouteResult hop in HopData)
                 {
-                    if (hop.IP != "*" && double.Parse(hop.Time) < best)
-                        best = double.Parse(hop.Time);
+                    double timeValue;
+                    if (hop.IP != "*" && double.TryParse(hop.Time, out timeValue))
+                    {
+                        foundValue = true;
+                        if (timeValue < best)
+                        {
+                            best = timeValue;
+                        }
+                    }
                 }
-                if (best == double.MaxValue) best = 0;
-                return best;
+                return foundValue ? best : 0;
             }
         }
 
@@ -226,13 +252,14 @@ namespace OpenTrace
                 int count = 0;
                 foreach (TracerouteResult hop in HopData)
                 {
-                    if (hop.IP != "*")
+                    double timeValue;
+                    if (hop.IP != "*" && double.TryParse(hop.Time, out timeValue))
                     {
-                        sum += double.Parse(hop.Time);
+                        sum += timeValue;
                         count++;
                     }
                 }
-                return sum / count;
+                return count > 0 ? sum / count : 0;
             }
         }
         public ObservableCollection<TracerouteResult> HopData { get; set; }
