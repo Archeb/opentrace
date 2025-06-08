@@ -25,10 +25,13 @@ jobs:
 
     strategy:
       matrix:
-        runtime: [win-x64]
+        runtime: [win-x64, win-arm64]
         include:
           - runtime: win-x64
             artifact_path: .\bin\Wpf\Release\net48\win-x64
+            self_contained: "--no-self-contained"
+          - runtime: win-arm64
+            artifact_path: .\bin\Wpf\Release\net48\win-arm64
             self_contained: "--no-self-contained"
 
     runs-on: windows-latest
