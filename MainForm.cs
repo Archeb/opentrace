@@ -38,6 +38,7 @@ namespace OpenTrace
         private bool enterPressed = false;
 
         private ExceptionalOutputForm exceptionalOutputForm = new ExceptionalOutputForm();
+        private Clipboard clipboard = new Clipboard();
 
         public MainForm()
         {
@@ -189,22 +190,26 @@ namespace OpenTrace
             };
             copyIPCommand.Executed += (sender, e) =>
             {
-                Clipboard.Instance.Text = tracerouteResultCollection[tracerouteGridView.SelectedRow].IP;
+                clipboard.Clear();
+                clipboard.Text = tracerouteResultCollection[tracerouteGridView.SelectedRow].IP;
             };
             copyGeolocationCommand.Executed += (sender, e) =>
             {
                 if (UserSettings.combineGeoOrg)
                 {
-                    Clipboard.Instance.Text = tracerouteResultCollection[tracerouteGridView.SelectedRow].GeolocationAndOrganization;
+                    clipboard.Clear();
+                    clipboard.Text = tracerouteResultCollection[tracerouteGridView.SelectedRow].GeolocationAndOrganization;
                 }
                 else
                 {
-                    Clipboard.Instance.Text = tracerouteResultCollection[tracerouteGridView.SelectedRow].Geolocation;
+                    clipboard.Clear();
+                    clipboard.Text = tracerouteResultCollection[tracerouteGridView.SelectedRow].Geolocation;
                 }
             };
             copyHostnameCommand.Executed += (sender, e) =>
             {
-                Clipboard.Instance.Text = tracerouteResultCollection[tracerouteGridView.SelectedRow].Hostname;
+                clipboard.Clear();
+                clipboard.Text = tracerouteResultCollection[tracerouteGridView.SelectedRow].Hostname;
             };
 
             AddGridColumnsTraceroute();
