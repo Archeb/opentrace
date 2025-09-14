@@ -127,7 +127,7 @@
     <value>OpenTrace</value>
   </data>
   <data name="ASK_ADD_ICMP_FIREWALL_RULE" xml:space="preserve">
-    <value>NextTrace需要型態3和11的ICMP封包來建立完整追蹤路徑。Windows 系統防火牆默認阻擋相關封包，以致只有最後一個節點會被顯示。
+    <value>NextTrace需要型態3和11的ICMP封包來建立完整追蹤路徑。Windows 系統防火牆預設阻擋相關封包，以致只有最後一個節點會被顯示。
 
 您希望NextTrace幫您增加防火牆例外規則以利運行嗎？
 
@@ -158,11 +158,11 @@
     <value>拷貝</value>
   </data>
   <data name="CUSTOM_DNS_RESOLVERS" xml:space="preserve">
-    <value>自定義 DNS 解析器
+    <value>自訂 DNS 解析器
 (支援 UDP / DoH)</value>
   </data>
   <data name="DISABLE_IPGEO" xml:space="preserve">
-    <value>禁用地理位置</value>
+    <value>停用地理位置</value>
   </data>
   <data name="DST_PORT_INIT_SEQ" xml:space="preserve">
     <value>目標埠 / 初始序號</value>
@@ -171,10 +171,10 @@
     <value>主機或 IP 不能為空</value>
   </data>
   <data name="ENABLE_IP2REGION" xml:space="preserve">
-    <value>使用本地 Ip2region 數據庫  (ip2region.db)</value>
+    <value>使用本地 Ip2region 資料庫  (ip2region.db)</value>
   </data>
   <data name="ENABLE_IPINFOLOCAL" xml:space="preserve">
-    <value>使用本地 IPInfo 數據庫 (ipinfoLocal.mmdb)</value>
+    <value>使用本地 IPInfo 資料庫 (ipinfoLocal.mmdb)</value>
   </data>
   <data name="ERR_MSG" xml:space="preserve">
     <value>錯誤訊息</value>
@@ -183,7 +183,7 @@
     <value>儲存設定時出錯</value>
   </data>
   <data name="EXCEPTIONAL_EXIT_MSG" xml:space="preserve">
-    <value>NextTrace 程序異常退出，請參考錯誤訊息以瞭解更多資訊並及時向我們報告此問題。 退出程式碼：</value>
+    <value>NextTrace 程式異常退出，請參考錯誤訊息以瞭解更多資訊並及時向我們報告此問題。 退出程式碼：</value>
   </data>
   <data name="EXC_OUTPUT_FORM_PROMPT" xml:space="preserve">
     <value>NextTrace 產生了一個或多個異常輸出，請檢查下面的輸出資訊以排查問題。 您可以參考 NextTrace Wiki 來查看是否已經有解答；如未能找到答案，請向我們報告。</value>
@@ -204,7 +204,7 @@
     <value>匯出為</value>
   </data>
   <data name="FAILED_TO_ADD_RULES" xml:space="preserve">
-    <value>新增防火墻規則失敗</value>
+    <value>新增防火牆規則失敗</value>
   </data>
   <data name="FILE" xml:space="preserve">
     <value>檔案</value>
@@ -312,7 +312,7 @@
     <value>百度地圖</value>
   </data>
   <data name="MAP_PROVIDER_GOOGLE" xml:space="preserve">
-    <value>谷歌地圖</value>
+    <value>Google地圖</value>
   </data>
   <data name="MAP_PROVIDER_OSM" xml:space="preserve">
     <value>OpenStreetMap</value>
@@ -346,7 +346,7 @@ sudo chmod +sx /path/to/nexttrace
   </data>
   <data name="MISSING_COMP_PRIV_MACOS" xml:space="preserve">
     <value>OpenTrace 需要權限才能進行 TCP/UDP 追蹤。
-請為 NextTrace 設置權限:
+請為 NextTrace 設定權限:
 
 sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
 sudo chown root:admin /path/to/nexttrace
@@ -371,14 +371,14 @@ sudo chmod +sx /path/to/nexttrace</value>
     <value>開啟一個新的 OpenTrace 視窗</value>
   </data>
   <data name="RDNS_MODE" xml:space="preserve">
-    <value>反向 DNS 查找模式</value>
+    <value>反向 DNS 尋找模式</value>
   </data>
   <data name="ORGANIZATION" xml:space="preserve">
     <value>組織</value>
   </data>
   <data name="OTHER_DATABASE_TIPS" xml:space="preserve">
-    <value>有些數據源只有在設置 API 端點 / Token 後才能選擇；
- 要使用離線數據庫，請參閱 NextTrace 文檔進行設置。</value>
+    <value>有些數據源只有在設定 API 端點 / Token 後才能選擇；
+ 要使用離線資料庫，請參閱 NextTrace 文件進行設定。</value>
   </data>
   <data name="PACKET_GROUP_INTERVAL" xml:space="preserve">
     <value>分組請求間隔</value>
@@ -393,10 +393,10 @@ sudo chmod +sx /path/to/nexttrace</value>
     <value>LeoMoeAPI PoW 伺服器</value>
   </data>
   <data name="POW_PROVIDER_LEOMOE" xml:space="preserve">
-    <value>api.leo.moe (默認)</value>
+    <value>api.leo.moe (預設)</value>
   </data>
   <data name="POW_PROVIDER_SAKURA" xml:space="preserve">
-    <value>Nya Labs (中國大陸優化)</value>
+    <value>Nya Labs (中國大陸最佳化)</value>
   </data>
   <data name="PREFERENCES" xml:space="preserve">
     <value>設定</value>
@@ -476,7 +476,7 @@ sudo xattr -r -d com.apple.quarantine &lt;將 OpenTrace 拖放至此&gt;
 並在完成釋放後重啟 OpenTrace.</value>
   </data>
   <data name="HOMEPAGE" xml:space="preserve">
-    <value>項目主頁</value>
+    <value>項目首頁</value>
   </data>
   <data name="RDNS_MODE_ALWAYS" xml:space="preserve">
     <value>嘗試擷取完整 rDNS</value>
@@ -485,7 +485,7 @@ sudo xattr -r -d com.apple.quarantine &lt;將 OpenTrace 拖放至此&gt;
     <value>快速 rDNS（預設）</value>
   </data>
   <data name="RDNS_MODE_DISABLE" xml:space="preserve">
-    <value>禁用 rDNS 查詢</value>
+    <value>停用 rDNS 查詢</value>
   </data>
   <data name="CHECK_UPDATE_ON_STARTUP" xml:space="preserve">
     <value>啟動時檢查更新</value>
@@ -497,7 +497,7 @@ sudo xattr -r -d com.apple.quarantine &lt;將 OpenTrace 拖放至此&gt;
     <value>(最新版 {0} 已釋出，可到幫助選單下載)</value>
   </data>
   <data name="PRIVACY_MASKING" xml:space="preserve">
-    <value>私隱保護</value>
+    <value>隱私保護</value>
   </data>
   <data name="PRIVACY_MASKING_ALL" xml:space="preserve">
     <value>跳的所有訊息</value>
