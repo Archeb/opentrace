@@ -76,6 +76,12 @@ jobs:
         token: ${{ secrets.GITHUB_TOKEN }}
         out-file-path: ${{ matrix.artifact_path }}
 
+    - name: Copy WinDivert files (Windows only)
+      if: matrix.runtime == 'win-x64'
+      run: |
+        cp ${{ github.workspace }}/.github/WinDivert.dll ${{ matrix.artifact_path }}/
+        cp ${{ github.workspace }}/.github/WinDivert64.sys ${{ matrix.artifact_path }}/
+
     - name: Package
       run: |
         cd ${{ matrix.artifact_path }}

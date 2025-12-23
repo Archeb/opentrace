@@ -141,5 +141,8 @@ namespace OpenTrace.Infrastructure
 
         [Setting(Name = "autoIPSelection", Default = "manual")]
         public static string autoIPSelection { get; set; }
+
+        [Setting(Name = "skipWindowsTcpUdpCheck", Default = false)]
+        public static bool skipWindowsTcpUdpCheck { get; set; }
     }
 }

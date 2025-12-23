@@ -466,8 +466,34 @@ To use an offline database, please refer to the NextTrace documentation to set i
   <data name="TRACEROUTING" xml:space="preserve">
     <value>Tracerouting</value>
   </data>
-  <data name="WINDOWS_TCP_UDP_UNSUPPORTED" xml:space="preserve">
-    <value>TCP/UDP Traceroute is not yet supported on Windows.</value>
+  <data name="WINDOWS_TCP_UDP_REQUIREMENTS_TITLE" xml:space="preserve">
+    <value>TCP/UDP Mode Requirements</value>
+  </data>
+  <data name="WINDOWS_TCP_UDP_MISSING_ADMIN" xml:space="preserve">
+    <value>TCP/UDP Traceroute on Windows requires administrator privileges. Do you want to restart OpenTrace with administrator privileges?</value>
+  </data>
+  <data name="WINDOWS_TCP_UDP_MISSING_NPCAP" xml:space="preserve">
+    <value>• Npcap is not installed</value>
+  </data>
+  <data name="WINDOWS_TCP_UDP_MISSING_WINDIVERT" xml:space="preserve">
+    <value>• WinDivert is not found (Should be placed in the same directory as NextTrace)</value>
+  </data>
+  <data name="WINDOWS_TCP_UDP_REQUIREMENTS_MSG" xml:space="preserve">
+    <value>TCP/UDP Traceroute on Windows requires the following:
+
+{0}
+
+Click [Yes] to try running NextTrace directly (and don't ask again).
+Click [No] to download missing components.</value>
+  </data>
+  <data name="WINDOWS_TCP_UDP_HAS_NPCAP" xml:space="preserve">
+    <value>✓ Npcap is installed</value>
+  </data>
+  <data name="WINDOWS_TCP_UDP_HAS_WINDIVERT" xml:space="preserve">
+    <value>✓ WinDivert is available</value>
+  </data>
+  <data name="WINDOWS_TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
+    <value>Run as Administrator</value>
   </data>
   <data name="WORST" xml:space="preserve">
     <value>Worst</value>

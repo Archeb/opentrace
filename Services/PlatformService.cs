@@ -86,5 +86,153 @@ namespace OpenTrace.Services
             }
             return true;
         }
+
+        /// <summary>
+        /// 检查当前进程是否以管理员权限运行
+        /// </summary>
+        /// <returns>是否为管理员</returns>
+        public bool IsAdministrator()
+        {
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return false;
+            }
+
+            using (var identity = System.Security.Principal.WindowsIdentity.GetCurrent())
+            {
+                var principal = new System.Security.Principal.WindowsPrincipal(identity);
+                return principal.IsInRole(System.Security.Principal.WindowsBuiltInRole.Administrator);
+            }
+        }
+
+        /// <summary>
+        /// 检查 Npcap 是否已安装
+        /// </summary>
+        /// <returns>是否已安装</returns>
+        public bool IsNpcapInstalled()
+        {
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return false;
+            }
+
+            // 检查 Npcap 的安装路径
+            string npcapPath = System.IO.Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.System),
+                "Npcap"
+            );
+
+            if (System.IO.Directory.Exists(npcapPath))
+            {
+                return true;
+            }
+
+            // 检查注册表
+            try
+            {
+                using (var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Npcap"))
+                {
+                    if (key != null)
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch
+            {
+                // 忽略注册表访问错误
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 检查 WinDivert.dll 是否存在
+        /// </summary>
+        /// <returns>是否存在</returns>
+        public bool IsWinDivertInstalled()
+        {
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return false;
+            }
+
+            // 检查应用程序目录下的 WinDivert.dll
+            string appDir = AppDomain.CurrentDomain.BaseDirectory;
+            string winDivertPath = System.IO.Path.Combine(appDir, "WinDivert.dll");
+            
+            if (System.IO.File.Exists(winDivertPath))
+            {
+                return true;
+            }
+
+            // 检查 64 位版本
+            string winDivert64Path = System.IO.Path.Combine(appDir, "WinDivert64.sys");
+            if (System.IO.File.Exists(winDivert64Path))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 检查 Windows TCP/UDP 模式所需的所有条件
+        /// </summary>
+        /// <returns>元组：(是否满足所有条件, 是否安装Npcap, 是否有WinDivert)</returns>
+        public (bool AllMet, bool HasNpcap, bool HasWinDivert) CheckWindowsTcpUdpRequirements()
+        {
+            bool hasNpcap = IsNpcapInstalled();
+            bool hasWinDivert = IsWinDivertInstalled();
+            
+            bool allMet = hasWinDivert && hasNpcap;
+            
+            return (allMet, hasNpcap, hasWinDivert);
+        }
+
+        /// <summary>
+        /// 以管理员身份重新启动应用程序
+        /// </summary>
+        /// <returns>是否成功启动</returns>
+        public bool RestartAsAdministrator()
+        {
+            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return false;
+            }
+
+            try
+            {
+                // 获取当前进程的可执行文件路径
+                string exePath = Process.GetCurrentProcess().MainModule?.FileName;
+                
+                if (string.IsNullOrEmpty(exePath))
+                {
+                    return false;
+                }
+
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = exePath,
+                    UseShellExecute = true,
+                    Verb = "runas"
+                };
+
+                Process.Start(startInfo);
+                
+                // 关闭当前应用程序
+                Application.Instance.Quit();
+                return true;
+            }
+            catch (Win32Exception)
+            {
+                // 用户取消了 UAC 提示
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }

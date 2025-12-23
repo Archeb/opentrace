@@ -370,6 +370,9 @@ sudo chmod +sx /path/to/nexttrace</value>
   <data name="NEW_WINDOW_TEXT" xml:space="preserve">
     <value>開啟一個新的 OpenTrace 視窗</value>
   </data>
+  <data name="NEXTTRACE_PROXY" xml:space="preserve">
+    <value>代理設置</value>
+  </data>
   <data name="RDNS_MODE" xml:space="preserve">
     <value>反向 DNS 尋找模式</value>
   </data>
@@ -461,8 +464,34 @@ sudo chmod +sx /path/to/nexttrace</value>
   <data name="TRACEROUTING" xml:space="preserve">
     <value>路由追蹤</value>
   </data>
-  <data name="WINDOWS_TCP_UDP_UNSUPPORTED" xml:space="preserve">
-    <value>Windows 暫不支援 TCP/UDP Traceroute</value>
+  <data name="WINDOWS_TCP_UDP_REQUIREMENTS_TITLE" xml:space="preserve">
+    <value>TCP/UDP 模式要求</value>
+  </data>
+  <data name="WINDOWS_TCP_UDP_MISSING_ADMIN" xml:space="preserve">
+    <value>在 Windows 系統上執行 TCP/UDP Traceroute 需要管理員權限。您是否要以管理員權限重新啟動 OpenTrace？</value>
+  </data>
+  <data name="WINDOWS_TCP_UDP_MISSING_NPCAP" xml:space="preserve">
+    <value>• 未安裝 Npcap</value>
+  </data>
+  <data name="WINDOWS_TCP_UDP_MISSING_WINDIVERT" xml:space="preserve">
+    <value>• 未找到 WinDivert （應放在和 NextTrace 可執行文件同一目錄）</value>
+  </data>
+  <data name="WINDOWS_TCP_UDP_REQUIREMENTS_MSG" xml:space="preserve">
+    <value>在 Windows 上使用 TCP/UDP Traceroute 需要滿足以下條件：
+
+{0}
+
+點擊 [是] 直接嘗試執行 NextTrace（並不再提示）。
+點擊 [否] 下載缺失組件</value>
+  </data>
+  <data name="WINDOWS_TCP_UDP_HAS_NPCAP" xml:space="preserve">
+    <value>✓ Npcap 已安裝</value>
+  </data>
+  <data name="WINDOWS_TCP_UDP_HAS_WINDIVERT" xml:space="preserve">
+    <value>✓ WinDivert 可用</value>
+  </data>
+  <data name="WINDOWS_TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
+    <value>以系統管理員身份重新執行</value>
   </data>
   <data name="WORST" xml:space="preserve">
     <value>最大延遲</value>

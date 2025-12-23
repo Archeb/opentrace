@@ -140,7 +140,7 @@ namespace OpenTrace.Properties {
         ///		console.log(hop);
         ///		if (hopNo !== undefined) {
         ///			// Update the existing hop if hopNo is provided
-        ///			this.Hops[ho [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///			this.Hops[hopNo] = hopData; [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string baiduMap {
             get {
@@ -415,7 +415,7 @@ namespace OpenTrace.Properties {
         ///	updateHop: function (hop, hopNo = undefined) {
         ///
         ///		// Parse the JSON string into an object
-        ///		const  [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///		const hopData = JSO [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string googleMap {
             get {
@@ -1244,11 +1244,79 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 TCP/UDP Traceroute is not yet supported on Windows. 的本地化字符串。
+        ///   查找类似 ✓ Npcap is installed 的本地化字符串。
         /// </summary>
-        public static string WINDOWS_TCP_UDP_UNSUPPORTED {
+        public static string WINDOWS_TCP_UDP_HAS_NPCAP {
             get {
-                return ResourceManager.GetString("WINDOWS_TCP_UDP_UNSUPPORTED", resourceCulture);
+                return ResourceManager.GetString("WINDOWS_TCP_UDP_HAS_NPCAP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ✓ WinDivert is available 的本地化字符串。
+        /// </summary>
+        public static string WINDOWS_TCP_UDP_HAS_WINDIVERT {
+            get {
+                return ResourceManager.GetString("WINDOWS_TCP_UDP_HAS_WINDIVERT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 TCP/UDP Traceroute on Windows requires administrator privileges. Do you want to restart OpenTrace with administrator privileges? 的本地化字符串。
+        /// </summary>
+        public static string WINDOWS_TCP_UDP_MISSING_ADMIN {
+            get {
+                return ResourceManager.GetString("WINDOWS_TCP_UDP_MISSING_ADMIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 • Npcap is not installed 的本地化字符串。
+        /// </summary>
+        public static string WINDOWS_TCP_UDP_MISSING_NPCAP {
+            get {
+                return ResourceManager.GetString("WINDOWS_TCP_UDP_MISSING_NPCAP", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 • WinDivert is not found (Should be placed in the same directory as NextTrace) 的本地化字符串。
+        /// </summary>
+        public static string WINDOWS_TCP_UDP_MISSING_WINDIVERT {
+            get {
+                return ResourceManager.GetString("WINDOWS_TCP_UDP_MISSING_WINDIVERT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 TCP/UDP Traceroute on Windows requires the following:
+        ///
+        ///{0}
+        ///
+        ///Click [Yes] to try running NextTrace directly (and don&apos;t ask again).
+        ///Click [No] to download missing components. 的本地化字符串。
+        /// </summary>
+        public static string WINDOWS_TCP_UDP_REQUIREMENTS_MSG {
+            get {
+                return ResourceManager.GetString("WINDOWS_TCP_UDP_REQUIREMENTS_MSG", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 TCP/UDP Mode Requirements 的本地化字符串。
+        /// </summary>
+        public static string WINDOWS_TCP_UDP_REQUIREMENTS_TITLE {
+            get {
+                return ResourceManager.GetString("WINDOWS_TCP_UDP_REQUIREMENTS_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Run as Administrator 的本地化字符串。
+        /// </summary>
+        public static string WINDOWS_TCP_UDP_RUN_AS_ADMIN {
+            get {
+                return ResourceManager.GetString("WINDOWS_TCP_UDP_RUN_AS_ADMIN", resourceCulture);
             }
         }
         

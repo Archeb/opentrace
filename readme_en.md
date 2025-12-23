@@ -8,8 +8,6 @@
 
 OpenTrace is a cross-platform GUI wrapper for NextTrace. Bringing you a sense of familiarity.
 
-You need a working **NextTrace V1** (>= 1.1.7) executable to use this.
-
 ### Usage
 
 - Download OpenTrace from [releases](https://github.com/Archeb/opentrace/releases) or build your own binary.

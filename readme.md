@@ -10,10 +10,6 @@ OpenTrace 是 NextTrace 的跨平台 GUI 界面，带来您熟悉但更强大的
 
 OpenTrace is a cross-platform GUI wrapper for NextTrace. Bringing you a sense of familiarity.
 
-您需要 NextTrace V1 (>= 1.1.7) 的可执行文件才能使用 OpenTrace
-
-You need a working **NextTrace V1** (>= 1.1.7) executable to use this.
-
 [English Version](readme_en.md)
 
 ### 使用方法

@@ -137,11 +137,60 @@ namespace OpenTrace.UI
             
             if(protocolSelection.SelectedValue.ToString() != "ICMP" && RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                // 检测是否有管理员权限
-                // 检测并提示用户安装Npcap，默认WinDivert有安装
-                MessageBox.Show(Resources.WINDOWS_TCP_UDP_UNSUPPORTED);
-                return;
+                
+                // 管理员权限状态
+                if (!platformService.IsAdministrator())
+                {
+                    DialogResult UACResult = MessageBox.Show(Resources.WINDOWS_TCP_UDP_MISSING_ADMIN, Resources.WINDOWS_TCP_UDP_REQUIREMENTS_TITLE, MessageBoxButtons.YesNo, MessageBoxType.Warning);
+
+                    if (UACResult == DialogResult.Yes) platformService.RestartAsAdministrator();
+
+                    return;
+                }
+
+                var checkRequirement = platformService.CheckWindowsTcpUdpRequirements();
+
+                // 如果用户之前选择了"不再提示"，则跳过检查
+                if (!checkRequirement.AllMet && !UserSettings.skipWindowsTcpUdpCheck)
+                {
+
+                    // 构建状态消息
+                    var statusLines = new System.Text.StringBuilder();
+
+
+                    // Npcap 安装状态
+                    if (checkRequirement.HasNpcap)
+                        statusLines.AppendLine(Resources.WINDOWS_TCP_UDP_HAS_NPCAP);
+                    else
+                        statusLines.AppendLine(Resources.WINDOWS_TCP_UDP_MISSING_NPCAP);
+
+                    // WinDivert 状态
+                    if (checkRequirement.HasWinDivert)
+                        statusLines.AppendLine(Resources.WINDOWS_TCP_UDP_HAS_WINDIVERT);
+                    else
+                        statusLines.AppendLine(Resources.WINDOWS_TCP_UDP_MISSING_WINDIVERT);
+
+                    string message = string.Format(Resources.WINDOWS_TCP_UDP_REQUIREMENTS_MSG, statusLines.ToString().TrimEnd());
+
+                    // 显示对话框：是 = 继续执行（不再提示），否 = 打开下载地址
+                    DialogResult result = MessageBox.Show(message, Resources.WINDOWS_TCP_UDP_REQUIREMENTS_TITLE, MessageBoxButtons.YesNo, MessageBoxType.Warning);
+
+                    if (result == DialogResult.No)
+                    {
+                        // 打开下载地址
+                        if (!checkRequirement.HasNpcap) Process.Start(new ProcessStartInfo("https://npcap.com/#download") { UseShellExecute = true });
+                        if (!checkRequirement.HasWinDivert) Process.Start(new ProcessStartInfo("https://github.com/basil00/WinDivert/releases") { UseShellExecute = true });
+                        return;
+                    }
+                    else
+                    {
+                        // 用户选择 Yes，保存设置以后不再提示
+                        UserSettings.skipWindowsTcpUdpCheck = true;
+                        UserSettings.SaveSettings();
+                    }
+                }
             }
+
             if (CurrentInstance != null)
             {
                 StopTraceroute();
