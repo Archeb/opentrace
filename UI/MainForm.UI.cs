@@ -222,13 +222,16 @@ namespace OpenTrace.UI
             var copyIPCommand = new Command { MenuText = Resources.COPY + "IP" };
             var copyGeolocationCommand = new Command { MenuText = Resources.COPY + Resources.GEOLOCATION };
             var copyHostnameCommand = new Command { MenuText = Resources.COPY + Resources.HOSTNAME };
+            var copyAllResultsCommand = new Command { MenuText = Resources.COPY_ALL_RESULTS };
 
             tracerouteGridView.ContextMenu = new ContextMenu
             {
                 Items = {
                     copyIPCommand,
                     copyGeolocationCommand,
-                    copyHostnameCommand
+                    copyHostnameCommand,
+                    new SeparatorMenuItem(),
+                    copyAllResultsCommand
                 }
             };
 
@@ -254,6 +257,10 @@ namespace OpenTrace.UI
             {
                 clipboard.Clear();
                 clipboard.Text = tracerouteResultCollection[tracerouteGridView.SelectedRow].Hostname;
+            };
+            copyAllResultsCommand.Executed += (sender, e) =>
+            {
+                CopyAllResultsToClipboard();
             };
 
             AddGridColumnsTraceroute();
@@ -333,6 +340,114 @@ namespace OpenTrace.UI
             MouseDown += Dragging_MouseDown;
             MouseUp += Dragging_MouseUp;
             MouseMove += MainForm_MouseMove;
+        }
+
+        /// <summary>
+        /// 复制所有结果到剪贴板（Tab 分隔格式）
+        /// </summary>
+        private void CopyAllResultsToClipboard()
+        {
+            if (tracerouteResultCollection.Count == 0)
+            {
+                return;
+            }
+
+            var sb = new System.Text.StringBuilder();
+            bool isMTRMode = (bool)MTRMode.Checked;
+
+            // 构建表头
+            if (isMTRMode)
+            {
+                if (UserSettings.combineGeoOrg)
+                {
+                    sb.AppendLine(string.Join("\t", "#", "IP", Resources.GEOLOCATION, Resources.LOSS, Resources.SENT, Resources.RECV, Resources.LAST, Resources.WORST, Resources.BEST, Resources.AVRG, Resources.STDEV, "AS", Resources.HOSTNAME));
+                }
+                else
+                {
+                    sb.AppendLine(string.Join("\t", "#", "IP", Resources.GEOLOCATION, Resources.ORGANIZATION, Resources.LOSS, Resources.SENT, Resources.RECV, Resources.LAST, Resources.WORST, Resources.BEST, Resources.AVRG, Resources.STDEV, "AS", Resources.HOSTNAME));
+                }
+            }
+            else
+            {
+                if (UserSettings.combineGeoOrg)
+                {
+                    sb.AppendLine(string.Join("\t", "#", "IP", Resources.TIME_MS, Resources.GEOLOCATION, "AS", Resources.HOSTNAME));
+                }
+                else
+                {
+                    sb.AppendLine(string.Join("\t", "#", "IP", Resources.TIME_MS, Resources.GEOLOCATION, Resources.ORGANIZATION, "AS", Resources.HOSTNAME));
+                }
+            }
+
+            // 构建数据行
+            foreach (var hop in tracerouteResultCollection)
+            {
+                if (isMTRMode)
+                {
+                    if (UserSettings.combineGeoOrg)
+                    {
+                        sb.AppendLine(string.Join("\t",
+                            hop.No,
+                            hop.IP.Replace(Environment.NewLine, " "),
+                            hop.GeolocationAndOrganization.Replace(Environment.NewLine, " "),
+                            hop.Loss.ToString(),
+                            hop.Sent.ToString(),
+                            hop.Recv.ToString(),
+                            hop.Last.ToString(),
+                            hop.Worst.ToString(),
+                            hop.Best.ToString(),
+                            hop.Average.ToString("0.##"),
+                            hop.StandardDeviation.ToString("0.##"),
+                            hop.AS.Replace(Environment.NewLine, " "),
+                            hop.Hostname.Replace(Environment.NewLine, " ")));
+                    }
+                    else
+                    {
+                        sb.AppendLine(string.Join("\t",
+                            hop.No,
+                            hop.IP.Replace(Environment.NewLine, " "),
+                            hop.Geolocation.Replace(Environment.NewLine, " "),
+                            hop.Organization.Replace(Environment.NewLine, " "),
+                            hop.Loss.ToString(),
+                            hop.Sent.ToString(),
+                            hop.Recv.ToString(),
+                            hop.Last.ToString(),
+                            hop.Worst.ToString(),
+                            hop.Best.ToString(),
+                            hop.Average.ToString("0.##"),
+                            hop.StandardDeviation.ToString("0.##"),
+                            hop.AS.Replace(Environment.NewLine, " "),
+                            hop.Hostname.Replace(Environment.NewLine, " ")));
+                    }
+                }
+                else
+                {
+                    if (UserSettings.combineGeoOrg)
+                    {
+                        sb.AppendLine(string.Join("\t",
+                            hop.No,
+                            hop.IP.Replace(Environment.NewLine, " "),
+                            hop.Time,
+                            hop.GeolocationAndOrganization.Replace(Environment.NewLine, " "),
+                            hop.AS.Replace(Environment.NewLine, " "),
+                            hop.Hostname.Replace(Environment.NewLine, " ")));
+                    }
+                    else
+                    {
+                        sb.AppendLine(string.Join("\t",
+                            hop.No,
+                            hop.IP.Replace(Environment.NewLine, " "),
+                            hop.Time,
+                            hop.Geolocation.Replace(Environment.NewLine, " "),
+                            hop.Organization.Replace(Environment.NewLine, " "),
+                            hop.AS.Replace(Environment.NewLine, " "),
+                            hop.Hostname.Replace(Environment.NewLine, " ")));
+                    }
+                }
+            }
+
+            clipboard.Clear();
+            clipboard.Text = sb.ToString();
         }
     }
 }

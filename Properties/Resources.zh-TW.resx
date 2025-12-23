@@ -157,6 +157,9 @@
   <data name="COPY" xml:space="preserve">
     <value>拷貝</value>
   </data>
+  <data name="COPY_ALL_RESULTS" xml:space="preserve">
+    <value>複製所有結果</value>
+  </data>
   <data name="CUSTOM_DNS_RESOLVERS" xml:space="preserve">
     <value>自訂 DNS 解析器
 (支援 UDP / DoH)</value>

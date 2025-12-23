@@ -158,6 +158,9 @@ Would you like to add a firewall rule to allow needed ICMP for NextTrace?</value
   <data name="COPY" xml:space="preserve">
     <value>Copy </value>
   </data>
+  <data name="COPY_ALL_RESULTS" xml:space="preserve">
+    <value>Copy All Results</value>
+  </data>
   <data name="CUSTOM_DNS_RESOLVERS" xml:space="preserve">
     <value>Custom DNS Resolvers
 (DNS / DoH Supported)</value>

@@ -212,6 +212,15 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Copy All Results 的本地化字符串。
+        /// </summary>
+        public static string COPY_ALL_RESULTS {
+            get {
+                return ResourceManager.GetString("COPY_ALL_RESULTS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Custom DNS Resolvers
         ///(DNS / DoH Supported) 的本地化字符串。
         /// </summary>
