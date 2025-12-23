@@ -33,6 +33,7 @@ namespace OpenTrace.UI
         private bool gridResizing = false;
         private bool appForceExiting = false;
         private bool enterPressed = false;
+        private bool commandLineMode = false; // 命令行模式：直接使用命令行参数调用 nexttrace
 
         private ExceptionalOutputForm exceptionalOutputForm = new ExceptionalOutputForm();
         private Clipboard clipboard = new Clipboard();
@@ -51,8 +52,40 @@ namespace OpenTrace.UI
             // 异步检查更新
             CheckUpdateAsync();
 
+            // 处理命令行参数
+            ProcessCommandLineArgs();
+
             // 自动聚焦输入框
             HostInputBox.Focus();
+        }
+
+        /// <summary>
+        /// 处理命令行参数，支持快速 traceroute
+        /// 使用方式: opentrace 1.1.1.1 [其他 nexttrace 参数]
+        /// 例如: opentrace 1.1.1.1 -T --port 443
+        /// </summary>
+        private void ProcessCommandLineArgs()
+        {
+            // 检查是否有命令行目标地址
+            if (!string.IsNullOrWhiteSpace(App.CommandLineTarget))
+            {
+                // 将目标地址填入输入框
+                HostInputBox.Text = App.CommandLineTarget;
+                
+                // 启用命令行模式
+                commandLineMode = true;
+                
+                // 使用 Shown 事件确保窗口完全加载后再开始 traceroute
+                // 这样可以确保地图等组件已经初始化
+                Shown += (sender, e) =>
+                {
+                    // 使用异步调用确保 UI 完全准备好
+                    Application.Instance.AsyncInvoke(() =>
+                    {
+                        StartTracerouteButton_Click(sender, e);
+                    });
+                };
+            }
         }
 
         private async void CheckUpdateAsync()
@@ -358,7 +391,18 @@ namespace OpenTrace.UI
             CurrentInstance.Output.CollectionChanged += Instance_OutputCollectionChanged;
             CurrentInstance.ExceptionalOutput += Instance_ExceptionalOutput;
             CurrentInstance.AppQuit += Instance_AppQuit;
-            CurrentInstance.Run(readyToUseIP, (bool)MTRMode.Checked, dataProviderSelection.SelectedKey, protocolSelection.SelectedKey);
+            
+            // 命令行模式：直接传递命令行参数给 nexttrace，忽略 GUI 设置
+            if (commandLineMode && App.CommandLineExtraArgs != null && App.CommandLineExtraArgs.Length > 0)
+            {
+                CurrentInstance.Run(readyToUseIP, (bool)MTRMode.Checked, App.CommandLineExtraArgs);
+                // 命令行模式只在第一次启动时使用，之后恢复正常模式
+                commandLineMode = false;
+            }
+            else
+            {
+                CurrentInstance.Run(readyToUseIP, (bool)MTRMode.Checked, dataProviderSelection.SelectedKey, protocolSelection.SelectedKey);
+            }
             
         }
 
