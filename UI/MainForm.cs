@@ -1,5 +1,4 @@
-﻿using Eto.Drawing;
-using Eto.Forms;
+﻿using Eto.Forms;
 using System.Collections.ObjectModel;
 using System;
 using System.Diagnostics;
@@ -9,18 +8,12 @@ using OpenTrace.Services;
 using OpenTrace.Models;
 using OpenTrace.Infrastructure;
 using OpenTrace.UI.Forms;
-using OpenTrace.UI.Dialogs;
 using System.Net;
 using Newtonsoft.Json;
 using System.Runtime.InteropServices;
 using System.Linq;
 using System.Collections.Generic;
-using System.ComponentModel;
-using Ae.Dns.Client;
-using Ae.Dns.Protocol;
-using System.Threading.Tasks;
 using System.Net.Sockets;
-using Ae.Dns.Protocol.Records;
 
 namespace OpenTrace.UI
 {
