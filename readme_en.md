@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://github.com/nxtrace/Ntrace-core/raw/main/asset/logo.png" height="200px" alt="Logo"/>
+<img src="https://github.com/nxtrace/NTrace-V1/raw/main/assets/logo.png" height="200px" alt="Logo"/>
 
 </div>
 
