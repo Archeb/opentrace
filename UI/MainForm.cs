@@ -43,294 +43,45 @@ namespace OpenTrace.UI
 
         private ExceptionalOutputForm exceptionalOutputForm = new ExceptionalOutputForm();
         private Clipboard clipboard = new Clipboard();
+        private DnsResolverService dnsResolverService = new DnsResolverService();
+        private UpdateService updateService = new UpdateService();
+        private PlatformService platformService = new PlatformService();
 
         public MainForm()
         {
-            Title = Resources.APPTITLE + " v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            MinimumSize = new Size(900, 600);
+            // 初始化 UI 组件
+            InitializeComponent();
 
-            // 创建菜单项
-            var newWindowCommand = new Command { MenuText = Resources.NEW, ToolBarText = Resources.NEW_WINDOW_TEXT, Shortcut = Application.Instance.CommonModifier | Keys.N };
-            newWindowCommand.Executed += (sender, e) =>
-            {
-                Process.Start(Process.GetCurrentProcess().MainModule.FileName);
-            };
-
-            var quitCommand = new Command { MenuText = Resources.QUIT, Shortcut = Application.Instance.CommonModifier | Keys.Q };
-            quitCommand.Executed += (sender, e) => Application.Instance.Quit();
-
-            var OTHomePageCommand = new Command { MenuText = "OpenTrace " + Resources.HOMEPAGE };
-            OTHomePageCommand.Executed += (sender, e) => Process.Start(new ProcessStartInfo("https://github.com/Archeb/opentrace") { UseShellExecute = true });
-
-            var DownloadLatestCommand = new Command { MenuText = Resources.DOWNLOAD_LATEST };
-            DownloadLatestCommand.Executed += (sender, e) => Process.Start(new ProcessStartInfo("https://github.com/Archeb/opentrace/releases") { UseShellExecute = true });
-
-            var NTHomePageCommand = new Command { MenuText = "NextTrace " + Resources.HOMEPAGE };
-            NTHomePageCommand.Executed += (sender, e) => Process.Start(new ProcessStartInfo("https://www.nxtrace.org/") { UseShellExecute = true });
-
-            var NTWikiCommand = new Command { MenuText = "NextTrace Wiki" };
-            NTWikiCommand.Executed += (sender, e) => Process.Start(new ProcessStartInfo("https://github.com/nxtrace/NTrace-core/wiki") { UseShellExecute = true });
-
-            var preferenceCommand = new Command { MenuText = Resources.PREFERENCES, Shortcut = Application.Instance.CommonModifier | Keys.Comma };
-            preferenceCommand.Executed += (sender, e) =>
-            {
-                new PreferencesDialog().ShowModal(this);
-                // 关闭设置后刷新 DNS 服务器列表
-                LoadDNSResolvers();
-                // 刷新grid高度大小
-                MainForm_SizeChanged(sender, e);
-            };
-
-            // 创建菜单栏
-            Menu = new MenuBar
-            {
-                Items =
-                {
-                    new SubMenuItem { Text = Resources.FILE, Items = {
-                            newWindowCommand,
-                            preferenceCommand,
-                            quitCommand
-                        } },
-                     new SubMenuItem { Text = Resources.HELP , Items = {
-                             OTHomePageCommand,
-                             DownloadLatestCommand,
-                             NTHomePageCommand,
-                             NTWikiCommand
-                         } }
-                }
-            };
-
-            // 创建控件
-            HostInputBox = new ComboBox { Text = "" };
-            HostInputBox.KeyDown += HostInputBox_KeyDown;
-            HostInputBox.KeyUp += HostInputBox_KeyUp;
-            HostInputBox.TextChanged += resolveParamChanged;
-            if(UserSettings.traceHistory != null || UserSettings.traceHistory!= "")
-            {
-                foreach (string item in UserSettings.traceHistory.Split('\n'))
-                {
-                    if(item != "")
-                    {
-                        HostInputBox.Items.Add(item);
-                    }
-                }
-            }
-
-            MTRMode = new CheckBox { Text = Resources.MTR_MODE };
-            MTRMode.CheckedChanged += MTRMode_CheckedChanged;
-
-            ResolvedIPSelection = new DropDown { Visible = false };
-
-            startTracerouteButton = new Button { Text = Resources.START };
-            startTracerouteButton.Click += StartTracerouteButton_Click;
-
-            protocolSelection = new DropDown
-            {
-                Items = {
-                    new ListItem{Text = "ICMP" ,Key= ""},
-                    new ListItem{Text = "TCP",Key = "-T" },
-                    new ListItem{Text = "UDP",Key = "-U" },
-                },
-                SelectedIndex = 0,
-                ToolTip = Resources.PROTOCOL_FOR_TRACEROUTING
-            };
-            protocolSelection.SelectedKey = UserSettings.selectedProtocol;
-            protocolSelection.SelectedKeyChanged += (sender, e) =>
-            {
-                UserSettings.selectedProtocol = protocolSelection.SelectedKey;
-                UserSettings.SaveSettings();
-            };
-
-            dataProviderSelection = new DropDown
-            {
-                Items = {
-                    new ListItem{Text = "LeoMoeAPI", Key= ""},
-                    new ListItem{Text = "IPInfo", Key = "--data-provider IPInfo" },
-                    new ListItem{Text = "IP.SB ", Key = "--data-provider IP.SB" },
-                    new ListItem{Text = "IP-API.com", Key = "--data-provider IPAPI.com" },
-                    new ListItem{Text = Resources.DISABLE_IPGEO, Key = "--data-provider disable-geoip"}
-                },
-                SelectedIndex = 0,
-                ToolTip = Resources.IP_GEO_DATA_PROVIDER
-            };
-
-            if (UserSettings.ChunZhenEndpoint != "") dataProviderSelection.Items.Add(new ListItem { Text = "CHUNZHEN", Key = "--data-provider chunzhen" });
-            if (UserSettings.IPInsightToken != "") dataProviderSelection.Items.Add(new ListItem { Text = "IPInsight", Key = "--data-provider IPInsight" });
-            if (UserSettings.enable_ip2region == true) dataProviderSelection.Items.Add(new ListItem { Text = "Ip2region", Key = "--data-provider Ip2region" });
-            if (UserSettings.enable_ipinfolocal == true) dataProviderSelection.Items.Add(new ListItem { Text = "IPInfoLocal", Key = "--data-provider IPInfoLocal" });
-
-            dataProviderSelection.SelectedKey = UserSettings.selectedDataProvider;
-            dataProviderSelection.SelectedKeyChanged += (sender, e) =>
-            {
-                UserSettings.selectedDataProvider = dataProviderSelection.SelectedKey;
-                UserSettings.SaveSettings();
-            };
-
-            if (UserSettings.localDBPath != "") IPDBLoader.Load();
-
-            dnsResolverSelection = new DropDown();
-            dnsResolverSelection.SelectedKeyChanged += resolveParamChanged;
-            LoadDNSResolvers();
-            dnsResolverSelection.SelectedKey = UserSettings.selectedDnsResolver;
-            dnsResolverSelection.SelectedKeyChanged += (sender, e) =>
-            {
-                UserSettings.selectedDnsResolver = dnsResolverSelection.SelectedKey;
-                UserSettings.SaveSettings();
-            };
-
-            tracerouteGridView = new GridView { DataStore = tracerouteResultCollection };
-            tracerouteGridView.MouseUp += Dragging_MouseUp;
-            tracerouteGridView.SelectedRowsChanged += TracerouteGridView_SelectedRowsChanged;
-            var copyIPCommand = new Command { MenuText = Resources.COPY + "IP" };
-            var copyGeolocationCommand = new Command { MenuText = Resources.COPY + Resources.GEOLOCATION };
-            var copyHostnameCommand = new Command { MenuText = Resources.COPY + Resources.HOSTNAME };
-            tracerouteGridView.ContextMenu = new ContextMenu
-            {
-                Items = {
-                    copyIPCommand,
-                    copyGeolocationCommand,
-                    copyHostnameCommand
-                }
-            };
-            copyIPCommand.Executed += (sender, e) =>
-            {
-                clipboard.Clear();
-                clipboard.Text = tracerouteResultCollection[tracerouteGridView.SelectedRow].IP;
-            };
-            copyGeolocationCommand.Executed += (sender, e) =>
-            {
-                if (UserSettings.combineGeoOrg)
-                {
-                    clipboard.Clear();
-                    clipboard.Text = tracerouteResultCollection[tracerouteGridView.SelectedRow].GeolocationAndOrganization;
-                }
-                else
-                {
-                    clipboard.Clear();
-                    clipboard.Text = tracerouteResultCollection[tracerouteGridView.SelectedRow].Geolocation;
-                }
-            };
-            copyHostnameCommand.Executed += (sender, e) =>
-            {
-                clipboard.Clear();
-                clipboard.Text = tracerouteResultCollection[tracerouteGridView.SelectedRow].Hostname;
-            };
-
-            AddGridColumnsTraceroute();
-
-            mapWebView = new WebView();
-            switch (UserSettings.mapProvider)
-            {
-                case "baidu":
-                    mapWebView.Url = new Uri("https://lbs.baidu.com/jsdemo/demo/webgl0_0.htm");
-                    break;
-                case "google":
-                    mapWebView.Url = new Uri("https://geo-devrel-javascript-samples.web.app/samples/map-simple/app/dist/");
-                    break;
-            }
-            mapWebView.DocumentLoaded += (sender6, e6) => {
-                ResetMap();
-            };
-
+            // 平台特定检查
             platformChecks();
-            
-            // 绑定窗口事件
-            SizeChanged += MainForm_SizeChanged;
-            MouseDown += Dragging_MouseDown;
-            MouseUp += Dragging_MouseUp;
-            MouseMove += MainForm_MouseMove;
 
-            // 使用 Table 布局创建页面
-            var layout = new TableLayout
-            {
-                Padding = new Padding(10),
-                Spacing = new Size(5, 5),
-                Rows = {
-                    new TableRow {
-                        Cells = {
-                        new TableLayout {
-                            Spacing = new Size(10,10),
-                            Rows =
-                            {
-                                new TableRow
-                                {
-                                    Cells =
-                                    {
-                                        new TableCell(HostInputBox,true),
-                                        ResolvedIPSelection,
-                                        MTRMode,
-                                        protocolSelection,
-                                        dnsResolverSelection,
-                                        dataProviderSelection,
-                                        startTracerouteButton
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    },
-                    new TableRow {
-                        Cells = {tracerouteGridView}
-                    },
-                    new TableRow{
-                        Cells = {mapWebView}
-                    },
-                }
-            };
-            Content = layout;
+            // 异步检查更新
+            CheckUpdateAsync();
 
-            // check update async
-            Task.Run(() => CheckUpdateAsync());
-
-            HostInputBox.Focus(); // 自动聚焦输入框
+            // 自动聚焦输入框
+            HostInputBox.Focus();
         }
 
-        private void CheckUpdateAsync()
+        private async void CheckUpdateAsync()
         {
-            if(!UserSettings.checkUpdateOnStartup) return;
-            var httpClient = new System.Net.Http.HttpClient
+            string currentVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            string latestVersion = await updateService.CheckForUpdateAsync(currentVersion);
+            if (latestVersion != null)
             {
-                BaseAddress = new Uri("https://api.github.com/repos/Archeb/opentrace/releases/latest")
-            };
-            httpClient.DefaultRequestHeaders.Add("User-Agent", "OpenTrace");
-            var response = httpClient.GetAsync("").Result;
-            if (response.IsSuccessStatusCode)
-            {
-                try
+                App.app.Invoke(() =>
                 {
-                    var result = response.Content.ReadAsStringAsync().Result;
-                    var definition = new { tag_name = "" };
-                    var json = JsonConvert.DeserializeAnonymousType(result, definition);
-                    string latestVersion = json.tag_name;
-                    string currentVersion = "v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
-                    if (latestVersion != currentVersion)
-                    {
-                        App.app.Invoke(() =>
-                        {
-                            App.app.MainForm.Title += " " + string.Format(Resources.UPDATE_AVAILABLE, latestVersion);
-                        });
-                    }
-                }
-                catch { }
+                    App.app.MainForm.Title += " " + string.Format(Resources.UPDATE_AVAILABLE, latestVersion);
+                });
             }
         }
 
         private void LoadDNSResolvers()
         {
             dnsResolverSelection.Items.Clear();
-            dnsResolverSelection.Items.Add(new ListItem { Text = Resources.SYSTEM_DNS_RESOLVER, Key = "system" });
-            if (UserSettings.customDNSResolvers != null || UserSettings.customDNSResolvers != "")
+            var resolvers = dnsResolverService.GetResolverList();
+            foreach (var resolver in resolvers)
             {
-                string resolvers = UserSettings.customDNSResolvers.Replace("\r", "");
-                foreach (string item in resolvers.Split('\n'))
-                {
-                    string[] resolver = item.Split('#');
-                    IPAddress resolverIP;
-                    if (resolver[0] != "" && (resolver[0].IndexOf("https://") == 0 || IPAddress.TryParse(resolver[0], out resolverIP)))
-                    {
-                        dnsResolverSelection.Items.Add(new ListItem { Text = resolver.Length == 2 ? resolver[1] : resolver[0], Key = resolver[0] });
-                    }
-                }
+                dnsResolverSelection.Items.Add(new ListItem { Text = resolver.Text, Key = resolver.Key });
             }
             dnsResolverSelection.SelectedIndex = 0;
         }
@@ -338,45 +89,7 @@ namespace OpenTrace.UI
         // 初始化期间进行平台特定检查
         private void platformChecks()
         {
-            
-            // macOS 被隔离，请求释放
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) && AppDomain.CurrentDomain.BaseDirectory.StartsWith("/private/var/folders"))
-            {
-                App.app.Invoke(() => {
-                    MessageBox.Show(Resources.MACOS_QUARANTINE);
-                });
-            }
-            
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && UserSettings.hideAddICMPFirewallRule != true) tryAddICMPFirewallRule();
-        }
-        
-        private void tryAddICMPFirewallRule()
-        {
-            // 提示 Windows 用户添加防火墙规则放行 ICMP 
-            if (MessageBox.Show(Resources.ASK_ADD_ICMP_FIREWALL_RULE, MessageBoxButtons.YesNo, MessageBoxType.Question) == DialogResult.Yes)
-            {
-                // 以管理员权限运行命令
-                var allowIcmp = new Process();
-                allowIcmp.StartInfo.FileName = "cmd.exe";
-                allowIcmp.StartInfo.UseShellExecute = true;
-                allowIcmp.StartInfo.Verb = "runas";
-                allowIcmp.StartInfo.Arguments = "/c \"netsh advfirewall firewall add rule name=\"\"\"All ICMP v4 (NextTrace)\"\"\" dir=in action=allow protocol=icmpv4:any,any && netsh advfirewall firewall add rule name=\"\"\"All ICMP v6 (NextTrace)\"\"\" dir=in action=allow protocol=icmpv6:any,any\"";
-                try
-                {
-                    allowIcmp.Start();
-                    UserSettings.hideAddICMPFirewallRule = true;
-                    UserSettings.SaveSettings();
-                }
-                catch (Win32Exception)
-                {
-                    MessageBox.Show(Resources.FAILED_TO_ADD_RULES, MessageBoxType.Error);
-                }
-            }
-            else
-            {
-                UserSettings.hideAddICMPFirewallRule = true;
-                UserSettings.SaveSettings();
-            }
+            platformService.RunPlatformChecks();
         }
 
         private void resolveParamChanged(object sender, EventArgs e)
@@ -610,87 +323,7 @@ namespace OpenTrace.UI
         private IPAddress[] ResolveHost(string host)
         {
             string resolver = dnsResolverSelection.SelectedKey;
-            if(resolver == "system")
-            {
-                // 使用系统解析
-                return Dns.GetHostAddresses(host);
-            }else if (resolver.IndexOf("https://") == 0)
-            {
-                // 使用DoH
-                var httpClient = new System.Net.Http.HttpClient
-                {
-                    BaseAddress = new Uri(resolver)
-                };
-                IDnsClient dnsClient = new DnsHttpClient(httpClient);
-
-                // 同时查询 A 和 AAAA 记录
-                DnsMessage aResult = Task.Run(() => dnsClient.Query(DnsQueryFactory.CreateQuery(host, Ae.Dns.Protocol.Enums.DnsQueryType.A))).Result;
-                DnsMessage aaaaResult = Task.Run(() => dnsClient.Query(DnsQueryFactory.CreateQuery(host, Ae.Dns.Protocol.Enums.DnsQueryType.AAAA))).Result;
-
-                if (aResult.Answers.Count == 0 && aaaaResult.Answers.Count == 0)
-                {
-                    throw new SocketException();
-                }
-                else
-                {
-                    List<IPAddress> addressList = new List<IPAddress>();
-
-                    // 处理 A 记录
-                    foreach (DnsResourceRecord answer in aResult.Answers)
-                    {
-                        if (answer.Type == Ae.Dns.Protocol.Enums.DnsQueryType.A)
-                        {
-                            addressList.Add(((DnsIpAddressResource)answer.Resource).IPAddress);
-                        }
-                    }
-
-                    // 处理 AAAA 记录
-                    foreach (DnsResourceRecord answer in aaaaResult.Answers)
-                    {
-                        if (answer.Type == Ae.Dns.Protocol.Enums.DnsQueryType.AAAA)
-                        {
-                            addressList.Add(((DnsIpAddressResource)answer.Resource).IPAddress);
-                        }
-                    }
-                    return addressList.ToArray();
-                }
-            }
-            else
-            {
-                // 使用传统 DNS
-                IDnsClient dnsClient = new DnsUdpClient(IPAddress.Parse(resolver));
-                // 同时查询 A 和 AAAA 记录
-                DnsMessage aResult = Task.Run(() => dnsClient.Query(DnsQueryFactory.CreateQuery(host, Ae.Dns.Protocol.Enums.DnsQueryType.A))).Result;
-                DnsMessage aaaaResult = Task.Run(() => dnsClient.Query(DnsQueryFactory.CreateQuery(host, Ae.Dns.Protocol.Enums.DnsQueryType.AAAA))).Result;
-
-                if (aResult.Answers.Count == 0 && aaaaResult.Answers.Count == 0)
-                {
-                    throw new SocketException();
-                }
-                else
-                {
-                    List<IPAddress> addressList = new List<IPAddress>();
-
-                    // 处理 A 记录
-                    foreach (DnsResourceRecord answer in aResult.Answers)
-                    {
-                        if (answer.Type == Ae.Dns.Protocol.Enums.DnsQueryType.A)
-                        {
-                            addressList.Add(((DnsIpAddressResource)answer.Resource).IPAddress);
-                        }
-                    }
-
-                    // 处理 AAAA 记录
-                    foreach (DnsResourceRecord answer in aaaaResult.Answers)
-                    {
-                        if (answer.Type == Ae.Dns.Protocol.Enums.DnsQueryType.AAAA)
-                        {
-                            addressList.Add(((DnsIpAddressResource)answer.Resource).IPAddress);
-                        }
-                    }
-                    return addressList.ToArray();
-                }
-            }
+            return dnsResolverService.ResolveHost(host, resolver);
         }
 
         private void Instance_AppQuit(object sender, AppQuitEventArgs e)
