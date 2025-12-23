@@ -14,11 +14,19 @@ OpenTrace is a cross-platform GUI wrapper for NextTrace. Bringing you a sense of
 
 ### 使用方法
 
-- 自行编译或从 [releases](https://github.com/Archeb/opentrace/releases) 里下载 OpenTrace
+- 从 [releases](https://github.com/Archeb/opentrace/releases) 里下载对应系统的 OpenTrace
 
-- 下载并安装 [NextTrace V1](https://github.com/nxtrace/Ntrace-V1/releases): 从 [这里](https://github.com/nxtrace/Ntrace-V1/releases) 下载对应系统架构的 NextTrace，然后将其放置于 OpenTrace 目录下，或者放置到系统 PATH 环境变量包含的目录中；您亦可以放到任意位置并手动指定路径（macOS 用户推荐）。
+<details>
+<summary>或者自己编译</summary>
+  
+- 下载并安装 NextTrace: 从 [这里](https://github.com/nxtrace/Ntrace-V1/releases) 下载对应系统架构的 NextTrace。
 
-- 运行 OpenTrace(.exe)
+- 将 NextTrace 放置于 OpenTrace 目录下，或者放置到系统 PATH 环境变量包含的目录中；您亦可以放到任意位置并手动指定路径（macOS 用户推荐）。
+</details>
+
+- 如果您是 **Windows 用户**，想使用 TCP/UDP Traceroute，还需要[下载并安装 Npcap](https://npcap.com/#download)
+
+- 解压并运行 OpenTrace(.exe)
 
 ### 功能
 

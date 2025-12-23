@@ -10,11 +10,19 @@ OpenTrace is a cross-platform GUI wrapper for NextTrace. Bringing you a sense of
 
 ### Usage
 
-- Download OpenTrace from [releases](https://github.com/Archeb/opentrace/releases) or build your own binary.
+- Download OpenTrace for your system from [releases](https://github.com/Archeb/opentrace/releases)
 
-- Follow the instruction to install [NextTrace V1](https://github.com/nxtrace/Ntrace-V1/releases): Download the latest release from [here](https://github.com/nxtrace/Ntrace-V1/releases), and place it in either the same directory as the OpenTrace executable or a directory included in your system's PATH environment variable. You can also put it anywhere and specify the path manually (recommended for macOS users).
+<details>
+<summary>Alternatively, compile it yourself</summary>
 
-- Run OpenTrace(.exe)
+- Download and install NextTrace: Download NextTrace for your system architecture from [here](https://github.com/nxtrace/Ntrace-V1/releases).
+
+- Place NextTrace in the OpenTrace directory, or in a directory included in your system's PATH environment variable; you can also place it anywhere and manually specify the path (recommended for macOS users).
+</details>
+
+- If you are a **Windows user** and want to use TCP/UDP Traceroute, you also need to [download and install Npcap](https://npcap.com/#download).
+
+- Unzip and run OpenTrace(.exe)
 
 ### Features
 
