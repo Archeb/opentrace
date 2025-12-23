@@ -1,4 +1,4 @@
-﻿<Project Sdk="Eto.Forms/2.7.5">
+﻿<Project Sdk="Eto.Forms/2.10.2">
 
   <!--
     Set the BuildPlatform property to the Eto platform you wish to build for.
@@ -7,7 +7,7 @@
   -->
 
   <PropertyGroup>
-    <TargetFrameworks>;net48;net8.0</TargetFrameworks>
+    <TargetFrameworks>net48;net8.0</TargetFrameworks>
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <OutputType>Exe</OutputType>
     <PackageProjectUrl>https://github.com/Archeb/opentrace</PackageProjectUrl>
@@ -27,12 +27,11 @@
 
   <ItemGroup>
     <PackageReference Include="Advexp.Settings.Local" Version="2.7.0" />
-    <PackageReference Include="Ae.Dns.Client" Version="1.0.0" />
-    <PackageReference Include="Eto.Serialization.Xaml" Version="2.7.5" />
-    <PackageReference Include="MaxMind.Db" Version="4.0.0" />
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.1938.49" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
+    <PackageReference Include="Ae.Dns.Client" Version="3.1.0" />
+    <PackageReference Include="Eto.Serialization.Xaml" Version="2.10.2" />
+    <PackageReference Include="MaxMind.Db" Version="4.3.4" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3650.58" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" PrivateAssets="All" Version="1.0.3" />
   </ItemGroup>
@@ -78,9 +77,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="Eto.Platform.Wpf">
+    <PackageReference Update="Eto.Platform.Wpf" Version="2.10.2">
       <NoWarn>NU1701</NoWarn>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="Eto.Forms" Version="2.10.2" />
   </ItemGroup>
 
 </Project>

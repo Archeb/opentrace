@@ -46,8 +46,6 @@ jobs:
     - name: NuGet Restore
       run: |
           dotnet restore OpenTrace.csproj
-          # override for #84 temporarily (until next dep upgrade)
-          cp -f .github/Eto.Gtk.dll ${{ github.workspace }}/.nuget/packages/eto.platform.gtk/2.7.5/lib/netstandard2.0/
 
     - name: Build for ${{ matrix.runtime }}
       run: |

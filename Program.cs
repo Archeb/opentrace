@@ -1,14 +1,8 @@
-﻿using Advexp;
-using Eto.Drawing;
-using Eto.Forms;
+﻿using Eto.Forms;
 using System;
-using System.Collections.ObjectModel;
-using System.Configuration;
-using System.Diagnostics;
 using System.Globalization;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Windows.Input;
-using OpenTrace.Properties;
 using OpenTrace.UI;
 using OpenTrace.Infrastructure;
 
