@@ -12,8 +12,8 @@
     <OutputType>Exe</OutputType>
     <PackageProjectUrl>https://github.com/Archeb/opentrace</PackageProjectUrl>
     <Title>OpenTrace</Title>
-    <ApplicationIcon>icon.ico</ApplicationIcon>
-    <PackageIcon>icon.png</PackageIcon>
+    <ApplicationIcon>Assets\Icons\icon.ico</ApplicationIcon>
+    <PackageIcon>Assets\Icons\icon.png</PackageIcon>
     <Version>1.4.4.1</Version>
     <Platforms>AnyCPU;x64</Platforms>
 	<PlatformTarget>AnyCPU</PlatformTarget>
@@ -21,8 +21,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="icon.ico" />
-	<Content Include="Icon.icns" />
+    <Content Include="Assets\Icons\icon.ico" />
+	<Content Include="Assets\Icons\Icon.icns" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,13 +38,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="TextOutputForm.xeto.cs">
+    <Compile Update="UI\Forms\TextOutputForm.xeto.cs">
       <DependentUpon>TextOutputForm.xeto</DependentUpon>
     </Compile>
-    <Compile Update="ExceptionalOutputForm.xeto.cs">
+    <Compile Update="UI\Forms\ExceptionalOutputForm.xeto.cs">
       <DependentUpon>ExceptionalOutputForm.xeto</DependentUpon>
     </Compile>
-    <Compile Update="PreferencesDialog.xeto.cs">
+    <Compile Update="UI\Dialogs\PreferencesDialog.xeto.cs">
       <DependentUpon>PreferencesDialog.xeto</DependentUpon>
     </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
@@ -71,7 +71,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="icon.png">
+    <None Update="Assets\Icons\icon.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>

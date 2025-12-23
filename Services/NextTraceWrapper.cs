@@ -8,11 +8,12 @@ using System.IO;
 using Resources = OpenTrace.Properties.Resources;
 using OpenTrace.Properties;
 using System.Collections.Generic;
-using OpenTrace;
+using OpenTrace.Models;
+using OpenTrace.Infrastructure;
 using System.Runtime.InteropServices;
 using System.Linq;
 
-namespace NextTrace
+namespace OpenTrace.Services
 {
     class ExceptionalOutputEventArgs : EventArgs
     {

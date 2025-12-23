@@ -9,6 +9,8 @@ using System.Globalization;
 using System.Runtime.InteropServices;
 using System.Windows.Input;
 using OpenTrace.Properties;
+using OpenTrace.UI;
+using OpenTrace.Infrastructure;
 
 namespace OpenTrace
 {

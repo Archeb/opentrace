@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OpenTrace
+namespace OpenTrace.Infrastructure
 {
     internal class UserSettings : Advexp.Settings<UserSettings>
     {

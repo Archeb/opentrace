@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Text.RegularExpressions;
+using OpenTrace.Models;
+using OpenTrace.Infrastructure;
 
-namespace OpenTrace
+namespace OpenTrace.Services
 {
 
     class IPDBLoader

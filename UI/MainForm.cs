@@ -1,11 +1,15 @@
-using Eto.Drawing;
+ï»¿using Eto.Drawing;
 using Eto.Forms;
 using System.Collections.ObjectModel;
 using System;
 using System.Diagnostics;
 using System.IO;
 using Resources = OpenTrace.Properties.Resources;
-using NextTrace;
+using OpenTrace.Services;
+using OpenTrace.Models;
+using OpenTrace.Infrastructure;
+using OpenTrace.UI.Forms;
+using OpenTrace.UI.Dialogs;
 using System.Net;
 using Newtonsoft.Json;
 using System.Runtime.InteropServices;
@@ -18,7 +22,7 @@ using System.Threading.Tasks;
 using System.Net.Sockets;
 using Ae.Dns.Protocol.Records;
 
-namespace OpenTrace
+namespace OpenTrace.UI
 {
     public partial class MainForm : Form
     {
@@ -45,7 +49,7 @@ namespace OpenTrace
             Title = Resources.APPTITLE + " v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             MinimumSize = new Size(900, 600);
 
-            // ´´½¨²Ëµ¥Ïî
+            // åˆ›å»ºèœå•é¡¹
             var newWindowCommand = new Command { MenuText = Resources.NEW, ToolBarText = Resources.NEW_WINDOW_TEXT, Shortcut = Application.Instance.CommonModifier | Keys.N };
             newWindowCommand.Executed += (sender, e) =>
             {
@@ -71,13 +75,13 @@ namespace OpenTrace
             preferenceCommand.Executed += (sender, e) =>
             {
                 new PreferencesDialog().ShowModal(this);
-                // ¹Ø±ÕÉèÖÃºóË¢ĞÂ DNS ·şÎñÆ÷ÁĞ±í
+                // å…³é—­è®¾ç½®ååˆ·æ–° DNS æœåŠ¡å™¨åˆ—è¡¨
                 LoadDNSResolvers();
-                // Ë¢ĞÂgrid¸ß¶È´óĞ¡
+                // åˆ·æ–°gridé«˜åº¦å¤§å°
                 MainForm_SizeChanged(sender, e);
             };
 
-            // ´´½¨²Ëµ¥À¸
+            // åˆ›å»ºèœå•æ 
             Menu = new MenuBar
             {
                 Items =
@@ -96,7 +100,7 @@ namespace OpenTrace
                 }
             };
 
-            // ´´½¨¿Ø¼ş
+            // åˆ›å»ºæ§ä»¶
             HostInputBox = new ComboBox { Text = "" };
             HostInputBox.KeyDown += HostInputBox_KeyDown;
             HostInputBox.KeyUp += HostInputBox_KeyUp;
@@ -230,13 +234,13 @@ namespace OpenTrace
 
             platformChecks();
             
-            // °ó¶¨´°¿ÚÊÂ¼ş
+            // ç»‘å®šçª—å£äº‹ä»¶
             SizeChanged += MainForm_SizeChanged;
             MouseDown += Dragging_MouseDown;
             MouseUp += Dragging_MouseUp;
             MouseMove += MainForm_MouseMove;
 
-            // Ê¹ÓÃ Table ²¼¾Ö´´½¨Ò³Ãæ
+            // ä½¿ç”¨ Table å¸ƒå±€åˆ›å»ºé¡µé¢
             var layout = new TableLayout
             {
                 Padding = new Padding(10),
@@ -278,7 +282,7 @@ namespace OpenTrace
             // check update async
             Task.Run(() => CheckUpdateAsync());
 
-            HostInputBox.Focus(); // ×Ô¶¯¾Û½¹ÊäÈë¿ò
+            HostInputBox.Focus(); // è‡ªåŠ¨èšç„¦è¾“å…¥æ¡†
         }
 
         private void CheckUpdateAsync()
@@ -331,11 +335,11 @@ namespace OpenTrace
             dnsResolverSelection.SelectedIndex = 0;
         }
 
-        // ³õÊ¼»¯ÆÚ¼ä½øĞĞÆ½Ì¨ÌØ¶¨¼ì²é
+        // åˆå§‹åŒ–æœŸé—´è¿›è¡Œå¹³å°ç‰¹å®šæ£€æŸ¥
         private void platformChecks()
         {
             
-            // macOS ±»¸ôÀë£¬ÇëÇóÊÍ·Å
+            // macOS è¢«éš”ç¦»ï¼Œè¯·æ±‚é‡Šæ”¾
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) && AppDomain.CurrentDomain.BaseDirectory.StartsWith("/private/var/folders"))
             {
                 App.app.Invoke(() => {
@@ -348,10 +352,10 @@ namespace OpenTrace
         
         private void tryAddICMPFirewallRule()
         {
-            // ÌáÊ¾ Windows ÓÃ»§Ìí¼Ó·À»ğÇ½¹æÔò·ÅĞĞ ICMP 
+            // æç¤º Windows ç”¨æˆ·æ·»åŠ é˜²ç«å¢™è§„åˆ™æ”¾è¡Œ ICMP 
             if (MessageBox.Show(Resources.ASK_ADD_ICMP_FIREWALL_RULE, MessageBoxButtons.YesNo, MessageBoxType.Question) == DialogResult.Yes)
             {
-                // ÒÔ¹ÜÀíÔ±È¨ÏŞÔËĞĞÃüÁî
+                // ä»¥ç®¡ç†å‘˜æƒé™è¿è¡Œå‘½ä»¤
                 var allowIcmp = new Process();
                 allowIcmp.StartInfo.FileName = "cmd.exe";
                 allowIcmp.StartInfo.UseShellExecute = true;
@@ -377,7 +381,7 @@ namespace OpenTrace
 
         private void resolveParamChanged(object sender, EventArgs e)
         {
-            // Èç¹ûÎÄ±¾¿ò±»ĞŞ¸Ä£¬ÔòÒş²Ø DNS ½âÎöÑ¡Ôñ¿ò
+            // å¦‚æœæ–‡æœ¬æ¡†è¢«ä¿®æ”¹ï¼Œåˆ™éšè— DNS è§£æé€‰æ‹©æ¡†
             if (ResolvedIPSelection.Visible)
             {
                 ResolvedIPSelection.Items.Clear();
@@ -412,7 +416,7 @@ namespace OpenTrace
                 StartTracerouteButton_Click(sender, e);
             } else if (e.Key == Keys.Enter && RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                // ËÆºõÊÇÉÏÓÎ¼æÈİĞÔÎÊÌâ
+                // ä¼¼ä¹æ˜¯ä¸Šæ¸¸å…¼å®¹æ€§é—®é¢˜
                 StartTracerouteButton_Click(sender, e);
             }
         }
@@ -427,6 +431,8 @@ namespace OpenTrace
             
             if(protocolSelection.SelectedValue.ToString() != "ICMP" && RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
+                // æ£€æµ‹æ˜¯å¦æœ‰ç®¡ç†å‘˜æƒé™
+                // æ£€æµ‹å¹¶æç¤ºç”¨æˆ·å®‰è£…Npcapï¼Œé»˜è®¤WinDivertæœ‰å®‰è£…
                 MessageBox.Show(Resources.WINDOWS_TCP_UDP_UNSUPPORTED);
                 return;
             }
@@ -441,7 +447,7 @@ namespace OpenTrace
             }
             catch (FileNotFoundException)
             {
-                // Î´ÄÜÔÚÄ¬ÈÏËÑÑ°Ä¿Â¼ÖĞÕÒµ½NextTrace£¬Ñ¯ÎÊÊÇ·ñÏÂÔØ NextTrace
+                // æœªèƒ½åœ¨é»˜è®¤æœå¯»ç›®å½•ä¸­æ‰¾åˆ°NextTraceï¼Œè¯¢é—®æ˜¯å¦ä¸‹è½½ NextTrace
                 DialogResult dr = MessageBox.Show(RuntimeInformation.IsOSPlatform(OSPlatform.OSX) ? Resources.MISSING_COMP_TEXT_MACOS : Resources.MISSING_COMP_TEXT ,
                  Resources.MISSING_COMP, MessageBoxButtons.YesNo);
                 if (dr == DialogResult.Yes)
@@ -453,7 +459,7 @@ namespace OpenTrace
             }
             catch(IOException exception)
             {
-                // Î´ÄÜÔÚÖ¸¶¨µÄÎ»ÖÃÕÒµ½ NextTrace
+                // æœªèƒ½åœ¨æŒ‡å®šçš„ä½ç½®æ‰¾åˆ° NextTrace
                 MessageBox.Show(string.Format(Resources.MISSING_SPECIFIED_COMP, exception.Message), Resources.MISSING_COMP);
 
                 CurrentInstance = null;
@@ -466,10 +472,10 @@ namespace OpenTrace
                 return;
             }
 
-            tracerouteResultCollection.Clear(); // Çå¿ÕÔ­ÓĞGridView
-            ResetMap(); // ÖØÖÃµØÍ¼
+            tracerouteResultCollection.Clear(); // æ¸…ç©ºåŸæœ‰GridView
+            ResetMap(); // é‡ç½®åœ°å›¾
             Title = Resources.APPTITLE;
-            // ´¦ÀíÎÄ±¾¿òÊäÈë
+            // å¤„ç†æ–‡æœ¬æ¡†è¾“å…¥
             string readyToUseIP;
             if (ResolvedIPSelection.Visible == true && ResolvedIPSelection.SelectedIndex != 0)
             {
@@ -484,26 +490,26 @@ namespace OpenTrace
             }
             else
             {
-                ResolvedIPSelection.Visible = false; // Òş²Ø IP Ñ¡Ôñ¿ò
+                ResolvedIPSelection.Visible = false; // éšè— IP é€‰æ‹©æ¡†
                 IPAddress userInputAddress;
-                // È¥³ıÊäÈë¿òÁ½²àµÄ¿Õ¸ñ
+                // å»é™¤è¾“å…¥æ¡†ä¸¤ä¾§çš„ç©ºæ ¼
                 HostInputBox.Text = HostInputBox.Text.Trim();
 
                 Uri uri;
                 if (Uri.TryCreate(HostInputBox.Text, UriKind.Absolute, out uri) && uri.Host != "")
                 {
-                    // ÊÇºÏ·¨µÄ URL
+                    // æ˜¯åˆæ³•çš„ URL
                     HostInputBox.Text = uri.Host;
                 }
 
-                // Èç¹ûÓĞÃ°ºÅ¶øÇÒÓĞµã(IPv4)£¬È¥³ıÃ°ºÅºóÃæµÄÄÚÈİ
+                // å¦‚æœæœ‰å†’å·è€Œä¸”æœ‰ç‚¹(IPv4)ï¼Œå»é™¤å†’å·åé¢çš„å†…å®¹
                 if (HostInputBox.Text.IndexOf(":") != -1 && HostInputBox.Text.IndexOf(".") != -1)
                 {
                     HostInputBox.Text = HostInputBox.Text.Split(':')[0];
                 }
                 if (IPAddress.TryParse(HostInputBox.Text, out userInputAddress))
                 {
-                    // ÊÇºÏ·¨µÄ IPv4 / IPv6£¬°Ñ³ÌĞò´¦ÀíºóµÄIP·Å»ØÎÄ±¾¿ò
+                    // æ˜¯åˆæ³•çš„ IPv4 / IPv6ï¼ŒæŠŠç¨‹åºå¤„ç†åçš„IPæ”¾å›æ–‡æœ¬æ¡†
                     HostInputBox.Text = userInputAddress.ToString();
                     readyToUseIP = userInputAddress.ToString();
                     Title = Resources.APPTITLE + ": " + readyToUseIP;
@@ -511,14 +517,14 @@ namespace OpenTrace
                 else { 
                     try
                     {
-                        // ĞèÒªÓòÃû½âÎö
+                        // éœ€è¦åŸŸåè§£æ
                         Title = Resources.APPTITLE + ": " + HostInputBox.Text;
                         IPAddress[] resolvedAddresses = ResolveHost(HostInputBox.Text);
                         if (resolvedAddresses.Length > 1)
                         {
                             if (UserSettings.autoIPSelection == "manual")
                             {
-                                // ÊÖ¶¯Ñ¡Ôñ IP
+                                // æ‰‹åŠ¨é€‰æ‹© IP
                                 ResolvedIPSelection.Items.Clear();
                                 ResolvedIPSelection.Items.Add(Resources.SELECT_IP_DROPDOWN);
                                 foreach (IPAddress resolvedAddress in resolvedAddresses)
@@ -543,7 +549,7 @@ namespace OpenTrace
                                     selectedIP = resolvedAddresses.FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetworkV6);
                                 }
 
-                                // »ØÍËµ½µÚÒ»¸ö¿ÉÓÃµÄ IP
+                                // å›é€€åˆ°ç¬¬ä¸€ä¸ªå¯ç”¨çš„ IP
                                 if (selectedIP == null)
                                 {
                                     selectedIP = resolvedAddresses[0];
@@ -576,15 +582,15 @@ namespace OpenTrace
             }
 
             string newText = HostInputBox.Text;
-            // ÇåÀíÖØ¸´¼ÇÂ¼
+            // æ¸…ç†é‡å¤è®°å½•
             IList<IListItem> clone = HostInputBox.Items.ToList();
             foreach (var toRemove in clone.Where(s => s.Text == newText))
             {
-                HostInputBox.Items.Remove(toRemove); // ²»ÖªµÀÎªÊ²Ã´ÇåÀíµô ComboBox µÄ Item »á°ÑÍ¬ÃûÎÄ±¾¿òµÄÄÚÈİÒ»ÆğÇåµô
+                HostInputBox.Items.Remove(toRemove); // ä¸çŸ¥é“ä¸ºä»€ä¹ˆæ¸…ç†æ‰ ComboBox çš„ Item ä¼šæŠŠåŒåæ–‡æœ¬æ¡†çš„å†…å®¹ä¸€èµ·æ¸…æ‰
             }
-            HostInputBox.Text = newText; // ËùÒÔµÃÔÚÕâÀïÖØĞÂ·Å»ØÈ¥
+            HostInputBox.Text = newText; // æ‰€ä»¥å¾—åœ¨è¿™é‡Œé‡æ–°æ”¾å›å»
             HostInputBox.Items.Insert(0, new ListItem { Text = newText });
-            while (HostInputBox.Items.Count > 20) // ÇåÀí20ÌõÒÔÉÏ¼ÇÂ¼
+            while (HostInputBox.Items.Count > 20) // æ¸…ç†20æ¡ä»¥ä¸Šè®°å½•
             {
                 HostInputBox.Items.RemoveAt(HostInputBox.Items.Count - 1);
             }
@@ -593,7 +599,7 @@ namespace OpenTrace
 
             startTracerouteButton.Text = Resources.STOP;
 
-            // ´¦ÀíNextTraceÊµÀı·¢»ØµÄ½á¹û
+            // å¤„ç†NextTraceå®ä¾‹å‘å›çš„ç»“æœ
             CurrentInstance.Output.CollectionChanged += Instance_OutputCollectionChanged;
             CurrentInstance.ExceptionalOutput += Instance_ExceptionalOutput;
             CurrentInstance.AppQuit += Instance_AppQuit;
@@ -606,18 +612,18 @@ namespace OpenTrace
             string resolver = dnsResolverSelection.SelectedKey;
             if(resolver == "system")
             {
-                // Ê¹ÓÃÏµÍ³½âÎö
+                // ä½¿ç”¨ç³»ç»Ÿè§£æ
                 return Dns.GetHostAddresses(host);
             }else if (resolver.IndexOf("https://") == 0)
             {
-                // Ê¹ÓÃDoH
+                // ä½¿ç”¨DoH
                 var httpClient = new System.Net.Http.HttpClient
                 {
                     BaseAddress = new Uri(resolver)
                 };
                 IDnsClient dnsClient = new DnsHttpClient(httpClient);
 
-                // Í¬Ê±²éÑ¯ A ºÍ AAAA ¼ÇÂ¼
+                // åŒæ—¶æŸ¥è¯¢ A å’Œ AAAA è®°å½•
                 DnsMessage aResult = Task.Run(() => dnsClient.Query(DnsQueryFactory.CreateQuery(host, Ae.Dns.Protocol.Enums.DnsQueryType.A))).Result;
                 DnsMessage aaaaResult = Task.Run(() => dnsClient.Query(DnsQueryFactory.CreateQuery(host, Ae.Dns.Protocol.Enums.DnsQueryType.AAAA))).Result;
 
@@ -629,7 +635,7 @@ namespace OpenTrace
                 {
                     List<IPAddress> addressList = new List<IPAddress>();
 
-                    // ´¦Àí A ¼ÇÂ¼
+                    // å¤„ç† A è®°å½•
                     foreach (DnsResourceRecord answer in aResult.Answers)
                     {
                         if (answer.Type == Ae.Dns.Protocol.Enums.DnsQueryType.A)
@@ -638,7 +644,7 @@ namespace OpenTrace
                         }
                     }
 
-                    // ´¦Àí AAAA ¼ÇÂ¼
+                    // å¤„ç† AAAA è®°å½•
                     foreach (DnsResourceRecord answer in aaaaResult.Answers)
                     {
                         if (answer.Type == Ae.Dns.Protocol.Enums.DnsQueryType.AAAA)
@@ -651,9 +657,9 @@ namespace OpenTrace
             }
             else
             {
-                // Ê¹ÓÃ´«Í³ DNS
+                // ä½¿ç”¨ä¼ ç»Ÿ DNS
                 IDnsClient dnsClient = new DnsUdpClient(IPAddress.Parse(resolver));
-                // Í¬Ê±²éÑ¯ A ºÍ AAAA ¼ÇÂ¼
+                // åŒæ—¶æŸ¥è¯¢ A å’Œ AAAA è®°å½•
                 DnsMessage aResult = Task.Run(() => dnsClient.Query(DnsQueryFactory.CreateQuery(host, Ae.Dns.Protocol.Enums.DnsQueryType.A))).Result;
                 DnsMessage aaaaResult = Task.Run(() => dnsClient.Query(DnsQueryFactory.CreateQuery(host, Ae.Dns.Protocol.Enums.DnsQueryType.AAAA))).Result;
 
@@ -665,7 +671,7 @@ namespace OpenTrace
                 {
                     List<IPAddress> addressList = new List<IPAddress>();
 
-                    // ´¦Àí A ¼ÇÂ¼
+                    // å¤„ç† A è®°å½•
                     foreach (DnsResourceRecord answer in aResult.Answers)
                     {
                         if (answer.Type == Ae.Dns.Protocol.Enums.DnsQueryType.A)
@@ -674,7 +680,7 @@ namespace OpenTrace
                         }
                     }
 
-                    // ´¦Àí AAAA ¼ÇÂ¼
+                    // å¤„ç† AAAA è®°å½•
                     foreach (DnsResourceRecord answer in aaaaResult.Answers)
                     {
                         if (answer.Type == Ae.Dns.Protocol.Enums.DnsQueryType.AAAA)
@@ -695,10 +701,10 @@ namespace OpenTrace
                 startTracerouteButton.Text = Resources.START;
                 if (appForceExiting != true && (e.ExitCode != 0))
                 {
-                    // Ö÷¶¯½áÊø£¬ÍË³ö´úÂë²»Îª 0 ÔòÖ¤Ã÷ÓĞÒì³£
+                    // ä¸»åŠ¨ç»“æŸï¼Œé€€å‡ºä»£ç ä¸ä¸º 0 åˆ™è¯æ˜æœ‰å¼‚å¸¸
                     MessageBox.Show(Resources.EXCEPTIONAL_EXIT_MSG + e.ExitCode, MessageBoxType.Warning);
                 }
-                // Ç¿ÖÆ½áÊøÒ»°ãÍË³ö´úÂë²»Îª 0£¬²»ÌáÊ¾Òì³£¡£
+                // å¼ºåˆ¶ç»“æŸä¸€èˆ¬é€€å‡ºä»£ç ä¸ä¸º 0ï¼Œä¸æç¤ºå¼‚å¸¸ã€‚
                 appForceExiting = false;
             });
         }
@@ -729,17 +735,17 @@ namespace OpenTrace
                         int HopNo = int.Parse(result.No);
                         if (HopNo > tracerouteResultCollection.Count)
                         {
-                            // Õı³£Ìí¼ÓĞÂµÄÌø
+                            // æ­£å¸¸æ·»åŠ æ–°çš„è·³
                             tracerouteResultCollection.Add(new TracerouteHop(result));
                             UpdateMap(result);
                             tracerouteGridView.ScrollToRow(tracerouteResultCollection.Count - 1);
                         }
                         else
                         {
-                            // ĞŞ¸ÄÏÖÓĞµÄÌø
+                            // ä¿®æ”¹ç°æœ‰çš„è·³
                             tracerouteResultCollection[HopNo - 1].HopData.Add(result);
 
-                            // ½öµ±´æÔÚ¾­Î³¶ÈÊı¾İÊ±¸üĞÂµØÍ¼
+                            // ä»…å½“å­˜åœ¨ç»çº¬åº¦æ•°æ®æ—¶æ›´æ–°åœ°å›¾
                             if (result.Latitude != "" && result.Longitude != "")
                             {
                                 UpdateMap(result, HopNo - 1);
@@ -764,7 +770,7 @@ namespace OpenTrace
         }
 
         /*
-         * ´¦ÀíÍÏ×§µ÷Õû GridView ´óĞ¡
+         * å¤„ç†æ‹–æ‹½è°ƒæ•´ GridView å¤§å°
          */
         private void Dragging_MouseUp(object sender, MouseEventArgs e)
         {
@@ -786,7 +792,7 @@ namespace OpenTrace
 
         private void MainForm_MouseMove(object sender, MouseEventArgs e)
         {
-            // ÉèÖÃÊó±êÖ¸Õë
+            // è®¾ç½®é¼ æ ‡æŒ‡é’ˆ
             if (e.Location.Y >= tracerouteGridView.Bounds.Bottom + 15 && e.Location.Y <= tracerouteGridView.Bounds.Bottom + 20)
             {
                 this.Cursor = Cursors.SizeBottom;
@@ -798,11 +804,11 @@ namespace OpenTrace
 
             if (e.Buttons == MouseButtons.Primary && gridResizing)
             {
-                if ((int)e.Location.Y > (tracerouteGridView.Bounds.Top + 100)) // ×îĞ¡µ÷ÕûÎª100px
+                if ((int)e.Location.Y > (tracerouteGridView.Bounds.Top + 100)) // æœ€å°è°ƒæ•´ä¸º100px
                 {
 
                     tracerouteGridView.Height = (int)e.Location.Y - tracerouteGridView.Bounds.Top - 15;
-                    UserSettings.gridSizePercentage = (double)tracerouteGridView.Height / (Height - 75); // ±£´æ±ÈÀı
+                    UserSettings.gridSizePercentage = (double)tracerouteGridView.Height / (Height - 75); // ä¿å­˜æ¯”ä¾‹
                 }
             }
         }
@@ -810,17 +816,17 @@ namespace OpenTrace
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
             int gridHeight;
-            int totalHeight = this.Height - 75; // ¼õÈ¥±ß¾àºÍÉÏÃæµÄÎÄ±¾¿òµÄ75px
+            int totalHeight = this.Height - 75; // å‡å»è¾¹è·å’Œä¸Šé¢çš„æ–‡æœ¬æ¡†çš„75px
             gridHeight = (int)(totalHeight * UserSettings.gridSizePercentage);
-            tracerouteGridView.Height = gridHeight; // °´±ÈÀı»¹Ô­¸ß¶È
+            tracerouteGridView.Height = gridHeight; // æŒ‰æ¯”ä¾‹è¿˜åŸé«˜åº¦
         }
         private void UpdateMap(TracerouteResult result)
         {
             try
             {
-                // °Ñ Result ×ª»»Îª JSON
+                // æŠŠ Result è½¬æ¢ä¸º JSON
                 string resultJson = JsonConvert.SerializeObject(result);
-                // Í¨¹ı ExecuteScript °Ñ½á¹û´«½øÈ¥
+                // é€šè¿‡ ExecuteScript æŠŠç»“æœä¼ è¿›å»
                 mapWebView.ExecuteScriptAsync(@"window.opentrace.updateHop(`" + resultJson + "`);");
             }
             catch (Exception e)
@@ -832,9 +838,9 @@ namespace OpenTrace
         {
             try
             {
-                // °Ñ Result ×ª»»Îª JSON
+                // æŠŠ Result è½¬æ¢ä¸º JSON
                 string resultJson = JsonConvert.SerializeObject(result);
-                // Í¨¹ı ExecuteScript °Ñ½á¹û´«½øÈ¥
+                // é€šè¿‡ ExecuteScript æŠŠç»“æœä¼ è¿›å»
                 mapWebView.ExecuteScriptAsync(@"window.opentrace.updateHop(`" + resultJson + "`" + "," + hopNo.ToString() +");");
             }
             catch (Exception e)
@@ -857,7 +863,7 @@ namespace OpenTrace
         {
             try
             {
-                // ÖØÖÃ»òÕß³õÊ¼»¯µØÍ¼
+                // é‡ç½®æˆ–è€…åˆå§‹åŒ–åœ°å›¾
                 switch (mapWebView.Url.Host)
                 {
                     case "geo-devrel-javascript-samples.web.app":
@@ -876,7 +882,7 @@ namespace OpenTrace
         private void AddGridColumnsTraceroute()
         {
             tracerouteGridView.Columns.Clear();
-            // Ö¸¶¨À¸Î»Êı¾İÔ´
+            // æŒ‡å®šæ ä½æ•°æ®æº
             tracerouteGridView.Columns.Add(new GridColumn
             {
                 DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.No) },
@@ -892,7 +898,7 @@ namespace OpenTrace
                 DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.Time) },
                 HeaderText = Resources.TIME_MS
             });
-            // ºÏ²¢Î»ÖÃºÍÔËÓªÉÌ
+            // åˆå¹¶ä½ç½®å’Œè¿è¥å•†
             if (UserSettings.combineGeoOrg == true)
             {
                 tracerouteGridView.Columns.Add(new GridColumn
@@ -928,7 +934,7 @@ namespace OpenTrace
         private void AddGridColumnsMTR()
         {
             tracerouteGridView.Columns.Clear();
-            // Ö¸¶¨À¸Î»Êı¾İÔ´
+            // æŒ‡å®šæ ä½æ•°æ®æº
             tracerouteGridView.Columns.Add(new GridColumn
             {
                 DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.No) },
@@ -939,7 +945,7 @@ namespace OpenTrace
                 DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.IP) },
                 HeaderText = "IP"
             });
-            // ºÏ²¢Î»ÖÃºÍÔËÓªÉÌ
+            // åˆå¹¶ä½ç½®å’Œè¿è¥å•†
             if (UserSettings.combineGeoOrg == true)
             {
                 tracerouteGridView.Columns.Add(new GridColumn

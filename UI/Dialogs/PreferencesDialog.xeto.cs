@@ -6,10 +6,13 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Collections.Generic;
-using NextTrace;
+using OpenTrace.Services;
+using OpenTrace.Models;
+using OpenTrace.Infrastructure;
+using OpenTrace.UI.Forms;
 using System.Diagnostics;
 
-namespace OpenTrace
+namespace OpenTrace.UI.Dialogs
 {
     public partial class PreferencesDialog : Dialog
     {

@@ -4,7 +4,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 
-namespace OpenTrace
+namespace OpenTrace.UI.Forms
 {
     public partial class ExceptionalOutputForm : Form
     {
