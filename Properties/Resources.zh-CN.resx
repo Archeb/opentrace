@@ -250,7 +250,7 @@
     <value>IP 地理位置数据源</value>
   </data>
   <data name="LANGUAGE" xml:space="preserve">
-    <value>Language (语言)</value>
+    <value>语言 (Language)</value>
   </data>
   <data name="LAST" xml:space="preserve">
     <value>当前延迟</value>

@@ -117,445 +117,435 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ABOUT" xml:space="preserve">
-    <value>關於</value>
+ <data name="ABOUT" xml:space="preserve">
+    <value>О программе...</value>
   </data>
   <data name="ADDITIONAL_ARGS" xml:space="preserve">
-    <value>附加參數</value>
+    <value>Дополнительные аргументы</value>
   </data>
   <data name="APPTITLE" xml:space="preserve">
     <value>OpenTrace</value>
   </data>
   <data name="ASK_ADD_ICMP_FIREWALL_RULE" xml:space="preserve">
-    <value>NextTrace 需要接收特殊的 ICMP 響應報文來構建完整的 traceroute 信息；但默認情況下，Windows 防火牆會攔截此類消息，導致您只能看到 traceroute 的最後一跳。
-
-您可以點擊“是”來自動添加防火牆規則，也可以點“否”取消這一操作。
-
-若要獲得更多信息，請參考 https://github.com/nxtrace/Ntrace-core/issues/52</value>
+    <value>NextTrace требует ICMP-сообщения (типы 11 и 3) для полной трассировки. Брандмауэр Windows блокирует их по умолчанию, из-за чего виден только последний узел.
+Добавить правило в брандмауэр для корректной работы NextTrace?</value>
   </data>
   <data name="AUTO_DETECT" xml:space="preserve">
-    <value>(留空自動檢測)</value>
+    <value>(Автоопределение)</value>
   </data>
   <data name="AVRG" xml:space="preserve">
-    <value>平均延遲</value>
+    <value>Сред.</value>
   </data>
   <data name="BEST" xml:space="preserve">
-    <value>最佳延遲</value>
+    <value>Мин.</value>
   </data>
   <data name="CANCEL" xml:space="preserve">
-    <value>取消</value>
+    <value>Отмена</value>
   </data>
   <data name="CHUNZHEN_ENDPOINT" xml:space="preserve">
-    <value>純真 API 端點</value>
+    <value>Эндпоинт CHUNZHEN</value>
   </data>
   <data name="CLOSE" xml:space="preserve">
-    <value>關閉</value>
+    <value>Закрыть</value>
   </data>
   <data name="COMBINE_GEO_ORG" xml:space="preserve">
-    <value>把地理位置和組織信息合為一欄</value>
+    <value>Объединить локацию и организацию в одну колонку</value>
   </data>
   <data name="COPY" xml:space="preserve">
-    <value>拷貝</value>
+    <value>Копировать</value>
   </data>
   <data name="COPY_ALL_RESULTS" xml:space="preserve">
-    <value>複製所有結果</value>
+    <value>Копировать все результаты</value>
   </data>
   <data name="CUSTOM_DNS_RESOLVERS" xml:space="preserve">
-    <value>自定義 DNS 解析器
-(支持 UDP / DoH)</value>
+    <value>Свой DNS (UDP / DoH)</value>
   </data>
   <data name="DISABLE_IPGEO" xml:space="preserve">
-    <value>禁用地理位置</value>
+    <value>Отключено</value>
   </data>
   <data name="DST_PORT_INIT_SEQ" xml:space="preserve">
-    <value>目標端口 / 初始序號</value>
+    <value>Порт назн. / Нач. seq</value>
   </data>
   <data name="EMPTY_HOSTNAME_MSGBOX" xml:space="preserve">
-    <value>主機或 IP 不能為空</value>
+    <value>Узел или IP не могут быть пустыми</value>
   </data>
   <data name="ENABLE_IP2REGION" xml:space="preserve">
-    <value>使用本地 Ip2region 數據庫  (ip2region.db)</value>
+    <value>Включить офлайн-базу Ip2region (ip2region.db)</value>
   </data>
   <data name="ENABLE_IPINFOLOCAL" xml:space="preserve">
-    <value>使用本地 IPInfo 數據庫 (ipinfoLocal.mmdb)</value>
+    <value>Включить офлайн-базу IPInfo (ipinfoLocal.mmdb)</value>
   </data>
   <data name="ERR_MSG" xml:space="preserve">
-    <value>錯誤消息</value>
+    <value>Сообщение об ошибке</value>
   </data>
   <data name="ERR_WRITING_SETTINGS" xml:space="preserve">
-    <value>保存設置時出錯</value>
+    <value>Ошибка при записи настроек.</value>
   </data>
   <data name="EXCEPTIONAL_EXIT_MSG" xml:space="preserve">
-    <value>NextTrace 進程異常退出，請參考錯誤消息以瞭解更多信息並及時向我們報告此問題。 退出代碼：</value>
+    <value>Процесс NextTrace неожиданно завершился. См. ошибку для подробностей. Код выхода: </value>
   </data>
   <data name="EXC_OUTPUT_FORM_PROMPT" xml:space="preserve">
-    <value>NextTrace 產生了一個或多個異常輸出，請檢查下面的輸出資訊以排查問題。 您可以參考 NextTrace Wiki 來查看是否已經有解答；如未能找到答案，請向我們報告。</value>
+    <value>NextTrace выдал неожиданный результат. Проверьте данные ниже для устранения неполадок или обратитесь к NextTrace Wiki.</value>
   </data>
   <data name="EXC_OUTPUT_FORM_REPORT" xml:space="preserve">
-    <value>報告問題</value>
+    <value>Сообщить об ошибке</value>
   </data>
   <data name="EXC_OUTPUT_FORM_TITLE" xml:space="preserve">
-    <value>異常輸出</value>
+    <value>Неожиданный вывод</value>
   </data>
   <data name="EXE_PATH" xml:space="preserve">
-    <value>可執行文件路徑</value>
+    <value>Путь к файлу</value>
   </data>
   <data name="EXPORT" xml:space="preserve">
-    <value>導出</value>
+    <value>Экспорт</value>
   </data>
   <data name="EXPORT_TO" xml:space="preserve">
-    <value>導出為</value>
+    <value>Экспортировать в</value>
   </data>
   <data name="FAILED_TO_ADD_RULES" xml:space="preserve">
-    <value>新增防火墻規則失敗</value>
+    <value>Не удалось добавить правила брандмауэра.</value>
   </data>
   <data name="FILE" xml:space="preserve">
-    <value>文件</value>
+    <value>Файл</value>
   </data>
   <data name="FIRST_TTL_HOP" xml:space="preserve">
-    <value>首個躍點</value>
+    <value>Первый узел (TTL)</value>
   </data>
   <data name="GENERAL" xml:space="preserve">
-    <value>常規設置</value>
+    <value>Общие</value>
   </data>
   <data name="GEOLOCATION" xml:space="preserve">
-    <value>地理位置</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="googleMap" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+    <value>Геопозиция</value>
   </data>
   <data name="GRID_SIZE_RATIO" xml:space="preserve">
-    <value>表格高度占比</value>
+    <value>Высота таблицы</value>
   </data>
   <data name="HELP" xml:space="preserve">
-    <value>幫助</value>
+    <value>Справка</value>
   </data>
   <data name="HIDE_ADD_FIREWALL_PROMPT" xml:space="preserve">
-    <value>不再提示新增防火牆規則</value>
+    <value>Не предлагать настройку брандмауэра</value>
   </data>
   <data name="HIDE_MAP_POPUP" xml:space="preserve">
-    <value>隱藏地圖上的信息窗口</value>
+    <value>Скрыть инфо-окна на карте</value>
   </data>
   <data name="HISTORY" xml:space="preserve">
-    <value>歷史記錄</value>
+    <value>История</value>
   </data>
   <data name="HOSTNAME" xml:space="preserve">
-    <value>主機名</value>
+    <value>Имя хоста</value>
   </data>
   <data name="IPINFO_TOKEN" xml:space="preserve">
-    <value>IPInfo Token (可選)</value>
+    <value>Токен IPInfo (опц.)</value>
   </data>
   <data name="IP_GEO_DATA_PROVIDER" xml:space="preserve">
-    <value>IP 地理位置數據源</value>
+    <value>Провайдер геоданных</value>
   </data>
   <data name="LANGUAGE" xml:space="preserve">
-    <value>語言 (Language)</value>
+    <value>Язык (Language)</value>
   </data>
   <data name="LAST" xml:space="preserve">
-    <value>當前延遲</value>
+    <value>Тек.</value>
   </data>
   <data name="LEOMOEAPI_HOSTPORT" xml:space="preserve">
-    <value>LeoMoeAPI 反代地址</value>
+    <value>Прокси LeoMoeAPI</value>
   </data>
   <data name="LINKLOCAL_ADDR" xml:space="preserve">
-    <value>鏈路本地地址</value>
+    <value>Link-local адрес</value>
   </data>
   <data name="LOCAL_MMDB" xml:space="preserve">
-    <value>本地 MMDB</value>
+    <value>Локальная MMDB (перезапись)</value>
   </data>
   <data name="LOCAL_MMDB_ADDR" xml:space="preserve">
-    <value>地理位置模板</value>
+    <value>Шаблон адреса</value>
   </data>
   <data name="LOCAL_MMDB_ASN" xml:space="preserve">
-    <value>ASN 模板</value>
+    <value>Шаблон ASN</value>
   </data>
   <data name="LOCAL_MMDB_HOSTNAME" xml:space="preserve">
-    <value>主機名模板</value>
+    <value>Шаблон хоста</value>
   </data>
   <data name="LOCAL_MMDB_LAT" xml:space="preserve">
-    <value>緯度模板</value>
+    <value>Шаблон широты</value>
   </data>
   <data name="LOCAL_MMDB_LON" xml:space="preserve">
-    <value>經度模板</value>
+    <value>Шаблон долготы</value>
   </data>
   <data name="LOCAL_MMDB_ORG" xml:space="preserve">
-    <value>組織模板</value>
+    <value>Шаблон организации</value>
   </data>
   <data name="LOCAL_MMDB_PATH" xml:space="preserve">
-    <value>本地 MMDB 路徑</value>
+    <value>Путь к MMDB</value>
   </data>
   <data name="LOCAL_MMDB_PRESETS" xml:space="preserve">
-    <value>預設配置</value>
+    <value>Пресеты</value>
   </data>
   <data name="LOCAL_MMDB_PREVIEW" xml:space="preserve">
-    <value>預覽 MMDB</value>
+    <value>Предпросмотр MMDB</value>
   </data>
   <data name="LOCAL_MMDB_PREVIEW_IP" xml:space="preserve">
-    <value>預覽 IP</value>
+    <value>IP для предпросмотра</value>
   </data>
   <data name="LOCAL_MMDB_SELECT" xml:space="preserve">
-    <value>選擇 MMDB 文件</value>
+    <value>Выбрать MMDB</value>
   </data>
   <data name="LOCAL_MMDB_TIPS" xml:space="preserve">
-    <value>此功能用本地 MMDB 查詢的結果覆蓋原查詢結果
-留空以避免覆寫對應字段
-模板舉例: {.country}-{.city}</value>
+    <value>Использование MMDB для замены данных.
+Оставьте пустым, чтобы не менять поле.
+Пример: {.country}-{.city}</value>
   </data>
   <data name="LOOPBACK_ADDR" xml:space="preserve">
-    <value>本地迴環地址</value>
+    <value>Loopback адрес</value>
   </data>
   <data name="LOSS" xml:space="preserve">
-    <value>丟包率%</value>
+    <value>Потери%</value>
   </data>
   <data name="MAP_PROVIDER" xml:space="preserve">
-    <value>地圖數據源</value>
+    <value>Карты</value>
   </data>
   <data name="MAP_PROVIDER_BAIDU" xml:space="preserve">
-    <value>百度地圖</value>
+    <value>Baidu Maps</value>
   </data>
   <data name="MAP_PROVIDER_GOOGLE" xml:space="preserve">
-    <value>谷歌地圖</value>
+    <value>Google Maps</value>
   </data>
   <data name="MAP_PROVIDER_OSM" xml:space="preserve">
     <value>OpenStreetMap</value>
   </data>
   <data name="MAX_HOPS" xml:space="preserve">
-    <value>最大躍點</value>
+    <value>Макс. узлов</value>
   </data>
   <data name="MISSING_COMP" xml:space="preserve">
-    <value>組件缺失</value>
+    <value>Компонент отсутствует</value>
   </data>
   <data name="MISSING_COMP_TEXT" xml:space="preserve">
-    <value>OpenTrace 需要 NextTrace 才能正常工作，但未能找到可執行文件。
-您可以把 NextTrace 可執行文件放置於：
-1. 與 OpenTrace 同一目錄下
-或
-2. PATH 環境變量中的目錄下
+    <value>Для работы OpenTrace нужна утилита NextTrace. Файл не найден.
+Поместите NextTrace в:
+1. Папку с программой
+ИЛИ
+2. Директорию из системного PATH
 
-是否現在下載 NextTrace？</value>
+Скачать утилиту сейчас?</value>
   </data>
   <data name="MISSING_COMP_TEXT_MACOS" xml:space="preserve">
-    <value>OpenTrace 需要 NextTrace 才能正常工作，但未能找到可執行文件。
-請下載 NextTrace 並設置好權限：
+    <value>Файл NextTrace не найден. Скачайте его и настройте права доступа:
 
 sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
 sudo chown root:admin /path/to/nexttrace
 sudo chmod +sx /path/to/nexttrace
 
-然後在設置中指定 NextTrace 路徑。
-
-是否現在下載 NextTrace？</value>
+И укажите путь в настройках. Скачать сейчас?</value>
   </data>
   <data name="MISSING_COMP_PRIV_MACOS" xml:space="preserve">
-    <value>OpenTrace 需要權限才能進行 TCP/UDP 追蹤。
-請為 NextTrace 設置權限:
+    <value>Требуются права для трассировки TCP/UDP.
+Настройте разрешения:
 
 sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
 sudo chown root:admin /path/to/nexttrace
 sudo chmod +sx /path/to/nexttrace</value>
   </data>
   <data name="MISSING_PRIV_MACOS" xml:space="preserve">
-    <value>OpenTrace 需要權限才能進行 TCP/UDP 追蹤</value>
+    <value>Требуются права для TCP/UDP трассировки</value>
   </data>
   <data name="MISSING_SPECIFIED_COMP" xml:space="preserve">
-    <value>未能在指定的位置 "{0}" 中找到 NextTrace。</value>
+    <value>NextTrace не найден по пути "{0}".</value>
   </data>
   <data name="MTR_MODE" xml:space="preserve">
-    <value>MTR 模式</value>
+    <value>Режим MTR</value>
   </data>
   <data name="NAME_NOT_RESOLVED" xml:space="preserve">
-    <value>找不到主機 {0}。請檢查該名稱，然後重試。</value>
+    <value>Не удалось найти хост {0}. Проверьте имя и повторите попытку.</value>
   </data>
   <data name="NEW" xml:space="preserve">
-    <value>新建</value>
+    <value>Создать</value>
   </data>
   <data name="NEW_WINDOW_TEXT" xml:space="preserve">
-    <value>打開一個新的 OpenTrace 窗口</value>
+    <value>Открыть новое окно OpenTrace.</value>
   </data>
   <data name="NEXTTRACE_PROXY" xml:space="preserve">
-    <value>代理設置</value>
+    <value>Прокси</value>
   </data>
   <data name="RDNS_MODE" xml:space="preserve">
-    <value>反向 DNS 查找模式</value>
+    <value>Режим Reverse DNS</value>
   </data>
   <data name="ORGANIZATION" xml:space="preserve">
-    <value>組織</value>
+    <value>Организация</value>
   </data>
   <data name="OTHER_DATABASE_TIPS" xml:space="preserve">
-    <value>有些數據源只有在設置 API 端點 / Token 後才能選擇；
- 要使用離線數據庫，請參閱 NextTrace 文檔進行設置。</value>
+    <value>Для некоторых баз нужен API-токен.
+См. документацию NextTrace для офлайн-баз.</value>
   </data>
   <data name="PACKET_GROUP_INTERVAL" xml:space="preserve">
-    <value>分組請求間隔</value>
+    <value>Интервал групп пакетов</value>
   </data>
   <data name="PACKET_INTERVAL" xml:space="preserve">
-    <value>請求間隔</value>
+    <value>Интервал пакетов</value>
   </data>
   <data name="PARALLEL_REQ" xml:space="preserve">
-    <value>並行請求數</value>
+    <value>Параллельные запросы</value>
   </data>
   <data name="POW_PROVIDER" xml:space="preserve">
-    <value>LeoMoeAPI PoW 服務器</value>
+    <value>LeoMoeAPI PoW провайдер</value>
   </data>
   <data name="POW_PROVIDER_LEOMOE" xml:space="preserve">
-    <value>api.leo.moe (默認)</value>
+    <value>api.leo.moe (По умолчанию)</value>
   </data>
   <data name="POW_PROVIDER_SAKURA" xml:space="preserve">
-    <value>Nya Labs (中國大陸優化)</value>
+    <value>Nya Labs (Оптимизация для Китая)</value>
   </data>
   <data name="PREFERENCES" xml:space="preserve">
-    <value>設置</value>
+    <value>Настройки</value>
   </data>
   <data name="PRIVATE_ADDR" xml:space="preserve">
-    <value>私有地址（局域網）</value>
+    <value>Частный адрес (LAN)</value>
   </data>
   <data name="PROTOCOL_FOR_TRACEROUTING" xml:space="preserve">
-    <value>Traceroute 使用的協議</value>
+    <value>Протокол трассировки</value>
   </data>
   <data name="QUERIES_SETTING" xml:space="preserve">
-    <value>每躍點探測次數</value>
+    <value>Проб на узел</value>
   </data>
   <data name="QUIT" xml:space="preserve">
-    <value>退出</value>
+    <value>Выйти</value>
   </data>
   <data name="RECV" xml:space="preserve">
-    <value>接收數</value>
+    <value>Получ.</value>
   </data>
   <data name="RESTART_TO_APPLY" xml:space="preserve">
-    <value>部分設置需重啓應用才能生效</value>
+    <value>Нужен перезапуск для применения.</value>
   </data>
   <data name="SAVE" xml:space="preserve">
-    <value>保存</value>
+    <value>Сохранить</value>
   </data>
   <data name="SELECT_IP_DROPDOWN" xml:space="preserve">
-    <value>選擇一個 IP</value>
+    <value>Выберите IP</value>
   </data>
   <data name="SELECT_IP_MSGBOX" xml:space="preserve">
-    <value>請從下拉菜單中選擇一個 IP</value>
+    <value>Пожалуйста, выберите IP из списка.</value>
   </data>
   <data name="SENT" xml:space="preserve">
-    <value>已發送</value>
+    <value>Отпр.</value>
   </data>
   <data name="SHARED_ADDR" xml:space="preserve">
-    <value>共享地址</value>
+    <value>Общий адрес</value>
   </data>
   <data name="SRC_ADDR_SETTING" xml:space="preserve">
-    <value>源地址</value>
+    <value>Исходный адрес</value>
   </data>
   <data name="SRC_INTERFACE_SETTING" xml:space="preserve">
-    <value>源接口</value>
+    <value>Исходный интерфейс</value>
   </data>
   <data name="START" xml:space="preserve">
-    <value>開始</value>
+    <value>Старт</value>
   </data>
   <data name="STDEV" xml:space="preserve">
-    <value>標準差</value>
+    <value>Ст. откл.</value>
   </data>
   <data name="STOP" xml:space="preserve">
-    <value>停止</value>
+    <value>Стоп</value>
   </data>
   <data name="SYSTEM_DNS_RESOLVER" xml:space="preserve">
-    <value>系統 DNS</value>
+    <value>Системный DNS</value>
   </data>
   <data name="TIME_MS" xml:space="preserve">
-    <value>時間(ms)</value>
+    <value>Время (мс)</value>
   </data>
   <data name="TIME_ROUNDING" xml:space="preserve">
-    <value>保留延遲顯示到整數位</value>
+    <value>Округлять задержку до целых</value>
   </data>
   <data name="TRACEROUTING" xml:space="preserve">
-    <value>路由追蹤</value>
+    <value>Трассировка</value>
   </data>
   <data name="WINDOWS_TCP_UDP_REQUIREMENTS_TITLE" xml:space="preserve">
-    <value>TCP/UDP 模式要求</value>
+    <value>Требования для TCP/UDP</value>
   </data>
   <data name="WINDOWS_TCP_UDP_MISSING_ADMIN" xml:space="preserve">
-    <value>在 Windows 系統上執行 TCP/UDP Traceroute 需要管理員權限。您是否要以管理員權限重新啟動 OpenTrace？</value>
+    <value>Трассировка TCP/UDP в Windows требует прав администратора.
+Перезапустить OpenTrace от имени администратора?</value>
   </data>
   <data name="WINDOWS_TCP_UDP_MISSING_NPCAP" xml:space="preserve">
-    <value>• 未安裝 Npcap</value>
+    <value>• Npcap не установлен</value>
   </data>
   <data name="WINDOWS_TCP_UDP_MISSING_WINDIVERT" xml:space="preserve">
-    <value>• 未找到 WinDivert （應放在和 NextTrace 可執行文件同一目錄）</value>
+    <value>• WinDivert не найден (должен быть в папке с NextTrace)</value>
   </data>
   <data name="WINDOWS_TCP_UDP_REQUIREMENTS_MSG" xml:space="preserve">
-    <value>在 Windows 上使用 TCP/UDP Traceroute 需要滿足以下條件：
+    <value>Для TCP/UDP в Windows необходимо следующее:
 
 {0}
 
-點擊 [是] 直接嘗試運行 NextTrace（並不再提示）
-點擊 [否] 下載缺失組件</value>
+Нажмите [Да], чтобы запустить NextTrace напрямую.
+Нажмите [Нет], чтобы скачать компоненты.</value>
   </data>
   <data name="WINDOWS_TCP_UDP_HAS_NPCAP" xml:space="preserve">
-    <value>✓ Npcap 已安裝</value>
+    <value>✓ Npcap установлен</value>
   </data>
   <data name="WINDOWS_TCP_UDP_HAS_WINDIVERT" xml:space="preserve">
-    <value>✓ WinDivert 可用</value>
+    <value>✓ WinDivert доступен</value>
   </data>
   <data name="WINDOWS_TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
-    <value>以管理員身份重新運行</value>
+    <value>Запуск от имени администратора</value>
   </data>
   <data name="WORST" xml:space="preserve">
-    <value>最大延遲</value>
+    <value>Макс.</value>
   </data>
   <data name="MACOS_QUARANTINE" xml:space="preserve">
-    <value>OpenTrace 被 macOS 隔離，工作可能不完全正常。
-請打開終端，使用下面的命令釋放 OpenTrace:
+    <value>OpenTrace находится в карантине macOS. 
+Для разблокировки выполните в терминале:
 
-sudo xattr -r -d com.apple.quarantine &lt;將 OpenTrace 拖放至此&gt;
+sudo xattr -r -d com.apple.quarantine [перетащите OpenTrace сюда]
 
-並在完成釋放後重啓 OpenTrace.</value>
+И перезапустите приложение.</value>
   </data>
   <data name="HOMEPAGE" xml:space="preserve">
-    <value>項目主頁</value>
+    <value>Домашняя страница</value>
   </data>
   <data name="RDNS_MODE_ALWAYS" xml:space="preserve">
-    <value>嘗試獲取完整 rDNS</value>
+    <value>Пытаться получить полный rDNS</value>
   </data>
   <data name="RDNS_MODE_DEFAULT" xml:space="preserve">
-    <value>快速 rDNS（默認）</value>
+    <value>Быстрый rDNS (по умолчанию)</value>
   </data>
   <data name="RDNS_MODE_DISABLE" xml:space="preserve">
-    <value>禁用 rDNS 查詢</value>
+    <value>Отключить rDNS-запросы</value>
   </data>
   <data name="CHECK_UPDATE_ON_STARTUP" xml:space="preserve">
-    <value>啟動時檢查更新</value>
+    <value>Проверять обновления при запуске</value>
   </data>
   <data name="DOWNLOAD_LATEST" xml:space="preserve">
-    <value>下載最新版 OpenTrace</value>
+    <value>Скачать последнюю версию</value>
   </data>
   <data name="UPDATE_AVAILABLE" xml:space="preserve">
-    <value>(最新版 {0} 已發佈，可到幫助菜單下載)</value>
+    <value>(Доступна версия {0}. См. меню «Справка».)</value>
   </data>
   <data name="PRIVACY_MASKING" xml:space="preserve">
-    <value>私隱保護</value>
-  </data>
-  <data name="PRIVACY_MASKING_ALL" xml:space="preserve">
-    <value>跳的所有訊息</value>
+    <value>Маскировка данных</value>
   </data>
   <data name="PRIVACY_MASKING_DESCR" xml:space="preserve">
-    <value>隱藏前</value>
+    <value>Скрывать первые</value>
+  </data>
+  <data name="PRIVACY_MASKING_ALL" xml:space="preserve">
+    <value>данные узлов</value>
   </data>
   <data name="PRIVACY_MASKING_IP_FULL" xml:space="preserve">
-    <value>跳的完整 IP</value>
+    <value>полный IP узлов</value>
   </data>
   <data name="PRIVACY_MASKING_IP_GEO" xml:space="preserve">
-    <value>跳的 IP 與地理位置</value>
+    <value>IP и локацию узлов</value>
   </data>
   <data name="PRIVACY_MASKING_IP_HALF" xml:space="preserve">
-    <value>跳的部分 IP</value>
+    <value>часть IP узлов</value>
   </data>
   <data name="AUTO_IP_SELECTION" xml:space="preserve">
-    <value>自動選擇 IP</value>
+    <value>Автовыбор IP</value>
   </data>
   <data name="IP_SELECTION_MANUAL" xml:space="preserve">
-    <value>手動選擇</value>
+    <value>Вручную</value>
   </data>
   <data name="IP_SELECTION_FIRST_IPV4" xml:space="preserve">
-    <value>自動選擇第一個 IPv4 (如果可用)</value>
+    <value>Автовыбор первого IPv4</value>
   </data>
   <data name="IP_SELECTION_FIRST_IPV6" xml:space="preserve">
-    <value>自動選擇第一個 IPv6 (如果可用)</value>
+    <value>Автовыбор первого IPv6</value>
   </data>
 </root>

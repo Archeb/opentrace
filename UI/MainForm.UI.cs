@@ -136,7 +136,8 @@ namespace OpenTrace.UI
                  new { Name = "正體中文", Code = "zh-TW" },
                  new { Name = "Español", Code = "es" },
                  new { Name = "Français", Code = "fr" },
-                 new { Name = "日本語", Code = "ja" }
+                 new { Name = "日本語", Code = "ja" },
+                 new { Name = "Русский", Code = "ru" }
             };
 
             foreach (var lang in languages)

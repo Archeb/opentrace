@@ -256,7 +256,7 @@ NextTrace 用に、必要な ICMP を許可するファイアウォール規則�
     <value>IP 地理位置情報プロバイダー</value>
   </data>
   <data name="LANGUAGE" xml:space="preserve">
-    <value>Language (言語)</value>
+    <value>言語 (Language)</value>
   </data>
   <data name="LAST" xml:space="preserve">
     <value>現在</value>
