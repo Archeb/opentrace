@@ -221,8 +221,8 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Custom DNS Resolvers
-        ///(DNS / DoH Supported) 的本地化字符串。
+        ///   查找类似 Custom DNS
+        ///(DNS / DoH) 的本地化字符串。
         /// </summary>
         public static string CUSTOM_DNS_RESOLVERS {
             get {
@@ -899,17 +899,24 @@ namespace OpenTrace.Properties {
         ///	polyline: null,
         ///
         ///	reset: function (hideMapPopup = false) {
-        ///		// 初始化地图（如果尚未初始化）
+        ///		// 使用 HTML 中预先初始化的地图实例
         ///		if (!this.map) {
-        ///			this.map = L.map(&apos;map&apos;).setView([0, 0], 2);
-        ///			L.tileLayer(&apos;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&apos;, {
-        ///				attribution: &apos;&amp;copy; &lt;a href=&quot;https://www.openstreetmap.org/copyright&quot;&gt;OpenStreetMap&lt;/a&gt; contributors&apos;
-        ///			}).addTo(this.map);
+        ///			this.map = window.osmMapInstance;
         ///		}
         ///
         ///		// 清除现有标记和折线
-        ///		this.markers.forEach(marker =&gt; marker.remove());
-        ///		this.markers = [] [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///		if (this.markers &amp;&amp; this.markers.length &gt; 0) {
+        ///			this.markers.forEach(marker =&gt; {
+        ///				if (this.map &amp;&amp; marker) {
+        ///					this.map.removeLayer(marker);
+        ///				}
+        ///			});
+        ///		}
+        ///		this.markers = [];
+        ///		
+        ///		if (this.polyline &amp;&amp; this.map) {
+        ///			this.map.removeLayer(this.polyline);
+        ///			 [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string openStreetMap {
             get {
@@ -947,8 +954,8 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Some data sources can only be selected after setting up an API endpoint/token.
-        ///To use an offline database, please refer to the NextTrace documentation to set it up. 的本地化字符串。
+        ///   查找类似 Some data sources require an API endpoint/token.
+        ///For offline databases, see NextTrace docs. 的本地化字符串。
         /// </summary>
         public static string OTHER_DATABASE_TIPS {
             get {
@@ -1029,7 +1036,7 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 hops by masking all info 的本地化字符串。
+        ///   查找类似 hops&apos; info 的本地化字符串。
         /// </summary>
         public static string PRIVACY_MASKING_ALL {
             get {
@@ -1038,7 +1045,7 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Protect the first 的本地化字符串。
+        ///   查找类似 Mask first 的本地化字符串。
         /// </summary>
         public static string PRIVACY_MASKING_DESCR {
             get {
@@ -1047,7 +1054,7 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 hops by fully masking IP 的本地化字符串。
+        ///   查找类似 hops&apos; full IP 的本地化字符串。
         /// </summary>
         public static string PRIVACY_MASKING_IP_FULL {
             get {
@@ -1056,7 +1063,7 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 hops by masking IP and Geo 的本地化字符串。
+        ///   查找类似 hops&apos; IP &amp; Geo 的本地化字符串。
         /// </summary>
         public static string PRIVACY_MASKING_IP_GEO {
             get {
@@ -1065,7 +1072,7 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 hops by partially masking IP 的本地化字符串。
+        ///   查找类似 hops&apos; partial IP 的本地化字符串。
         /// </summary>
         public static string PRIVACY_MASKING_IP_HALF {
             get {
@@ -1155,7 +1162,7 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Some settings will not be applied before the application is restarted 的本地化字符串。
+        ///   查找类似 Some changes require a restart. 的本地化字符串。
         /// </summary>
         public static string RESTART_TO_APPLY {
             get {

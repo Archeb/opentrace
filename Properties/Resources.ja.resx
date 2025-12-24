@@ -117,24 +117,24 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ABOUT" xml:space="preserve">
-    <value>About...</value>
+<data name="ABOUT" xml:space="preserve">
+    <value>OpenTrace について...</value>
   </data>
   <data name="ADDITIONAL_ARGS" xml:space="preserve">
-    <value>Additional Arguments</value>
+    <value>追加の引数</value>
   </data>
   <data name="APPTITLE" xml:space="preserve">
     <value>OpenTrace</value>
   </data>
   <data name="ASK_ADD_ICMP_FIREWALL_RULE" xml:space="preserve">
-    <value>NextTrace needs certain types (11 and 3) of ICMP messages to fully trace routes. But Windows firewall blocks these ICMP by default, causing only the last hop to be displayed.
-Would you like to add a firewall rule to allow needed ICMP for NextTrace?</value>
+    <value>NextTrace が完全なルート追跡を行うには、特定のタイプ（11 および 3）の ICMP メッセージを受信する必要があります。しかし、Windows ファイアウォールはデフォルトでこれらのメッセージをブロックするため、最終ホップのみが表示される原因となります。
+NextTrace 用に、必要な ICMP を許可するファイアウォール規則を追加しますか？</value>
   </data>
   <data name="AUTO_DETECT" xml:space="preserve">
-    <value>(Auto Detect)</value>
+    <value>(自動検出)</value>
   </data>
   <data name="AVRG" xml:space="preserve">
-    <value>Avg.</value>
+    <value>平均</value>
   </data>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="baiduMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
@@ -147,423 +147,421 @@ Would you like to add a firewall rule to allow needed ICMP for NextTrace?</value
     <value>..\Assets\MapPages\openStreetMap.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="BEST" xml:space="preserve">
-    <value>Best</value>
+    <value>最小</value>
   </data>
   <data name="CANCEL" xml:space="preserve">
-    <value>Cancel</value>
+    <value>キャンセル</value>
   </data>
   <data name="CHUNZHEN_ENDPOINT" xml:space="preserve">
-    <value>CHUNZHEN Endpoint</value>
+    <value>Chunzhen API エンドポイント</value>
   </data>
   <data name="CLOSE" xml:space="preserve">
-    <value>Close</value>
+    <value>閉じる</value>
   </data>
   <data name="COMBINE_GEO_ORG" xml:space="preserve">
-    <value>Combine Geography and Organization into a single column</value>
+    <value>地理位置情報と組織情報を 1 つの列にまとめる</value>
   </data>
   <data name="COPY" xml:space="preserve">
-    <value>Copy </value>
+    <value>コピー</value>
   </data>
   <data name="COPY_ALL_RESULTS" xml:space="preserve">
-    <value>Copy All Results</value>
+    <value>すべての結果をコピー</value>
   </data>
   <data name="CUSTOM_DNS_RESOLVERS" xml:space="preserve">
-    <value>Custom DNS
+    <value>カスタム DNS
 (DNS / DoH)</value>
   </data>
   <data name="DISABLE_IPGEO" xml:space="preserve">
-    <value>Disabled</value>
+    <value>無効</value>
   </data>
   <data name="DST_PORT_INIT_SEQ" xml:space="preserve">
-    <value>Destination port / Initial seq</value>
+    <value>宛先ポート / 初期シーケンス番号</value>
   </data>
   <data name="EMPTY_HOSTNAME_MSGBOX" xml:space="preserve">
-    <value>Host or IP cannot be empty</value>
+    <value>ホスト名または IP アドレスを入力してください</value>
   </data>
   <data name="ENABLE_IP2REGION" xml:space="preserve">
-    <value>Enable offline database Ip2region (ip2region.db)</value>
+    <value>オフライン DB Ip2region (ip2region.db) を有効にする</value>
   </data>
   <data name="ENABLE_IPINFOLOCAL" xml:space="preserve">
-    <value>Enable offline database IPInfo (ipinfoLocal.mmdb)</value>
+    <value>オフライン DB IPInfo (ipinfoLocal.mmdb) を有効にする</value>
   </data>
   <data name="ERR_MSG" xml:space="preserve">
-    <value>Error Message</value>
+    <value>エラーメッセージ</value>
   </data>
   <data name="ERR_WRITING_SETTINGS" xml:space="preserve">
-    <value>Error writing app settings.</value>
+    <value>設定の保存中にエラーが発生しました。</value>
   </data>
   <data name="EXCEPTIONAL_EXIT_MSG" xml:space="preserve">
-    <value>NextTrace process exited unexpectedly. Please refer to the error message to learn more and report this issue to us. Exit Code: </value>
+    <value>NextTrace プロセスが予期せず終了しました。詳細についてはエラーメッセージを確認し、問題を報告してください。終了コード: </value>
   </data>
   <data name="EXC_OUTPUT_FORM_PROMPT" xml:space="preserve">
-    <value>NextTrace generated one or more unexpected outputs during runtime. Please check the output below for troubleshooting. You can refer to the NextTrace Wiki to see if there is already an answer; if you cannot find the answer, please report it to us.</value>
+    <value>NextTrace の実行中に 1 つ以上の予期しない出力が生成されました。トラブルシューティングのために以下の出力を確認してください。NextTrace Wiki に既に解決策があるか確認し、解決しない場合は問題を報告してください。</value>
   </data>
   <data name="EXC_OUTPUT_FORM_REPORT" xml:space="preserve">
-    <value>Report this issue</value>
+    <value>問題を報告する</value>
   </data>
   <data name="EXC_OUTPUT_FORM_TITLE" xml:space="preserve">
-    <value>Unexpected Output</value>
+    <value>予期しない出力</value>
   </data>
   <data name="EXE_PATH" xml:space="preserve">
-    <value>Executable Path</value>
+    <value>実行ファイルのパス</value>
   </data>
   <data name="EXPORT" xml:space="preserve">
-    <value>Export</value>
+    <value>エクスポート</value>
   </data>
   <data name="EXPORT_TO" xml:space="preserve">
-    <value>Export To</value>
+    <value>名前を付けてエクスポート</value>
   </data>
   <data name="FAILED_TO_ADD_RULES" xml:space="preserve">
-    <value>Failed to add firewall rules.</value>
+    <value>ファイアウォール規則の追加に失敗しました。</value>
   </data>
   <data name="FILE" xml:space="preserve">
-    <value>File</value>
+    <value>ファイル</value>
   </data>
   <data name="FIRST_TTL_HOP" xml:space="preserve">
-    <value>First TTL Hop</value>
+    <value>開始ホップ数 (TTL)</value>
   </data>
   <data name="GENERAL" xml:space="preserve">
-    <value>General</value>
+    <value>全般設定</value>
   </data>
   <data name="GEOLOCATION" xml:space="preserve">
-    <value>Geolocation</value>
+    <value>地理位置情報</value>
   </data>
   <data name="googleMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\Scripts\googleMap.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="GRID_SIZE_RATIO" xml:space="preserve">
-    <value>Grid Height Ratio</value>
+    <value>グリッドの高さの比率</value>
   </data>
   <data name="HELP" xml:space="preserve">
-    <value>Help</value>
+    <value>ヘルプ</value>
   </data>
   <data name="HIDE_ADD_FIREWALL_PROMPT" xml:space="preserve">
-    <value>Hide the prompt to add firewall rules</value>
+    <value>ファイアウォール規則追加の確認を非表示にする</value>
   </data>
   <data name="HIDE_MAP_POPUP" xml:space="preserve">
-    <value>Hide the map's info windows</value>
+    <value>地図上の情報ウィンドウを非表示にする</value>
   </data>
   <data name="HISTORY" xml:space="preserve">
-    <value>History</value>
+    <value>履歴</value>
   </data>
   <data name="HOSTNAME" xml:space="preserve">
-    <value>Hostname</value>
+    <value>ホスト名</value>
   </data>
   <data name="IPINFO_TOKEN" xml:space="preserve">
-    <value>IPInfo Token (Optional)</value>
+    <value>IPInfo トークン (任意)</value>
   </data>
   <data name="IP_GEO_DATA_PROVIDER" xml:space="preserve">
-    <value>IP Geograph Data Provider</value>
+    <value>IP 地理位置情報プロバイダー</value>
   </data>
   <data name="LANGUAGE" xml:space="preserve">
-    <value>Language (语言)</value>
+    <value>Language (言語)</value>
   </data>
   <data name="LAST" xml:space="preserve">
-    <value>Last</value>
+    <value>現在</value>
   </data>
   <data name="LEOMOEAPI_HOSTPORT" xml:space="preserve">
-    <value>LeoMoeAPI Reverse Proxy</value>
+    <value>LeoMoeAPI リバースプロキシ</value>
   </data>
   <data name="LINKLOCAL_ADDR" xml:space="preserve">
-    <value>Link-local Address</value>
+    <value>リンクローカルアドレス</value>
   </data>
   <data name="LOCAL_MMDB" xml:space="preserve">
-    <value>Local MMDB Overwrite</value>
+    <value>ローカル MMDB 上書き</value>
   </data>
   <data name="LOCAL_MMDB_ADDR" xml:space="preserve">
-    <value>Address Template</value>
+    <value>住所テンプレート</value>
   </data>
   <data name="LOCAL_MMDB_ASN" xml:space="preserve">
-    <value>ASN Template</value>
+    <value>ASN テンプレート</value>
   </data>
   <data name="LOCAL_MMDB_HOSTNAME" xml:space="preserve">
-    <value>Hostname Template</value>
+    <value>ホスト名テンプレート</value>
   </data>
   <data name="LOCAL_MMDB_LAT" xml:space="preserve">
-    <value>Latitude Template</value>
+    <value>緯度テンプレート</value>
   </data>
   <data name="LOCAL_MMDB_LON" xml:space="preserve">
-    <value>Longitude Template</value>
+    <value>経度テンプレート</value>
   </data>
   <data name="LOCAL_MMDB_ORG" xml:space="preserve">
-    <value>Organization Template</value>
+    <value>組織テンプレート</value>
   </data>
   <data name="LOCAL_MMDB_PATH" xml:space="preserve">
-    <value>Local MMDB Path</value>
+    <value>ローカル MMDB パス</value>
   </data>
   <data name="LOCAL_MMDB_PRESETS" xml:space="preserve">
-    <value>Presets</value>
+    <value>プリセット</value>
   </data>
   <data name="LOCAL_MMDB_PREVIEW" xml:space="preserve">
-    <value>Preview MMDB File</value>
+    <value>MMDB ファイルのプレビュー</value>
   </data>
   <data name="LOCAL_MMDB_PREVIEW_IP" xml:space="preserve">
-    <value>Preview MMDB IP</value>
+    <value>プレビュー用 IP</value>
   </data>
   <data name="LOCAL_MMDB_SELECT" xml:space="preserve">
-    <value>Select MMDB File</value>
+    <value>MMDB ファイルを選択</value>
   </data>
   <data name="LOCAL_MMDB_TIPS" xml:space="preserve">
-    <value>Use MMDB query result overwrite original result
-Leave empty to avoid overwrite field
-Template Example: {.country}-{.city}</value>
+    <value>MMDB のクエリ結果で元の結果を上書きします。
+フィールドを上書きしない場合は空欄にしてください。
+テンプレート例: {.country}-{.city}</value>
   </data>
   <data name="LOOPBACK_ADDR" xml:space="preserve">
-    <value>Loopback Address</value>
+    <value>ループバックアドレス</value>
   </data>
   <data name="LOSS" xml:space="preserve">
-    <value>Loss%</value>
+    <value>損失%</value>
   </data>
   <data name="MAP_PROVIDER" xml:space="preserve">
-    <value>Map Provider</value>
+    <value>地図プロバイダー</value>
   </data>
   <data name="MAP_PROVIDER_BAIDU" xml:space="preserve">
-    <value>Baidu Maps</value>
+    <value>百度地図 (Baidu Maps)</value>
   </data>
   <data name="MAP_PROVIDER_GOOGLE" xml:space="preserve">
-    <value>Google Maps</value>
+    <value>Google マップ</value>
   </data>
   <data name="MAP_PROVIDER_OSM" xml:space="preserve">
     <value>OpenStreetMap</value>
   </data>
   <data name="MAX_HOPS" xml:space="preserve">
-    <value>Max Hops</value>
+    <value>最大ホップ数</value>
   </data>
   <data name="MISSING_COMP" xml:space="preserve">
-    <value>Missing Component</value>
+    <value>コンポーネントが見つかりません</value>
   </data>
   <data name="MISSING_COMP_TEXT" xml:space="preserve">
-    <value>OpenTrace requires the NextTrace utility to function properly. This executable is currently missing.
-NextTrace can be placed in either:
-1. The same directory as the OpenTrace executable
-OR
-2. A directory included in your system's PATH environment variable
+    <value>OpenTrace が正常に動作するには NextTrace ユーティリティが必要です。現在、この実行ファイルが見つかりません。
+NextTrace は以下のいずれかに配置してください：
+1. OpenTrace 実行ファイルと同じディレクトリ
+または
+2. システムの PATH 環境変数に含まれるディレクトリ
 
-Would you like to download the NextTrace utility now?</value>
+今すぐ NextTrace ユーティリティをダウンロードしますか？</value>
   </data>
   <data name="MISSING_COMP_TEXT_MACOS" xml:space="preserve">
-    <value>OpenTrace requires the NextTrace utility to function properly. This executable is currently missing.
-Please download NextTrace and set the permissions as follows:
+    <value>OpenTrace が正常に動作するには NextTrace ユーティリティが必要です。現在、この実行ファイルが見つかりません。
+NextTrace をダウンロードし、以下の権限を設定してください：
 
 sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
 sudo chown root:admin /path/to/nexttrace
 sudo chmod +sx /path/to/nexttrace
 
-And specify the path in the settings.
+その後、設定でパスを指定してください。
 
-Would you like to download the NextTrace utility now?</value>
+今すぐ NextTrace ユーティリティをダウンロードしますか？</value>
   </data>
   <data name="MISSING_COMP_PRIV_MACOS" xml:space="preserve">
-    <value>OpenTrace requires privileges to perform TCP/UDP trace.
-Please set the permissions of NextTrace as follows:
+    <value>OpenTrace が TCP/UDP トレースを実行するには権限が必要です。
+NextTrace の権限を以下のように設定してください：
 
 sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
 sudo chown root:admin /path/to/nexttrace
 sudo chmod +sx /path/to/nexttrace</value>
   </data>
   <data name="MISSING_PRIV_MACOS" xml:space="preserve">
-    <value>OpenTrace requires privileges to perform TCP/UDP trace</value>
+    <value>OpenTrace が TCP/UDP トレースを実行するには権限が必要です</value>
   </data>
   <data name="MISSING_SPECIFIED_COMP" xml:space="preserve">
-    <value>NextTrace could not be found in "{0}".</value>
+    <value>"{0}" に NextTrace が見つかりませんでした。</value>
   </data>
   <data name="MTR_MODE" xml:space="preserve">
-    <value>MTR Mode</value>
+    <value>MTR モード</value>
   </data>
   <data name="NAME_NOT_RESOLVED" xml:space="preserve">
-    <value>Could not find host {0}. Please check the name and try again.</value>
+    <value>ホスト {0} が見つかりませんでした。入力内容を確認して再試行してください。</value>
   </data>
   <data name="NEW" xml:space="preserve">
-    <value>New</value>
+    <value>新規作成</value>
   </data>
   <data name="NEW_WINDOW_TEXT" xml:space="preserve">
-    <value>Create a new OpenTrace window.</value>
+    <value>新しい OpenTrace ウィンドウを開きます。</value>
   </data>
   <data name="NEXTTRACE_PROXY" xml:space="preserve">
-    <value>Proxy</value>
+    <value>プロキシ</value>
   </data>
   <data name="RDNS_MODE" xml:space="preserve">
-    <value>Reverse DNS Lookup Mode</value>
+    <value>逆引き DNS クエリモード</value>
   </data>
   <data name="ORGANIZATION" xml:space="preserve">
-    <value>Organization</value>
+    <value>組織</value>
   </data>
   <data name="OTHER_DATABASE_TIPS" xml:space="preserve">
-    <value>Some data sources require an API endpoint/token.
-For offline databases, see NextTrace docs.</value>
+    <value>一部のデータソースには API エンドポイント/トークンが必要です。
+オフラインデータベースについては NextTrace のドキュメントを参照してください。</value>
   </data>
   <data name="PACKET_GROUP_INTERVAL" xml:space="preserve">
-    <value>Packet Group Interval</value>
-    <comment>--ttl-time</comment>
+    <value>パケットグループの間隔</value>
   </data>
   <data name="PACKET_INTERVAL" xml:space="preserve">
-    <value>Packet Interval</value>
-    <comment>--send-time</comment>
+    <value>パケットの間隔</value>
   </data>
   <data name="PARALLEL_REQ" xml:space="preserve">
-    <value>Parallel Requests</value>
+    <value>並列リクエスト数</value>
   </data>
   <data name="POW_PROVIDER" xml:space="preserve">
-    <value>LeoMoeAPI PoW Provider</value>
+    <value>LeoMoeAPI PoW プロバイダー</value>
   </data>
   <data name="POW_PROVIDER_LEOMOE" xml:space="preserve">
-    <value>api.leo.moe (Default)</value>
+    <value>api.leo.moe (デフォルト)</value>
   </data>
   <data name="POW_PROVIDER_SAKURA" xml:space="preserve">
-    <value>Nya Labs (China Mainland Optimized)</value>
+    <value>Nya Labs (中国本土最適化)</value>
   </data>
   <data name="PREFERENCES" xml:space="preserve">
-    <value>Preferences</value>
+    <value>設定</value>
   </data>
   <data name="PRIVATE_ADDR" xml:space="preserve">
-    <value>Private Address (LAN)</value>
+    <value>プライベートアドレス (LAN)</value>
   </data>
   <data name="PROTOCOL_FOR_TRACEROUTING" xml:space="preserve">
-    <value>Protocol for tracerouting</value>
+    <value>トレースに使用するプロトコル</value>
   </data>
   <data name="QUERIES_SETTING" xml:space="preserve">
-    <value>Queries (probes per each hop)</value>
+    <value>クエリ数 (各ホップの試行回数)</value>
   </data>
   <data name="QUIT" xml:space="preserve">
-    <value>Quit</value>
+    <value>終了</value>
   </data>
   <data name="RECV" xml:space="preserve">
-    <value>Recv</value>
+    <value>受信数</value>
   </data>
   <data name="RESTART_TO_APPLY" xml:space="preserve">
-    <value>Some changes require a restart.</value>
+    <value>一部の変更を適用するには再起動が必要です。</value>
   </data>
   <data name="SAVE" xml:space="preserve">
-    <value>Save</value>
+    <value>保存</value>
   </data>
   <data name="SELECT_IP_DROPDOWN" xml:space="preserve">
-    <value>Select an IP</value>
+    <value>IP を選択</value>
   </data>
   <data name="SELECT_IP_MSGBOX" xml:space="preserve">
-    <value>Please select an IP from the dropdown.</value>
+    <value>ドロップダウンから IP を選択してください。</value>
   </data>
   <data name="SENT" xml:space="preserve">
-    <value>Sent</value>
+    <value>送信数</value>
   </data>
   <data name="SHARED_ADDR" xml:space="preserve">
-    <value>Shared Address</value>
+    <value>シェアードアドレス</value>
   </data>
   <data name="SRC_ADDR_SETTING" xml:space="preserve">
-    <value>Source Address</value>
+    <value>ソースアドレス</value>
   </data>
   <data name="SRC_INTERFACE_SETTING" xml:space="preserve">
-    <value>Source Interface</value>
+    <value>ソースインターフェース</value>
   </data>
   <data name="START" xml:space="preserve">
-    <value>Start</value>
+    <value>開始</value>
   </data>
   <data name="STDEV" xml:space="preserve">
-    <value>Std. Dev.</value>
+    <value>標準偏差</value>
   </data>
   <data name="STOP" xml:space="preserve">
-    <value>Stop</value>
+    <value>停止</value>
   </data>
   <data name="SYSTEM_DNS_RESOLVER" xml:space="preserve">
-    <value>System DNS</value>
+    <value>システム DNS</value>
   </data>
   <data name="TIME_MS" xml:space="preserve">
-    <value>Time(ms)</value>
+    <value>時間(ms)</value>
   </data>
   <data name="TIME_ROUNDING" xml:space="preserve">
-    <value>Round hop latency to whole number</value>
+    <value>ホップの遅延を整数に丸める</value>
   </data>
   <data name="TRACEROUTING" xml:space="preserve">
-    <value>Tracerouting</value>
+    <value>ルート追跡 (Tracerouting)</value>
   </data>
   <data name="WINDOWS_TCP_UDP_REQUIREMENTS_TITLE" xml:space="preserve">
-    <value>TCP/UDP Mode Requirements</value>
+    <value>TCP/UDP モードの要件</value>
   </data>
   <data name="WINDOWS_TCP_UDP_MISSING_ADMIN" xml:space="preserve">
-    <value>TCP/UDP Traceroute on Windows requires administrator privileges. Do you want to restart OpenTrace with administrator privileges?</value>
+    <value>Windows での TCP/UDP トレースには管理者権限が必要です。OpenTrace を管理者権限で再起動しますか？</value>
   </data>
   <data name="WINDOWS_TCP_UDP_MISSING_NPCAP" xml:space="preserve">
-    <value>• Npcap is not installed</value>
+    <value>• Npcap がインストールされていません</value>
   </data>
   <data name="WINDOWS_TCP_UDP_MISSING_WINDIVERT" xml:space="preserve">
-    <value>• WinDivert is not found (Should be placed in the same directory as NextTrace)</value>
+    <value>• WinDivert が見つかりません (NextTrace と同じディレクトリに配置してください)</value>
   </data>
   <data name="WINDOWS_TCP_UDP_REQUIREMENTS_MSG" xml:space="preserve">
-    <value>TCP/UDP Traceroute on Windows requires the following:
+    <value>Windows で TCP/UDP トレースを行うには以下が必要です：
 
 {0}
 
-Click [Yes] to try running NextTrace directly (and don't ask again).
-Click [No] to download missing components.</value>
+[はい] をクリックすると直接 NextTrace の実行を試行します (以降、このメッセージを表示しません)。
+[いいえ] をクリックすると不足しているコンポーネントをダウンロードします。</value>
   </data>
   <data name="WINDOWS_TCP_UDP_HAS_NPCAP" xml:space="preserve">
-    <value>✓ Npcap is installed</value>
+    <value>✓ Npcap はインストール済みです</value>
   </data>
   <data name="WINDOWS_TCP_UDP_HAS_WINDIVERT" xml:space="preserve">
-    <value>✓ WinDivert is available</value>
+    <value>✓ WinDivert は利用可能です</value>
   </data>
   <data name="WINDOWS_TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
-    <value>Run as Administrator</value>
+    <value>管理者として実行</value>
   </data>
   <data name="WORST" xml:space="preserve">
-    <value>Worst</value>
+    <value>最大</value>
   </data>
   <data name="MACOS_QUARANTINE" xml:space="preserve">
-    <value>OpenTrace is quarantined by macOS, something may be inoperative.
-Please release OpenTrace as follows:
+    <value>OpenTrace が macOS によって隔離されているため、一部の機能が動作しない可能性があります。
+以下の手順で解除してください：
 
-sudo xattr -r -d com.apple.quarantine &lt;drag and drop OpenTrace here&gt;
+sudo xattr -r -d com.apple.quarantine &lt;ここに OpenTrace をドラッグ＆ドロップ&gt;
 
-And restart OpenTrace after execution.</value>
+実行後、OpenTrace を再起動してください。</value>
   </data>
   <data name="HOMEPAGE" xml:space="preserve">
-    <value>Homepage</value>
+    <value>ホームページ</value>
   </data>
   <data name="RDNS_MODE_ALWAYS" xml:space="preserve">
-    <value>Attempt to Retrieve Full rDNS</value>
+    <value>完全な rDNS の取得を試行</value>
   </data>
   <data name="RDNS_MODE_DEFAULT" xml:space="preserve">
-    <value>Fast rDNS (Default)</value>
+    <value>高速 rDNS (デフォルト)</value>
   </data>
   <data name="RDNS_MODE_DISABLE" xml:space="preserve">
-    <value>Disable rDNS Query</value>
+    <value>rDNS クエリを無効化</value>
   </data>
   <data name="CHECK_UPDATE_ON_STARTUP" xml:space="preserve">
-    <value>Check update on startup</value>
+    <value>起動時にアップデートを確認する</value>
   </data>
   <data name="DOWNLOAD_LATEST" xml:space="preserve">
-    <value>Download latest OpenTrace</value>
+    <value>最新の OpenTrace をダウンロード</value>
   </data>
   <data name="UPDATE_AVAILABLE" xml:space="preserve">
-    <value>(Version {0} now available. Download it from the Help menu.)</value>
+    <value>(バージョン {0} が利用可能です。ヘルプメニューからダウンロードしてください)</value>
   </data>
-	<data name="PRIVACY_MASKING" xml:space="preserve">
-  <value>Privacy Masking</value>
-    </data>
-	    <data name="PRIVACY_MASKING_DESCR" xml:space="preserve">
-      <value>Mask first</value>
-    </data>
-	    <data name="PRIVACY_MASKING_ALL" xml:space="preserve">
-      <value>hops' info</value>
-    </data>
-	    <data name="PRIVACY_MASKING_IP_FULL" xml:space="preserve">
-      <value>hops' full IP</value>
-    </data>
-	    <data name="PRIVACY_MASKING_IP_GEO" xml:space="preserve">
-      <value>hops' IP &amp; Geo</value>
-    </data>
-	    <data name="PRIVACY_MASKING_IP_HALF" xml:space="preserve">
-      <value>hops' partial IP</value>
-    </data>
+  <data name="PRIVACY_MASKING" xml:space="preserve">
+    <value>プライバシー保護</value>
+  </data>
+  <data name="PRIVACY_MASKING_DESCR" xml:space="preserve">
+    <value>最初の</value>
+  </data>
+  <data name="PRIVACY_MASKING_ALL" xml:space="preserve">
+    <value>ホップの全情報をマスク</value>
+  </data>
+  <data name="PRIVACY_MASKING_IP_FULL" xml:space="preserve">
+    <value>ホップの完全な IP をマスク</value>
+  </data>
+  <data name="PRIVACY_MASKING_IP_GEO" xml:space="preserve">
+    <value>ホップの IP と位置情報をマスク</value>
+  </data>
+  <data name="PRIVACY_MASKING_IP_HALF" xml:space="preserve">
+    <value>ホップの部分的な IP をマスク</value>
+  </data>
   <data name="AUTO_IP_SELECTION" xml:space="preserve">
-    <value>Auto IP Selection</value>
+    <value>IP アドレスの自動選択</value>
   </data>
   <data name="IP_SELECTION_MANUAL" xml:space="preserve">
-    <value>Manual</value>
+    <value>手動選択</value>
   </data>
   <data name="IP_SELECTION_FIRST_IPV4" xml:space="preserve">
-    <value>Auto-select First IPv4 (if available)</value>
+    <value>最初の IPv4 を自動選択 (利用可能な場合)</value>
   </data>
   <data name="IP_SELECTION_FIRST_IPV6" xml:space="preserve">
-    <value>Auto-select First IPv6 (if available)</value>
+    <value>最初の IPv6 を自動選択 (利用可能な場合)</value>
   </data>
 </root>

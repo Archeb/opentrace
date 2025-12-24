@@ -117,312 +117,451 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-	<data name="ABOUT" xml:space="preserve">
-    <value>A propos...</value>
+<data name="ABOUT" xml:space="preserve">
+    <value>À propos...</value>
   </data>
-	<data name="ADDITIONAL_ARGS" xml:space="preserve">
+  <data name="ADDITIONAL_ARGS" xml:space="preserve">
     <value>Arguments supplémentaires</value>
   </data>
-	<data name="APPTITLE" xml:space="preserve">
+  <data name="APPTITLE" xml:space="preserve">
     <value>OpenTrace</value>
   </data>
-	<data name="ASK_ADD_ICMP_FIREWALL_RULE" xml:space="preserve">
-    <value>NextTrace a besoin de certains types (11 et 3) de messages ICMP pour pouvoir tracer complètement les routes. Mais le pare-feu Windows bloque ces messages ICMP par défaut, ce qui fait que seule la dernière étape est affichée.
-Voulez-vous ajouter une règle de pare-feu pour autoriser les messages ICMP nécessaires à NextTrace ?</value>
+  <data name="ASK_ADD_ICMP_FIREWALL_RULE" xml:space="preserve">
+    <value>NextTrace a besoin de certains types (11 et 3) de messages ICMP pour tracer complètement les itinéraires. Cependant, le pare-feu Windows bloque ces messages par défaut, ce qui n'affiche que le dernier saut.
+Souhaitez-vous ajouter une règle de pare-feu pour autoriser l'ICMP nécessaire à NextTrace ?</value>
   </data>
-	<data name="AUTO_DETECT" xml:space="preserve">
+  <data name="AUTO_DETECT" xml:space="preserve">
     <value>(Détection automatique)</value>
   </data>
-	<data name="AVRG" xml:space="preserve">
+  <data name="AVRG" xml:space="preserve">
     <value>Moy.</value>
   </data>
-	<assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-	<data name="baiduMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
-		<value>..\Assets\Scripts\baiduMap.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-	</data>
-	<data name="BEST" xml:space="preserve">
-    <value>Meilleure</value>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="baiduMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Scripts\baiduMap.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-	<data name="CANCEL" xml:space="preserve">
+  <data name="openStreetMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Scripts\openStreetMap.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="openStreetMapHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\MapPages\openStreetMap.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="BEST" xml:space="preserve">
+    <value>Meilleur</value>
+  </data>
+  <data name="CANCEL" xml:space="preserve">
     <value>Annuler</value>
   </data>
-	<data name="CHUNZHEN_ENDPOINT" xml:space="preserve">
+  <data name="CHUNZHEN_ENDPOINT" xml:space="preserve">
     <value>Point de terminaison CHUNZHEN</value>
   </data>
-	<data name="CLOSE" xml:space="preserve">
+  <data name="CLOSE" xml:space="preserve">
     <value>Fermer</value>
   </data>
-	<data name="COMBINE_GEO_ORG" xml:space="preserve">
-    <value>Combiner la géolocalisation et l'organisation dans une seule colonne</value>
+  <data name="COMBINE_GEO_ORG" xml:space="preserve">
+    <value>Combiner la géolocalisation et l'organisation en une seule colonne</value>
   </data>
-	<data name="COPY" xml:space="preserve">
+  <data name="COPY" xml:space="preserve">
     <value>Copier</value>
   </data>
-	<data name="COPY_ALL_RESULTS" xml:space="preserve">
+  <data name="COPY_ALL_RESULTS" xml:space="preserve">
     <value>Copier tous les résultats</value>
   </data>
-	<data name="CUSTOM_DNS_RESOLVERS" xml:space="preserve">
-    <value>Résolveurs DNS personnalisés
-(Compatibles DNS / DoH)</value>
+  <data name="CUSTOM_DNS_RESOLVERS" xml:space="preserve">
+    <value>DNS personnalisés
+(DNS / DoH)</value>
   </data>
-	<data name="DISABLE_IPGEO" xml:space="preserve">
+  <data name="DISABLE_IPGEO" xml:space="preserve">
     <value>Désactivé</value>
   </data>
-	<data name="DST_PORT_INIT_SEQ" xml:space="preserve">
+  <data name="DST_PORT_INIT_SEQ" xml:space="preserve">
     <value>Port de destination / Séquence initiale</value>
   </data>
-	<data name="EMPTY_HOSTNAME_MSGBOX" xml:space="preserve">
-    <value>L'hôte ou l'adresse IP ne peut pas être vide</value>
+  <data name="EMPTY_HOSTNAME_MSGBOX" xml:space="preserve">
+    <value>L'hôte ou l'IP ne peut pas être vide</value>
   </data>
-	<data name="ENABLE_IP2REGION" xml:space="preserve">
+  <data name="ENABLE_IP2REGION" xml:space="preserve">
     <value>Activer la base de données hors ligne Ip2region (ip2region.db)</value>
   </data>
-	<data name="ENABLE_IPINFOLOCAL" xml:space="preserve">
+  <data name="ENABLE_IPINFOLOCAL" xml:space="preserve">
     <value>Activer la base de données hors ligne IPInfo (ipinfoLocal.mmdb)</value>
   </data>
-	<data name="ERR_MSG" xml:space="preserve">
+  <data name="ERR_MSG" xml:space="preserve">
     <value>Message d'erreur</value>
   </data>
-	<data name="ERR_WRITING_SETTINGS" xml:space="preserve">
-    <value>Erreur lors de l'enregistrement des paramètres.</value>
+  <data name="ERR_WRITING_SETTINGS" xml:space="preserve">
+    <value>Erreur lors de l'écriture des paramètres de l'application.</value>
   </data>
-	<data name="EXCEPTIONAL_EXIT_MSG" xml:space="preserve">
-    <value>Le processus NextTrace s'est terminé de façon inattendue. Veuillez consulter le message d'erreur pour en savoir plus et nous signaler ce problème. Code de sortie : </value>
+  <data name="EXCEPTIONAL_EXIT_MSG" xml:space="preserve">
+    <value>Le processus NextTrace s'est arrêté de manière inattendue. Veuillez vous référer au message d'erreur pour en savoir plus et nous signaler ce problème. Code de sortie : </value>
   </data>
-	<data name="EXC_OUTPUT_FORM_PROMPT" xml:space="preserve">
-    <value>NextTrace a généré une ou plusieurs sorties inattendues pendant l'exécution. Veuillez consulter la sortie ci-dessous pour dépanner le problème. Vous pouvez consulter le wiki de NextTrace pour voir s'il existe déjà une réponse ; si vous ne la trouvez pas, merci de nous signaler le problème.</value>
+  <data name="EXC_OUTPUT_FORM_PROMPT" xml:space="preserve">
+    <value>NextTrace a généré une ou plusieurs sorties inattendues. Veuillez vérifier la sortie ci-dessous pour le dépannage. Vous pouvez consulter le Wiki de NextTrace pour voir si une réponse existe déjà ; si vous ne trouvez pas la réponse, veuillez nous le signaler.</value>
   </data>
-	<data name="EXC_OUTPUT_FORM_REPORT" xml:space="preserve">
+  <data name="EXC_OUTPUT_FORM_REPORT" xml:space="preserve">
     <value>Signaler ce problème</value>
   </data>
-	<data name="EXC_OUTPUT_FORM_TITLE" xml:space="preserve">
+  <data name="EXC_OUTPUT_FORM_TITLE" xml:space="preserve">
     <value>Sortie inattendue</value>
   </data>
-	<data name="EXE_PATH" xml:space="preserve">
+  <data name="EXE_PATH" xml:space="preserve">
     <value>Chemin de l'exécutable</value>
   </data>
-	<data name="EXPORT" xml:space="preserve">
+  <data name="EXPORT" xml:space="preserve">
     <value>Exporter</value>
   </data>
-	<data name="EXPORT_TO" xml:space="preserve">
+  <data name="EXPORT_TO" xml:space="preserve">
     <value>Exporter vers</value>
   </data>
-	<data name="FAILED_TO_ADD_RULES" xml:space="preserve">
+  <data name="FAILED_TO_ADD_RULES" xml:space="preserve">
     <value>Échec de l'ajout des règles de pare-feu.</value>
   </data>
-	<data name="FILE" xml:space="preserve">
+  <data name="FILE" xml:space="preserve">
     <value>Fichier</value>
   </data>
-	<data name="FIRST_TTL_HOP" xml:space="preserve">
+  <data name="FIRST_TTL_HOP" xml:space="preserve">
     <value>Premier saut TTL</value>
   </data>
-	<data name="GENERAL" xml:space="preserve">
+  <data name="GENERAL" xml:space="preserve">
     <value>Général</value>
   </data>
-	<data name="GEOLOCATION" xml:space="preserve">
+  <data name="GEOLOCATION" xml:space="preserve">
     <value>Géolocalisation</value>
   </data>
-	<data name="googleMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
-		<value>..\Assets\Scripts\googleMap.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-	</data>
-	<data name="GRID_SIZE_RATIO" xml:space="preserve">
-    <value>Proportion de hauteur de la grille</value>
+  <data name="googleMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Scripts\googleMap.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
-	<data name="HELP" xml:space="preserve">
+  <data name="GRID_SIZE_RATIO" xml:space="preserve">
+    <value>Ratio de hauteur de la grille</value>
+  </data>
+  <data name="HELP" xml:space="preserve">
     <value>Aide</value>
   </data>
-	<data name="HIDE_ADD_FIREWALL_PROMPT" xml:space="preserve">
-    <value>Ne plus proposer d'ajouter des règles de pare-feu</value>
+  <data name="HIDE_ADD_FIREWALL_PROMPT" xml:space="preserve">
+    <value>Masquer l'invite d'ajout de règles de pare-feu</value>
   </data>
-	<data name="HIDE_MAP_POPUP" xml:space="preserve">
-    <value>Masquer les fenêtres d'information de la carte</value>
+  <data name="HIDE_MAP_POPUP" xml:space="preserve">
+    <value>Masquer les fenêtres d'info de la carte</value>
   </data>
-	<data name="HISTORY" xml:space="preserve">
+  <data name="HISTORY" xml:space="preserve">
     <value>Historique</value>
   </data>
-	<data name="HOSTNAME" xml:space="preserve">
+  <data name="HOSTNAME" xml:space="preserve">
     <value>Nom d'hôte</value>
   </data>
-	<data name="IPINFO_TOKEN" xml:space="preserve">
-    <value>Jeton IPInfo (optionnel)</value>
+  <data name="IPINFO_TOKEN" xml:space="preserve">
+    <value>Token IPInfo (Optionnel)</value>
   </data>
-	<data name="IP_GEO_DATA_PROVIDER" xml:space="preserve">
+  <data name="IP_GEO_DATA_PROVIDER" xml:space="preserve">
     <value>Fournisseur de données de géolocalisation IP</value>
   </data>
-	<data name="LANGUAGE" xml:space="preserve">
-    <value>Langue (语言)</value>
+  <data name="LANGUAGE" xml:space="preserve">
+    <value>Langue (Language)</value>
   </data>
-	<data name="LAST" xml:space="preserve">
-    <value>Dernière</value>
+  <data name="LAST" xml:space="preserve">
+    <value>Dernier</value>
   </data>
-	<data name="LEOMOEAPI_HOSTPORT" xml:space="preserve">
+  <data name="LEOMOEAPI_HOSTPORT" xml:space="preserve">
     <value>Proxy inverse LeoMoeAPI</value>
   </data>
-	<data name="LINKLOCAL_ADDR" xml:space="preserve">
-    <value>Adresse lien-local</value>
+  <data name="LINKLOCAL_ADDR" xml:space="preserve">
+    <value>Adresse de lien local</value>
   </data>
-	<data name="LOCAL_MMDB" xml:space="preserve">
+  <data name="LOCAL_MMDB" xml:space="preserve">
     <value>Remplacement MMDB local</value>
   </data>
-	<data name="LOCAL_MMDB_ADDR" xml:space="preserve">
-    <value>Modèle de géolocalisation</value>
+  <data name="LOCAL_MMDB_ADDR" xml:space="preserve">
+    <value>Modèle d'adresse</value>
   </data>
-	<data name="LOCAL_MMDB_ASN" xml:space="preserve">
+  <data name="LOCAL_MMDB_ASN" xml:space="preserve">
     <value>Modèle ASN</value>
   </data>
-	<data name="LOCAL_MMDB_HOSTNAME" xml:space="preserve">
+  <data name="LOCAL_MMDB_HOSTNAME" xml:space="preserve">
     <value>Modèle de nom d'hôte</value>
   </data>
-	<data name="LOCAL_MMDB_LAT" xml:space="preserve">
+  <data name="LOCAL_MMDB_LAT" xml:space="preserve">
     <value>Modèle de latitude</value>
   </data>
-	<data name="LOCAL_MMDB_LON" xml:space="preserve">
+  <data name="LOCAL_MMDB_LON" xml:space="preserve">
     <value>Modèle de longitude</value>
   </data>
-	<data name="LOCAL_MMDB_ORG" xml:space="preserve">
+  <data name="LOCAL_MMDB_ORG" xml:space="preserve">
     <value>Modèle d'organisation</value>
   </data>
-	<data name="LOCAL_MMDB_PATH" xml:space="preserve">
-    <value>Chemin du MMDB local</value>
+  <data name="LOCAL_MMDB_PATH" xml:space="preserve">
+    <value>Chemin MMDB local</value>
   </data>
-	<data name="LOCAL_MMDB_PRESETS" xml:space="preserve">
+  <data name="LOCAL_MMDB_PRESETS" xml:space="preserve">
     <value>Préréglages</value>
   </data>
-	<data name="LOCAL_MMDB_PREVIEW" xml:space="preserve">
+  <data name="LOCAL_MMDB_PREVIEW" xml:space="preserve">
     <value>Prévisualiser le fichier MMDB</value>
   </data>
-	<data name="LOCAL_MMDB_PREVIEW_IP" xml:space="preserve">
-    <value>Prévisualiser une IP</value>
+  <data name="LOCAL_MMDB_PREVIEW_IP" xml:space="preserve">
+    <value>Prévisualiser l'IP MMDB</value>
   </data>
-	<data name="LOCAL_MMDB_SELECT" xml:space="preserve">
-    <value>Choisir un fichier MMDB</value>
+  <data name="LOCAL_MMDB_SELECT" xml:space="preserve">
+    <value>Sélectionner un fichier MMDB</value>
   </data>
-	<data name="LOCAL_MMDB_TIPS" xml:space="preserve">
-    <value>Utiliser le résultat de requête MMDB pour remplacer le résultat d'origine
-Laisser vide pour ne pas remplacer le champ
+  <data name="LOCAL_MMDB_TIPS" xml:space="preserve">
+    <value>Utilise le résultat de la requête MMDB locale pour écraser le résultat original.
+Laissez vide pour éviter d'écraser le champ.
 Exemple de modèle : {.country}-{.city}</value>
   </data>
-	<data name="LOOPBACK_ADDR" xml:space="preserve">
-    <value>Adresse de loopback</value>
+  <data name="LOOPBACK_ADDR" xml:space="preserve">
+    <value>Adresse de bouclage (Loopback)</value>
   </data>
-	<data name="LOSS" xml:space="preserve">
+  <data name="LOSS" xml:space="preserve">
     <value>Perte %</value>
   </data>
-	<data name="MAP_PROVIDER" xml:space="preserve">
+  <data name="MAP_PROVIDER" xml:space="preserve">
     <value>Fournisseur de carte</value>
   </data>
-	<data name="MAP_PROVIDER_BAIDU" xml:space="preserve">
+  <data name="MAP_PROVIDER_BAIDU" xml:space="preserve">
     <value>Baidu Maps</value>
   </data>
-	<data name="MAP_PROVIDER_GOOGLE" xml:space="preserve">
+  <data name="MAP_PROVIDER_GOOGLE" xml:space="preserve">
     <value>Google Maps</value>
   </data>
-	<data name="MAP_PROVIDER_OSM" xml:space="preserve">
+  <data name="MAP_PROVIDER_OSM" xml:space="preserve">
     <value>OpenStreetMap</value>
   </data>
-	<data name="MAX_HOPS" xml:space="preserve">
-    <value>Nombre maximal de sauts</value>
+  <data name="MAX_HOPS" xml:space="preserve">
+    <value>Sauts max</value>
   </data>
-	<data name="MISSING_COMP" xml:space="preserve">
+  <data name="MISSING_COMP" xml:space="preserve">
     <value>Composant manquant</value>
   </data>
-	<data name="MISSING_COMP_TEXT" xml:space="preserve">
-    <value>OpenTrace nécessite l'utilitaire NextTrace pour fonctionner correctement, mais l'exécutable est introuvable.
-Vous pouvez placer NextTrace :
-1. Dans le même dossier que l'exécutable d'OpenTrace
+  <data name="MISSING_COMP_TEXT" xml:space="preserve">
+    <value>OpenTrace a besoin de l'utilitaire NextTrace pour fonctionner correctement. Cet exécutable est actuellement manquant.
+NextTrace peut être placé dans :
+1. Le même répertoire que l'exécutable OpenTrace
 OU
-2. Dans un dossier présent dans la variable d'environnement PATH de votre système
+2. Un répertoire inclus dans la variable d'environnement PATH de votre système
 
-Voulez-vous télécharger l'utilitaire NextTrace maintenant ?</value> </data>
-	<data name="MISSING_COMP_TEXT_MACOS" xml:space="preserve"> <value>OpenTrace nécessite l'utilitaire NextTrace pour fonctionner correctement, mais l'exécutable est introuvable.
+Souhaitez-vous télécharger l'utilitaire NextTrace maintenant ?</value>
+  </data>
+  <data name="MISSING_COMP_TEXT_MACOS" xml:space="preserve">
+    <value>OpenTrace a besoin de l'utilitaire NextTrace pour fonctionner correctement. Cet exécutable est actuellement manquant.
 Veuillez télécharger NextTrace et définir les permissions comme suit :
 
-sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
-sudo chown root:admin /path/to/nexttrace
-sudo chmod +sx /path/to/nexttrace
+sudo xattr -r -d com.apple.quarantine /chemin/vers/nexttrace
+sudo chown root:admin /chemin/vers/nexttrace
+sudo chmod +sx /chemin/vers/nexttrace
 
-Ensuite, indiquez le chemin dans les paramètres.
+Puis spécifiez le chemin dans les paramètres.
 
-Voulez-vous télécharger l'utilitaire NextTrace maintenant ?</value> </data>
-	<data name="MISSING_COMP_PRIV_MACOS" xml:space="preserve"> <value>OpenTrace nécessite des privilèges pour effectuer un traceroute TCP/UDP.
+Souhaitez-vous télécharger l'utilitaire NextTrace maintenant ?</value>
+  </data>
+  <data name="MISSING_COMP_PRIV_MACOS" xml:space="preserve">
+    <value>OpenTrace nécessite des privilèges pour effectuer des traces TCP/UDP.
 Veuillez définir les permissions de NextTrace comme suit :
 
-sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
-sudo chown root:admin /path/to/nexttrace
-sudo chmod +sx /path/to/nexttrace</value> </data>
-	<data name="MISSING_PRIV_MACOS" xml:space="preserve"> <value>OpenTrace nécessite des privilèges pour effectuer un traceroute TCP/UDP</value> </data>
-	<data name="MISSING_SPECIFIED_COMP" xml:space="preserve"> <value>Impossible de trouver NextTrace dans "{0}".</value> </data>
-	<data name="MTR_MODE" xml:space="preserve"> <value>Mode MTR</value> </data>
-	<data name="NAME_NOT_RESOLVED" xml:space="preserve"> <value>Impossible de trouver l'hôte {0}. Veuillez vérifier le nom puis réessayer.</value> </data>
-	<data name="NEW" xml:space="preserve"> <value>Nouveau</value> </data>
-	<data name="NEW_WINDOW_TEXT" xml:space="preserve"> <value>Créer une nouvelle fenêtre OpenTrace.</value> </data>
-	<data name="NEXTTRACE_PROXY" xml:space="preserve"> <value>Proxy</value> </data>
-	<data name="RDNS_MODE" xml:space="preserve"> <value>Mode de recherche DNS inversée</value> </data>
-	<data name="ORGANIZATION" xml:space="preserve"> <value>Organisation</value> </data>
-	<data name="OTHER_DATABASE_TIPS" xml:space="preserve"> <value>Certaines sources de données ne peuvent être sélectionnées qu'après la configuration d'un point de terminaison ou d'un jeton d'API.
-Pour utiliser une base de données hors ligne, veuillez consulter la documentation de NextTrace.</value> </data>
-	<data name="PACKET_GROUP_INTERVAL" xml:space="preserve"> <value>Intervalle entre groupes de paquets</value> <comment>--ttl-time</comment> </data>
-	<data name="PACKET_INTERVAL" xml:space="preserve"> <value>Intervalle des paquets</value> <comment>--send-time</comment> </data>
-	<data name="PARALLEL_REQ" xml:space="preserve"> <value>Requêtes parallèles</value> </data>
-	<data name="POW_PROVIDER" xml:space="preserve"> <value>Fournisseur de PoW LeoMoeAPI</value> </data>
-	<data name="POW_PROVIDER_LEOMOE" xml:space="preserve"> <value>api.leo.moe (par défaut)</value> </data>
-	<data name="POW_PROVIDER_SAKURA" xml:space="preserve"> <value>Nya Labs (optimisé pour la Chine continentale)</value> </data>
-	<data name="PREFERENCES" xml:space="preserve"> <value>Préférences</value> </data>
-	<data name="PRIVATE_ADDR" xml:space="preserve"> <value>Adresse privée (LAN)</value> </data>
-	<data name="PROTOCOL_FOR_TRACEROUTING" xml:space="preserve"> <value>Protocole pour le traceroute</value> </data>
-	<data name="QUERIES_SETTING" xml:space="preserve"> <value>Requêtes (sondes par saut)</value> </data>
-	<data name="QUIT" xml:space="preserve"> <value>Quitter</value> </data>
-	<data name="RECV" xml:space="preserve"> <value>Reçus</value> </data>
-	<data name="RESTART_TO_APPLY" xml:space="preserve"> <value>Certains paramètres ne seront appliqués qu'après le redémarrage de l'application</value> </data>
-	<data name="SAVE" xml:space="preserve"> <value>Enregistrer</value> </data>
-	<data name="SELECT_IP_DROPDOWN" xml:space="preserve"> <value>Sélectionnez une adresse IP</value> </data>
-	<data name="SELECT_IP_MSGBOX" xml:space="preserve"> <value>Veuillez sélectionner une adresse IP dans la liste déroulante.</value> </data>
-	<data name="SENT" xml:space="preserve"> <value>Envoyés</value> </data>
-	<data name="SHARED_ADDR" xml:space="preserve"> <value>Adresse partagée</value> </data>
-	<data name="SRC_ADDR_SETTING" xml:space="preserve"> <value>Adresse source</value> </data>
-	<data name="SRC_INTERFACE_SETTING" xml:space="preserve"> <value>Interface source</value> </data>
-	<data name="START" xml:space="preserve"> <value>Démarrer</value> </data>
-	<data name="STDEV" xml:space="preserve"> <value>Écart type</value> </data>
-	<data name="STOP" xml:space="preserve"> <value>Arrêter</value> </data>
-	<data name="SYSTEM_DNS_RESOLVER" xml:space="preserve"> <value>DNS système</value> </data>
-	<data name="TIME_MS" xml:space="preserve"> <value>Temps (ms)</value> </data>
-	<data name="TIME_ROUNDING" xml:space="preserve"> <value>Arrondir la latence à l'entier le plus proche</value> </data>
-	<data name="TRACEROUTING" xml:space="preserve"> <value>Traceroute</value> </data>
-	<data name="WINDOWS_TCP_UDP_REQUIREMENTS_TITLE" xml:space="preserve"> <value>Prérequis du mode TCP/UDP</value> </data>
-	<data name="WINDOWS_TCP_UDP_MISSING_ADMIN" xml:space="preserve"> <value>Le traceroute TCP/UDP sous Windows nécessite des privilèges administrateur. Voulez-vous redémarrer OpenTrace avec les privilèges administrateur ?</value> </data>
-	<data name="WINDOWS_TCP_UDP_MISSING_NPCAP" xml:space="preserve"> <value>• Npcap n'est pas installé</value> </data>
-	<data name="WINDOWS_TCP_UDP_MISSING_WINDIVERT" xml:space="preserve"> <value>• WinDivert est introuvable (doit être placé dans le même dossier que NextTrace)</value> </data>
-	<data name="WINDOWS_TCP_UDP_REQUIREMENTS_MSG" xml:space="preserve"> <value>Le traceroute TCP/UDP sous Windows nécessite les éléments suivants :
+sudo xattr -r -d com.apple.quarantine /chemin/vers/nexttrace
+sudo chown root:admin /chemin/vers/nexttrace
+sudo chmod +sx /chemin/vers/nexttrace</value>
+  </data>
+  <data name="MISSING_PRIV_MACOS" xml:space="preserve">
+    <value>OpenTrace nécessite des privilèges pour effectuer des traces TCP/UDP</value>
+  </data>
+  <data name="MISSING_SPECIFIED_COMP" xml:space="preserve">
+    <value>NextTrace n'a pas pu être trouvé dans "{0}".</value>
+  </data>
+  <data name="MTR_MODE" xml:space="preserve">
+    <value>Mode MTR</value>
+  </data>
+  <data name="NAME_NOT_RESOLVED" xml:space="preserve">
+    <value>Impossible de trouver l'hôte {0}. Veuillez vérifier le nom et réessayer.</value>
+  </data>
+  <data name="NEW" xml:space="preserve">
+    <value>Nouveau</value>
+  </data>
+  <data name="NEW_WINDOW_TEXT" xml:space="preserve">
+    <value>Créer une nouvelle fenêtre OpenTrace.</value>
+  </data>
+  <data name="NEXTTRACE_PROXY" xml:space="preserve">
+    <value>Proxy</value>
+  </data>
+  <data name="RDNS_MODE" xml:space="preserve">
+    <value>Mode de recherche DNS inversée (rDNS)</value>
+  </data>
+  <data name="ORGANIZATION" xml:space="preserve">
+    <value>Organisation</value>
+  </data>
+  <data name="OTHER_DATABASE_TIPS" xml:space="preserve">
+    <value>Certaines sources de données nécessitent un point de terminaison API/token.
+Pour les bases de données hors ligne, voir la documentation de NextTrace.</value>
+  </data>
+  <data name="PACKET_GROUP_INTERVAL" xml:space="preserve">
+    <value>Intervalle de groupe de paquets</value>
+  </data>
+  <data name="PACKET_INTERVAL" xml:space="preserve">
+    <value>Intervalle entre les paquets</value>
+  </data>
+  <data name="PARALLEL_REQ" xml:space="preserve">
+    <value>Requêtes parallèles</value>
+  </data>
+  <data name="POW_PROVIDER" xml:space="preserve">
+    <value>Fournisseur PoW LeoMoeAPI</value>
+  </data>
+  <data name="POW_PROVIDER_LEOMOE" xml:space="preserve">
+    <value>api.leo.moe (Défaut)</value>
+  </data>
+  <data name="POW_PROVIDER_SAKURA" xml:space="preserve">
+    <value>Nya Labs (Optimisé pour la Chine continentale)</value>
+  </data>
+  <data name="PREFERENCES" xml:space="preserve">
+    <value>Préférences</value>
+  </data>
+  <data name="PRIVATE_ADDR" xml:space="preserve">
+    <value>Adresse privée (LAN)</value>
+  </data>
+  <data name="PROTOCOL_FOR_TRACEROUTING" xml:space="preserve">
+    <value>Protocole pour le traceroute</value>
+  </data>
+  <data name="QUERIES_SETTING" xml:space="preserve">
+    <value>Requêtes (sondes par saut)</value>
+  </data>
+  <data name="QUIT" xml:space="preserve">
+    <value>Quitter</value>
+  </data>
+  <data name="RECV" xml:space="preserve">
+    <value>Recus</value>
+  </data>
+  <data name="RESTART_TO_APPLY" xml:space="preserve">
+    <value>Certains changements nécessitent un redémarrage.</value>
+  </data>
+  <data name="SAVE" xml:space="preserve">
+    <value>Enregistrer</value>
+  </data>
+  <data name="SELECT_IP_DROPDOWN" xml:space="preserve">
+    <value>Sélectionner une IP</value>
+  </data>
+  <data name="SELECT_IP_MSGBOX" xml:space="preserve">
+    <value>Veuillez sélectionner une IP dans la liste déroulante.</value>
+  </data>
+  <data name="SENT" xml:space="preserve">
+    <value>Envoyés</value>
+  </data>
+  <data name="SHARED_ADDR" xml:space="preserve">
+    <value>Adresse partagée</value>
+  </data>
+  <data name="SRC_ADDR_SETTING" xml:space="preserve">
+    <value>Adresse source</value>
+  </data>
+  <data name="SRC_INTERFACE_SETTING" xml:space="preserve">
+    <value>Interface source</value>
+  </data>
+  <data name="START" xml:space="preserve">
+    <value>Démarrer</value>
+  </data>
+  <data name="STDEV" xml:space="preserve">
+    <value>Écart-type</value>
+  </data>
+  <data name="STOP" xml:space="preserve">
+    <value>Arrêter</value>
+  </data>
+  <data name="SYSTEM_DNS_RESOLVER" xml:space="preserve">
+    <value>DNS système</value>
+  </data>
+  <data name="TIME_MS" xml:space="preserve">
+    <value>Temps (ms)</value>
+  </data>
+  <data name="TIME_ROUNDING" xml:space="preserve">
+    <value>Arrondir la latence du saut à l'entier le plus proche</value>
+  </data>
+  <data name="TRACEROUTING" xml:space="preserve">
+    <value>Traceroute</value>
+  </data>
+  <data name="WINDOWS_TCP_UDP_REQUIREMENTS_TITLE" xml:space="preserve">
+    <value>Conditions du mode TCP/UDP</value>
+  </data>
+  <data name="WINDOWS_TCP_UDP_MISSING_ADMIN" xml:space="preserve">
+    <value>Le Traceroute TCP/UDP sur Windows nécessite des privilèges d'administrateur. Voulez-vous redémarrer OpenTrace avec les privilèges d'administrateur ?</value>
+  </data>
+  <data name="WINDOWS_TCP_UDP_MISSING_NPCAP" xml:space="preserve">
+    <value>• Npcap n'est pas installé</value>
+  </data>
+  <data name="WINDOWS_TCP_UDP_MISSING_WINDIVERT" xml:space="preserve">
+    <value>• WinDivert est introuvable (doit être placé dans le même répertoire que NextTrace)</value>
+  </data>
+  <data name="WINDOWS_TCP_UDP_REQUIREMENTS_MSG" xml:space="preserve">
+    <value>Le Traceroute TCP/UDP sur Windows nécessite ce qui suit :
 
 {0}
 
-Cliquez sur [Oui] pour essayer d'exécuter directement NextTrace (et ne plus afficher ce message).
-Cliquez sur [Non] pour télécharger les composants manquants.</value> </data>
-	<data name="WINDOWS_TCP_UDP_HAS_NPCAP" xml:space="preserve"> <value>✓ Npcap est installé</value> </data>
-	<data name="WINDOWS_TCP_UDP_HAS_WINDIVERT" xml:space="preserve"> <value>✓ WinDivert est disponible</value> </data>
-	<data name="WINDOWS_TCP_UDP_RUN_AS_ADMIN" xml:space="preserve"> <value>Exécuter en tant qu'administrateur</value> </data>
-	<data name="WORST" xml:space="preserve"> <value>Pire</value> </data>
-	<data name="MACOS_QUARANTINE" xml:space="preserve"> <value>OpenTrace est mis en quarantaine par macOS ; certaines fonctions peuvent ne pas fonctionner.
-Veuillez lever la quarantaine d'OpenTrace comme suit :
+Cliquez sur [Oui] pour essayer d'exécuter NextTrace directement (et ne plus demander).
+Cliquez sur [Non] pour télécharger les composants manquants.</value>
+  </data>
+  <data name="WINDOWS_TCP_UDP_HAS_NPCAP" xml:space="preserve">
+    <value>✓ Npcap est installé</value>
+  </data>
+  <data name="WINDOWS_TCP_UDP_HAS_WINDIVERT" xml:space="preserve">
+    <value>✓ WinDivert est disponible</value>
+  </data>
+  <data name="WINDOWS_TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
+    <value>Exécuter en tant qu'administrateur</value>
+  </data>
+  <data name="WORST" xml:space="preserve">
+    <value>Pire</value>
+  </data>
+  <data name="MACOS_QUARANTINE" xml:space="preserve">
+    <value>OpenTrace est mis en quarantaine par macOS, certaines fonctions peuvent être inopérantes.
+Veuillez libérer OpenTrace comme suit :
 
-sudo xattr -r -d com.apple.quarantine &lt;faites glisser et déposez OpenTrace ici&gt;
+sudo xattr -r -d com.apple.quarantine &lt;glissez et déposez OpenTrace ici&gt;
 
-Puis redémarrez OpenTrace après exécution.</value> </data>
-	<data name="HOMEPAGE" xml:space="preserve"> <value>Page d'accueil du projet</value> </data>
-	<data name="RDNS_MODE_ALWAYS" xml:space="preserve"> <value>Essayer de récupérer le rDNS complet</value> </data>
-	<data name="RDNS_MODE_DEFAULT" xml:space="preserve"> <value>rDNS rapide (par défaut)</value> </data>
-	<data name="RDNS_MODE_DISABLE" xml:space="preserve"> <value>Désactiver les requêtes rDNS</value> </data>
-	<data name="CHECK_UPDATE_ON_STARTUP" xml:space="preserve"> <value>Rechercher les mises à jour au démarrage</value> </data>
-	<data name="DOWNLOAD_LATEST" xml:space="preserve"> <value>Télécharger la dernière version d'OpenTrace</value> </data>
-	<data name="UPDATE_AVAILABLE" xml:space="preserve"> <value>(Version {0} disponible. Téléchargez-la depuis le menu Aide.)</value> </data>
-	<data name="PRIVACY_MASKING" xml:space="preserve"> <value>Protection de la vie privée</value> </data>
-	<data name="PRIVACY_MASKING_ALL" xml:space="preserve"> <value> sauts en masquant toutes les informations</value> </data>
-	<data name="PRIVACY_MASKING_DESCR" xml:space="preserve"> <value>Protéger les </value> </data>
-	<data name="PRIVACY_MASKING_IP_FULL" xml:space="preserve"> <value> sauts en masquant complètement l'IP</value> </data>
-	<data name="PRIVACY_MASKING_IP_GEO" xml:space="preserve"> <value> sauts en masquant l'IP et la géolocalisation</value> </data>
-	<data name="PRIVACY_MASKING_IP_HALF" xml:space="preserve"> <value> sauts en masquant partiellement l'IP</value> </data>
-	<data name="AUTO_IP_SELECTION" xml:space="preserve"> <value>Sélection automatique de l'IP</value> </data>
-	<data name="IP_SELECTION_MANUAL" xml:space="preserve"> <value>Manuel</value> </data>
-	<data name="IP_SELECTION_FIRST_IPV4" xml:space="preserve"> <value>Sélectionner automatiquement la première adresse IPv4 (si disponible)</value> </data>
-	<data name="IP_SELECTION_FIRST_IPV6" xml:space="preserve"> <value>Sélectionner automatiquement la première adresse IPv6 (si disponible)</value> </data>
+Et redémarrez OpenTrace après l'exécution.</value>
+  </data>
+  <data name="HOMEPAGE" xml:space="preserve">
+    <value>Page d'accueil</value>
+  </data>
+  <data name="RDNS_MODE_ALWAYS" xml:space="preserve">
+    <value>Tenter de récupérer le rDNS complet</value>
+  </data>
+  <data name="RDNS_MODE_DEFAULT" xml:space="preserve">
+    <value>rDNS Rapide (Défaut)</value>
+  </data>
+  <data name="RDNS_MODE_DISABLE" xml:space="preserve">
+    <value>Désactiver la requête rDNS</value>
+  </data>
+  <data name="CHECK_UPDATE_ON_STARTUP" xml:space="preserve">
+    <value>Vérifier les mises à jour au démarrage</value>
+  </data>
+  <data name="DOWNLOAD_LATEST" xml:space="preserve">
+    <value>Télécharger la dernière version d'OpenTrace</value>
+  </data>
+  <data name="UPDATE_AVAILABLE" xml:space="preserve">
+    <value>(Version {0} disponible. Téléchargez-la depuis le menu Aide.)</value>
+  </data>
+  <data name="PRIVACY_MASKING" xml:space="preserve">
+    <value>Masquage de confidentialité</value>
+  </data>
+  <data name="PRIVACY_MASKING_DESCR" xml:space="preserve">
+    <value>Masquer les premiers</value>
+  </data>
+  <data name="PRIVACY_MASKING_ALL" xml:space="preserve">
+    <value>infos des sauts</value>
+  </data>
+  <data name="PRIVACY_MASKING_IP_FULL" xml:space="preserve">
+    <value>IP complètes des sauts</value>
+  </data>
+  <data name="PRIVACY_MASKING_IP_GEO" xml:space="preserve">
+    <value>IP et Géo des sauts</value>
+  </data>
+  <data name="PRIVACY_MASKING_IP_HALF" xml:space="preserve">
+    <value>IP partielles des sauts</value>
+  </data>
+  <data name="AUTO_IP_SELECTION" xml:space="preserve">
+    <value>Sélection automatique de l'IP</value>
+  </data>
+  <data name="IP_SELECTION_MANUAL" xml:space="preserve">
+    <value>Manuel</value>
+  </data>
+  <data name="IP_SELECTION_FIRST_IPV4" xml:space="preserve">
+    <value>Auto-sélectionner la première IPv4 (si disponible)</value>
+  </data>
+  <data name="IP_SELECTION_FIRST_IPV6" xml:space="preserve">
+    <value>Auto-sélectionner la première IPv6 (si disponible)</value>
+  </data>
 </root>
