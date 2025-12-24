@@ -54,6 +54,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Properties\Resources.fr.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Update="Properties\Resources.zh-HK.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
     </EmbeddedResource>

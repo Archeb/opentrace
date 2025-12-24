@@ -32,6 +32,7 @@
 											<ListItem Text="繁體中文" Key="zh-HK"></ListItem>
 											<ListItem Text="正體中文" Key="zh-TW"></ListItem>
 											<ListItem Text="Español" Key="es"></ListItem>
+											<ListItem Text="Français" Key="fr"></ListItem>
 										</DropDown>
 									</TableRow>
 									<TableRow>
