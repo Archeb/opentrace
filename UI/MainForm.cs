@@ -583,13 +583,16 @@ namespace OpenTrace.UI
             try
             {
                 // 重置或者初始化地图
-                switch (mapWebView.Url.Host)
+                switch (UserSettings.mapProvider)
                 {
-                    case "geo-devrel-javascript-samples.web.app":
+                    case "google":
                         mapWebView.ExecuteScriptAsync(OpenTrace.Properties.Resources.googleMap);
                         break;
-                    case "lbs.baidu.com":
+                    case "baidu":
                         mapWebView.ExecuteScriptAsync(OpenTrace.Properties.Resources.baiduMap);
+                        break;
+                    case "openstreetmap":
+                        mapWebView.ExecuteScriptAsync(OpenTrace.Properties.Resources.openStreetMap);
                         break;
                 }
                 mapWebView.ExecuteScriptAsync("window.opentrace.reset(" + UserSettings.hideMapPopup.ToString().ToLower() + ")");

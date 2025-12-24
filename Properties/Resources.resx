@@ -140,6 +140,12 @@ Would you like to add a firewall rule to allow needed ICMP for NextTrace?</value
   <data name="baiduMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Assets\Scripts\baiduMap.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
+  <data name="openStreetMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Scripts\openStreetMap.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="openStreetMapHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\MapPages\openStreetMap.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
   <data name="BEST" xml:space="preserve">
     <value>Best</value>
   </data>

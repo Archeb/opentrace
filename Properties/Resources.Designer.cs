@@ -892,6 +892,52 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 window.opentrace = {
+        ///	Hops: [],
+        ///	map: null,
+        ///	markers: [],
+        ///	polyline: null,
+        ///
+        ///	reset: function (hideMapPopup = false) {
+        ///		// 初始化地图（如果尚未初始化）
+        ///		if (!this.map) {
+        ///			this.map = L.map(&apos;map&apos;).setView([0, 0], 2);
+        ///			L.tileLayer(&apos;https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png&apos;, {
+        ///				attribution: &apos;&amp;copy; &lt;a href=&quot;https://www.openstreetmap.org/copyright&quot;&gt;OpenStreetMap&lt;/a&gt; contributors&apos;
+        ///			}).addTo(this.map);
+        ///		}
+        ///
+        ///		// 清除现有标记和折线
+        ///		this.markers.forEach(marker =&gt; marker.remove());
+        ///		this.markers = [] [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        public static string openStreetMap {
+            get {
+                return ResourceManager.GetString("openStreetMap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 &lt;!DOCTYPE html&gt;
+        ///&lt;html&gt;
+        ///&lt;head&gt;
+        ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
+        ///    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+        ///    &lt;title&gt;OpenTrace Map&lt;/title&gt;
+        ///    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://unpkg.com/leaflet@1.9.4/dist/leaflet.css&quot; 
+        ///          integrity=&quot;sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=&quot; 
+        ///          crossorigin=&quot;&quot; /&gt;
+        ///    &lt;script src=&quot;https://unpkg.com/leaflet@1.9.4/dist/leaflet.js&quot; 
+        ///            integrity=&quot;sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=&quot; 
+        ///  [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// </summary>
+        public static string openStreetMapHtml {
+            get {
+                return ResourceManager.GetString("openStreetMapHtml", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Organization 的本地化字符串。
         /// </summary>
         public static string ORGANIZATION {

@@ -64,11 +64,21 @@ namespace OpenTrace.UI
             var preferenceCommand = new Command { MenuText = Resources.PREFERENCES, Shortcut = Application.Instance.CommonModifier | Keys.Comma };
             preferenceCommand.Executed += (sender, e) =>
             {
+                // 保存当前地图提供商设置，用于检测变化
+                var oldMapProvider = UserSettings.mapProvider;
+                
                 new PreferencesDialog().ShowModal(this);
+                
                 // 关闭设置后刷新 DNS 服务器列表
                 LoadDNSResolvers();
                 // 刷新grid高度大小
                 MainForm_SizeChanged(sender, e);
+                
+                // 检查地图提供商是否发生变化，如果变化则重新加载地图
+                if (oldMapProvider != UserSettings.mapProvider)
+                {
+                    LoadMapProvider();
+                }
             };
 
             Menu = new MenuBar
@@ -272,6 +282,18 @@ namespace OpenTrace.UI
         private void CreateMapWebView()
         {
             mapWebView = new WebView();
+            LoadMapProvider();
+            mapWebView.DocumentLoaded += (sender, e) =>
+            {
+                ResetMap();
+            };
+        }
+
+        /// <summary>
+        /// 根据当前地图提供商设置加载地图页面
+        /// </summary>
+        private void LoadMapProvider()
+        {
             switch (UserSettings.mapProvider)
             {
                 case "baidu":
@@ -280,11 +302,11 @@ namespace OpenTrace.UI
                 case "google":
                     mapWebView.Url = new Uri("https://geo-devrel-javascript-samples.web.app/samples/map-simple/app/dist/");
                     break;
+                case "openstreetmap":
+                    // 使用内嵌的 OpenStreetMap HTML 页面
+                    mapWebView.LoadHtml(OpenTrace.Properties.Resources.openStreetMapHtml);
+                    break;
             }
-            mapWebView.DocumentLoaded += (sender, e) =>
-            {
-                ResetMap();
-            };
         }
 
         /// <summary>
