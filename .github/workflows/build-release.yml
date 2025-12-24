@@ -26,17 +26,17 @@ jobs:
         runtime: [win-x64, linux-x64, osx-x64, linux-arm64, osx-arm64, win-arm64]
         include:
           - runtime: win-x64
-            artifact_path: ./bin/Wpf/Release/net48/win-x64
+            artifact_path: ./bin/Wpf/Release/net481/win-x64
             self_contained: "--no-self-contained"
-            framework: net48
+            framework: net481
             nt_file: nexttrace_windows_amd64.exe
             nt_fn: nexttrace.exe
             archive_command: "zip -r"
             archive_extension: zip
           - runtime: win-arm64
-            artifact_path: ./bin/Wpf/Release/net48/win-arm64
+            artifact_path: ./bin/Wpf/Release/net481/win-arm64
             self_contained: "--no-self-contained"
-            framework: net48
+            framework: net481
             nt_file: nexttrace_windows_arm64.exe
             nt_fn: nexttrace.exe
             archive_command: "zip -r"
