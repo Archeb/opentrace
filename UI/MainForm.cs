@@ -596,6 +596,22 @@ namespace OpenTrace.UI
                         break;
                 }
                 mapWebView.ExecuteScriptAsync("window.opentrace.reset(" + UserSettings.hideMapPopup.ToString().ToLower() + ")");
+                
+                // 恢复地图上的点
+                if (tracerouteResultCollection.Count > 0)
+                {
+                    foreach (var hop in tracerouteResultCollection)
+                    {
+                        if (hop.HopData != null && hop.HopData.Count > 0)
+                        {
+                            var lastResult = hop.HopData.Last();
+                            if (!string.IsNullOrEmpty(lastResult.Latitude) && !string.IsNullOrEmpty(lastResult.Longitude))
+                            {
+                                UpdateMap(lastResult);
+                            }
+                        }
+                    }
+                }
             } catch (Exception e)
             {
                 MessageBox.Show($"Message: ${e.Message} \nSource: ${e.Source} \nStackTrace: ${e.StackTrace}", "Exception Occurred");

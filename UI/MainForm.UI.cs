@@ -19,6 +19,22 @@ namespace OpenTrace.UI
         /// </summary>
         private void InitializeComponent()
         {
+            // 构建 UI
+            BuildUI();
+
+            // 绑定窗口事件
+            BindWindowEvents();
+        }
+
+        private void BuildUI()
+        {
+            // 保存当前状态
+            string currentHostText = HostInputBox?.Text ?? "";
+            
+            // 清除旧内容
+            if (Menu != null) Menu.Items.Clear();
+            Content = null;
+            
             Title = Resources.APPTITLE + " v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             MinimumSize = new Size(900, 600);
 
@@ -27,12 +43,32 @@ namespace OpenTrace.UI
 
             // 创建控件
             CreateControls();
+            
+            // 恢复状态
+            if (HostInputBox != null) HostInputBox.Text = currentHostText;
 
             // 创建布局
             CreateLayout();
 
-            // 绑定窗口事件
-            BindWindowEvents();
+        }
+
+        /// <summary>
+        /// Update the UI language and rebuild the interface
+        /// </summary>
+        public void UpdateLanguage(string culture)
+        {
+             if (UserSettings.language != culture)
+             {
+                 UserSettings.language = culture;
+                 UserSettings.SaveSettings();
+                 
+                 System.Globalization.CultureInfo.CurrentUICulture = new System.Globalization.CultureInfo(culture);
+                 
+                 BuildUI();
+
+                // 恢复 GridView 高度
+                MainForm_SizeChanged(this, EventArgs.Empty);
+            }
         }
 
         /// <summary>
@@ -66,8 +102,17 @@ namespace OpenTrace.UI
             {
                 // 保存当前地图提供商设置，用于检测变化
                 var oldMapProvider = UserSettings.mapProvider;
+                var oldLanguage = UserSettings.language;
                 
                 new PreferencesDialog().ShowModal(this);
+                
+                // 检查语言是否变化
+                if (oldLanguage != UserSettings.language)
+                {
+                    System.Globalization.CultureInfo.CurrentUICulture = new System.Globalization.CultureInfo(UserSettings.language);
+                    BuildUI();
+                    return;
+                }
                 
                 // 关闭设置后刷新 DNS 服务器列表
                 LoadDNSResolvers();
@@ -81,12 +126,33 @@ namespace OpenTrace.UI
                 }
             };
 
+            // Language Menu
+            var languageMenu = new ButtonMenuItem { Text = Resources.LANGUAGE };
+            var languages = new [] 
+            { 
+                 new { Name = "English", Code = "en" },
+                 new { Name = "简体中文", Code = "zh-CN" },
+                 new { Name = "繁體中文", Code = "zh-HK" },
+                 new { Name = "正體中文", Code = "zh-TW" },
+                 new { Name = "Español", Code = "es" },
+                 new { Name = "Français", Code = "fr" },
+                 new { Name = "日本語", Code = "ja" }
+            };
+
+            foreach (var lang in languages)
+            {
+                var langItem = new RadioMenuItem { Text = lang.Name, Checked = (UserSettings.language == lang.Code) };
+                langItem.Click += (sender, e) => UpdateLanguage(lang.Code);
+                languageMenu.Items.Add(langItem);
+            }
+
             Menu = new MenuBar
             {
                 Items =
                 {
                     new SubMenuItem { Text = Resources.FILE, Items = {
                             newWindowCommand,
+                            languageMenu,
                             preferenceCommand,
                             quitCommand
                         } },
