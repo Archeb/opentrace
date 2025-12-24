@@ -31,6 +31,7 @@
 											<ListItem Text="简体中文" Key="zh-CN"></ListItem>
 											<ListItem Text="繁體中文" Key="zh-HK"></ListItem>
 											<ListItem Text="正體中文" Key="zh-TW"></ListItem>
+											<ListItem Text="Español" Key="es"></ListItem>
 										</DropDown>
 									</TableRow>
 									<TableRow>
@@ -38,9 +39,7 @@
 										<DropDown x:Name="mapProvider" SelectedIndex="0">
 											<ListItem Text="{x:Static resource:Resources.MAP_PROVIDER_BAIDU}" Key="baidu"></ListItem>
 											<ListItem Text="{x:Static resource:Resources.MAP_PROVIDER_GOOGLE}" Key="google"></ListItem>
-											<!--
 											<ListItem Text="{x:Static resource:Resources.MAP_PROVIDER_OSM}" Key="openstreetmap"></ListItem>
-											-->
 										</DropDown>
 									</TableRow>
 									<TableRow>
