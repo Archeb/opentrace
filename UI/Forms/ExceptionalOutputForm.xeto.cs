@@ -23,6 +23,10 @@ namespace OpenTrace.UI.Forms
             e.Cancel = true;
             Visible = false;
         }
+        private void WikiButton_Click(object sender, EventArgs e)
+        {
+            Process.Start(new ProcessStartInfo("https://github.com/nxtrace/NTrace-core/wiki") { UseShellExecute = true });
+        }
         private void ReportButton_Click(object sender, EventArgs e)
         {
             Process.Start(new ProcessStartInfo("https://github.com/Archeb/opentrace/issues/new/choose") { UseShellExecute = true });
