@@ -80,11 +80,11 @@ window.opentrace = {
 			// 使用 circleMarker 创建圆形标记
 			let marker = L.circleMarker(latLng, {
 				radius: 8,
-				fillColor: '#8db7df',
-				color: '#2093fff',
+				fillColor: '#5BA0E8',
+				color: '#2E7BC7',
 				weight: 2,
 				opacity: 1,
-				fillOpacity: 0.8
+				fillOpacity: 0.9
 			}).addTo(this.map);
 			
 			marker.bindTooltip(`#${h.No}: ${h.Geolocation}`);
@@ -101,9 +101,9 @@ window.opentrace = {
 		// Connect the markers with a polyline
 		if (path.length > 0) {
 			this.polyline = L.polyline(path, {
-				color: '#FF0000',
-				opacity: 1.0,
-				weight: 2
+				color: '#4A90D9',
+				opacity: 0.85,
+				weight: 3
 			}).addTo(this.map);
 			console.log('Added polyline with points:', path.length);
 		}
