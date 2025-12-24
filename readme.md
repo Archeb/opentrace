@@ -6,53 +6,53 @@
 
 ## OpenTrace
 
-OpenTrace 是 NextTrace 的跨平台 GUI 界面，带来您熟悉但更强大的用户体验。
-
 OpenTrace is a cross-platform GUI wrapper for NextTrace. Bringing you a sense of familiarity.
 
-[English Version](readme_en.md)
+OpenTrace 是 NextTrace 的跨平台 GUI 界面，带来您熟悉但更强大的用户体验。
 
-### 使用方法
+[中文说明](readme_cn.md)
 
-- 从 [releases](https://github.com/Archeb/opentrace/releases) 里下载对应系统的 OpenTrace
+### Usage
+
+- Download OpenTrace for your system from [releases](https://github.com/Archeb/opentrace/releases)
 
 <details>
-<summary>或者自己编译</summary>
-  
-- 下载并安装 NextTrace: 从 [这里](https://github.com/nxtrace/Ntrace-V1/releases) 下载对应系统架构的 NextTrace。
+<summary>Alternatively, if you compiled it yourself, then you need to:</summary>
 
-- 将 NextTrace 放置于 OpenTrace 目录下，或者放置到系统 PATH 环境变量包含的目录中；您亦可以放到任意位置并手动指定路径（macOS 用户推荐）。
+- Download and install NextTrace: Download NextTrace for your system architecture from [here](https://github.com/nxtrace/Ntrace-V1/releases).
+
+- Place NextTrace in the OpenTrace directory, or in a directory included in your system's PATH environment variable; you can also place it anywhere and manually specify the path (recommended for macOS users).
 </details>
 
-- 如果您是 **Windows 用户**，想使用 TCP/UDP Traceroute，还需要[下载并安装 Npcap](https://npcap.com/#download)
+- If you are a **Windows user** and want to use TCP/UDP Traceroute, you also need to [download and install Npcap](https://npcap.com/#download).
 
-- 解压并运行 OpenTrace(.exe)
+- Unzip and run OpenTrace(.exe)
 
-### 功能
+### Features
 
-- [x] 跨平台原生GUI（Windows WPF / Linux GTK / macOS）
+- [x] Cross-platform native GUI (Windows WPF / Linux GTK / macOS)
 
-- [x] 您熟悉但功能更强大的界面
+- [x] An interface you are familiar with, but with even more powerful functionalities
 
-- [x] 用户友好的GUI和易于理解的参数描述
+- [x] User-friendly GUI and easy-to-understand parameter descriptions
 
-- [x] MTR (My Traceroute) 功能
+- [x] MTR (My Traceroute) functionality
 
-- [x] 多语言支持
+- [x] Multi-language support (English, Chinese, French, Spanish, Japanese, Russian)
 
-- [x] 自定义 DNS 服务器 (DNS、DoH)
+- [x] Custom DNS Resolvers (DNS, DoH)
 
-- [x] 支持使用本地 MMDB 格式的 IP 数据库
+- [x] Use CLI to start a trace
 
-- [x] 隐私打码功能，可以隐藏前几跳的IP、rDNS与位置信息
+- [x] Supports local .MMDB database
 
-新功能不断添加中...欢迎向我们[提出功能请求](https://github.com/Archeb/opentrace/issues/new/choose)！
+More is coming... [Feature request](https://github.com/Archeb/opentrace/issues/new/choose) is welcome!
 
-提示：您也可以在[本项目的 Actions 页面](https://github.com/Archeb/opentrace/actions) 下载对应架构的最新测试版；但其可能包含错误或者漏洞，或出现运行不稳定等现象。
+Tip: You can also download the latest beta version of the corresponding architecture from the [Actions page of this project](https://github.com/Archeb/opentrace/actions); however, it may contain bugs or vulnerabilities, or may be unstable.
 
-### 预览图
+### Images
 
-![Windows](https://github.com/Archeb/opentrace/assets/11910831/510b61a2-712e-4d83-ae94-f396862e68df)
+![Windows](https://i.imgur.com/4mDoWcT.png)
 ![MTR on Linux](https://i.imgur.com/MxSHIcU.png)
 ![macOS](https://i.imgur.com/brB08tl.png)
 ![Preferences on macOS](https://i.imgur.com/X0L6c6S.png)
