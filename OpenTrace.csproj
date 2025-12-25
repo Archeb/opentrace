@@ -24,7 +24,17 @@
 
   <ItemGroup>
     <Content Include="Assets\Icons\icon.ico" />
-	<Content Include="Assets\Icons\Icon.icns" />
+    <!-- macOS: Icon.icns 需要在 Resources 根目录，使用 Link 指定输出路径 -->
+    <Content Include="Assets\Icons\Icon.icns">
+      <Link>Icon.icns</Link>
+    </Content>
+    <!-- macOS: Info.plist 模板，Eto SDK 会自动使用它 -->
+    <None Include="Info.plist" />
+    <!-- Linux: PNG 图标用于 GTK 窗口图标 -->
+    <Content Include="Assets\Icons\icon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <Link>icon.png</Link>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
