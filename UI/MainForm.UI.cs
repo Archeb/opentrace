@@ -20,13 +20,13 @@ namespace OpenTrace.UI
         private void InitializeComponent()
         {
             // 构建 UI
-            BuildUI();
+            BuildUI(true);
 
             // 绑定窗口事件
             BindWindowEvents();
         }
 
-        private void BuildUI()
+        private void BuildUI(bool IsInitialize = false)
         {
             // 保存当前状态
             string currentHostText = HostInputBox?.Text ?? "";
@@ -62,6 +62,11 @@ namespace OpenTrace.UI
             // 创建布局
             CreateLayout();
 
+            if (!IsInitialize) {
+                // 恢复 GridView 高度
+                MainForm_SizeChanged(this, EventArgs.Empty);
+            }
+
         }
 
         /// <summary>
@@ -77,9 +82,6 @@ namespace OpenTrace.UI
                  System.Globalization.CultureInfo.CurrentUICulture = new System.Globalization.CultureInfo(culture);
                  
                  BuildUI();
-
-                // 恢复 GridView 高度
-                MainForm_SizeChanged(this, EventArgs.Empty);
             }
         }
 

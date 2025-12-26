@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-<data name="ABOUT" xml:space="preserve">
+  <data name="ABOUT" xml:space="preserve">
     <value>OpenTrace について...</value>
   </data>
   <data name="ADDITIONAL_ARGS" xml:space="preserve">
@@ -563,5 +563,17 @@ sudo xattr -r -d com.apple.quarantine &lt;ここに OpenTrace をドラッグ＆
   </data>
   <data name="IP_SELECTION_FIRST_IPV6" xml:space="preserve">
     <value>最初の IPv6 を自動選択 (利用可能な場合)</value>
+  </data>
+  <data name="MAP_COLOR_THEME" xml:space="preserve">
+    <value>地図のカラーテーマ</value>
+  </data>
+  <data name="MAP_COLOR_THEME_AUTO" xml:space="preserve">
+    <value>自動 (システム)</value>
+  </data>
+  <data name="MAP_COLOR_THEME_LIGHT" xml:space="preserve">
+    <value>ライト</value>
+  </data>
+  <data name="MAP_COLOR_THEME_DARK" xml:space="preserve">
+    <value>ダーク</value>
   </data>
 </root>

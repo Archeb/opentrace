@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
- <data name="ABOUT" xml:space="preserve">
+  <data name="ABOUT" xml:space="preserve">
     <value>О программе...</value>
   </data>
   <data name="ADDITIONAL_ARGS" xml:space="preserve">
@@ -547,5 +547,17 @@ sudo xattr -r -d com.apple.quarantine [перетащите OpenTrace сюда]
   </data>
   <data name="IP_SELECTION_FIRST_IPV6" xml:space="preserve">
     <value>Автовыбор первого IPv6</value>
+  </data>
+  <data name="MAP_COLOR_THEME" xml:space="preserve">
+    <value>Цветовая тема карты</value>
+  </data>
+  <data name="MAP_COLOR_THEME_AUTO" xml:space="preserve">
+    <value>Авто (системная)</value>
+  </data>
+  <data name="MAP_COLOR_THEME_LIGHT" xml:space="preserve">
+    <value>Светлая</value>
+  </data>
+  <data name="MAP_COLOR_THEME_DARK" xml:space="preserve">
+    <value>Темная</value>
   </data>
 </root>

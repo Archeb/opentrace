@@ -117,222 +117,222 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-	<data name="ABOUT" xml:space="preserve">
+  <data name="ABOUT" xml:space="preserve">
     <value>Acerca de...</value>
   </data>
-	<data name="ADDITIONAL_ARGS" xml:space="preserve">
+  <data name="ADDITIONAL_ARGS" xml:space="preserve">
     <value>Args. adicionales</value>
   </data>
-	<data name="APPTITLE" xml:space="preserve">
+  <data name="APPTITLE" xml:space="preserve">
     <value>OpenTrace</value>
   </data>
-	<data name="ASK_ADD_ICMP_FIREWALL_RULE" xml:space="preserve">
+  <data name="ASK_ADD_ICMP_FIREWALL_RULE" xml:space="preserve">
     <value>NextTrace requiere ICMP (tipos 11/3) para rutas completas. Windows lo bloquea por defecto, limitando la visibilidad de saltos. 
 ¿Añadir regla al cortafuegos para NextTrace?</value>
   </data>
-	<data name="AUTO_DETECT" xml:space="preserve">
+  <data name="AUTO_DETECT" xml:space="preserve">
     <value>(Auto)</value>
   </data>
-	<data name="AVRG" xml:space="preserve">
+  <data name="AVRG" xml:space="preserve">
     <value>Prom.</value>
   </data>
-	<assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-	<data name="baiduMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
-		<value>..\Assets\Scripts\baiduMap.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-	</data>
-	<data name="BEST" xml:space="preserve">
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="baiduMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Scripts\baiduMap.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="BEST" xml:space="preserve">
     <value>Mín.</value>
   </data>
-	<data name="CANCEL" xml:space="preserve">
+  <data name="CANCEL" xml:space="preserve">
     <value>Cancelar</value>
   </data>
-	<data name="CHUNZHEN_ENDPOINT" xml:space="preserve">
+  <data name="CHUNZHEN_ENDPOINT" xml:space="preserve">
     <value>Endpoint CHUNZHEN</value>
   </data>
-	<data name="CLOSE" xml:space="preserve">
+  <data name="CLOSE" xml:space="preserve">
     <value>Cerrar</value>
   </data>
-	<data name="COMBINE_GEO_ORG" xml:space="preserve">
+  <data name="COMBINE_GEO_ORG" xml:space="preserve">
     <value>Combinar Geo y Org en una columna</value>
   </data>
-	<data name="COPY" xml:space="preserve">
+  <data name="COPY" xml:space="preserve">
     <value>Copiar</value>
   </data>
-	<data name="COPY_ALL_RESULTS" xml:space="preserve">
+  <data name="COPY_ALL_RESULTS" xml:space="preserve">
     <value>Copiar todo</value>
   </data>
-	<data name="CUSTOM_DNS_RESOLVERS" xml:space="preserve">
+  <data name="CUSTOM_DNS_RESOLVERS" xml:space="preserve">
     <value>DNS personalizados
 (DNS/DoH)</value>
   </data>
-	<data name="DISABLE_IPGEO" xml:space="preserve">
+  <data name="DISABLE_IPGEO" xml:space="preserve">
     <value>Desactivado</value>
   </data>
-	<data name="DST_PORT_INIT_SEQ" xml:space="preserve">
+  <data name="DST_PORT_INIT_SEQ" xml:space="preserve">
     <value>Puerto dest. / Seq. inicial</value>
   </data>
-	<data name="EMPTY_HOSTNAME_MSGBOX" xml:space="preserve">
+  <data name="EMPTY_HOSTNAME_MSGBOX" xml:space="preserve">
     <value>Host o IP vacíos</value>
   </data>
-	<data name="ENABLE_IP2REGION" xml:space="preserve">
+  <data name="ENABLE_IP2REGION" xml:space="preserve">
     <value>BD offline Ip2region (ip2region.db)</value>
   </data>
-	<data name="ENABLE_IPINFOLOCAL" xml:space="preserve">
+  <data name="ENABLE_IPINFOLOCAL" xml:space="preserve">
     <value>BD offline IPInfo (ipinfoLocal.mmdb)</value>
   </data>
-	<data name="ERR_MSG" xml:space="preserve">
+  <data name="ERR_MSG" xml:space="preserve">
     <value>Mensaje de error</value>
   </data>
-	<data name="ERR_WRITING_SETTINGS" xml:space="preserve">
+  <data name="ERR_WRITING_SETTINGS" xml:space="preserve">
     <value>Error al guardar ajustes.</value>
   </data>
-	<data name="EXCEPTIONAL_EXIT_MSG" xml:space="preserve">
+  <data name="EXCEPTIONAL_EXIT_MSG" xml:space="preserve">
     <value>NextTrace cerró de forma inesperada. Revise el error e informe del problema. Código:</value>
   </data>
-	<data name="EXC_OUTPUT_FORM_PROMPT" xml:space="preserve">
+  <data name="EXC_OUTPUT_FORM_PROMPT" xml:space="preserve">
     <value>NextTrace generó salidas inesperadas. Revise el log o la Wiki de NextTrace para solucionar el problema.</value>
   </data>
-	<data name="EXC_OUTPUT_FORM_REPORT" xml:space="preserve">
+  <data name="EXC_OUTPUT_FORM_REPORT" xml:space="preserve">
     <value>Informar error</value>
   </data>
-	<data name="EXC_OUTPUT_FORM_TITLE" xml:space="preserve">
+  <data name="EXC_OUTPUT_FORM_TITLE" xml:space="preserve">
     <value>Salida inesperada</value>
   </data>
-	<data name="EXE_PATH" xml:space="preserve">
+  <data name="EXE_PATH" xml:space="preserve">
     <value>Ruta ejecutable</value>
   </data>
-	<data name="EXPORT" xml:space="preserve">
+  <data name="EXPORT" xml:space="preserve">
     <value>Exportar</value>
   </data>
-	<data name="EXPORT_TO" xml:space="preserve">
+  <data name="EXPORT_TO" xml:space="preserve">
     <value>Exportar a</value>
   </data>
-	<data name="FAILED_TO_ADD_RULES" xml:space="preserve">
+  <data name="FAILED_TO_ADD_RULES" xml:space="preserve">
     <value>Error en reglas cortafuegos.</value>
   </data>
-	<data name="FILE" xml:space="preserve">
+  <data name="FILE" xml:space="preserve">
     <value>Archivo</value>
   </data>
-	<data name="FIRST_TTL_HOP" xml:space="preserve">
+  <data name="FIRST_TTL_HOP" xml:space="preserve">
     <value>Primer salto TTL</value>
   </data>
-	<data name="GENERAL" xml:space="preserve">
+  <data name="GENERAL" xml:space="preserve">
     <value>General</value>
   </data>
-	<data name="GEOLOCATION" xml:space="preserve">
+  <data name="GEOLOCATION" xml:space="preserve">
     <value>Geolocalización</value>
   </data>
-	<data name="googleMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
-		<value>..\Assets\Scripts\googleMap.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
-	</data>
-	<data name="GRID_SIZE_RATIO" xml:space="preserve">
+  <data name="googleMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Scripts\googleMap.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="GRID_SIZE_RATIO" xml:space="preserve">
     <value>Altura de cuadrícula</value>
   </data>
-	<data name="HELP" xml:space="preserve">
+  <data name="HELP" xml:space="preserve">
     <value>Ayuda</value>
   </data>
-	<data name="HIDE_ADD_FIREWALL_PROMPT" xml:space="preserve">
+  <data name="HIDE_ADD_FIREWALL_PROMPT" xml:space="preserve">
     <value>No avisar sobre reglas de cortafuegos</value>
   </data>
-	<data name="HIDE_MAP_POPUP" xml:space="preserve">
+  <data name="HIDE_MAP_POPUP" xml:space="preserve">
     <value>Ocultar info del mapa</value>
   </data>
-	<data name="HISTORY" xml:space="preserve">
+  <data name="HISTORY" xml:space="preserve">
     <value>Historial</value>
   </data>
-	<data name="HOSTNAME" xml:space="preserve">
+  <data name="HOSTNAME" xml:space="preserve">
     <value>Hostname</value>
   </data>
-	<data name="IPINFO_TOKEN" xml:space="preserve">
+  <data name="IPINFO_TOKEN" xml:space="preserve">
     <value>Token IPInfo (Opc.)</value>
   </data>
-	<data name="IP_GEO_DATA_PROVIDER" xml:space="preserve">
+  <data name="IP_GEO_DATA_PROVIDER" xml:space="preserve">
     <value>Proveedor Geo IP</value>
   </data>
-	<data name="LANGUAGE" xml:space="preserve">
+  <data name="LANGUAGE" xml:space="preserve">
     <value>Idioma (Language)</value>
   </data>
-	<data name="LAST" xml:space="preserve">
+  <data name="LAST" xml:space="preserve">
     <value>Últ.</value>
   </data>
-	<data name="LEOMOEAPI_HOSTPORT" xml:space="preserve">
+  <data name="LEOMOEAPI_HOSTPORT" xml:space="preserve">
     <value>Proxy LeoMoeAPI</value>
   </data>
-	<data name="LINKLOCAL_ADDR" xml:space="preserve">
+  <data name="LINKLOCAL_ADDR" xml:space="preserve">
     <value>Dirección link-local</value>
   </data>
-	<data name="LOCAL_MMDB" xml:space="preserve">
+  <data name="LOCAL_MMDB" xml:space="preserve">
     <value>Sobrescribir MMDB local</value>
   </data>
-	<data name="LOCAL_MMDB_ADDR" xml:space="preserve">
+  <data name="LOCAL_MMDB_ADDR" xml:space="preserve">
     <value>Plantilla dir.</value>
   </data>
-	<data name="LOCAL_MMDB_ASN" xml:space="preserve">
+  <data name="LOCAL_MMDB_ASN" xml:space="preserve">
     <value>Plantilla ASN</value>
   </data>
-	<data name="LOCAL_MMDB_HOSTNAME" xml:space="preserve">
+  <data name="LOCAL_MMDB_HOSTNAME" xml:space="preserve">
     <value>Plantilla host</value>
   </data>
-	<data name="LOCAL_MMDB_LAT" xml:space="preserve">
+  <data name="LOCAL_MMDB_LAT" xml:space="preserve">
     <value>Plantilla lat.</value>
   </data>
-	<data name="LOCAL_MMDB_LON" xml:space="preserve">
+  <data name="LOCAL_MMDB_LON" xml:space="preserve">
     <value>Plantilla lon.</value>
   </data>
-	<data name="LOCAL_MMDB_ORG" xml:space="preserve">
+  <data name="LOCAL_MMDB_ORG" xml:space="preserve">
     <value>Plantilla org.</value>
   </data>
-	<data name="LOCAL_MMDB_PATH" xml:space="preserve">
+  <data name="LOCAL_MMDB_PATH" xml:space="preserve">
     <value>Ruta MMDB local</value>
   </data>
-	<data name="LOCAL_MMDB_PRESETS" xml:space="preserve">
+  <data name="LOCAL_MMDB_PRESETS" xml:space="preserve">
     <value>Preajustes</value>
   </data>
-	<data name="LOCAL_MMDB_PREVIEW" xml:space="preserve">
+  <data name="LOCAL_MMDB_PREVIEW" xml:space="preserve">
     <value>Previsualizar MMDB</value>
   </data>
-	<data name="LOCAL_MMDB_PREVIEW_IP" xml:space="preserve">
+  <data name="LOCAL_MMDB_PREVIEW_IP" xml:space="preserve">
     <value>Previsualizar IP</value>
   </data>
-	<data name="LOCAL_MMDB_SELECT" xml:space="preserve">
+  <data name="LOCAL_MMDB_SELECT" xml:space="preserve">
     <value>Elegir archivo MMDB</value>
   </data>
-	<data name="LOCAL_MMDB_TIPS" xml:space="preserve">
+  <data name="LOCAL_MMDB_TIPS" xml:space="preserve">
     <value>Usa MMDB local para sobrescribir resultados. Vacío para no sobrescribir. 
 Ej: {.country}-{.city}</value>
   </data>
-	<data name="LOOPBACK_ADDR" xml:space="preserve">
+  <data name="LOOPBACK_ADDR" xml:space="preserve">
     <value>Dirección loopback</value>
   </data>
-	<data name="LOSS" xml:space="preserve">
+  <data name="LOSS" xml:space="preserve">
     <value>%Pérd.</value>
   </data>
-	<data name="MAP_PROVIDER" xml:space="preserve">
+  <data name="MAP_PROVIDER" xml:space="preserve">
     <value>Mapas</value>
   </data>
-	<data name="MAP_PROVIDER_BAIDU" xml:space="preserve">
+  <data name="MAP_PROVIDER_BAIDU" xml:space="preserve">
     <value>Baidu</value>
   </data>
-	<data name="MAP_PROVIDER_GOOGLE" xml:space="preserve">
+  <data name="MAP_PROVIDER_GOOGLE" xml:space="preserve">
     <value>Google</value>
   </data>
-	<data name="MAP_PROVIDER_OSM" xml:space="preserve">
+  <data name="MAP_PROVIDER_OSM" xml:space="preserve">
     <value>OpenStreetMap</value>
   </data>
-	<data name="MAX_HOPS" xml:space="preserve">
+  <data name="MAX_HOPS" xml:space="preserve">
     <value>Saltos máx.</value>
   </data>
-	<data name="MISSING_COMP" xml:space="preserve">
+  <data name="MISSING_COMP" xml:space="preserve">
     <value>Falta componente</value>
   </data>
-	<data name="MISSING_COMP_TEXT" xml:space="preserve">
+  <data name="MISSING_COMP_TEXT" xml:space="preserve">
     <value>Falta NextTrace. Colóquelo en:
 1. El directorio de OpenTrace
 2. Un directorio del PATH
 
 ¿Descargar ahora?</value>
   </data>
-	<data name="MISSING_COMP_TEXT_MACOS" xml:space="preserve">
+  <data name="MISSING_COMP_TEXT_MACOS" xml:space="preserve">
     <value>Falta NextTrace. Descárguelo y ejecute:
 sudo xattr -r -d com.apple.quarantine /ruta/a/nexttrace
 sudo chown root:admin /ruta/a/nexttrace
@@ -340,195 +340,207 @@ sudo chmod +sx /ruta/a/nexttrace
 
 Indique la ruta en ajustes. ¿Descargar?</value>
   </data>
-	<data name="MTR_MODE" xml:space="preserve">
+  <data name="MTR_MODE" xml:space="preserve">
     <value>Modo MTR</value>
   </data>
-	<data name="NAME_NOT_RESOLVED" xml:space="preserve">
+  <data name="NAME_NOT_RESOLVED" xml:space="preserve">
     <value>Host {0} no hallado. Revise el nombre.</value>
   </data>
-	<data name="NEW" xml:space="preserve">
+  <data name="NEW" xml:space="preserve">
     <value>Nuevo</value>
   </data>
-	<data name="NEW_WINDOW_TEXT" xml:space="preserve">
+  <data name="NEW_WINDOW_TEXT" xml:space="preserve">
     <value>Nueva ventana de OpenTrace.</value>
   </data>
-	<data name="NEXTTRACE_PROXY" xml:space="preserve">
+  <data name="NEXTTRACE_PROXY" xml:space="preserve">
     <value>Proxy</value>
   </data>
-	<data name="RDNS_MODE" xml:space="preserve">
+  <data name="RDNS_MODE" xml:space="preserve">
     <value>Modo rDNS</value>
   </data>
-	<data name="ORGANIZATION" xml:space="preserve">
+  <data name="ORGANIZATION" xml:space="preserve">
     <value>Organización</value>
   </data>
-	<data name="OTHER_DATABASE_TIPS" xml:space="preserve">
+  <data name="OTHER_DATABASE_TIPS" xml:space="preserve">
     <value>Fuentes con API/Token requieren ajuste previo.
 Para bases offline, ver documentación de NextTrace.</value>
   </data>
-	<data name="PACKET_GROUP_INTERVAL" xml:space="preserve">
+  <data name="PACKET_GROUP_INTERVAL" xml:space="preserve">
     <value>Int. grupo paquetes</value>
   </data>
-	<data name="PACKET_INTERVAL" xml:space="preserve">
+  <data name="PACKET_INTERVAL" xml:space="preserve">
     <value>Int. paquetes</value>
   </data>
-	<data name="PARALLEL_REQ" xml:space="preserve">
+  <data name="PARALLEL_REQ" xml:space="preserve">
     <value>Peticiones paralelas</value>
   </data>
-	<data name="POW_PROVIDER" xml:space="preserve">
+  <data name="POW_PROVIDER" xml:space="preserve">
     <value>Proveedor PoW LeoMoeAPI</value>
   </data>
-	<data name="POW_PROVIDER_LEOMOE" xml:space="preserve">
+  <data name="POW_PROVIDER_LEOMOE" xml:space="preserve">
     <value>api.leo.moe (Defecto)</value>
   </data>
-	<data name="POW_PROVIDER_SAKURA" xml:space="preserve">
+  <data name="POW_PROVIDER_SAKURA" xml:space="preserve">
     <value>Nya Labs (Optimizado China)</value>
   </data>
-	<data name="PREFERENCES" xml:space="preserve">
+  <data name="PREFERENCES" xml:space="preserve">
     <value>Ajustes</value>
   </data>
-	<data name="PRIVATE_ADDR" xml:space="preserve">
+  <data name="PRIVATE_ADDR" xml:space="preserve">
     <value>Dir. privada (LAN)</value>
   </data>
-	<data name="PROTOCOL_FOR_TRACEROUTING" xml:space="preserve">
+  <data name="PROTOCOL_FOR_TRACEROUTING" xml:space="preserve">
     <value>Protocolo de rastreo</value>
   </data>
-	<data name="QUERIES_SETTING" xml:space="preserve">
+  <data name="QUERIES_SETTING" xml:space="preserve">
     <value>Sondas por salto</value>
   </data>
-	<data name="QUIT" xml:space="preserve">
+  <data name="QUIT" xml:space="preserve">
     <value>Salir</value>
   </data>
-	<data name="RECV" xml:space="preserve">
+  <data name="RECV" xml:space="preserve">
     <value>Recv</value>
   </data>
-	<data name="RESTART_TO_APPLY" xml:space="preserve">
+  <data name="RESTART_TO_APPLY" xml:space="preserve">
     <value>Reinicie para aplicar cambios</value>
   </data>
-	<data name="SAVE" xml:space="preserve">
+  <data name="SAVE" xml:space="preserve">
     <value>Guardar</value>
   </data>
-	<data name="SELECT_IP_DROPDOWN" xml:space="preserve">
+  <data name="SELECT_IP_DROPDOWN" xml:space="preserve">
     <value>Elegir IP</value>
   </data>
-	<data name="SELECT_IP_MSGBOX" xml:space="preserve">
+  <data name="SELECT_IP_MSGBOX" xml:space="preserve">
     <value>Elija una IP de la lista.</value>
   </data>
-	<data name="SENT" xml:space="preserve">
+  <data name="SENT" xml:space="preserve">
     <value>Env.</value>
   </data>
-	<data name="SHARED_ADDR" xml:space="preserve">
+  <data name="SHARED_ADDR" xml:space="preserve">
     <value>Dir. compartida</value>
   </data>
-	<data name="SRC_ADDR_SETTING" xml:space="preserve">
+  <data name="SRC_ADDR_SETTING" xml:space="preserve">
     <value>Dir. origen</value>
   </data>
-	<data name="SRC_INTERFACE_SETTING" xml:space="preserve">
+  <data name="SRC_INTERFACE_SETTING" xml:space="preserve">
     <value>Interfaz origen</value>
   </data>
-	<data name="START" xml:space="preserve">
+  <data name="START" xml:space="preserve">
     <value>Iniciar</value>
   </data>
-	<data name="STDEV" xml:space="preserve">
+  <data name="STDEV" xml:space="preserve">
     <value>D.E.</value>
   </data>
-	<data name="STOP" xml:space="preserve">
+  <data name="STOP" xml:space="preserve">
     <value>Detener</value>
   </data>
-	<data name="SYSTEM_DNS_RESOLVER" xml:space="preserve">
+  <data name="SYSTEM_DNS_RESOLVER" xml:space="preserve">
     <value>DNS Sistema</value>
   </data>
-	<data name="TIME_MS" xml:space="preserve">
+  <data name="TIME_MS" xml:space="preserve">
     <value>Tiempo(ms)</value>
   </data>
-	<data name="TIME_ROUNDING" xml:space="preserve">
+  <data name="TIME_ROUNDING" xml:space="preserve">
     <value>Redondear latencia a entero</value>
   </data>
-	<data name="TRACEROUTING" xml:space="preserve">
+  <data name="TRACEROUTING" xml:space="preserve">
     <value>Rastreo (Traceroute)</value>
   </data>
-	<data name="WINDOWS_TCP_UDP_REQUIREMENTS_TITLE" xml:space="preserve">
+  <data name="WINDOWS_TCP_UDP_REQUIREMENTS_TITLE" xml:space="preserve">
     <value>Requisitos TCP/UDP</value>
   </data>
-	<data name="WINDOWS_TCP_UDP_MISSING_ADMIN" xml:space="preserve">
+  <data name="WINDOWS_TCP_UDP_MISSING_ADMIN" xml:space="preserve">
     <value>TCP/UDP requiere administrador. ¿Reiniciar con privilegios?</value>
   </data>
-	<data name="WINDOWS_TCP_UDP_MISSING_NPCAP" xml:space="preserve">
+  <data name="WINDOWS_TCP_UDP_MISSING_NPCAP" xml:space="preserve">
     <value>• Falta Npcap</value>
   </data>
-	<data name="WINDOWS_TCP_UDP_MISSING_WINDIVERT" xml:space="preserve">
+  <data name="WINDOWS_TCP_UDP_MISSING_WINDIVERT" xml:space="preserve">
     <value>• Falta WinDivert (en dir. NextTrace)</value>
   </data>
-	<data name="WINDOWS_TCP_UDP_REQUIREMENTS_MSG" xml:space="preserve">
+  <data name="WINDOWS_TCP_UDP_REQUIREMENTS_MSG" xml:space="preserve">
     <value>Requisitos TCP/UDP en Windows:
 {0}
 ¿Ejecutar directamente [Sí] o descargar [No]?</value>
   </data>
-	<data name="WINDOWS_TCP_UDP_HAS_NPCAP" xml:space="preserve">
+  <data name="WINDOWS_TCP_UDP_HAS_NPCAP" xml:space="preserve">
     <value>✓ Npcap instalado</value>
   </data>
-	<data name="WINDOWS_TCP_UDP_HAS_WINDIVERT" xml:space="preserve">
+  <data name="WINDOWS_TCP_UDP_HAS_WINDIVERT" xml:space="preserve">
     <value>✓ WinDivert disponible</value>
   </data>
-	<data name="WINDOWS_TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
+  <data name="WINDOWS_TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
     <value>Ejecutar como Admin</value>
   </data>
-	<data name="WORST" xml:space="preserve">
+  <data name="WORST" xml:space="preserve">
     <value>Máx.</value>
   </data>
-	<data name="MACOS_QUARANTINE" xml:space="preserve">
+  <data name="MACOS_QUARANTINE" xml:space="preserve">
     <value>App en cuarentena. Use terminal:
 sudo xattr -r -d com.apple.quarantine &lt;arrastre app aquí&gt;
 Y reinicie OpenTrace.</value>
   </data>
-	<data name="HOMEPAGE" xml:space="preserve">
+  <data name="HOMEPAGE" xml:space="preserve">
     <value>Web</value>
   </data>
-	<data name="RDNS_MODE_ALWAYS" xml:space="preserve">
+  <data name="RDNS_MODE_ALWAYS" xml:space="preserve">
     <value>rDNS completo</value>
   </data>
-	<data name="RDNS_MODE_DEFAULT" xml:space="preserve">
+  <data name="RDNS_MODE_DEFAULT" xml:space="preserve">
     <value>rDNS rápido (Defecto)</value>
   </data>
-	<data name="RDNS_MODE_DISABLE" xml:space="preserve">
+  <data name="RDNS_MODE_DISABLE" xml:space="preserve">
     <value>Sin rDNS</value>
   </data>
-	<data name="CHECK_UPDATE_ON_STARTUP" xml:space="preserve">
+  <data name="CHECK_UPDATE_ON_STARTUP" xml:space="preserve">
     <value>Buscar actualizaciones al inicio</value>
   </data>
-	<data name="DOWNLOAD_LATEST" xml:space="preserve">
+  <data name="DOWNLOAD_LATEST" xml:space="preserve">
     <value>Descargar última versión</value>
   </data>
-	<data name="UPDATE_AVAILABLE" xml:space="preserve">
+  <data name="UPDATE_AVAILABLE" xml:space="preserve">
     <value>(Versión {0} lista. Menú Ayuda.)</value>
   </data>
-	<data name="PRIVACY_MASKING" xml:space="preserve">
+  <data name="PRIVACY_MASKING" xml:space="preserve">
     <value>Privacidad</value>
   </data>
-	<data name="PRIVACY_MASKING_ALL" xml:space="preserve">
-    <value>saltos: ocultar todo</value>
-  </data>
-	<data name="PRIVACY_MASKING_DESCR" xml:space="preserve">
+  <data name="PRIVACY_MASKING_DESCR" xml:space="preserve">
     <value>Ocultar primeros</value>
   </data>
-	<data name="PRIVACY_MASKING_IP_FULL" xml:space="preserve">
+  <data name="PRIVACY_MASKING_ALL" xml:space="preserve">
+    <value>saltos: ocultar todo</value>
+  </data>
+  <data name="PRIVACY_MASKING_IP_FULL" xml:space="preserve">
     <value>saltos: IP completa</value>
   </data>
-	<data name="PRIVACY_MASKING_IP_GEO" xml:space="preserve">
+  <data name="PRIVACY_MASKING_IP_GEO" xml:space="preserve">
     <value>saltos: IP y Geo</value>
   </data>
-	<data name="PRIVACY_MASKING_IP_HALF" xml:space="preserve">
+  <data name="PRIVACY_MASKING_IP_HALF" xml:space="preserve">
     <value>saltos: IP parcial</value>
   </data>
-	<data name="AUTO_IP_SELECTION" xml:space="preserve">
+  <data name="AUTO_IP_SELECTION" xml:space="preserve">
     <value>Selección de IP</value>
   </data>
-	<data name="IP_SELECTION_MANUAL" xml:space="preserve">
+  <data name="IP_SELECTION_MANUAL" xml:space="preserve">
     <value>Manual</value>
   </data>
-	<data name="IP_SELECTION_FIRST_IPV4" xml:space="preserve">
+  <data name="IP_SELECTION_FIRST_IPV4" xml:space="preserve">
     <value>Auto: 1ª IPv4 disp.</value>
   </data>
-	<data name="IP_SELECTION_FIRST_IPV6" xml:space="preserve">
+  <data name="IP_SELECTION_FIRST_IPV6" xml:space="preserve">
     <value>Auto: 1ª IPv6 disp.</value>
+  </data>
+  <data name="MAP_COLOR_THEME" xml:space="preserve">
+    <value>Tema de color del mapa</value>
+  </data>
+  <data name="MAP_COLOR_THEME_AUTO" xml:space="preserve">
+    <value>Auto (sistema)</value>
+  </data>
+  <data name="MAP_COLOR_THEME_LIGHT" xml:space="preserve">
+    <value>Claro</value>
+  </data>
+  <data name="MAP_COLOR_THEME_DARK" xml:space="preserve">
+    <value>Oscuro</value>
   </data>
 </root>

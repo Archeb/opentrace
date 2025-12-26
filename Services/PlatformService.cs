@@ -234,5 +234,98 @@ namespace OpenTrace.Services
                 return false;
             }
         }
+
+        /// <summary>
+        /// 检测系统是否启用暗色模式
+        /// </summary>
+        /// <returns>是否为暗色模式</returns>
+        public bool IsSystemDarkModeEnabled()
+        {
+            try
+            {
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    return IsLinuxDarkMode();
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                {
+                    return IsMacOSDarkMode();
+                }
+                // Windows 由于 WPF 限制，暂不支持暗色模式
+                return false;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 检测 Linux (GNOME) 系统是否启用暗色模式
+        /// </summary>
+        private bool IsLinuxDarkMode()
+        {
+            try
+            {
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = "gsettings",
+                    Arguments = "get org.gnome.desktop.interface color-scheme",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    CreateNoWindow = true
+                };
+
+                using (var process = Process.Start(startInfo))
+                {
+                    if (process == null) return false;
+                    
+                    string output = process.StandardOutput.ReadToEnd().Trim();
+                    process.WaitForExit();
+                    
+                    // GNOME 返回值可能是 'prefer-dark' 或 'default' 等
+                    return output.Contains("dark");
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 检测 macOS 系统是否启用暗色模式
+        /// </summary>
+        private bool IsMacOSDarkMode()
+        {
+            try
+            {
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = "defaults",
+                    Arguments = "read -g AppleInterfaceStyle",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true
+                };
+
+                using (var process = Process.Start(startInfo))
+                {
+                    if (process == null) return false;
+                    
+                    string output = process.StandardOutput.ReadToEnd().Trim();
+                    process.WaitForExit();
+                    
+                    // macOS 在暗色模式下返回 "Dark"，浅色模式下会报错（键不存在）
+                    return output.Equals("Dark", StringComparison.OrdinalIgnoreCase);
+                }
+            }
+            catch
+            {
+                // 浅色模式下 defaults 命令会失败（键不存在），所以返回 false
+                return false;
+            }
+        }
     }
 }

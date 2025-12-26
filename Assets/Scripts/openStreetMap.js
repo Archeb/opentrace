@@ -4,7 +4,14 @@ window.opentrace = {
 	markers: [],
 	polyline: null,
 
-	reset: function (hideMapPopup = false) {
+	reset: function (hideMapPopup = false, darkMode = false) {
+		// 根据 darkMode 切换主题
+		if (darkMode) {
+			document.documentElement.setAttribute('data-theme', 'dark');
+		} else {
+			document.documentElement.removeAttribute('data-theme');
+		}
+
 		// 使用 HTML 中预先初始化的地图实例
 		if (!this.map) {
 			this.map = window.osmMapInstance;

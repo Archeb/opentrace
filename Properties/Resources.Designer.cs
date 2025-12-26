@@ -19,7 +19,7 @@ namespace OpenTrace.Properties {
     // 类通过类似于 ResGen 或 Visual Studio 的工具自动生成的。
     // 若要添加或移除成员，请编辑 .ResX 文件，然后重新运行 ResGen
     // (以 /str 作为命令选项)，或重新生成 VS 项目。
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "18.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
@@ -127,20 +127,11 @@ namespace OpenTrace.Properties {
         /// <summary>
         ///   查找类似 window.opentrace = {
         ///	Hops: [],
-        ///	reset: function (hideMapPopup = false) {
+        ///	reset: function (hideMapPopup = false, darkMode = false) {
         ///		map.enableScrollWheelZoom(true); //滚轮
         ///		map.clearOverlays(); //清除覆盖物
-        ///		this.Hops = [];
-        ///		this.hideMapPopup = hideMapPopup;
-        ///		if (document.getElementById(&quot;opentracePopup&quot;)) document.getElementById(&quot;opentracePopup&quot;).remove();
-        ///	},
-        ///
-        ///	updateHop: function (hop, hopNo = undefined) {
-        ///		hopData = JSON.parse(hop);
-        ///		console.log(hop);
-        ///		if (hopNo !== undefined) {
-        ///			// Update the existing hop if hopNo is provided
-        ///			this.Hops[hopNo] = hopData; [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///		if(darkMode){
+        ///			map.setMapStyleV2({styleJson:[{featureType:&quot;land&quot;,elementType:&quot;geometry&quot;,stylers:{visibility:&quot;on&quot;,color:&quot;#091220ff&quot;}},{featureType:&quot;water&quot;,elementType:&quot;geometry&quot;,stylers:{visibility:&quot;on&quot;,color:&quot;#113549ff&quot;}},{featureType:&quot;green&quot;,elementType:&quot;geometry&quot;,stylers:{visibility:&quot;on&quot;,color:&quot;#0e1b30ff&quot;}},{featureType:&quot;building&quot;,elementTyp [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string baiduMap {
             get {
@@ -190,6 +181,42 @@ namespace OpenTrace.Properties {
         public static string CLOSE {
             get {
                 return ResourceManager.GetString("CLOSE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Color Theme 的本地化字符串。
+        /// </summary>
+        public static string MAP_COLOR_THEME {
+            get {
+                return ResourceManager.GetString("MAP_COLOR_THEME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Auto (System) 的本地化字符串。
+        /// </summary>
+        public static string MAP_COLOR_THEME_AUTO {
+            get {
+                return ResourceManager.GetString("MAP_COLOR_THEME_AUTO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Dark 的本地化字符串。
+        /// </summary>
+        public static string MAP_COLOR_THEME_DARK {
+            get {
+                return ResourceManager.GetString("MAP_COLOR_THEME_DARK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Light 的本地化字符串。
+        /// </summary>
+        public static string MAP_COLOR_THEME_LIGHT {
+            get {
+                return ResourceManager.GetString("MAP_COLOR_THEME_LIGHT", resourceCulture);
             }
         }
         
@@ -413,18 +440,34 @@ namespace OpenTrace.Properties {
         /// <summary>
         ///   查找类似 window.opentrace = {
         ///	Hops: [],
-        ///	reset: function (hideMapPopup = false) {
-        ///		window.gmap = new google.maps.Map(document.getElementById(&quot;map&quot;), { center: { lat: 0, lng: 0 }, zoom: 2, disableDefaultUI: true });
-        ///		gmap.overlayMapTypes.clear();
-        ///		this.Hops = [];
-        ///		this.hideMapPopup = hideMapPopup;
-        ///		if (document.getElementById(&quot;opentracePopup&quot;)) document.getElementById(&quot;opentracePopup&quot;).remove();
-        ///	},
-        ///
-        ///	updateHop: function (hop, hopNo = undefined) {
-        ///
-        ///		// Parse the JSON string into an object
-        ///		const hopData = JSO [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///	reset: function (hideMapPopup = false, darkMode = false) {
+        ///		var styles;
+        ///		if (darkMode) {
+        ///			styles = [
+        ///				{
+        ///					&quot;featureType&quot;: &quot;all&quot;,
+        ///					&quot;elementType&quot;: &quot;labels.text.fill&quot;,
+        ///					&quot;stylers&quot;: [
+        ///						{
+        ///							&quot;saturation&quot;: 36
+        ///						},
+        ///						{
+        ///							&quot;color&quot;: &quot;#000000&quot;
+        ///						},
+        ///						{
+        ///							&quot;lightness&quot;: 40
+        ///						}
+        ///					]
+        ///				},
+        ///				{
+        ///					&quot;featureType&quot;: &quot;all&quot;,
+        ///					&quot;elementType&quot;: &quot;labels.text.stroke&quot;,
+        ///					&quot;stylers&quot;: [
+        ///						{
+        ///							&quot;visibility&quot;: &quot;on&quot;
+        ///						},
+        ///						{
+        ///		 [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string googleMap {
             get {
@@ -898,7 +941,14 @@ namespace OpenTrace.Properties {
         ///	markers: [],
         ///	polyline: null,
         ///
-        ///	reset: function (hideMapPopup = false) {
+        ///	reset: function (hideMapPopup = false, darkMode = false) {
+        ///		// 根据 darkMode 切换主题
+        ///		if (darkMode) {
+        ///			document.documentElement.setAttribute(&apos;data-theme&apos;, &apos;dark&apos;);
+        ///		} else {
+        ///			document.documentElement.removeAttribute(&apos;data-theme&apos;);
+        ///		}
+        ///
         ///		// 使用 HTML 中预先初始化的地图实例
         ///		if (!this.map) {
         ///			this.map = window.osmMapInstance;
@@ -906,17 +956,7 @@ namespace OpenTrace.Properties {
         ///
         ///		// 清除现有标记和折线
         ///		if (this.markers &amp;&amp; this.markers.length &gt; 0) {
-        ///			this.markers.forEach(marker =&gt; {
-        ///				if (this.map &amp;&amp; marker) {
-        ///					this.map.removeLayer(marker);
-        ///				}
-        ///			});
-        ///		}
-        ///		this.markers = [];
-        ///		
-        ///		if (this.polyline &amp;&amp; this.map) {
-        ///			this.map.removeLayer(this.polyline);
-        ///			 [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///			this.markers.forEach(ma [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string openStreetMap {
             get {

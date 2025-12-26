@@ -595,7 +595,25 @@ namespace OpenTrace.UI
                         mapWebView.ExecuteScriptAsync(OpenTrace.Properties.Resources.openStreetMap);
                         break;
                 }
-                mapWebView.ExecuteScriptAsync("window.opentrace.reset(" + UserSettings.hideMapPopup.ToString().ToLower() + ")");
+                
+                // 确定暗色模式状态
+                bool darkMode = false;
+                switch (UserSettings.colorTheme)
+                {
+                    case "dark":
+                        darkMode = true;
+                        break;
+                    case "light":
+                        darkMode = false;
+                        break;
+                    case "auto":
+                    default:
+                        // 自动模式：检测系统主题
+                        darkMode = platformService.IsSystemDarkModeEnabled();
+                        break;
+                }
+                
+                mapWebView.ExecuteScriptAsync("window.opentrace.reset(" + UserSettings.hideMapPopup.ToString().ToLower() + ", " + darkMode.ToString().ToLower() + ")");
                 
                 // 恢复地图上的点
                 if (tracerouteResultCollection.Count > 0)

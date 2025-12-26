@@ -558,4 +558,16 @@ sudo xattr -r -d com.apple.quarantine &lt;將 OpenTrace 拖放至此&gt;
   <data name="IP_SELECTION_FIRST_IPV6" xml:space="preserve">
     <value>自動選擇第一個 IPv6 (如果可用)</value>
   </data>
+  <data name="MAP_COLOR_THEME" xml:space="preserve">
+    <value>地圖顏色主題</value>
+  </data>
+  <data name="MAP_COLOR_THEME_AUTO" xml:space="preserve">
+    <value>自動（跟隨系統）</value>
+  </data>
+  <data name="MAP_COLOR_THEME_LIGHT" xml:space="preserve">
+    <value>淺色</value>
+  </data>
+  <data name="MAP_COLOR_THEME_DARK" xml:space="preserve">
+    <value>深色</value>
+  </data>
 </root>

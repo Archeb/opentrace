@@ -24,13 +24,33 @@
 										<Label Text="{x:Static resource:Resources.ADDITIONAL_ARGS}"></Label>
 										<TextBox x:Name="arguments" Text=""></TextBox>
 									</TableRow>
-
+									<TableRow>
+										<Label Text="{x:Static resource:Resources.LANGUAGE}"></Label>
+										<DropDown x:Name="language" SelectedIndex="0">
+											<ListItem Text="English" Key="en"></ListItem>
+											<ListItem Text="简体中文" Key="zh-CN"></ListItem>
+											<ListItem Text="繁體中文" Key="zh-HK"></ListItem>
+											<ListItem Text="正體中文" Key="zh-TW"></ListItem>
+											<ListItem Text="Español" Key="es"></ListItem>
+											<ListItem Text="Français" Key="fr"></ListItem>
+											<ListItem Text="日本語" Key="ja"></ListItem>
+											<ListItem Text="Русский" Key="ru"></ListItem>
+										</DropDown>
+									</TableRow>
 									<TableRow>
 										<Label Text="{x:Static resource:Resources.MAP_PROVIDER}"></Label>
 										<DropDown x:Name="mapProvider" SelectedIndex="0">
 											<ListItem Text="{x:Static resource:Resources.MAP_PROVIDER_BAIDU}" Key="baidu"></ListItem>
 											<ListItem Text="{x:Static resource:Resources.MAP_PROVIDER_GOOGLE}" Key="google"></ListItem>
 											<ListItem Text="{x:Static resource:Resources.MAP_PROVIDER_OSM}" Key="openstreetmap"></ListItem>
+										</DropDown>
+									</TableRow>
+									<TableRow x:Name="colorThemeRow">
+										<Label Text="{x:Static resource:Resources.MAP_COLOR_THEME}"></Label>
+										<DropDown x:Name="colorTheme" SelectedIndex="0">
+											<ListItem Text="{x:Static resource:Resources.MAP_COLOR_THEME_AUTO}" Key="auto"></ListItem>
+											<ListItem Text="{x:Static resource:Resources.MAP_COLOR_THEME_LIGHT}" Key="light"></ListItem>
+											<ListItem Text="{x:Static resource:Resources.MAP_COLOR_THEME_DARK}" Key="dark"></ListItem>
 										</DropDown>
 									</TableRow>
 									<TableRow>

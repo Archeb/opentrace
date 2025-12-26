@@ -566,4 +566,16 @@ And restart OpenTrace after execution.</value>
   <data name="IP_SELECTION_FIRST_IPV6" xml:space="preserve">
     <value>Auto-select First IPv6 (if available)</value>
   </data>
+  <data name="MAP_COLOR_THEME" xml:space="preserve">
+    <value>Map Color Theme</value>
+  </data>
+  <data name="MAP_COLOR_THEME_AUTO" xml:space="preserve">
+    <value>Auto (System)</value>
+  </data>
+  <data name="MAP_COLOR_THEME_LIGHT" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="MAP_COLOR_THEME_DARK" xml:space="preserve">
+    <value>Dark</value>
+  </data>
 </root>

@@ -1,4 +1,5 @@
 using Eto.Forms;
+using Eto.Drawing;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using Eto.Serialization.Xaml;
@@ -6,6 +7,7 @@ using System;
 using System.Linq;
 using System.Net;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using OpenTrace.Services;
 using OpenTrace.Models;
 using OpenTrace.Infrastructure;
@@ -24,6 +26,16 @@ namespace OpenTrace.UI.Dialogs
         {
             XamlReader.Load(this);
             ApplyUserSettings();
+            
+            // Windows 由于 WPF 限制，无法实现暗色模式，隐藏该功能
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                DropDown colorTheme = this.FindChild<DropDown>("colorTheme");
+                if (colorTheme != null)
+                {
+                    colorTheme.Enabled = false;
+                }
+            }
         }
 
         private void ApplyUserSettings()

@@ -144,5 +144,8 @@ namespace OpenTrace.Infrastructure
 
         [Setting(Name = "skipWindowsTcpUdpCheck", Default = false)]
         public static bool skipWindowsTcpUdpCheck { get; set; }
+
+        [Setting(Name = "colorTheme", Default = "auto")]
+        public static string colorTheme { get; set; }
     }
 }
