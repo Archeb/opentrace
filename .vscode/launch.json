@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "C#: OpenTrace (macOS)",
+            "type": "coreclr", 
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/Mac64/Debug/net8.0/OpenTrace.app/Contents/MacOS/OpenTrace",
+            "args": [],
+            "preLaunchTask": "build",
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart",
+            "justMyCode": true,
+            "requireExactSource": false
+        }
+    ]
+}
