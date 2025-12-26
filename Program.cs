@@ -36,6 +36,13 @@ namespace OpenTrace
             if (!string.IsNullOrWhiteSpace(UserSettings.language))
             {
                 CultureInfo.CurrentUICulture = new CultureInfo(UserSettings.language);
+#if NET8_0_OR_GREATER
+                // macOS: 在 Application 创建之前设置 AppleLanguages，确保系统菜单使用正确的语言
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                {
+                    SetMacOSAppLanguage(UserSettings.language);
+                }
+#endif
             }
 #if NET8_0_OR_GREATER
             // 为 macOS 载入正确的 locale
@@ -154,5 +161,47 @@ namespace OpenTrace
             App.CommandLineTarget = target;
             App.CommandLineExtraArgs = extraArgs.ToArray();
         }
+
+#if NET8_0_OR_GREATER
+        /// <summary>
+        /// 在 macOS 上设置应用程序语言偏好，确保系统菜单使用正确的语言
+        /// </summary>
+        private static void SetMacOSAppLanguage(string language)
+        {
+            try
+            {
+                // 将 .NET 语言代码转换为 macOS 语言代码
+                string macLanguage = language switch
+                {
+                    "zh-CN" => "zh-Hans",
+                    "zh-TW" => "zh-Hant",
+                    "zh-HK" => "zh-Hant-HK",
+                    _ => language
+                };
+
+                // 使用 defaults write 设置应用特定的语言偏好
+                // 这需要使用应用程序的 Bundle Identifier
+                var bundleId = "org.opentrace.OpenTrace";
+                var process = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = "/usr/bin/defaults",
+                        ArgumentList = { "write", bundleId, "AppleLanguages", "-array", macLanguage },
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        CreateNoWindow = true
+                    }
+                };
+                process.Start();
+                process.WaitForExit(1000);
+            }
+            catch (Exception)
+            {
+                // 忽略设置语言失败的错误
+            }
+        }
+#endif
     }
 }
