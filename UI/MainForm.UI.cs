@@ -81,9 +81,58 @@ namespace OpenTrace.UI
                  
                  System.Globalization.CultureInfo.CurrentUICulture = new System.Globalization.CultureInfo(culture);
                  
+#if NET8_0_OR_GREATER
+                 // macOS: 更新应用程序语言偏好，下次启动时系统菜单将使用正确的语言
+                 if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX))
+                 {
+                     SetMacOSAppLanguage(culture);
+                 }
+#endif
+                 
                  BuildUI();
             }
         }
+
+#if NET8_0_OR_GREATER
+        /// <summary>
+        /// 在 macOS 上设置应用程序语言偏好
+        /// </summary>
+        private void SetMacOSAppLanguage(string language)
+        {
+            try
+            {
+                // 将 .NET 语言代码转换为 macOS 语言代码
+                string macLanguage = language switch
+                {
+                    "zh-CN" => "zh-Hans",
+                    "zh-TW" => "zh-Hant",
+                    "zh-HK" => "zh-Hant-HK",
+                    _ => language
+                };
+
+                // 使用 defaults write 设置应用特定的语言偏好
+                var bundleId = "org.opentrace.OpenTrace";
+                var process = new System.Diagnostics.Process
+                {
+                    StartInfo = new System.Diagnostics.ProcessStartInfo
+                    {
+                        FileName = "/usr/bin/defaults",
+                        ArgumentList = { "write", bundleId, "AppleLanguages", "-array", macLanguage },
+                        UseShellExecute = false,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true,
+                        CreateNoWindow = true
+                    }
+                };
+                process.Start();
+                process.WaitForExit(1000);
+            }
+            catch (Exception)
+            {
+                // 忽略设置语言失败的错误
+            }
+        }
+#endif
 
         /// <summary>
         /// 创建菜单栏
@@ -161,24 +210,72 @@ namespace OpenTrace.UI
                 languageMenu.Items.Add(langItem);
             }
 
-            Menu = new MenuBar
+            // 根据平台构建菜单栏
+            // macOS: 使用 ApplicationItems, QuitItem, HelpItems 来利用系统标准菜单
+            // Windows/Linux: 使用传统的 Items 菜单结构
+            
+#if NET8_0_OR_GREATER
+            bool isMac = System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX);
+#else
+            bool isMac = false;
+#endif
+
+            if (isMac)
             {
-                Items =
+                // macOS: 不添加 File 和 Help 到 Items，避免与系统菜单重复
+                // 菜单项会通过 ApplicationItems 和 HelpItems 合并到系统菜单中
+                Menu = new MenuBar
                 {
-                    new SubMenuItem { Text = Resources.FILE, Items = {
-                            newWindowCommand,
-                            languageMenu,
-                            preferenceCommand,
-                            quitCommand
-                        } },
-                     new SubMenuItem { Text = Resources.HELP , Items = {
-                             OTHomePageCommand,
-                             DownloadLatestCommand,
-                             NTHomePageCommand,
-                             NTWikiCommand
-                         } }
-                }
-            };
+                    // macOS 应用程序菜单项（在应用名称下拉菜单中）
+                    ApplicationItems =
+                    {
+                        newWindowCommand,
+                        new SeparatorMenuItem(),
+                        languageMenu,
+                        preferenceCommand
+                    },
+                    // 退出命令（会自动放入应用程序菜单底部）
+                    QuitItem = quitCommand,
+                    // Help 菜单项（会合并到系统 Help 菜单）
+                    HelpItems =
+                    {
+                        OTHomePageCommand,
+                        DownloadLatestCommand,
+                        new SeparatorMenuItem(),
+                        NTHomePageCommand,
+                        NTWikiCommand
+                    }
+                };
+            }
+            else
+            {
+                // Windows/Linux: 使用传统的菜单结构
+                var fileMenu = new SubMenuItem { Text = Resources.FILE, Items = {
+                    newWindowCommand,
+                    new SeparatorMenuItem(),
+                    languageMenu,
+                    preferenceCommand,
+                    new SeparatorMenuItem(),
+                    quitCommand
+                } };
+
+                var helpMenu = new SubMenuItem { Text = Resources.HELP, Items = {
+                    OTHomePageCommand,
+                    DownloadLatestCommand,
+                    new SeparatorMenuItem(),
+                    NTHomePageCommand,
+                    NTWikiCommand
+                } };
+
+                Menu = new MenuBar
+                {
+                    Items =
+                    {
+                        fileMenu,
+                        helpMenu
+                    }
+                };
+            }
         }
 
         /// <summary>
