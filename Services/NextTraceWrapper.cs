@@ -12,6 +12,7 @@ using OpenTrace.Models;
 using OpenTrace.Infrastructure;
 using System.Runtime.InteropServices;
 using System.Linq;
+using Eto.Forms;
 
 namespace OpenTrace.Services
 {
@@ -162,7 +163,11 @@ namespace OpenTrace.Services
                         else 
                         {
                             App.app.Invoke(() => {
-                                Eto.Forms.MessageBox.Show(Resources.MACOS_INSTALL_MANUALLY);
+                                DialogResult dr = MessageBox.Show(Resources.MACOS_INSTALL_MANUALLY, Resources.WINDOWS_TCP_UDP_REQUIREMENTS_TITLE, MessageBoxButtons.YesNo);
+                                if (dr == DialogResult.Yes)
+                                {
+                                    Process.Start(new ProcessStartInfo("https://github.com/nxtrace/Ntrace-V1/releases/") { UseShellExecute = true });
+                                }
                             });
                         }
                         Status = AppStatus.Quit;
