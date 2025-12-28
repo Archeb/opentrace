@@ -43,8 +43,10 @@ jobs:
           --team-id "${{ secrets.APPLE_TEAM_ID }}" \
           --password "${{ secrets.MACOS_NOTARIZATION_PWD }}"
 
-    - name: Prepare Assets Directory
-      run: mkdir -p Assets
+    - name: Build and Bundle
+      run: |
+        dotnet publish OpenTrace.csproj -c Release -r ${{ matrix.runtime }} \
+          --self-contained -o ./output/ -p:SignApp=False -f net8.0
 
     - name: Download Nexttrace
       uses: robinraju/release-downloader@v1.8
@@ -54,20 +56,15 @@ jobs:
         latest: ${{ github.event.inputs.nexttrace_version == '' }}
         tag: ${{ github.event.inputs.nexttrace_version }}
         token: ${{ secrets.GITHUB_TOKEN }}
-        out-file-path: Assets
+        out-file-path: output/OpenTrace.app/Contents/MacOS/
 
     - name: Setup Nexttrace Binary
       run: |
-        mv Assets/${{ matrix.nt_file }} Assets/nexttrace
-        chmod +x Assets/nexttrace
+        mv output/OpenTrace.app/Contents/MacOS/${{ matrix.nt_file }} output/OpenTrace.app/Contents/MacOS/nexttrace
+        chmod +x output/OpenTrace.app/Contents/MacOS/nexttrace
         codesign --force --options runtime --timestamp \
           --sign "${{ secrets.MAC_SIGNING_IDENTITY }}" \
-          Assets/nexttrace
-
-    - name: Build and Bundle
-      run: |
-        dotnet publish OpenTrace.csproj -c Release -r ${{ matrix.runtime }} \
-          --self-contained -o ./output -p:SignApp=False -f net8.0
+          output/OpenTrace.app/Contents/MacOS/nexttrace
 
     - name: Signing and Notarization
       run: |
