@@ -79,7 +79,7 @@ jobs:
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: output/OpenTrace.dmg
-        asset_name: OpenTrace-${{ matrix.runtime }}.dmg
+        asset_name: ${{ matrix.runtime }}.dmg
         tag: ${{ github.ref }}
 
     # 步骤 7b: 上传Artifact
@@ -87,5 +87,5 @@ jobs:
       if: github.event_name == 'workflow_dispatch'
       uses: actions/upload-artifact@v4
       with:
-        name: OpenTrace-${{ matrix.runtime }}.dmg
+        name: ${{ matrix.runtime }}.dmg
         path: output/OpenTrace.dmg
