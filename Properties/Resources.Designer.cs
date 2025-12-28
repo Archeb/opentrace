@@ -185,42 +185,6 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Color Theme 的本地化字符串。
-        /// </summary>
-        public static string MAP_COLOR_THEME {
-            get {
-                return ResourceManager.GetString("MAP_COLOR_THEME", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Auto (System) 的本地化字符串。
-        /// </summary>
-        public static string MAP_COLOR_THEME_AUTO {
-            get {
-                return ResourceManager.GetString("MAP_COLOR_THEME_AUTO", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Dark 的本地化字符串。
-        /// </summary>
-        public static string MAP_COLOR_THEME_DARK {
-            get {
-                return ResourceManager.GetString("MAP_COLOR_THEME_DARK", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Light 的本地化字符串。
-        /// </summary>
-        public static string MAP_COLOR_THEME_LIGHT {
-            get {
-                return ResourceManager.GetString("MAP_COLOR_THEME_LIGHT", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 Combine Geography and Organization into a single column 的本地化字符串。
         /// </summary>
         public static string COMBINE_GEO_ORG {
@@ -757,6 +721,27 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 You are attempting to perform TCP/UDP tracing on macOS using the built-in NextTrace.
+        ///
+        ///Due to macOS platform limitations, the built-in NextTrace cannot obtain the necessary permissions.
+        ///
+        ///Please install NextTrace via Homebrew or manually download it and configure the permissions:
+        ///
+        ///sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
+        ///sudo chown root:admin /path/to/nexttrace
+        ///sudo chmod +sx /path/to/nexttrace
+        ///
+        ///Then specify the NextTrace path in the settings.
+        ///
+        ///Download NextTrace now? 的本地化字符串。
+        /// </summary>
+        public static string MACOS_INSTALL_MANUALLY {
+            get {
+                return ResourceManager.GetString("MACOS_INSTALL_MANUALLY", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 OpenTrace is quarantined by macOS, something may be inoperative.
         ///Please release OpenTrace as follows:
         ///
@@ -767,6 +752,42 @@ namespace OpenTrace.Properties {
         public static string MACOS_QUARANTINE {
             get {
                 return ResourceManager.GetString("MACOS_QUARANTINE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Map Color Theme 的本地化字符串。
+        /// </summary>
+        public static string MAP_COLOR_THEME {
+            get {
+                return ResourceManager.GetString("MAP_COLOR_THEME", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Auto (System) 的本地化字符串。
+        /// </summary>
+        public static string MAP_COLOR_THEME_AUTO {
+            get {
+                return ResourceManager.GetString("MAP_COLOR_THEME_AUTO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Dark 的本地化字符串。
+        /// </summary>
+        public static string MAP_COLOR_THEME_DARK {
+            get {
+                return ResourceManager.GetString("MAP_COLOR_THEME_DARK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Light 的本地化字符串。
+        /// </summary>
+        public static string MAP_COLOR_THEME_LIGHT {
+            get {
+                return ResourceManager.GetString("MAP_COLOR_THEME_LIGHT", resourceCulture);
             }
         }
         
@@ -956,7 +977,8 @@ namespace OpenTrace.Properties {
         ///
         ///		// 清除现有标记和折线
         ///		if (this.markers &amp;&amp; this.markers.length &gt; 0) {
-        ///			this.markers.forEach(ma [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///			this.markers.forEach(marker =&gt; {
+        ///				if (thi [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string openStreetMap {
             get {
@@ -976,7 +998,7 @@ namespace OpenTrace.Properties {
         ///          crossorigin=&quot;&quot; /&gt;
         ///    &lt;script src=&quot;https://unpkg.com/leaflet@1.9.4/dist/leaflet.js&quot; 
         ///            integrity=&quot;sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=&quot; 
-        ///  [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///             [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string openStreetMapHtml {
             get {

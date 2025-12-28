@@ -161,23 +161,9 @@ namespace OpenTrace.Services
                             });
                         else 
                         {
-                            var elvp = new Process
-                            {
-                                StartInfo = new ProcessStartInfo
-                                {
-                                    FileName = "/usr/bin/osascript",
-                                    ArgumentList = {
-                                        "-e",
-                                        $"do shell script \"chown root:admin '{nexttracePath}' && chmod +sx '{nexttracePath}'\" with administrator privileges with prompt \"{Resources.MISSING_PRIV_MACOS}\"",
-                                    },
-                                    UseShellExecute = false,
-                                    RedirectStandardOutput = false,
-                                    RedirectStandardError = false,
-                                    CreateNoWindow = true
-                                }
-                            };
-                            elvp.Start();
-                            elvp.WaitForExit();
+                            App.app.Invoke(() => {
+                                Eto.Forms.MessageBox.Show(Resources.MACOS_INSTALL_MANUALLY);
+                            });
                         }
                         Status = AppStatus.Quit;
                         AppQuit?.Invoke(this, new AppQuitEventArgs(0));

@@ -536,24 +536,24 @@ And restart OpenTrace after execution.</value>
   <data name="UPDATE_AVAILABLE" xml:space="preserve">
     <value>(Version {0} now available. Download it from the Help menu.)</value>
   </data>
-	<data name="PRIVACY_MASKING" xml:space="preserve">
-  <value>Privacy Masking</value>
-    </data>
-	    <data name="PRIVACY_MASKING_DESCR" xml:space="preserve">
-      <value>Mask first</value>
-    </data>
-	    <data name="PRIVACY_MASKING_ALL" xml:space="preserve">
-      <value>hops' info</value>
-    </data>
-	    <data name="PRIVACY_MASKING_IP_FULL" xml:space="preserve">
-      <value>hops' full IP</value>
-    </data>
-	    <data name="PRIVACY_MASKING_IP_GEO" xml:space="preserve">
-      <value>hops' IP &amp; Geo</value>
-    </data>
-	    <data name="PRIVACY_MASKING_IP_HALF" xml:space="preserve">
-      <value>hops' partial IP</value>
-    </data>
+  <data name="PRIVACY_MASKING" xml:space="preserve">
+    <value>Privacy Masking</value>
+  </data>
+  <data name="PRIVACY_MASKING_DESCR" xml:space="preserve">
+    <value>Mask first</value>
+  </data>
+  <data name="PRIVACY_MASKING_ALL" xml:space="preserve">
+    <value>hops' info</value>
+  </data>
+  <data name="PRIVACY_MASKING_IP_FULL" xml:space="preserve">
+    <value>hops' full IP</value>
+  </data>
+  <data name="PRIVACY_MASKING_IP_GEO" xml:space="preserve">
+    <value>hops' IP &amp; Geo</value>
+  </data>
+  <data name="PRIVACY_MASKING_IP_HALF" xml:space="preserve">
+    <value>hops' partial IP</value>
+  </data>
   <data name="AUTO_IP_SELECTION" xml:space="preserve">
     <value>Auto IP Selection</value>
   </data>
@@ -577,5 +577,20 @@ And restart OpenTrace after execution.</value>
   </data>
   <data name="MAP_COLOR_THEME_DARK" xml:space="preserve">
     <value>Dark</value>
+  </data>
+  <data name="MACOS_INSTALL_MANUALLY" xml:space="preserve">
+    <value>You are attempting to perform TCP/UDP tracing on macOS using the built-in NextTrace.
+
+Due to macOS platform limitations, the built-in NextTrace cannot obtain the necessary permissions.
+
+Please install NextTrace via Homebrew or manually download it and configure the permissions:
+
+sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
+sudo chown root:admin /path/to/nexttrace
+sudo chmod +sx /path/to/nexttrace
+
+Then specify the NextTrace path in the settings.
+
+Download NextTrace now?</value>
   </data>
 </root>
