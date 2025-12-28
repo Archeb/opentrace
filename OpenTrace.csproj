@@ -46,13 +46,6 @@
     <NoWarn>$(NoWarn);MSB3277</NoWarn>
   </PropertyGroup>
 
-  <ItemGroup Condition="$([MSBuild]::IsOsPlatform(OSX)) AND $(Configuration) == 'Release'">
-    <Content Include="Assets\nexttrace">
-      <Link>Contents\MacOS\nexttrace</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
   <ItemGroup>
     <Content Include="Assets\Icons\icon.ico" />
     <Content Include="Assets\Icons\Icon.icns">
