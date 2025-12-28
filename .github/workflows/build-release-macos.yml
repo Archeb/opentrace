@@ -1,0 +1,97 @@
+name: Build for Release (macOS)
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      nexttrace_version:
+        description: 'Nexttrace version'
+        required: false
+        default: ''
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        include:
+          - runtime: osx-x64
+            nt_file: nexttrace_darwin_amd64
+          - runtime: osx-arm64
+            nt_file: nexttrace_darwin_arm64
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8
+
+    # 步骤 1: 确保 Assets 目录存在
+    - name: Prepare Assets Directory
+      run: mkdir -p Assets
+
+    # 步骤 2: 下载 Nexttrace (在 Build 之前)
+    - name: Download Nexttrace
+      uses: robinraju/release-downloader@v1.8
+      with:
+        repository: nxtrace/NTrace-V1
+        fileName: ${{ matrix.nt_file }}
+        latest: ${{ github.event.inputs.nexttrace_version == '' }}
+        tag: ${{ github.event.inputs.nexttrace_version }}
+        token: ${{ secrets.GITHUB_TOKEN }}
+        out-file-path: Assets
+
+    # 步骤 3: 重命名并赋予执行权限
+    - name: Setup Nexttrace Binary
+      run: |
+        mv Assets/${{ matrix.nt_file }} Assets/nexttrace
+        chmod +x Assets/nexttrace
+
+    # 步骤 4: 导入 Apple 代码签名证书
+    - name: Import Certificates
+      uses: apple-actions/import-codesign-certs@v3
+      with:
+        p12-file-base64: ${{ secrets.MACOS_CERTIFICATE }}
+        p12-password: ${{ secrets.MACOS_CERTIFICATE_PWD }}
+
+    # 步骤 5: 存储公证凭据到 Keychain
+    - name: Store Notarization Credentials
+      run: |
+        xcrun notarytool store-credentials "AC_PASSWORD" \
+          --apple-id "${{ secrets.APPLE_ID }}" \
+          --team-id "${{ secrets.APPLE_TEAM_ID }}" \
+          --password "${{ secrets.MACOS_NOTARIZATION_PWD }}"
+
+    # 步骤 6: 执行构建、签名、打包及公证
+    # 此时 dotnet build 会自动将 Assets/nexttrace 收入包中并整体签名
+    - name: Build and Sign
+      run: |
+        dotnet build OpenTrace.csproj \
+          -c Release \
+          --runtime ${{ matrix.runtime }} \
+          -p:SignApp=True \
+          -p:MakeDmg=True \
+          -p:NotarizeApp=True \
+          -p:MAC_SIGNING_IDENTITY="${{ secrets.MAC_SIGNING_IDENTITY }}"
+
+    # 步骤 7a: 上传发布资产
+    - name: Upload Release Asset
+      if: github.event_name == 'release'
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: bin/Mac64/Release/net8.0/${{ matrix.runtime }}/OpenTrace.dmg
+        asset_name: OpenTrace-${{ matrix.runtime }}.dmg
+        tag: ${{ github.ref }}
+
+    # 步骤 7b: 上传Artifact
+    - name: Upload Artifact (when manually triggered)
+      if: github.event_name == 'workflow_dispatch'
+      uses: actions/upload-artifact@v4
+      with:
+        name: OpenTrace.dmg
+        path: bin/Mac64/Release/net8.0/${{ matrix.runtime }}/OpenTrace.dmg

@@ -1,4 +1,4 @@
-name: Build for Release
+name: Build for Release (Windows & Linux)
 
 on:
   release:
@@ -23,7 +23,7 @@ jobs:
 
     strategy:
       matrix:
-        runtime: [win-x64, linux-x64, osx-x64, linux-arm64, osx-arm64, win-arm64]
+        runtime: [win-x64, linux-x64, linux-arm64, win-arm64]
         include:
           - runtime: win-x64
             artifact_path: ./bin/Wpf/Release/net481/win-x64
@@ -55,24 +55,6 @@ jobs:
             framework: net8.0
             nt_file: nexttrace_linux_arm64
             nt_fn: nexttrace
-            archive_command: "tar -cvzf"
-            archive_extension: tar.gz
-          - runtime: osx-x64
-            artifact_path: ./bin/Mac64/Release/net8.0/osx-x64
-            self_contained: "--self-contained"
-            framework: net8.0
-            nt_file: nexttrace_darwin_amd64
-            nt_fn: OpenTrace.app/Contents/MacOS/nexttrace
-            pack_target: OpenTrace.app
-            archive_command: "tar -cvzf"
-            archive_extension: tar.gz
-          - runtime: osx-arm64
-            artifact_path: ./bin/Mac64/Release/net8.0/osx-arm64
-            self_contained: "--self-contained"
-            framework: net8.0
-            nt_file: nexttrace_darwin_arm64
-            nt_fn: OpenTrace.app/Contents/MacOS/nexttrace
-            pack_target: OpenTrace.app
             archive_command: "tar -cvzf"
             archive_extension: tar.gz
 
