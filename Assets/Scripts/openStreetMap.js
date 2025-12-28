@@ -17,7 +17,7 @@ window.opentrace = {
 			this.map = window.osmMapInstance;
 		}
 
-		// 清除现有标记和折线
+		// 清除现有标记和折线（通过引用）
 		if (this.markers && this.markers.length > 0) {
 			this.markers.forEach(marker => {
 				if (this.map && marker) {
@@ -30,6 +30,17 @@ window.opentrace = {
 		if (this.polyline && this.map) {
 			this.map.removeLayer(this.polyline);
 			this.polyline = null;
+		}
+
+		// 额外的清理：遍历地图上的所有图层，删除非 TileLayer 的图层
+		// 这可以处理脚本重新加载后 opentrace 对象被重置，但地图上仍有旧图层的情况
+		if (this.map) {
+			this.map.eachLayer((layer) => {
+				// 保留 TileLayer，删除其他所有图层（如标记、折线等）
+				if (!(layer instanceof L.TileLayer)) {
+					this.map.removeLayer(layer);
+				}
+			});
 		}
 
 		this.Hops = [];
@@ -74,6 +85,7 @@ window.opentrace = {
 
 		// Loop through all hops and add circle markers
 		let path = [];
+		let adjustedLng = 0; // 用于跟踪调整后的经度，处理跨子午线的情况
 		for (let i = 0; i < this.Hops.length; i++) {
 			if (this.Hops[i].Longitude == 0 || this.Hops[i].Latitude == 0 || this.Hops[i].Longitude == "" || this.Hops[i].Latitude == "") continue;
 			let h = this.Hops[i];
@@ -81,6 +93,21 @@ window.opentrace = {
 			let lng = parseFloat(h.Longitude);
 			
 			if (isNaN(lat) || isNaN(lng)) continue;
+			
+			// 处理跨 180 度子午线的最短路径
+			// 当经度差值超过 180 度时，调整经度以走最短路径（例如跨太平洋而非绕道欧洲）
+			if (path.length > 0) {
+				const prevLng = adjustedLng;
+				const lngDiff = lng - prevLng;
+				
+				// 如果差值 >= 180，说明应该从另一个方向走
+				if (lngDiff >= 180) {
+					lng -= 360;
+				} else if (lngDiff <= -180) {
+					lng += 360;
+				}
+			}
+			adjustedLng = lng;
 			
 			let latLng = [lat, lng];
 			
