@@ -7,7 +7,9 @@
   -->
 
   <PropertyGroup>
-    <TargetFrameworks>net481;net8.0</TargetFrameworks>
+    <TargetFrameworks Condition="$([MSBuild]::IsOsPlatform(Windows))">net481;net8.0</TargetFrameworks>
+    <TargetFrameworks Condition="!$([MSBuild]::IsOsPlatform(Windows))">net8.0</TargetFrameworks>
+    
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <OutputType>Exe</OutputType>
     <PackageProjectUrl>https://github.com/Archeb/opentrace</PackageProjectUrl>
@@ -19,18 +21,37 @@
     <PlatformTarget Condition="'$(RuntimeIdentifier)' == 'win-x64'">x64</PlatformTarget>
     <PlatformTarget Condition="'$(RuntimeIdentifier)' == 'win-arm64'">ARM64</PlatformTarget>
     <PlatformTarget Condition="'$(PlatformTarget)' == ''">AnyCPU</PlatformTarget>
+  </PropertyGroup>
 
+  <PropertyGroup Condition="$([MSBuild]::IsOsPlatform(OSX)) AND $(Configuration) == 'Release'">
+    <EnableCodeSigning Condition="'$(SignApp)' == 'True' AND '$(MAC_SIGNING_IDENTITY)' != ''">True</EnableCodeSigning>
+    <CodeSigningIdentity>$(MAC_SIGNING_IDENTITY)</CodeSigningIdentity>
+
+    <EnableDmgBuild Condition="'$(MakeDmg)' == 'True'">True</EnableDmgBuild>
+
+    <EnableNotarization Condition="'$(NotarizeApp)' == 'True'">True</EnableNotarization>
+    <NotarizationPasswordAlias>AC_PASSWORD</NotarizationPasswordAlias>
+    <EnableNotarizationStapler Condition="'$(SkipStaple)' == 'True'">False</EnableNotarizationStapler>
+
+    <EnableBundleMono>False</EnableBundleMono>
+    
+    <DmgBackgroundImage>Assets/DmgBackground.png</DmgBackgroundImage>
+    <DmgIconSize>90</DmgIconSize>
+    <DmgAppLocation>166, 201</DmgAppLocation>
+    <DmgBounds>400, 200, 1120, 660</DmgBounds>
+    <DmgApplicationsShortcutLocation>571, 201</DmgApplicationsShortcutLocation>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <NoWarn>$(NoWarn);MSB3277</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
     <Content Include="Assets\Icons\icon.ico" />
-    <!-- macOS: Icon.icns 需要在 Resources 根目录，使用 Link 指定输出路径 -->
     <Content Include="Assets\Icons\Icon.icns">
       <Link>Icon.icns</Link>
     </Content>
-    <!-- macOS: Info.plist 模板，Eto SDK 会自动使用它 -->
     <None Include="Info.plist" />
-    <!-- Linux: PNG 图标用于 GTK 窗口图标 -->
     <Content Include="Assets\Icons\icon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Link>icon.png</Link>
