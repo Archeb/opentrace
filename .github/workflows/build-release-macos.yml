@@ -47,6 +47,9 @@ jobs:
       run: |
         mv Assets/${{ matrix.nt_file }} Assets/nexttrace
         chmod +x Assets/nexttrace
+        codesign --force --options runtime --timestamp \
+          --sign "${{ secrets.MAC_SIGNING_IDENTITY }}" \
+          Assets/nexttrace
 
     - name: Import Certificates
       uses: apple-actions/import-codesign-certs@v3
@@ -64,7 +67,7 @@ jobs:
     - name: Build and Bundle
       run: |
         dotnet publish OpenTrace.csproj -c Release -r ${{ matrix.runtime }} \
-          --self-contained -o ./output/ -p:SignApp=False -f net8.0
+          --self-contained -o ./output -p:SignApp=False -f net8.0
 
     - name: Signing and Notarization
       run: |
