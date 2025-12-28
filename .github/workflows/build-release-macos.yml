@@ -30,6 +30,19 @@ jobs:
       with:
         dotnet-version: 8
 
+    - name: Import Certificates
+      uses: apple-actions/import-codesign-certs@v3
+      with:
+        p12-file-base64: ${{ secrets.MACOS_CERTIFICATE }}
+        p12-password: ${{ secrets.MACOS_CERTIFICATE_PWD }}
+
+    - name: Store Notarization Credentials
+      run: |
+        xcrun notarytool store-credentials "AC_PASSWORD" \
+          --apple-id "${{ secrets.APPLE_ID }}" \
+          --team-id "${{ secrets.APPLE_TEAM_ID }}" \
+          --password "${{ secrets.MACOS_NOTARIZATION_PWD }}"
+
     - name: Prepare Assets Directory
       run: mkdir -p Assets
 
@@ -50,19 +63,6 @@ jobs:
         codesign --force --options runtime --timestamp \
           --sign "${{ secrets.MAC_SIGNING_IDENTITY }}" \
           Assets/nexttrace
-
-    - name: Import Certificates
-      uses: apple-actions/import-codesign-certs@v3
-      with:
-        p12-file-base64: ${{ secrets.MACOS_CERTIFICATE }}
-        p12-password: ${{ secrets.MACOS_CERTIFICATE_PWD }}
-
-    - name: Store Notarization Credentials
-      run: |
-        xcrun notarytool store-credentials "AC_PASSWORD" \
-          --apple-id "${{ secrets.APPLE_ID }}" \
-          --team-id "${{ secrets.APPLE_TEAM_ID }}" \
-          --password "${{ secrets.MACOS_NOTARIZATION_PWD }}"
 
     - name: Build and Bundle
       run: |
