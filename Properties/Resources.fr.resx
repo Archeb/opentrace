@@ -576,4 +576,21 @@ Et redémarrez OpenTrace après l'exécution.</value>
   <data name="MAP_COLOR_THEME_DARK" xml:space="preserve">
     <value>Sombre</value>
   </data>
+  <data name="MACOS_INSTALL_MANUALLY" xml:space="preserve">
+    <value>Vous tentez d'effectuer un traçage TCP/UDP sur macOS à l'aide de NextTrace intégré.
+
+En raison des limitations de la plateforme macOS, NextTrace intégré ne dispose pas des autorisations nécessaires.
+
+Veuillez installer NextTrace via Homebrew ou le télécharger manuellement et configurer les autorisations :
+
+sudo xattr -r -d com.apple.quarantine /chemin/vers/nexttrace
+
+sudo chown root:admin /chemin/vers/nexttrace
+
+sudo chmod +sx /chemin/vers/nexttrace
+
+Indiquez ensuite le chemin d'accès à NextTrace dans les paramètres.
+
+Télécharger NextTrace maintenant ?</value>
+  </data>
 </root>

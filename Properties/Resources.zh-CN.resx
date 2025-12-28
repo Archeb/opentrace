@@ -532,11 +532,11 @@ sudo xattr -r -d com.apple.quarantine &lt;将 OpenTrace 拖放至此&gt;
   <data name="PRIVACY_MASKING" xml:space="preserve">
     <value>隐私保护</value>
   </data>
-  <data name="PRIVACY_MASKING_ALL" xml:space="preserve">
-    <value>跳的所有信息</value>
-  </data>
   <data name="PRIVACY_MASKING_DESCR" xml:space="preserve">
     <value>打码前</value>
+  </data>
+  <data name="PRIVACY_MASKING_ALL" xml:space="preserve">
+    <value>跳的所有信息</value>
   </data>
   <data name="PRIVACY_MASKING_IP_FULL" xml:space="preserve">
     <value>跳的完整 IP</value>
@@ -570,5 +570,20 @@ sudo xattr -r -d com.apple.quarantine &lt;将 OpenTrace 拖放至此&gt;
   </data>
   <data name="MAP_COLOR_THEME_DARK" xml:space="preserve">
     <value>深色</value>
+  </data>
+  <data name="MACOS_INSTALL_MANUALLY" xml:space="preserve">
+    <value>您正尝试使用内置的 NextTrace 在 macOS 上进行 TCP/UDP 追踪
+
+由于 macOS 平台限制，内置的 NextTrace 无法获得所需权限。
+
+请通过 Homebrew 安装或者手动下载 NextTrace 并设置好权限：
+
+sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
+sudo chown root:admin /path/to/nexttrace
+sudo chmod +sx /path/to/nexttrace
+
+然后在设置中指定 NextTrace 路径。
+
+是否现在下载 NextTrace？</value>
   </data>
 </root>

@@ -576,4 +576,19 @@ sudo xattr -r -d com.apple.quarantine &lt;ここに OpenTrace をドラッグ＆
   <data name="MAP_COLOR_THEME_DARK" xml:space="preserve">
     <value>ダーク</value>
   </data>
+  <data name="MACOS_INSTALL_MANUALLY" xml:space="preserve">
+    <value>macOS で組み込みの NextTrace を使用して TCP/UDP トレースを実行しようとしています。
+
+macOS プラットフォームの制限により、組み込みの NextTrace は必要な権限を取得できません。
+
+Homebrew 経由で NextTrace をインストールするか、手動でダウンロードして権限を設定してください。
+
+sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
+sudo chown root:admin /path/to/nexttrace
+sudo chmod +sx /path/to/nexttrace
+
+設定で NextTrace のパスを指定してください。
+
+今すぐ NextTrace をダウンロードしますか？</value>
+  </data>
 </root>
