@@ -66,16 +66,21 @@ jobs:
           --team-id "${{ secrets.APPLE_TEAM_ID }}" \
           --password "${{ secrets.MACOS_NOTARIZATION_PWD }}"
 
-    # 步骤 6: 执行构建、签名、打包及公证
-    # 此时 dotnet build 会自动将 Assets/nexttrace 收入包中并整体签名
-    - name: Build and Sign
+    - name: Build and Bundle
       run: |
-        dotnet build OpenTrace.csproj \
-          -c Release \
-          --runtime ${{ matrix.runtime }} \
-          -p:SignApp=True \
-          -p:MakeDmg=True \
-          -p:NotarizeApp=True \
+        dotnet publish OpenTrace.csproj -c Release -r ${{ matrix.runtime }} \
+          --self-contained -o ./output -p:SignApp=False -f net8.0
+
+    - name: Signing and Notarization
+      run: |
+        # 赋予执行权限
+        chmod +x ./output/OpenTrace.app/Contents/MacOS/OpenTrace
+        chmod +x ./output/OpenTrace.app/Contents/MacOS/nexttrace
+        
+        # 运行签名逻辑，同样指定输出目录
+        dotnet build OpenTrace.csproj -c Release -r ${{ matrix.runtime }} -o ./output \
+          -p:SignApp=True -p:MakeDmg=True -p:NotarizeApp=True \
+          -p:EnableNotarizationStapler=False \
           -p:MAC_SIGNING_IDENTITY="${{ secrets.MAC_SIGNING_IDENTITY }}"
 
     # 步骤 7a: 上传发布资产

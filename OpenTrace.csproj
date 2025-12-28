@@ -47,11 +47,11 @@
   </PropertyGroup>
 
   <ItemGroup Condition="$([MSBuild]::IsOsPlatform(OSX)) AND $(Configuration) == 'Release'">
-  <Content Include="Assets\nexttrace">
-    <Link>nexttrace</Link>
-    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-  </Content>
-</ItemGroup>
+    <Content Include="Assets\nexttrace">
+      <Link>Contents\MacOS\nexttrace</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 
   <ItemGroup>
     <Content Include="Assets\Icons\icon.ico" />
