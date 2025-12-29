@@ -258,7 +258,7 @@
                 
                 <div class="flex flex-wrap justify-center gap-4">
                     <a href="#downloads" id="hero-download-btn" class="group flex items-center gap-2 px-8 py-3.5 bg-accent hover:bg-accent-hover dark:bg-accent-dark dark:hover:bg-blue-500 text-white rounded-full font-semibold transition-all shadow-lg shadow-blue-500/30 active:scale-95">
-                        <i class="fas fa-download group-hover:animate-bounce"></i> 
+                        <i class="fas fa-download"></i> 
                         <span id="hero-dl-text">前往下载</span>
                     </a>
                     <a href="https://github.com/Archeb/opentrace" target="_blank" class="flex items-center gap-2 px-8 py-3.5 bg-apple-50 dark:bg-apple-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 rounded-full font-semibold hover:bg-apple-100 dark:hover:bg-gray-700 transition-all active:scale-95" data-i18n="hero_github">
@@ -422,7 +422,7 @@
                 nav_preview: "预览",
                 nav_download: "下载",
                 hero_title: "&nbsp;&nbsp;&nbsp;熟悉的界面，<br>&nbsp;&nbsp;&nbsp;更强大的体验。",
-                hero_subtitle: "适用于 macOS, Windows 和 Linux 的可视化网络追踪工具。",
+                hero_subtitle: "适用于 macOS, Windows 和 Linux 的开源可视化网络追踪工具。",
                 hero_dl_prefix: "下载",
                 hero_dl_suffix: "版本",
                 hero_dl_latest: "下载最新版本",
@@ -461,7 +461,7 @@
                 nav_preview: "Preview",
                 nav_download: "Download",
                 hero_title: "Familiar Interface,<br>Powerful Experience.",
-                hero_subtitle: "Visualized Network Tracing Tool for macOS, Windows, and Linux.",
+                hero_subtitle: "Open Source Visualized Network Tracing Tool for macOS, Windows, and Linux.",
                 hero_dl_prefix: "Download for",
                 hero_dl_suffix: "",
                 hero_dl_latest: "Download Latest",
@@ -717,7 +717,7 @@
 
                 let suggestedAsset = null;
                 if (targetExt.length > 0) {
-                    const isArm = navigator.userAgent.includes('ARM') || navigator.userAgent.includes('aarch64');
+                    const isArm = os === 'macOS' ? true : (navigator.userAgent.includes('ARM') || navigator.userAgent.includes('aarch64'));
                     suggestedAsset = assets.find(a => {
                         const name = a.name.toLowerCase();
                         const extMatch = targetExt.some(ext => name.endsWith(ext));
