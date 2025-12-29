@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN" class="scroll-smooth">
+<html class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -219,9 +219,9 @@
             <div class="flex items-center gap-6">
                 <!-- Desktop Nav -->
                 <div class="hidden md:flex items-center gap-6">
-                    <a href="#preview" class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" data-i18n="nav_preview">预览</a>
-                    <a href="#features" class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" data-i18n="nav_features">功能</a>
-                    <a href="#downloads" class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" data-i18n="nav_download">下载</a>
+                    <a href="#preview" class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" data-i18n="nav_preview">Preview</a>
+                    <a href="#features" class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" data-i18n="nav_features">Features</a>
+                    <a href="#downloads" class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" data-i18n="nav_download">Download</a>
                     <a href="https://github.com/Archeb/opentrace" target="_blank" class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
                         <i class="fab fa-github mr-1"></i> GitHub
                     </a>
@@ -230,7 +230,7 @@
                 <div class="flex items-center gap-2 border-l border-gray-200 dark:border-gray-700 pl-4">
                     <!-- Language Toggle -->
                     <button id="lang-toggle" class="w-10 h-10 flex items-center justify-center rounded-full text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" aria-label="Switch Language">
-                        CN
+                        中
                     </button>
 
                     <!-- Theme Toggle -->
@@ -249,25 +249,25 @@
                 <img src="./img/logo.png" alt="OpenTrace Logo" class="w-28 h-28 md:w-32 md:h-32 mb-8 rounded-[2rem] shadow-apple-md dark:shadow-apple-md-dark">
                 
                 <h1 style="line-height:1.2;" class="text-4xl md:text-6xl font-bold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-br from-gray-900 to-gray-500 dark:from-white dark:to-gray-400" data-i18n="hero_title">
-                    &nbsp;&nbsp;&nbsp;熟悉的界面，<br>&nbsp;&nbsp;&nbsp;更强大的体验。
+                    Familiar Interface,<br>Powerful Experience.
                 </h1>
                 
                 <p class="text-xl md:text-2xl text-gray-500 dark:text-gray-400 max-w-3xl mx-auto mb-10 font-normal" data-i18n="hero_subtitle">
-                    适用于 macOS, Windows 和 Linux 的可视化网络追踪工具。
+                    Open Source Visualized Network Tracing Tool for macOS, Windows, and Linux.
                 </p>
                 
                 <div class="flex flex-wrap justify-center gap-4">
                     <a href="#downloads" id="hero-download-btn" class="group flex items-center gap-2 px-8 py-3.5 bg-accent hover:bg-accent-hover dark:bg-accent-dark dark:hover:bg-blue-500 text-white rounded-full font-semibold transition-all shadow-lg shadow-blue-500/30 active:scale-95">
                         <i class="fas fa-download"></i> 
-                        <span id="hero-dl-text">前往下载</span>
+                        <span id="hero-dl-text">Download Latest</span>
                     </a>
                     <a href="https://github.com/Archeb/opentrace" target="_blank" class="flex items-center gap-2 px-8 py-3.5 bg-apple-50 dark:bg-apple-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 rounded-full font-semibold hover:bg-apple-100 dark:hover:bg-gray-700 transition-all active:scale-95" data-i18n="hero_github">
-                        <i class="fab fa-github"></i> 访问 GitHub
+                        <i class="fab fa-github"></i> Visit GitHub
                     </a>
                 </div>
                 
                 <div class="mt-4 text-sm text-gray-500 dark:text-gray-500">
-                    <span data-i18n="hero_version">最新版本</span>: <span id="hero-version" class="font-mono">...</span>
+                    <span data-i18n="hero_version">Latest Version</span>: <span id="hero-version" class="font-mono">...</span>
                 </div>
             </div>
         </div>
@@ -276,7 +276,7 @@
     <!-- Screenshots Preview -->
     <section id="preview" class="py-20 bg-apple-50 dark:bg-[#000000]">
         <div class="max-w-5xl mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 tracking-tight" data-i18n="preview_title">原生体验，跨越平台</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 tracking-tight" data-i18n="preview_title">Native Experience, Cross-Platform</h2>
             
             <div class="fade-up flex justify-center mb-10">
                 <div class="inline-flex p-1.5 bg-white dark:bg-apple-900 rounded-full border border-gray-200 dark:border-gray-800 shadow-sm">
@@ -297,7 +297,7 @@
     <!-- Features Grid -->
     <section id="features" class="py-20 bg-white dark:bg-black">
         <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 tracking-tight" data-i18n="features_title">为什么选择 OpenTrace</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 tracking-tight" data-i18n="features_title">Why OpenTrace?</h2>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Card 1 -->
@@ -305,8 +305,8 @@
                     <div class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-2xl text-accent mb-6 shadow-sm">
                         <i class="fas fa-desktop"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3" data-i18n="feat_native_title">跨平台原生 GUI</h3>
-                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed" data-i18n="feat_native_desc">基于 Windows WPF、Linux GTK 和 macOS 原生技术构建，带来流畅且一致的使用体验。</p>
+                    <h3 class="text-xl font-bold mb-3" data-i18n="feat_native_title">Cross-platform Native GUI</h3>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed" data-i18n="feat_native_desc">Built with Windows WPF, Linux GTK, and macOS native technologies for a smooth and consistent experience.</p>
                 </div>
 
                 <!-- Card 2 -->
@@ -314,8 +314,8 @@
                     <div class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-2xl text-accent mb-6 shadow-sm">
                         <i class="fas fa-network-wired"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3" data-i18n="feat_mtr_title">MTR 路由追踪</h3>
-                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed" data-i18n="feat_mtr_desc">集成了强大的 My Traceroute 功能，实时分析网络路径的稳定性与丢包情况。</p>
+                    <h3 class="text-xl font-bold mb-3" data-i18n="feat_mtr_title">MTR Traceroute</h3>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed" data-i18n="feat_mtr_desc">Integrated powerful My Traceroute functionality to analyze network path stability and packet loss in real-time.</p>
                 </div>
 
                 <!-- Card 3 -->
@@ -323,8 +323,8 @@
                     <div class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-2xl text-accent mb-6 shadow-sm">
                         <i class="fas fa-globe"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3" data-i18n="feat_lang_title">多语言支持</h3>
-                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed" data-i18n="feat_lang_desc">内置中文、英文、法语、西班牙语、日语、俄语，打破语言障碍。</p>
+                    <h3 class="text-xl font-bold mb-3" data-i18n="feat_lang_title">Multi-language Support</h3>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed" data-i18n="feat_lang_desc">Built-in support for Chinese, English, French, Spanish, Japanese, and Russian.</p>
                 </div>
 
                 <!-- Card 4: Wide -->
@@ -332,8 +332,8 @@
                     <div class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-2xl text-accent mb-6 shadow-sm">
                         <i class="fas fa-shield-alt"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3" data-i18n="feat_privacy_title">隐私与自定义</h3>
-                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed" data-i18n="feat_privacy_desc">支持隐私打码（隐藏前几跳 IP）、自定义 DNS (DoH)、以及加载本地 MMDB IP 数据库。完全掌控您的网络分析数据。</p>
+                    <h3 class="text-xl font-bold mb-3" data-i18n="feat_privacy_title">Privacy & Customization</h3>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed" data-i18n="feat_privacy_desc">Supports privacy masking (hide first hops), custom DNS (DoH), and local MMDB IP databases.</p>
                 </div>
 
                 <!-- Card 5 -->
@@ -341,8 +341,8 @@
                     <div class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-2xl text-accent mb-6 shadow-sm">
                         <i class="fas fa-terminal"></i>
                     </div>
-                    <h3 class="text-xl font-bold mb-3" data-i18n="feat_cli_title">命令行启动</h3>
-                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed" data-i18n="feat_cli_desc">支持通过 CLI 参数快速启动追踪，方便脚本集成与极客使用。</p>
+                    <h3 class="text-xl font-bold mb-3" data-i18n="feat_cli_title">CLI Support</h3>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed" data-i18n="feat_cli_desc">Supports starting traceroute via CLI arguments, making it easy for script integration.</p>
                 </div>
             </div>
         </div>
@@ -351,23 +351,23 @@
     <!-- Downloads Section -->
     <section id="downloads" class="py-20 bg-apple-50 dark:bg-black">
         <div class="max-w-5xl mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 tracking-tight" data-i18n="download_title">获取 OpenTrace</h2>
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 tracking-tight" data-i18n="download_title">Get OpenTrace</h2>
             
             <div class="fade-up bg-white dark:bg-apple-900 rounded-3xl p-8 md:p-10 border border-gray-200 dark:border-gray-800 shadow-sm" id="release-container">
                 <div class="text-center py-10">
                     <i class="fas fa-circle-notch fa-spin fa-2x text-accent"></i>
-                    <p class="mt-4 text-gray-500" data-i18n="fetching_release">正在从 GitHub 获取最新版本信息...</p>
+                    <p class="mt-4 text-gray-500" data-i18n="fetching_release">Fetching latest release info from GitHub...</p>
                 </div>
             </div>
 
             <div class="fade-up text-center mt-10">
                 <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
-                    <span data-i18n="download_note_win">注意：Windows 用户使用 TCP/UDP Traceroute 需安装</span> 
+                    <span data-i18n="download_note_win">Note: Windows users need to install</span> 
                     <a href="https://npcap.com/#download" target="_blank" class="underline text-accent hover:text-accent-hover">Npcap</a>。<br>
-                    <span data-i18n="download_note_manual">或者您可以自行编译。</span>
+                    <span data-i18n="download_note_manual">Or you can compile it yourself.</span>
                 </p>
                 <a href="https://github.com/Archeb/opentrace/releases" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-apple-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors" data-i18n="view_all_releases">
-                    查看所有历史版本
+                    View All Releases
                 </a>
             </div>
         </div>
@@ -376,7 +376,7 @@
     <!-- Sponsors / Friendly Links -->
     <section class="py-16 bg-white dark:bg-[#111111] border-t border-gray-200 dark:border-gray-800">
         <div class="max-w-4xl mx-auto px-6">
-            <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 text-center mb-8" data-i18n="sponsors_title">特别鸣谢 & 友情链接</h3>
+            <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 text-center mb-8" data-i18n="sponsors_title">Special Thanks & Links</h3>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <a href="https://github.com/nxtrace/NTrace-V1" target="_blank" class="group flex items-center p-4 rounded-2xl border border-gray-200 dark:border-gray-800 bg-apple-50 dark:bg-apple-900 hover:border-accent hover:shadow-apple-sm dark:hover:shadow-apple-sm-dark hover:-translate-y-0.5 transition-all duration-300">
@@ -385,7 +385,7 @@
                     </div>
                     <div class="flex-1">
                         <div class="font-bold text-gray-900 dark:text-white group-hover:text-accent transition-colors">NextTrace Core</div>
-                        <div class="text-sm text-gray-500 dark:text-gray-400 mt-0.5" data-i18n="sponsors_desc_nexttrace">核心追踪功能支持</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mt-0.5" data-i18n="sponsors_desc_nexttrace">OpenTrace Core Engine</div>
                     </div>
                     <i class="fas fa-external-link-alt text-gray-300 dark:text-gray-600 group-hover:text-accent ml-2"></i>
                 </a>
@@ -395,7 +395,7 @@
                     </div>
                     <div class="flex-1">
                         <div class="font-bold text-gray-900 dark:text-white group-hover:text-accent transition-colors">SakuraFrp</div>
-                        <div class="text-sm text-gray-500 dark:text-gray-400 mt-0.5" data-i18n="sponsors_desc_nya">平台分发支持</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mt-0.5" data-i18n="sponsors_desc_nya">Platform Distribution Support</div>
                     </div>
                     <i class="fas fa-external-link-alt text-gray-300 dark:text-gray-600 group-hover:text-accent ml-2"></i>
                 </a>
@@ -408,7 +408,7 @@
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex justify-center gap-8 mb-6">
                 <a href="https://github.com/Archeb/opentrace" target="_blank" class="hover:text-gray-900 dark:hover:text-white transition-colors">GitHub</a>
-                <a href="https://github.com/Archeb/opentrace/issues" target="_blank" class="hover:text-gray-900 dark:hover:text-white transition-colors" data-i18n="footer_issues">反馈问题</a>
+                <a href="https://github.com/Archeb/opentrace/issues" target="_blank" class="hover:text-gray-900 dark:hover:text-white transition-colors" data-i18n="footer_issues">Report Issue</a>
             </div>
             <p>OpenTrace Contributors. GPL-3.0 License.</p>
         </div>
@@ -511,7 +511,7 @@
                 }
             });
 
-            document.getElementById('lang-toggle').textContent = currentLang === 'zh' ? 'En' : '中';
+            document.getElementById('lang-toggle').textContent = currentLang === 'zh' ? 'EN' : '中';
             updateHeroButton();
             if (window.cachedReleaseData) renderReleaseCard(window.cachedReleaseData);
         }
