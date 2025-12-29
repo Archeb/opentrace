@@ -131,7 +131,7 @@
 Souhaitez-vous ajouter une règle de pare-feu pour autoriser l'ICMP nécessaire à NextTrace ?</value>
   </data>
   <data name="AUTO_DETECT" xml:space="preserve">
-    <value>(Détection automatique)</value>
+    <value>(Vide : priorité interne, puis PATH système)</value>
   </data>
   <data name="AVRG" xml:space="preserve">
     <value>Moy.</value>

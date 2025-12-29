@@ -98,7 +98,7 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 (Auto Detect) 的本地化字符串。
+        ///   查找类似 (Leave empty for built-in, then system PATH) 的本地化字符串。
         /// </summary>
         public static string AUTO_DETECT {
             get {

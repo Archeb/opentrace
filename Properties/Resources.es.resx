@@ -131,7 +131,7 @@
 ¿Añadir regla al cortafuegos para NextTrace?</value>
   </data>
   <data name="AUTO_DETECT" xml:space="preserve">
-    <value>(Auto)</value>
+    <value>(Vacío: prioridad interno, luego PATH del sistema)</value>
   </data>
   <data name="AVRG" xml:space="preserve">
     <value>Prom.</value>
