@@ -177,9 +177,6 @@
   <data name="EMPTY_HOSTNAME_MSGBOX" xml:space="preserve">
     <value>主机或 IP 不能为空</value>
   </data>
-  <data name="ENABLE_IP2REGION" xml:space="preserve">
-    <value>启用 Ip2region 离线库 (ip2region.db)</value>
-  </data>
   <data name="ENABLE_IPINFOLOCAL" xml:space="preserve">
     <value>启用 IPInfo 离线库 (ipinfoLocal.mmdb)</value>
   </data>

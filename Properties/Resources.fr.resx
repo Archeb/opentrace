@@ -180,9 +180,6 @@ Souhaitez-vous ajouter une règle de pare-feu pour autoriser l'ICMP nécessaire 
   <data name="EMPTY_HOSTNAME_MSGBOX" xml:space="preserve">
     <value>L'hôte ou l'IP ne peut pas être vide</value>
   </data>
-  <data name="ENABLE_IP2REGION" xml:space="preserve">
-    <value>Activer la base de données hors ligne Ip2region (ip2region.db)</value>
-  </data>
   <data name="ENABLE_IPINFOLOCAL" xml:space="preserve">
     <value>Activer la base de données hors ligne IPInfo (ipinfoLocal.mmdb)</value>
   </data>

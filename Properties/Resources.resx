@@ -180,9 +180,6 @@ Would you like to add a firewall rule to allow needed ICMP for NextTrace?</value
   <data name="EMPTY_HOSTNAME_MSGBOX" xml:space="preserve">
     <value>Host or IP cannot be empty</value>
   </data>
-  <data name="ENABLE_IP2REGION" xml:space="preserve">
-    <value>Enable offline database Ip2region (ip2region.db)</value>
-  </data>
   <data name="ENABLE_IPINFOLOCAL" xml:space="preserve">
     <value>Enable offline database IPInfo (ipinfoLocal.mmdb)</value>
   </data>

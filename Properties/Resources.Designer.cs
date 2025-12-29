@@ -258,15 +258,6 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Enable offline database Ip2region (ip2region.db) 的本地化字符串。
-        /// </summary>
-        public static string ENABLE_IP2REGION {
-            get {
-                return ResourceManager.GetString("ENABLE_IP2REGION", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 Enable offline database IPInfo (ipinfoLocal.mmdb) 的本地化字符串。
         /// </summary>
         public static string ENABLE_IPINFOLOCAL {
@@ -975,10 +966,10 @@ namespace OpenTrace.Properties {
         ///			this.map = window.osmMapInstance;
         ///		}
         ///
-        ///		// 清除现有标记和折线
+        ///		// 清除现有标记和折线（通过引用）
         ///		if (this.markers &amp;&amp; this.markers.length &gt; 0) {
         ///			this.markers.forEach(marker =&gt; {
-        ///				if (thi [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        ///				i [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string openStreetMap {
             get {

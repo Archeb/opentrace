@@ -192,9 +192,6 @@
 									</TableLayout>
 								</TableRow>
 								<TableRow>
-									<CheckBox x:Name="enable_ip2region" Text="{x:Static resource:Resources.ENABLE_IP2REGION}"></CheckBox>
-								</TableRow>
-								<TableRow>
 									<CheckBox x:Name="enable_ipinfolocal" Text="{x:Static resource:Resources.ENABLE_IPINFOLOCAL}"></CheckBox>
 								</TableRow>
 								<TableRow ScaleHeight="True"></TableRow>
