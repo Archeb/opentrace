@@ -173,9 +173,6 @@
   <data name="EMPTY_HOSTNAME_MSGBOX" xml:space="preserve">
     <value>主機或 IP 不能為空</value>
   </data>
-  <data name="ENABLE_IP2REGION" xml:space="preserve">
-    <value>使用本地 Ip2region 資料庫  (ip2region.db)</value>
-  </data>
   <data name="ENABLE_IPINFOLOCAL" xml:space="preserve">
     <value>使用本地 IPInfo 資料庫 (ipinfoLocal.mmdb)</value>
   </data>

@@ -180,9 +180,6 @@ NextTrace 用に、必要な ICMP を許可するファイアウォール規則�
   <data name="EMPTY_HOSTNAME_MSGBOX" xml:space="preserve">
     <value>ホスト名または IP アドレスを入力してください</value>
   </data>
-  <data name="ENABLE_IP2REGION" xml:space="preserve">
-    <value>オフライン DB Ip2region (ip2region.db) を有効にする</value>
-  </data>
   <data name="ENABLE_IPINFOLOCAL" xml:space="preserve">
     <value>オフライン DB IPInfo (ipinfoLocal.mmdb) を有効にする</value>
   </data>

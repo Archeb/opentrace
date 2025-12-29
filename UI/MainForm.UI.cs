@@ -369,7 +369,6 @@ namespace OpenTrace.UI
 
             if (UserSettings.ChunZhenEndpoint != "") dataProviderSelection.Items.Add(new ListItem { Text = "CHUNZHEN", Key = "--data-provider chunzhen" });
             if (UserSettings.IPInsightToken != "") dataProviderSelection.Items.Add(new ListItem { Text = "IPInsight", Key = "--data-provider IPInsight" });
-            if (UserSettings.enable_ip2region == true) dataProviderSelection.Items.Add(new ListItem { Text = "Ip2region", Key = "--data-provider Ip2region" });
             if (UserSettings.enable_ipinfolocal == true) dataProviderSelection.Items.Add(new ListItem { Text = "IPInfoLocal", Key = "--data-provider IPInfoLocal" });
 
             dataProviderSelection.SelectedKey = UserSettings.selectedDataProvider;

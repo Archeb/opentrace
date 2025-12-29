@@ -174,9 +174,6 @@
   <data name="EMPTY_HOSTNAME_MSGBOX" xml:space="preserve">
     <value>Host o IP vacíos</value>
   </data>
-  <data name="ENABLE_IP2REGION" xml:space="preserve">
-    <value>BD offline Ip2region (ip2region.db)</value>
-  </data>
   <data name="ENABLE_IPINFOLOCAL" xml:space="preserve">
     <value>BD offline IPInfo (ipinfoLocal.mmdb)</value>
   </data>

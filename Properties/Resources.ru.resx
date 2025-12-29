@@ -169,9 +169,6 @@
   <data name="EMPTY_HOSTNAME_MSGBOX" xml:space="preserve">
     <value>Узел или IP не могут быть пустыми</value>
   </data>
-  <data name="ENABLE_IP2REGION" xml:space="preserve">
-    <value>Включить офлайн-базу Ip2region (ip2region.db)</value>
-  </data>
   <data name="ENABLE_IPINFOLOCAL" xml:space="preserve">
     <value>Включить офлайн-базу IPInfo (ipinfoLocal.mmdb)</value>
   </data>
