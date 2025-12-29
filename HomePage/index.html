@@ -12,6 +12,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <!-- Markdown Parser -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -61,10 +64,138 @@
         .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
         .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-        /* Release Body Markdown Styles (Tailwind Typography 替代方案) */
-        .markdown-body h2, .markdown-body h3 { @apply text-gray-900 dark:text-gray-100 font-semibold mt-4 mb-2 text-lg; }
-        .markdown-body ul { @apply list-disc pl-5 mb-4 space-y-1; }
-        .markdown-body a { @apply text-accent dark:text-accent-dark hover:underline; }
+        /* Release Body Markdown Styles */
+        .markdown-body h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #111827;
+            margin-top: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+        .markdown-body h2 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #111827;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        .markdown-body h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #111827;
+            margin-top: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+        .markdown-body p {
+            margin-bottom: 0.75rem;
+            line-height: 1.625;
+        }
+        .markdown-body ul {
+            list-style-type: disc;
+            padding-left: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        .markdown-body ol {
+            list-style-type: decimal;
+            padding-left: 1.25rem;
+            margin-bottom: 1rem;
+        }
+        .markdown-body li {
+            line-height: 1.625;
+            margin-bottom: 0.25rem;
+        }
+        .markdown-body a {
+            color: #007aff;
+        }
+        .markdown-body a:hover {
+            text-decoration: underline;
+        }
+        .markdown-body code {
+            padding: 0.125rem 0.375rem;
+            background-color: #f3f4f6;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            color: #db2777;
+        }
+        .markdown-body pre {
+            padding: 1rem;
+            background-color: #f3f4f6;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+        }
+        .markdown-body pre code {
+            padding: 0;
+            background-color: transparent;
+            color: #1f2937;
+        }
+        .markdown-body blockquote {
+            padding-left: 1rem;
+            border-left: 4px solid #d1d5db;
+            font-style: italic;
+            color: #4b5563;
+            margin: 1rem 0;
+        }
+        .markdown-body hr {
+            margin: 1.5rem 0;
+            border-color: #e5e7eb;
+        }
+        .markdown-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+        .markdown-body th,
+        .markdown-body td {
+            border: 1px solid #e5e7eb;
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+        }
+        .markdown-body th {
+            background-color: #f9fafb;
+            font-weight: 600;
+        }
+        .markdown-body img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            margin: 0.5rem 0;
+        }
+        
+        /* Dark mode styles for markdown */
+        [data-theme="dark"] .markdown-body h1,
+        [data-theme="dark"] .markdown-body h2,
+        [data-theme="dark"] .markdown-body h3 {
+            color: #f3f4f6;
+        }
+        [data-theme="dark"] .markdown-body a {
+            color: #0a84ff;
+        }
+        [data-theme="dark"] .markdown-body code {
+            background-color: #1f2937;
+            color: #f472b6;
+        }
+        [data-theme="dark"] .markdown-body pre {
+            background-color: #1f2937;
+        }
+        [data-theme="dark"] .markdown-body pre code {
+            color: #e5e7eb;
+        }
+        [data-theme="dark"] .markdown-body blockquote {
+            border-left-color: #4b5563;
+            color: #9ca3af;
+        }
+        [data-theme="dark"] .markdown-body hr {
+            border-color: #374151;
+        }
+        [data-theme="dark"] .markdown-body th,
+        [data-theme="dark"] .markdown-body td {
+            border-color: #374151;
+        }
+        [data-theme="dark"] .markdown-body th {
+            background-color: #1f2937;
+        }
         
         /* Hero Background Gradient */
         .hero-glow::before {
@@ -81,7 +212,7 @@
     <nav class="fixed top-0 left-0 right-0 h-16 bg-white/80 dark:bg-[#1c1c1e]/80 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
             <a href="#" class="flex items-center gap-3 font-bold text-xl hover:opacity-80 transition-opacity">
-                <img src="https://github.com/nxtrace/NTrace-V1/raw/main/assets/logo.png" alt="Logo" class="w-8 h-8">
+                <img src="./img/logo.png" alt="Logo" class="w-8 h-8">
                 <span>OpenTrace</span>
             </a>
             
@@ -115,7 +246,7 @@
     <section class="relative pt-40 pb-20 text-center overflow-hidden hero-glow">
         <div class="max-w-4xl mx-auto px-6">
             <div class="fade-up flex flex-col items-center">
-                <img src="https://github.com/nxtrace/NTrace-V1/raw/main/assets/logo.png" alt="OpenTrace Logo" class="w-28 h-28 md:w-32 md:h-32 mb-8 rounded-[2rem] shadow-apple-md dark:shadow-apple-md-dark">
+                <img src="./img/logo.png" alt="OpenTrace Logo" class="w-28 h-28 md:w-32 md:h-32 mb-8 rounded-[2rem] shadow-apple-md dark:shadow-apple-md-dark">
                 
                 <h1 style="line-height:1.2;" class="text-4xl md:text-6xl font-bold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-br from-gray-900 to-gray-500 dark:from-white dark:to-gray-400" data-i18n="hero_title">
                     &nbsp;&nbsp;&nbsp;熟悉的界面，<br>&nbsp;&nbsp;&nbsp;更强大的体验。
@@ -144,7 +275,7 @@
 
     <!-- Screenshots Preview -->
     <section id="preview" class="py-20 bg-apple-50 dark:bg-[#000000]">
-        <div class="max-w-6xl mx-auto px-6">
+        <div class="max-w-5xl mx-auto px-6">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 tracking-tight" data-i18n="preview_title">原生体验，跨越平台</h2>
             
             <div class="fade-up flex justify-center mb-10">
@@ -156,9 +287,9 @@
             </div>
 
             <div class="fade-up max-w-5xl mx-auto relative rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-apple-900">
-                <img src="https://i.imgur.com/brB08tl.png" alt="macOS Preview" class="screenshot-img active w-full block animate-[fadeIn_0.4s_ease]" id="img-macos">
-                <img src="https://github.com/Archeb/opentrace/assets/11910831/510b61a2-712e-4d83-ae94-f396862e68df" alt="Windows Preview" class="screenshot-img w-full hidden animate-[fadeIn_0.4s_ease]" id="img-windows">
-                <img src="https://i.imgur.com/MxSHIcU.png" alt="Linux Preview" class="screenshot-img w-full hidden animate-[fadeIn_0.4s_ease]" id="img-linux">
+                <img src="./img/macos.jpg" alt="macOS Preview" class="screenshot-img active w-full block" id="img-macos">
+                <img src="./img/windows.png" alt="Windows Preview" class="screenshot-img w-full hidden" id="img-windows">
+                <img src="./img/linux.png" alt="Linux Preview" class="screenshot-img w-full hidden" id="img-linux">
             </div>
         </div>
     </section>
@@ -250,7 +381,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <a href="https://github.com/nxtrace/NTrace-V1" target="_blank" class="group flex items-center p-4 rounded-2xl border border-gray-200 dark:border-gray-800 bg-apple-50 dark:bg-apple-900 hover:border-accent hover:shadow-apple-sm dark:hover:shadow-apple-sm-dark hover:-translate-y-0.5 transition-all duration-300">
                     <div class="w-12 h-12 rounded-xl bg-white dark:bg-black p-2 flex items-center justify-center shadow-sm mr-4 border border-gray-100 dark:border-gray-800">
-                        <img src="https://github.com/nxtrace/NTrace-V1/raw/main/assets/logo.png" alt="NextTrace" class="w-full h-full object-contain">
+                        <img src="./img/logo.png" alt="NextTrace" class="w-full h-full object-contain">
                     </div>
                     <div class="flex-1">
                         <div class="font-bold text-gray-900 dark:text-white group-hover:text-accent transition-colors">NextTrace Core</div>
@@ -279,7 +410,7 @@
                 <a href="https://github.com/Archeb/opentrace" target="_blank" class="hover:text-gray-900 dark:hover:text-white transition-colors">GitHub</a>
                 <a href="https://github.com/Archeb/opentrace/issues" target="_blank" class="hover:text-gray-900 dark:hover:text-white transition-colors" data-i18n="footer_issues">反馈问题</a>
             </div>
-            <p>Brought to you by OpenTrace Contributors. GPL-3.0 License.</p>
+            <p>OpenTrace Contributors. GPL-3.0 License.</p>
         </div>
     </footer>
 
@@ -463,15 +594,27 @@
         const API_URL = 'https://api.github.com/repos/Archeb/opentrace/releases/latest';
 
         function cleanMarkdown(text) {
+            // Remove image tags from raw HTML if any
             text = text.replace(/<img[^>]*>/g, '');
-            text = text.replace(/### (.*)/g, '<h3>$1</h3>');
-            text = text.replace(/## (.*)/g, '<h2>$1</h2>');
-            text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-            // Tailwind-friendly link
-            text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
-            text = text.replace(/- (.*)/g, '<li>$1</li>');
-            text = text.replace(/\n/g, '<br>');
-            return text;
+            
+            // Configure marked options
+            marked.setOptions({
+                breaks: true,  // Convert \n to <br>
+                gfm: true,     // GitHub Flavored Markdown
+                headerIds: false,
+                mangle: false
+            });
+
+            // Parse markdown to HTML
+            let html = marked.parse(text);
+
+            // Make all links open in new tab
+            html = html.replace(/<a /g, '<a target="_blank" ');
+
+            // Optionally hide images from markdown (keep this if you don't want images)
+            html = html.replace(/<img[^>]*>/g, '');
+
+            return html;
         }
 
         function formatBytes(bytes, decimals = 2) {
