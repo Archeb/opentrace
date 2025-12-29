@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenTrace - The Cross-platform Network Tracing Tool</title>
+    <meta name="description" content="OpenTrace is a cross-platform GUI for network tracing, supported on Windows, macOS, and Linux.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: ['selector', '[data-theme="dark"]'], // 兼容原有的 data-theme 切换逻辑
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        apple: {
+                            50: '#f5f5f7',
+                            100: '#e8e8ed',
+                            200: '#d2d2d7',
+                            800: '#2c2c2e',
+                            900: '#1c1c1e',
+                        },
+                        accent: {
+                            DEFAULT: '#007aff', // iOS Blue
+                            hover: '#0077ed',
+                            dark: '#0a84ff',
+                        }
+                    },
+                    boxShadow: {
+                        'apple-sm': '0 2px 8px rgba(0,0,0,0.04)',
+                        'apple-md': '0 8px 24px rgba(0,0,0,0.08)',
+                        'apple-sm-dark': '0 2px 8px rgba(0,0,0,0.2)',
+                        'apple-md-dark': '0 8px 24px rgba(0,0,0,0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* 保留少许必要的自定义 CSS */
+        
+        /* 隐藏滚动条但保留功能 (可选) */
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* 动画关键帧 */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        /* Fade Up Animation Utility */
+        .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+        .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+        /* Release Body Markdown Styles (Tailwind Typography 替代方案) */
+        .markdown-body h2, .markdown-body h3 { @apply text-gray-900 dark:text-gray-100 font-semibold mt-4 mb-2 text-lg; }
+        .markdown-body ul { @apply list-disc pl-5 mb-4 space-y-1; }
+        .markdown-body a { @apply text-accent dark:text-accent-dark hover:underline; }
+        
+        /* Hero Background Gradient */
+        .hero-glow::before {
+            content: ''; position: absolute; top: 50%; left: 50%; 
+            transform: translate(-50%, -50%); width: 600px; height: 600px; 
+            background: radial-gradient(circle, rgba(0,122,255,0.15) 0%, rgba(0,0,0,0) 70%); 
+            border-radius: 50%; z-index: -1; pointer-events: none;
+        }
+    </style>
+</head>
+<body class="font-sans antialiased bg-white dark:bg-black text-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 left-0 right-0 h-16 bg-white/80 dark:bg-[#1c1c1e]/80 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 font-bold text-xl hover:opacity-80 transition-opacity">
+                <img src="https://github.com/nxtrace/NTrace-V1/raw/main/assets/logo.png" alt="Logo" class="w-8 h-8">
+                <span>OpenTrace</span>
+            </a>
+            
+            <div class="flex items-center gap-6">
+                <!-- Desktop Nav -->
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="#features" class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" data-i18n="nav_features">功能</a>
+                    <a href="#preview" class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" data-i18n="nav_preview">预览</a>
+                    <a href="#downloads" class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" data-i18n="nav_download">下载</a>
+                    <a href="https://github.com/Archeb/opentrace" target="_blank" class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                        <i class="fab fa-github mr-1"></i> GitHub
+                    </a>
+                </div>
+
+                <div class="flex items-center gap-2 border-l border-gray-200 dark:border-gray-700 pl-4">
+                    <!-- Language Toggle -->
+                    <button id="lang-toggle" class="w-10 h-10 flex items-center justify-center rounded-full text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" aria-label="Switch Language">
+                        CN
+                    </button>
+
+                    <!-- Theme Toggle -->
+                    <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-full text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" aria-label="Toggle Theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-40 pb-20 text-center overflow-hidden hero-glow">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="fade-up flex flex-col items-center">
+                <img src="https://github.com/nxtrace/NTrace-V1/raw/main/assets/logo.png" alt="OpenTrace Logo" class="w-28 h-28 md:w-32 md:h-32 mb-8 rounded-[2rem] shadow-apple-md dark:shadow-apple-md-dark">
+                
+                <h1 style="line-height:1.2;" class="text-4xl md:text-6xl font-bold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-br from-gray-900 to-gray-500 dark:from-white dark:to-gray-400" data-i18n="hero_title">
+                    &nbsp;&nbsp;&nbsp;熟悉的界面，<br>&nbsp;&nbsp;&nbsp;更强大的体验。
+                </h1>
+                
+                <p class="text-xl md:text-2xl text-gray-500 dark:text-gray-400 max-w-3xl mx-auto mb-10 font-normal" data-i18n="hero_subtitle">
+                    适用于 macOS, Windows 和 Linux 的可视化网络追踪工具。
+                </p>
+                
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="#downloads" id="hero-download-btn" class="group flex items-center gap-2 px-8 py-3.5 bg-accent hover:bg-accent-hover dark:bg-accent-dark dark:hover:bg-blue-500 text-white rounded-full font-semibold transition-all shadow-lg shadow-blue-500/30 active:scale-95">
+                        <i class="fas fa-download group-hover:animate-bounce"></i> 
+                        <span id="hero-dl-text">前往下载</span>
+                    </a>
+                    <a href="https://github.com/Archeb/opentrace" target="_blank" class="flex items-center gap-2 px-8 py-3.5 bg-apple-50 dark:bg-apple-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 rounded-full font-semibold hover:bg-apple-100 dark:hover:bg-gray-700 transition-all active:scale-95" data-i18n="hero_github">
+                        <i class="fab fa-github"></i> 访问 GitHub
+                    </a>
+                </div>
+                
+                <div class="mt-4 text-sm text-gray-500 dark:text-gray-500">
+                    <span data-i18n="hero_version">最新版本</span>: <span id="hero-version" class="font-mono">...</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots Preview -->
+    <section id="preview" class="py-20 bg-apple-50 dark:bg-[#000000]">
+        <div class="max-w-6xl mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 tracking-tight" data-i18n="preview_title">原生体验，跨越平台</h2>
+            
+            <div class="fade-up flex justify-center mb-10">
+                <div class="inline-flex p-1.5 bg-white dark:bg-apple-900 rounded-full border border-gray-200 dark:border-gray-800 shadow-sm">
+                    <button class="tab-btn active px-6 py-2 rounded-full text-sm font-medium transition-all text-white bg-accent shadow-sm" onclick="switchTab('macos', this)">macOS</button>
+                    <button class="tab-btn px-6 py-2 rounded-full text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all" onclick="switchTab('windows', this)">Windows</button>
+                    <button class="tab-btn px-6 py-2 rounded-full text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all" onclick="switchTab('linux', this)">Linux</button>
+                </div>
+            </div>
+
+            <div class="fade-up max-w-5xl mx-auto relative rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-apple-900">
+                <img src="https://i.imgur.com/brB08tl.png" alt="macOS Preview" class="screenshot-img active w-full block animate-[fadeIn_0.4s_ease]" id="img-macos">
+                <img src="https://github.com/Archeb/opentrace/assets/11910831/510b61a2-712e-4d83-ae94-f396862e68df" alt="Windows Preview" class="screenshot-img w-full hidden animate-[fadeIn_0.4s_ease]" id="img-windows">
+                <img src="https://i.imgur.com/MxSHIcU.png" alt="Linux Preview" class="screenshot-img w-full hidden animate-[fadeIn_0.4s_ease]" id="img-linux">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section id="features" class="py-20 bg-white dark:bg-black">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 tracking-tight" data-i18n="features_title">为什么选择 OpenTrace</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="fade-up group p-8 bg-apple-50 dark:bg-apple-900 rounded-3xl border border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-apple-md dark:hover:shadow-apple-md-dark transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-2xl text-accent mb-6 shadow-sm">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3" data-i18n="feat_native_title">跨平台原生 GUI</h3>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed" data-i18n="feat_native_desc">基于 Windows WPF、Linux GTK 和 macOS 原生技术构建，带来流畅且一致的使用体验。</p>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="fade-up group p-8 bg-apple-50 dark:bg-apple-900 rounded-3xl border border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-apple-md dark:hover:shadow-apple-md-dark transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-2xl text-accent mb-6 shadow-sm">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3" data-i18n="feat_mtr_title">MTR 路由追踪</h3>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed" data-i18n="feat_mtr_desc">集成了强大的 My Traceroute 功能，实时分析网络路径的稳定性与丢包情况。</p>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="fade-up group p-8 bg-apple-50 dark:bg-apple-900 rounded-3xl border border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-apple-md dark:hover:shadow-apple-md-dark transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-2xl text-accent mb-6 shadow-sm">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3" data-i18n="feat_lang_title">多语言支持</h3>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed" data-i18n="feat_lang_desc">内置中文、英文、法语、西班牙语、日语、俄语，打破语言障碍。</p>
+                </div>
+
+                <!-- Card 4: Wide -->
+                <div class="fade-up md:col-span-2 group p-8 bg-apple-50 dark:bg-apple-900 rounded-3xl border border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-apple-md dark:hover:shadow-apple-md-dark transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-2xl text-accent mb-6 shadow-sm">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3" data-i18n="feat_privacy_title">隐私与自定义</h3>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed" data-i18n="feat_privacy_desc">支持隐私打码（隐藏前几跳 IP）、自定义 DNS (DoH)、以及加载本地 MMDB IP 数据库。完全掌控您的网络分析数据。</p>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="fade-up group p-8 bg-apple-50 dark:bg-apple-900 rounded-3xl border border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-apple-md dark:hover:shadow-apple-md-dark transition-all duration-300 hover:-translate-y-1">
+                    <div class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-2xl text-accent mb-6 shadow-sm">
+                        <i class="fas fa-terminal"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3" data-i18n="feat_cli_title">命令行启动</h3>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed" data-i18n="feat_cli_desc">支持通过 CLI 参数快速启动追踪，方便脚本集成与极客使用。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Downloads Section -->
+    <section id="downloads" class="py-20 bg-apple-50 dark:bg-black">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 tracking-tight" data-i18n="download_title">获取 OpenTrace</h2>
+            
+            <div class="fade-up bg-white dark:bg-apple-900 rounded-3xl p-8 md:p-10 border border-gray-200 dark:border-gray-800 shadow-sm" id="release-container">
+                <div class="text-center py-10">
+                    <i class="fas fa-circle-notch fa-spin fa-2x text-accent"></i>
+                    <p class="mt-4 text-gray-500" data-i18n="fetching_release">正在从 GitHub 获取最新版本信息...</p>
+                </div>
+            </div>
+
+            <div class="fade-up text-center mt-10">
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
+                    <span data-i18n="download_note_win">注意：Windows 用户使用 TCP/UDP Traceroute 需安装</span> 
+                    <a href="https://npcap.com/#download" target="_blank" class="underline text-accent hover:text-accent-hover">Npcap</a>。<br>
+                    <span data-i18n="download_note_manual">或者您可以自行编译。</span>
+                </p>
+                <a href="https://github.com/Archeb/opentrace/releases" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-apple-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors" data-i18n="view_all_releases">
+                    查看所有历史版本
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sponsors / Friendly Links -->
+    <section class="py-16 bg-white dark:bg-[#111111] border-t border-gray-200 dark:border-gray-800">
+        <div class="max-w-4xl mx-auto px-6">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 text-center mb-8" data-i18n="sponsors_title">特别鸣谢 & 友情链接</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="https://github.com/nxtrace/NTrace-V1" target="_blank" class="group flex items-center p-4 rounded-2xl border border-gray-200 dark:border-gray-800 bg-apple-50 dark:bg-apple-900 hover:border-accent hover:shadow-apple-sm dark:hover:shadow-apple-sm-dark hover:-translate-y-0.5 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-xl bg-white dark:bg-black p-2 flex items-center justify-center shadow-sm mr-4 border border-gray-100 dark:border-gray-800">
+                        <img src="https://github.com/nxtrace/NTrace-V1/raw/main/assets/logo.png" alt="NextTrace" class="w-full h-full object-contain">
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-bold text-gray-900 dark:text-white group-hover:text-accent transition-colors">NextTrace Core</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mt-0.5" data-i18n="sponsors_desc_nexttrace">核心追踪功能支持</div>
+                    </div>
+                    <i class="fas fa-external-link-alt text-gray-300 dark:text-gray-600 group-hover:text-accent ml-2"></i>
+                </a>
+                <a href="https://www.natfrp.com/" target="_blank" class="group flex items-center p-4 rounded-2xl border border-gray-200 dark:border-gray-800 bg-apple-50 dark:bg-apple-900 hover:border-accent hover:shadow-apple-sm dark:hover:shadow-apple-sm-dark hover:-translate-y-0.5 transition-all duration-300">
+                    <div class="w-12 h-12 rounded-xl bg-white dark:bg-black p-2 flex items-center justify-center shadow-sm mr-4 border border-gray-100 dark:border-gray-800">
+                        <img src="https://www.natfrp.com/favicon.ico?v=2" alt="NextTrace" class="w-full h-full object-contain">
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-bold text-gray-900 dark:text-white group-hover:text-accent transition-colors">Nya Labs</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mt-0.5" data-i18n="sponsors_desc_nya">平台分发支持</div>
+                    </div>
+                    <i class="fas fa-external-link-alt text-gray-300 dark:text-gray-600 group-hover:text-accent ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-10 bg-apple-50 dark:bg-black border-t border-gray-200 dark:border-gray-800 text-center text-sm text-gray-500 dark:text-gray-400">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-center gap-8 mb-6">
+                <a href="https://github.com/Archeb/opentrace" target="_blank" class="hover:text-gray-900 dark:hover:text-white transition-colors">GitHub</a>
+                <a href="https://github.com/Archeb/opentrace/issues" target="_blank" class="hover:text-gray-900 dark:hover:text-white transition-colors" data-i18n="footer_issues">反馈问题</a>
+            </div>
+            <p>Brought to you by OpenTrace Contributors. GPL-3.0 License.</p>
+        </div>
+    </footer>
+
+    <script>
+        // --- Internationalization (i18n) ---
+        const translations = {
+            zh: {
+                nav_features: "功能",
+                nav_preview: "预览",
+                nav_download: "下载",
+                hero_title: "&nbsp;&nbsp;&nbsp;熟悉的界面，<br>&nbsp;&nbsp;&nbsp;更强大的体验。",
+                hero_subtitle: "适用于 macOS, Windows 和 Linux 的可视化网络追踪工具。",
+                hero_dl_prefix: "下载",
+                hero_dl_suffix: "版本",
+                hero_dl_latest: "下载最新版本",
+                hero_github: '<i class="fab fa-github"></i> 访问 GitHub',
+                hero_version: "最新版本",
+                preview_title: "原生体验，跨越平台",
+                features_title: "为什么选择 OpenTrace",
+                feat_native_title: "跨平台原生 GUI",
+                feat_native_desc: "基于 Windows WPF、Linux GTK 和 macOS 原生技术构建，带来流畅且一致的使用体验。",
+                feat_mtr_title: "MTR 路由追踪",
+                feat_mtr_desc: "集成了强大的 My Traceroute 功能，实时分析网络路径的稳定性与丢包情况。",
+                feat_lang_title: "多语言支持",
+                feat_lang_desc: "内置中文、英文、法语、西班牙语、日语、俄语，打破语言障碍。",
+                feat_privacy_title: "隐私与自定义",
+                feat_privacy_desc: "支持隐私打码（隐藏前几跳 IP）、自定义 DNS (DoH)、以及加载本地 MMDB IP 数据库。",
+                feat_cli_title: "命令行启动",
+                feat_cli_desc: "支持通过 CLI 参数快速启动追踪，方便脚本集成与极客使用。",
+                download_title: "获取 OpenTrace",
+                fetching_release: "正在从 GitHub 获取最新版本信息...",
+                download_note_win: "注意：Windows 用户使用 TCP/UDP Traceroute 需安装",
+                download_note_manual: "或者您可以自行编译。",
+                view_all_releases: "查看所有历史版本",
+                released_on: "发布于",
+                release_page: '<i class="fab fa-github"></i> Release 页面',
+                download_files: "下载文件",
+                download_count: "次下载",
+                api_error: "无法连接 GitHub API，请直接访问 GitHub Releases 页面下载。",
+                go_github: "前往 GitHub",
+                sponsors_title: "特别鸣谢 & 友情链接",
+                sponsors_desc_nexttrace: "OpenTrace 核心追踪引擎",
+                sponsors_desc_nya: "平台分发支持",
+                footer_issues: "反馈问题"
+            },
+            en: {
+                nav_features: "Features",
+                nav_preview: "Preview",
+                nav_download: "Download",
+                hero_title: "Familiar Interface,<br>Powerful Experience.",
+                hero_subtitle: "Visualized Network Tracing Tool for macOS, Windows, and Linux.",
+                hero_dl_prefix: "Download for",
+                hero_dl_suffix: "",
+                hero_dl_latest: "Download Latest",
+                hero_github: '<i class="fab fa-github"></i> Visit GitHub',
+                hero_version: "Latest Version",
+                preview_title: "Native Experience, Cross-Platform",
+                features_title: "Why OpenTrace?",
+                feat_native_title: "Cross-platform Native GUI",
+                feat_native_desc: "Built with Windows WPF, Linux GTK, and macOS native technologies for a smooth and consistent experience.",
+                feat_mtr_title: "MTR Traceroute",
+                feat_mtr_desc: "Integrated powerful My Traceroute functionality to analyze network path stability and packet loss in real-time.",
+                feat_lang_title: "Multi-language Support",
+                feat_lang_desc: "Built-in support for Chinese, English, French, Spanish, Japanese, and Russian.",
+                feat_privacy_title: "Privacy & Customization",
+                feat_privacy_desc: "Supports privacy masking (hide first hops), custom DNS (DoH), and local MMDB IP databases.",
+                feat_cli_title: "CLI Support",
+                feat_cli_desc: "Supports starting traceroute via CLI arguments, making it easy for script integration.",
+                download_title: "Get OpenTrace",
+                fetching_release: "Fetching latest release info from GitHub...",
+                download_note_win: "Note: Windows users need to install",
+                download_note_manual: "Or you can compile it yourself.",
+                view_all_releases: "View All Releases",
+                released_on: "Released on",
+                release_page: '<i class="fab fa-github"></i> Release Page',
+                download_files: "Download Assets",
+                download_count: "downloads",
+                api_error: "Cannot connect to GitHub API. Please visit GitHub Releases page directly.",
+                go_github: "Go to GitHub",
+                sponsors_title: "Special Thanks & Links",
+                sponsors_desc_nexttrace: "OpenTrace Core Engine",
+                sponsors_desc_nya: "Platform Distribution Support",
+                footer_issues: "Report Issue"
+            }
+        };
+
+        // Determine initial language
+        const userLang = navigator.language || navigator.userLanguage;
+        let currentLang = userLang.startsWith('zh') ? 'zh' : 'en';
+
+        function updateLanguage() {
+            const t = translations[currentLang];
+            
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (t[key]) {
+                    el.innerHTML = t[key];
+                }
+            });
+
+            document.getElementById('lang-toggle').textContent = currentLang === 'zh' ? 'En' : '中';
+            updateHeroButton();
+            if (window.cachedReleaseData) renderReleaseCard(window.cachedReleaseData);
+        }
+
+        const langToggle = document.getElementById('lang-toggle');
+        langToggle.addEventListener('click', () => {
+            currentLang = currentLang === 'zh' ? 'en' : 'zh';
+            updateLanguage();
+        });
+
+        // --- Theme Management ---
+        const themeToggle = document.getElementById('theme-toggle');
+        const icon = themeToggle.querySelector('i');
+        
+        function setTheme(theme) {
+            document.documentElement.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        }
+
+        const savedTheme = localStorage.getItem('theme') || 
+                          (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        setTheme(savedTheme);
+
+        themeToggle.addEventListener('click', () => {
+            const current = document.documentElement.getAttribute('data-theme');
+            setTheme(current === 'dark' ? 'light' : 'dark');
+        });
+
+        // --- Screenshot Tabs (Updated styles via JS class manipulation) ---
+        function switchTab(os, btn) {
+            // Reset all buttons styling
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.className = 'tab-btn px-6 py-2 rounded-full text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all';
+            });
+            
+            // Set active button styling
+            btn.className = 'tab-btn active px-6 py-2 rounded-full text-sm font-medium transition-all text-white bg-accent shadow-sm';
+            
+            // Switch images
+            document.querySelectorAll('.screenshot-img').forEach(img => {
+                img.classList.add('hidden');
+                img.classList.remove('block');
+            });
+            const activeImg = document.getElementById(`img-${os}`);
+            activeImg.classList.remove('hidden');
+            activeImg.classList.add('block');
+        }
+
+        // --- OS Detection & Hero Button ---
+        function getOS() {
+            const userAgent = window.navigator.userAgent;
+            const platform = window.navigator.platform;
+            const macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'];
+            const windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'];
+            
+            if (macosPlatforms.indexOf(platform) !== -1) return 'macOS';
+            if (windowsPlatforms.indexOf(platform) !== -1) return 'Windows';
+            if (/Linux/.test(platform)) return 'Linux';
+            return 'Unknown';
+        }
+
+        function updateHeroButton() {
+            const os = getOS();
+            const heroBtnText = document.getElementById('hero-dl-text');
+            const t = translations[currentLang];
+
+            if (os === 'Windows' || os === 'macOS' || os === 'Linux') {
+                if (currentLang === 'zh') {
+                    heroBtnText.textContent = `${t.hero_dl_prefix} ${os} ${t.hero_dl_suffix}`;
+                } else {
+                     heroBtnText.textContent = `${t.hero_dl_prefix} ${os}`;
+                }
+            } else {
+                heroBtnText.textContent = t.hero_dl_latest;
+            }
+        }
+
+        // --- Data Fetching & Rendering ---
+        const API_URL = 'https://api.github.com/repos/Archeb/opentrace/releases/latest';
+
+        function cleanMarkdown(text) {
+            text = text.replace(/<img[^>]*>/g, '');
+            text = text.replace(/### (.*)/g, '<h3>$1</h3>');
+            text = text.replace(/## (.*)/g, '<h2>$1</h2>');
+            text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            // Tailwind-friendly link
+            text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
+            text = text.replace(/- (.*)/g, '<li>$1</li>');
+            text = text.replace(/\n/g, '<br>');
+            return text;
+        }
+
+        function formatBytes(bytes, decimals = 2) {
+            if (!+bytes) return '0 Bytes';
+            const k = 1024;
+            const dm = decimals < 0 ? 0 : decimals;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
+        }
+
+        function renderReleaseCard(data) {
+            const t = translations[currentLang];
+            const container = document.getElementById('release-container');
+            
+            let assetsHtml = '';
+            data.assets.forEach(asset => {
+                let iconClass = 'fa-file';
+                const name = asset.name.toLowerCase();
+                if (name.includes('win')) iconClass = 'fa-windows';
+                else if (name.includes('osx') || name.includes('mac')) iconClass = 'fa-apple';
+                else if (name.includes('linux')) iconClass = 'fa-linux';
+
+                // Tailwind Asset Item
+                assetsHtml += `
+                    <a href="${asset.browser_download_url}" class="group flex items-center justify-between p-4 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-xl hover:border-accent dark:hover:border-accent hover:shadow-apple-sm dark:hover:shadow-apple-sm-dark hover:-translate-y-0.5 transition-all duration-200">
+                        <div class="flex flex-col">
+                            <span class="font-semibold text-gray-900 dark:text-gray-100 text-sm group-hover:text-accent transition-colors">
+                                <i class="fab ${iconClass} mr-2 text-accent"></i>${asset.name}
+                            </span>
+                            <span class="text-xs text-gray-500 mt-1">${formatBytes(asset.size)} • ${asset.download_count} ${t.download_count}</span>
+                        </div>
+                        <i class="fas fa-download text-gray-400 group-hover:text-accent text-sm"></i>
+                    </a>
+                `;
+            });
+
+            container.innerHTML = `
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 border-b border-gray-100 dark:border-gray-800 pb-6">
+                    <div>
+                        <div class="text-3xl font-bold text-gray-900 dark:text-white">${data.name || data.tag_name}</div>
+                        <div class="text-sm text-gray-500 mt-1">${t.released_on} ${new Date(data.published_at).toLocaleDateString()}</div>
+                    </div>
+                    <a href="${data.html_url}" target="_blank" class="px-4 py-2 bg-gray-50 dark:bg-apple-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+                        ${t.release_page}
+                    </a>
+                </div>
+                
+                <div class="markdown-body text-gray-500 dark:text-gray-400 text-sm mb-8 max-h-80 overflow-y-auto pr-2 custom-scrollbar">
+                    ${cleanMarkdown(data.body)}
+                </div>
+                
+                <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">${t.download_files}</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    ${assetsHtml}
+                </div>
+            `;
+        }
+
+        async function init() {
+            document.getElementById('year').textContent = new Date().getFullYear();
+            updateLanguage();
+
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error('API Rate Limit or Network Error');
+                const data = await response.json();
+                
+                window.cachedReleaseData = data;
+                document.getElementById('hero-version').textContent = data.tag_name;
+
+                // Smart Link Logic
+                const os = getOS();
+                const assets = data.assets;
+                let targetExt = [];
+                if (os === 'Windows') targetExt = ['.zip', '.exe'];
+                else if (os === 'macOS') targetExt = ['.dmg'];
+                else if (os === 'Linux') targetExt = ['.tar.gz', '.deb', '.rpm'];
+
+                let suggestedAsset = null;
+                if (targetExt.length > 0) {
+                    const isArm = navigator.userAgent.includes('ARM') || navigator.userAgent.includes('aarch64');
+                    suggestedAsset = assets.find(a => {
+                        const name = a.name.toLowerCase();
+                        const extMatch = targetExt.some(ext => name.endsWith(ext));
+                        const archMatch = isArm ? name.includes('arm') : (name.includes('x64') || name.includes('amd64'));
+                        return extMatch && archMatch;
+                    });
+                    if (!suggestedAsset) {
+                        suggestedAsset = assets.find(a => {
+                            const name = a.name.toLowerCase();
+                            return targetExt.some(ext => name.endsWith(ext));
+                        });
+                    }
+                }
+
+                if (suggestedAsset) {
+                    document.getElementById('hero-download-btn').href = suggestedAsset.browser_download_url;
+                } else {
+                    document.getElementById('hero-download-btn').href = "#downloads";
+                }
+
+                renderReleaseCard(data);
+
+            } catch (error) {
+                console.error(error);
+                const t = translations[currentLang];
+                document.getElementById('hero-version').textContent = "v1.5.0.0 (Cached)";
+                document.getElementById('release-container').innerHTML = `
+                    <div class="text-center py-10">
+                        <p class="text-gray-500">${t.api_error}</p>
+                        <a href="https://github.com/Archeb/opentrace/releases" class="inline-block mt-4 px-6 py-2 bg-accent text-white rounded-full hover:bg-accent-hover transition-colors">${t.go_github}</a>
+                    </div>
+                `;
+            }
+        }
+
+        // --- Intersection Observer for Animations ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        init();
+
+    </script>
+</body>
+</html>
