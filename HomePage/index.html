@@ -287,7 +287,7 @@
             </div>
 
             <div class="fade-up max-w-5xl mx-auto relative rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-apple-900">
-                <img src="./img/macos.jpg" alt="macOS Preview" class="screenshot-img active w-full block" id="img-macos">
+                <img src="./img/macos.jpg" alt="macOS Preview" class="screenshot-img active w-full block" id="img-macos" data-light-src="./img/macos.jpg" data-dark-src="./img/macos_dark.jpg">
                 <img src="./img/windows.png" alt="Windows Preview" class="screenshot-img w-full hidden" id="img-windows">
                 <img src="./img/linux.png" alt="Linux Preview" class="screenshot-img w-full hidden" id="img-linux">
             </div>
@@ -530,6 +530,9 @@
             document.documentElement.setAttribute('data-theme', theme);
             localStorage.setItem('theme', theme);
             icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            
+            // Update macOS screenshot when theme changes
+            updateMacOSScreenshot();
         }
 
         const savedTheme = localStorage.getItem('theme') || 
@@ -559,6 +562,25 @@
             const activeImg = document.getElementById(`img-${os}`);
             activeImg.classList.remove('hidden');
             activeImg.classList.add('block');
+            
+            // Update macOS image based on current theme
+            updateMacOSScreenshot();
+        }
+        
+        // Update macOS screenshot based on dark mode
+        function updateMacOSScreenshot() {
+            const macosImg = document.getElementById('img-macos');
+            if (!macosImg) return;
+            
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            const lightSrc = macosImg.getAttribute('data-light-src');
+            const darkSrc = macosImg.getAttribute('data-dark-src');
+            
+            if (isDark && darkSrc) {
+                macosImg.src = darkSrc;
+            } else if (lightSrc) {
+                macosImg.src = lightSrc;
+            }
         }
 
         // --- OS Detection & Hero Button ---
