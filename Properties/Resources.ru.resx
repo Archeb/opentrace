@@ -131,7 +131,7 @@
 Добавить правило в брандмауэр для корректной работы NextTrace?</value>
   </data>
   <data name="AUTO_DETECT" xml:space="preserve">
-    <value>(Автоопределение)</value>
+    <value>(Пусто: встроенный, затем системный PATH)</value>
   </data>
   <data name="AVRG" xml:space="preserve">
     <value>Сред.</value>

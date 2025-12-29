@@ -131,7 +131,7 @@
 NextTrace 用に、必要な ICMP を許可するファイアウォール規則を追加しますか？</value>
   </data>
   <data name="AUTO_DETECT" xml:space="preserve">
-    <value>(自動検出)</value>
+    <value>(空欄で内蔵優先、次にシステムPATHを検索)</value>
   </data>
   <data name="AVRG" xml:space="preserve">
     <value>平均</value>

@@ -131,7 +131,7 @@
 Would you like to add a firewall rule to allow needed ICMP for NextTrace?</value>
   </data>
   <data name="AUTO_DETECT" xml:space="preserve">
-    <value>(Auto Detect)</value>
+    <value>(Leave empty for built-in, then system PATH)</value>
   </data>
   <data name="AVRG" xml:space="preserve">
     <value>Avg.</value>

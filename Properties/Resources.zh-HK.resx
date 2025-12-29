@@ -134,7 +134,7 @@
 若要獲得更多信息，請參考 https://github.com/nxtrace/Ntrace-core/issues/52</value>
   </data>
   <data name="AUTO_DETECT" xml:space="preserve">
-    <value>(留空自動檢測)</value>
+    <value>(留空優先使用內置，然後尋找系統 PATH 目錄)</value>
   </data>
   <data name="AVRG" xml:space="preserve">
     <value>平均延遲</value>
