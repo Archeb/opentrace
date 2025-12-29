@@ -219,7 +219,7 @@ namespace OpenTrace.Services
                         else
                         {
                             if (line.StartsWith("NextTrace ")) return;
-                            if (line.StartsWith("traceroute to ")) return;
+                            if (line.IndexOf("hops max") > -1) return;
                             if (line.StartsWith("IP Geo Data Provider")) return;
                             if (line.StartsWith("[NextTrace API]")) return;
                             ExceptionalOutput?.Invoke(this, new ExceptionalOutputEventArgs(false, line));
