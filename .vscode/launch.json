@@ -2,6 +2,20 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "C#: OpenTrace (Linux)",
+            "type": "coreclr", 
+            "request": "launch",
+            "program": "${workspaceFolder}/bin/Gtk/Debug/net8.0/OpenTrace",
+            "args": [],
+            "preLaunchTask": "build",
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole",
+            "internalConsoleOptions": "openOnSessionStart",
+            "justMyCode": true,
+            "requireExactSource": false
+        },
+        {
             "name": "C#: OpenTrace (macOS)",
             "type": "coreclr", 
             "request": "launch",
