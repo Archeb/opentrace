@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenTrace - The Cross-platform Network Tracing Tool</title>
+    <title>OpenTrace - The Cross-platform Route Tracing Tool</title>
     <meta name="description"
-        content="OpenTrace is a cross-platform GUI for network tracing, supported on Windows, macOS, and Linux.">
+        content="OpenTrace is a cross-platform GUI for route tracing, supported on Windows, macOS, and Linux.">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -329,7 +329,7 @@
 
                 <p class="text-xl md:text-2xl text-gray-500 dark:text-gray-400 max-w-3xl mx-auto mb-10 font-normal"
                     data-i18n="hero_subtitle">
-                    Open Source Visualized Network Tracing Tool for macOS, Windows, and Linux.
+                    Open Source Visualized Route Tracing Tool for macOS, Windows, and Linux.
                 </p>
 
                 <div class="flex flex-wrap justify-center gap-4">
@@ -610,11 +610,12 @@
         // --- Internationalization (i18n) ---
         const translations = {
             zh: {
+                page_title: "OpenTrace - 跨平台路由追踪工具",
                 nav_features: "功能",
                 nav_preview: "预览",
                 nav_download: "下载",
                 hero_title: "&nbsp;&nbsp;&nbsp;熟悉的界面，<br>&nbsp;&nbsp;&nbsp;更强大的体验。",
-                hero_subtitle: "适用于 macOS, Windows 和 Linux 的开源可视化网络追踪工具。",
+                hero_subtitle: "适用于 macOS, Windows 和 Linux 的开源可视化路由追踪工具。",
                 hero_dl_prefix: "下载",
                 hero_dl_suffix: "版本",
                 hero_dl_latest: "下载最新版本",
@@ -649,11 +650,12 @@
                 footer_issues: "反馈问题"
             },
             en: {
+                page_title: "OpenTrace - The Cross-platform Route Tracing Tool",
                 nav_features: "Features",
                 nav_preview: "Preview",
                 nav_download: "Download",
                 hero_title: "Familiar Interface,<br>Powerful Experience.",
-                hero_subtitle: "Open Source Visualized Network Tracing Tool for macOS, Windows, and Linux.",
+                hero_subtitle: "Open Source Visualized Route Tracing Tool for macOS, Windows, and Linux.",
                 hero_dl_prefix: "Download for",
                 hero_dl_suffix: "",
                 hero_dl_latest: "Download Latest",
@@ -695,6 +697,9 @@
 
         function updateLanguage() {
             const t = translations[currentLang];
+
+            // Update page title
+            document.title = t.page_title;
 
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
