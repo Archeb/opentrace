@@ -1,10 +1,6 @@
 [Desktop Entry]
 Name=OpenTrace
-Comment=Cross-platform GUI wrapper for NextTrace
-Exec=OpenTrace
+Exec=opentrace
 Icon=opentrace
-Terminal=false
 Type=Application
-Categories=Network;Utility;
-Keywords=traceroute;network;trace;
-StartupWMClass=OpenTrace
+Categories=Network;
