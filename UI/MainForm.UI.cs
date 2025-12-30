@@ -30,14 +30,14 @@ namespace OpenTrace.UI
         {
             // 保存当前状态
             string currentHostText = HostInputBox?.Text ?? "";
-            
+
             // 清除旧内容
             if (Menu != null) Menu.Items.Clear();
             Content = null;
-            
+
             Title = Resources.APPTITLE + " v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
             MinimumSize = new Size(900, 600);
-            
+
             // 设置窗口图标 (主要用于 Linux GTK 平台)
             try
             {
@@ -55,14 +55,15 @@ namespace OpenTrace.UI
 
             // 创建控件
             CreateControls();
-            
+
             // 恢复状态
             if (HostInputBox != null) HostInputBox.Text = currentHostText;
 
             // 创建布局
             CreateLayout();
 
-            if (!IsInitialize) {
+            if (!IsInitialize)
+            {
                 // 恢复 GridView 高度
                 MainForm_SizeChanged(this, EventArgs.Empty);
             }
@@ -74,22 +75,22 @@ namespace OpenTrace.UI
         /// </summary>
         public void UpdateLanguage(string culture)
         {
-             if (UserSettings.language != culture)
-             {
-                 UserSettings.language = culture;
-                 UserSettings.SaveSettings();
-                 
-                 System.Globalization.CultureInfo.CurrentUICulture = new System.Globalization.CultureInfo(culture);
-                 
+            if (UserSettings.language != culture)
+            {
+                UserSettings.language = culture;
+                UserSettings.SaveSettings();
+
+                System.Globalization.CultureInfo.CurrentUICulture = new System.Globalization.CultureInfo(culture);
+
 #if NET8_0_OR_GREATER
-                 // macOS: 更新应用程序语言偏好，下次启动时系统菜单将使用正确的语言
-                 if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX))
-                 {
-                     SetMacOSAppLanguage(culture);
-                 }
+                // macOS: 更新应用程序语言偏好，下次启动时系统菜单将使用正确的语言
+                if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX))
+                {
+                    SetMacOSAppLanguage(culture);
+                }
 #endif
-                 
-                 BuildUI();
+
+                BuildUI();
             }
         }
 
@@ -149,10 +150,10 @@ namespace OpenTrace.UI
             quitCommand.Executed += (sender, e) => Application.Instance.Quit();
 
             var OTHomePageCommand = new Command { MenuText = "OpenTrace " + Resources.HOMEPAGE };
-            OTHomePageCommand.Executed += (sender, e) => Process.Start(new ProcessStartInfo("https://github.com/Archeb/opentrace") { UseShellExecute = true });
+            OTHomePageCommand.Executed += (sender, e) => Process.Start(new ProcessStartInfo("https://opentrace.app") { UseShellExecute = true });
 
             var DownloadLatestCommand = new Command { MenuText = Resources.DOWNLOAD_LATEST };
-            DownloadLatestCommand.Executed += (sender, e) => Process.Start(new ProcessStartInfo("https://github.com/Archeb/opentrace/releases") { UseShellExecute = true });
+            DownloadLatestCommand.Executed += (sender, e) => Process.Start(new ProcessStartInfo("https://opentrace.app/#downloads") { UseShellExecute = true });
 
             var NTHomePageCommand = new Command { MenuText = "NextTrace " + Resources.HOMEPAGE };
             NTHomePageCommand.Executed += (sender, e) => Process.Start(new ProcessStartInfo("https://www.nxtrace.org/") { UseShellExecute = true });
@@ -166,9 +167,9 @@ namespace OpenTrace.UI
                 // 保存当前地图提供商设置，用于检测变化
                 var oldMapProvider = UserSettings.mapProvider;
                 var oldLanguage = UserSettings.language;
-                
+
                 new PreferencesDialog().ShowModal(this);
-                
+
                 // 检查语言是否变化
                 if (oldLanguage != UserSettings.language)
                 {
@@ -176,12 +177,12 @@ namespace OpenTrace.UI
                     BuildUI();
                     return;
                 }
-                
+
                 // 关闭设置后刷新 DNS 服务器列表
                 LoadDNSResolvers();
                 // 刷新grid高度大小
                 MainForm_SizeChanged(sender, e);
-                
+
                 // 检查地图提供商是否发生变化，如果变化则重新加载地图
                 if (oldMapProvider != UserSettings.mapProvider)
                 {
@@ -191,8 +192,8 @@ namespace OpenTrace.UI
 
             // Language Menu
             var languageMenu = new ButtonMenuItem { Text = Resources.LANGUAGE };
-            var languages = new [] 
-            { 
+            var languages = new[]
+            {
                  new { Name = "English", Code = "en" },
                  new { Name = "简体中文", Code = "zh-CN" },
                  new { Name = "繁體中文", Code = "zh-HK" },
@@ -213,7 +214,7 @@ namespace OpenTrace.UI
             // 根据平台构建菜单栏
             // macOS: 使用 ApplicationItems, QuitItem, HelpItems 来利用系统标准菜单
             // Windows/Linux: 使用传统的 Items 菜单结构
-            
+
 #if NET8_0_OR_GREATER
             bool isMac = System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX);
 #else
@@ -250,22 +251,30 @@ namespace OpenTrace.UI
             else
             {
                 // Windows/Linux: 使用传统的菜单结构
-                var fileMenu = new SubMenuItem { Text = Resources.FILE, Items = {
+                var fileMenu = new SubMenuItem
+                {
+                    Text = Resources.FILE,
+                    Items = {
                     newWindowCommand,
                     new SeparatorMenuItem(),
                     languageMenu,
                     preferenceCommand,
                     new SeparatorMenuItem(),
                     quitCommand
-                } };
+                }
+                };
 
-                var helpMenu = new SubMenuItem { Text = Resources.HELP, Items = {
+                var helpMenu = new SubMenuItem
+                {
+                    Text = Resources.HELP,
+                    Items = {
                     OTHomePageCommand,
                     DownloadLatestCommand,
                     new SeparatorMenuItem(),
                     NTHomePageCommand,
                     NTWikiCommand
-                } };
+                }
+                };
 
                 Menu = new MenuBar
                 {
