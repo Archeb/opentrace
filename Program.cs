@@ -36,13 +36,6 @@ namespace OpenTrace
             if (!string.IsNullOrWhiteSpace(UserSettings.language))
             {
                 CultureInfo.CurrentUICulture = new CultureInfo(UserSettings.language);
-#if NET8_0_OR_GREATER
-                // macOS: 在 Application 创建之前设置 AppleLanguages，确保系统菜单使用正确的语言
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-                {
-                    SetMacOSAppLanguage(UserSettings.language);
-                }
-#endif
             }
 #if NET8_0_OR_GREATER
             // 为 macOS 载入正确的 locale
