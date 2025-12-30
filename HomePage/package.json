@@ -1,0 +1,15 @@
+{
+    "name": "opentrace-homepage",
+    "version": "1.0.0",
+    "description": "OpenTrace Homepage with multi-language support",
+    "scripts": {
+        "build": "node build.js",
+        "preview": "npx serve dist"
+    },
+    "keywords": [
+        "opentrace",
+        "homepage",
+        "i18n"
+    ],
+    "license": "GPL-3.0"
+}
