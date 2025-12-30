@@ -10,7 +10,7 @@ OpenTrace 是 NextTrace 的跨平台 GUI 界面，带来您熟悉但更强大的
 
 ### 使用方法
 
-- 从 [releases](https://github.com/Archeb/opentrace/releases) 里下载对应系统的 OpenTrace
+- 从 [releases](https://github.com/Archeb/opentrace/releases) 里下载对应系统的 OpenTrace，Linux 用户也可通过 [Flathub](https://flathub.org/en/apps/io.github.Archeb.opentrace) 或 [Arch User Repository](https://aur.archlinux.org/packages/opentrace-bin/) 安装
 
 <details>
 <summary>或者如果您选择自己编译，那么您还需要：</summary>
