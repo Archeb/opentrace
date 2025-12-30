@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>OpenTrace - The Cross-platform Network Tracing Tool</title>
-    <meta name="description" content="OpenTrace is a cross-platform GUI for network tracing, supported on Windows, macOS, and Linux.">
-    
+    <meta name="description"
+        content="OpenTrace is a cross-platform GUI for network tracing, supported on Windows, macOS, and Linux.">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -52,17 +54,41 @@
 
     <style>
         /* 保留少许必要的自定义 CSS */
-        
+
         /* 隐藏滚动条但保留功能 (可选) */
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
 
         /* 动画关键帧 */
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Fade Up Animation Utility */
-        .fade-up { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
-        .fade-up.visible { opacity: 1; transform: translateY(0); }
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         /* Release Body Markdown Styles */
         .markdown-body h1 {
@@ -72,6 +98,7 @@
             margin-top: 1.25rem;
             margin-bottom: 0.75rem;
         }
+
         .markdown-body h2 {
             font-size: 1.125rem;
             font-weight: 600;
@@ -79,6 +106,7 @@
             margin-top: 1rem;
             margin-bottom: 0.5rem;
         }
+
         .markdown-body h3 {
             font-size: 1rem;
             font-weight: 600;
@@ -86,30 +114,37 @@
             margin-top: 0.75rem;
             margin-bottom: 0.5rem;
         }
+
         .markdown-body p {
             margin-bottom: 0.75rem;
             line-height: 1.625;
         }
+
         .markdown-body ul {
             list-style-type: disc;
             padding-left: 1.25rem;
             margin-bottom: 1rem;
         }
+
         .markdown-body ol {
             list-style-type: decimal;
             padding-left: 1.25rem;
             margin-bottom: 1rem;
         }
+
         .markdown-body li {
             line-height: 1.625;
             margin-bottom: 0.25rem;
         }
+
         .markdown-body a {
             color: #007aff;
         }
+
         .markdown-body a:hover {
             text-decoration: underline;
         }
+
         .markdown-body code {
             padding: 0.125rem 0.375rem;
             background-color: #f3f4f6;
@@ -118,6 +153,7 @@
             font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
             color: #db2777;
         }
+
         .markdown-body pre {
             padding: 1rem;
             background-color: #f3f4f6;
@@ -125,11 +161,13 @@
             overflow-x: auto;
             margin-bottom: 1rem;
         }
+
         .markdown-body pre code {
             padding: 0;
             background-color: transparent;
             color: #1f2937;
         }
+
         .markdown-body blockquote {
             padding-left: 1rem;
             border-left: 4px solid #d1d5db;
@@ -137,104 +175,138 @@
             color: #4b5563;
             margin: 1rem 0;
         }
+
         .markdown-body hr {
             margin: 1.5rem 0;
             border-color: #e5e7eb;
         }
+
         .markdown-body table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 1rem;
         }
+
         .markdown-body th,
         .markdown-body td {
             border: 1px solid #e5e7eb;
             padding: 0.5rem 0.75rem;
             text-align: left;
         }
+
         .markdown-body th {
             background-color: #f9fafb;
             font-weight: 600;
         }
+
         .markdown-body img {
             max-width: 100%;
             height: auto;
             border-radius: 0.5rem;
             margin: 0.5rem 0;
         }
-        
+
         /* Dark mode styles for markdown */
         [data-theme="dark"] .markdown-body h1,
         [data-theme="dark"] .markdown-body h2,
         [data-theme="dark"] .markdown-body h3 {
             color: #f3f4f6;
         }
+
         [data-theme="dark"] .markdown-body a {
             color: #0a84ff;
         }
+
         [data-theme="dark"] .markdown-body code {
             background-color: #1f2937;
             color: #f472b6;
         }
+
         [data-theme="dark"] .markdown-body pre {
             background-color: #1f2937;
         }
+
         [data-theme="dark"] .markdown-body pre code {
             color: #e5e7eb;
         }
+
         [data-theme="dark"] .markdown-body blockquote {
             border-left-color: #4b5563;
             color: #9ca3af;
         }
+
         [data-theme="dark"] .markdown-body hr {
             border-color: #374151;
         }
+
         [data-theme="dark"] .markdown-body th,
         [data-theme="dark"] .markdown-body td {
             border-color: #374151;
         }
+
         [data-theme="dark"] .markdown-body th {
             background-color: #1f2937;
         }
-        
+
         /* Hero Background Gradient */
         .hero-glow::before {
-            content: ''; position: absolute; top: 50%; left: 50%; 
-            transform: translate(-50%, -50%); width: 600px; height: 600px; 
-            background: radial-gradient(circle, rgba(0,122,255,0.15) 0%, rgba(0,0,0,0) 70%); 
-            border-radius: 50%; z-index: -1; pointer-events: none;
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 122, 255, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
         }
     </style>
 </head>
-<body class="font-sans antialiased bg-white dark:bg-black text-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+<body
+    class="font-sans antialiased bg-white dark:bg-black text-gray-900 dark:text-gray-100 transition-colors duration-300">
 
     <!-- Navbar -->
-    <nav class="fixed top-0 left-0 right-0 h-16 bg-white/80 dark:bg-[#1c1c1e]/80 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+    <nav
+        class="fixed top-0 left-0 right-0 h-16 bg-white/80 dark:bg-[#1c1c1e]/80 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
             <a href="#" class="flex items-center gap-3 font-bold text-xl hover:opacity-80 transition-opacity">
                 <img src="./img/logo.png" alt="Logo" class="w-8 h-8">
                 <span>OpenTrace</span>
             </a>
-            
+
             <div class="flex items-center gap-6">
                 <!-- Desktop Nav -->
                 <div class="hidden md:flex items-center gap-6">
-                    <a href="#preview" class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" data-i18n="nav_preview">Preview</a>
-                    <a href="#features" class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" data-i18n="nav_features">Features</a>
-                    <a href="#downloads" class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors" data-i18n="nav_download">Download</a>
-                    <a href="https://github.com/Archeb/opentrace" target="_blank" class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                    <a href="#preview"
+                        class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                        data-i18n="nav_preview">Preview</a>
+                    <a href="#features"
+                        class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                        data-i18n="nav_features">Features</a>
+                    <a href="#downloads"
+                        class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors"
+                        data-i18n="nav_download">Download</a>
+                    <a href="https://github.com/Archeb/opentrace" target="_blank"
+                        class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
                         <i class="fab fa-github mr-1"></i> GitHub
                     </a>
                 </div>
 
                 <div class="flex items-center gap-2 border-l border-gray-200 dark:border-gray-700 pl-4">
                     <!-- Language Toggle -->
-                    <button id="lang-toggle" class="w-10 h-10 flex items-center justify-center rounded-full text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" aria-label="Switch Language">
+                    <button id="lang-toggle"
+                        class="w-10 h-10 flex items-center justify-center rounded-full text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                        aria-label="Switch Language">
                         中
                     </button>
 
                     <!-- Theme Toggle -->
-                    <button id="theme-toggle" class="w-10 h-10 flex items-center justify-center rounded-full text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" aria-label="Toggle Theme">
+                    <button id="theme-toggle"
+                        class="w-10 h-10 flex items-center justify-center rounded-full text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                        aria-label="Toggle Theme">
                         <i class="fas fa-moon"></i>
                     </button>
                 </div>
@@ -246,28 +318,97 @@
     <section class="relative pt-40 pb-20 text-center overflow-hidden hero-glow">
         <div class="max-w-4xl mx-auto px-6">
             <div class="fade-up flex flex-col items-center">
-                <img src="./img/logo.png" alt="OpenTrace Logo" class="w-28 h-28 md:w-32 md:h-32 mb-8 rounded-[2rem] shadow-apple-md dark:shadow-apple-md-dark">
-                
-                <h1 style="line-height:1.2;" class="text-4xl md:text-6xl font-bold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-br from-gray-900 to-gray-500 dark:from-white dark:to-gray-400" data-i18n="hero_title">
+                <img src="./img/logo.png" alt="OpenTrace Logo"
+                    class="w-28 h-28 md:w-32 md:h-32 mb-8 rounded-[2rem] shadow-apple-md dark:shadow-apple-md-dark">
+
+                <h1 style="line-height:1.2;"
+                    class="text-4xl md:text-6xl font-bold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-br from-gray-900 to-gray-500 dark:from-white dark:to-gray-400"
+                    data-i18n="hero_title">
                     Familiar Interface,<br>Powerful Experience.
                 </h1>
-                
-                <p class="text-xl md:text-2xl text-gray-500 dark:text-gray-400 max-w-3xl mx-auto mb-10 font-normal" data-i18n="hero_subtitle">
+
+                <p class="text-xl md:text-2xl text-gray-500 dark:text-gray-400 max-w-3xl mx-auto mb-10 font-normal"
+                    data-i18n="hero_subtitle">
                     Open Source Visualized Network Tracing Tool for macOS, Windows, and Linux.
                 </p>
-                
+
                 <div class="flex flex-wrap justify-center gap-4">
-                    <a href="#downloads" id="hero-download-btn" class="group flex items-center gap-2 px-8 py-3.5 bg-accent hover:bg-accent-hover dark:bg-accent-dark dark:hover:bg-blue-500 text-white rounded-full font-semibold transition-all shadow-lg shadow-blue-500/30 active:scale-95">
-                        <i class="fas fa-download"></i> 
+                    <a href="https://flathub.org/apps/io.github.Archeb.opentrace" id="hero-flathub-btn"
+                        class="group flex items-center gap-2 px-4 bg-black dark:bg-black text-white rounded-full font-semibold transition-all shadow-lg shadow-blue-500/30 active:scale-95">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="150" height="45" viewBox="0 0 240 80">
+                            <defs>
+                                <clipPath id="satori_bc-id">
+                                    <path x="0" y="0" width="240" height="80"
+                                        d="M16,0 h208 a16,16 0 0 1 16,16 v48 a16,16 0 0 1 -16,16 h-208 a16,16 0 0 1 -16,-16 v-48 a16,16 0 0 1 16,-16" />
+                                </clipPath>
+                            </defs>
+                            <mask id="satori_om-id">
+                                <rect x="2" y="2" width="236" height="76" fill="#fff" />
+                                <path width="240" height="80" fill="none" stroke="#000" stroke-width="4"
+                                    d="M4.686,4.686 A16,16 0 0 1 16,0 h208 a16,16 0 0 1 16,16 v48 a16,16 0 0 1 -16,16 h-208 a16,16 0 0 1 -16,-16 v-48 A16,16 0 0 1 4.686,4.686" />
+                            </mask>
+                            <clipPath id="satori_cp-id-0">
+                                <rect x="16" y="13" width="56" height="55" />
+                            </clipPath>
+                            <mask id="satori_om-id-0">
+                                <rect x="16" y="13" width="56" height="55" fill="#fff" />
+                            </mask>
+                            <image x="16" y="13" width="56" height="55"
+                                href="data:image/svg+xml;utf8,%3Csvg  version=%221.1%22 xmlns=%22http://www.w3.org/2000/svg%22 width=%2257.479296875%22 height=%2255%22 viewBox=%220 0 66.885 64%22%3E%3Cg transform=%22translate(-30.558 -32)%22%3E%3Cg transform=%22matrix(1.7016 0 0 1.7016 -237.69 -115.36)%22 fill=%22white%22%3E%3Ccircle cx=%22166.69%22 cy=%2295.647%22 r=%229.0478%22 stroke-width=%22.58767%22%3E%3C/circle%3E%3Crect x=%22158.41%22 y=%22107.8%22 width=%2216.412%22 height=%2216.412%22 rx=%224.3765%22 ry=%224.3765%22 stroke-width=%22.58767%22%3E%3C/rect%3E%3Cpath transform=%22matrix(.9259 .53457 .53457 -.9259 99.826 110.69)%22 d=%22m69.514 58.833h-1.7806-10.247a2.4441 2.4441 60 0 1-2.1167-3.6662l6.0139-10.416a2.4441 2.4441 2.522e-7 0 1 4.2333 0l6.0139 10.416a2.4441 2.4441 120 0 1-2.1167 3.6662z%22 stroke-width=%22.55348%22%3E%3C/path%3E%3Cpath d=%22m194.99 116.11c0 0.87946-0.70801 1.5875-1.5875 1.5875h-12.7c-0.87946 0-1.5875-0.70802-1.5875-1.5875s0.70802-1.5875 1.5875-1.5875h12.7c0.87946 0 1.5875 0.70801 1.5875 1.5875zm-7.9375-7.9375c0.87946 0 1.5875 0.70802 1.5875 1.5875v12.7c0 0.87946-0.70802 1.5875-1.5875 1.5875-0.87947 0-1.5875-0.70802-1.5875-1.5875v-12.7c0-0.87947 0.70802-1.5875 1.5875-1.5875z%22 stroke-width=%225.8767%22%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E"
+                                preserveAspectRatio="none" clip-path="url(#satori_cp-id-0)"
+                                mask="url(#satori_om-id-0)" />
+                            <mask id="satori_om-id-0-0">
+                                <rect x="16" y="13" width="0" height="55" fill="#fff" />
+                            </mask>
+                            <mask id="satori_om-id-0-0-0">
+                                <rect x="16" y="13" width="0" height="55" fill="#fff" />
+                            </mask>
+                            <mask id="satori_om-id-0-0-0-0">
+                                <rect x="16" y="13" width="0" height="55" fill="#fff" />
+                            </mask>
+                            <mask id="satori_om-id-0-0-0-1">
+                                <rect x="16" y="13" width="0" height="55" fill="#fff" />
+                            </mask>
+                            <mask id="satori_om-id-0-0-0-2">
+                                <rect x="16" y="13" width="0" height="55" fill="#fff" />
+                            </mask>
+                            <mask id="satori_om-id-0-0-0-3">
+                                <rect x="16" y="13" width="0" height="55" fill="#fff" />
+                            </mask>
+                            <mask id="satori_om-id-1">
+                                <rect x="88" y="5" width="132" height="70" fill="#fff" />
+                            </mask>
+                            <g>
+                                <path fill="white"
+                                    d="M99.1 18.1L96.9 18.1Q96.8 17.6 96.6 17.3Q96.3 16.9 96.0 16.6Q95.6 16.4 95.2 16.2Q94.7 16.1 94.2 16.1L94.2 16.1Q93.3 16.1 92.5 16.6Q91.8 17.0 91.4 18.0Q91.0 18.9 91.0 20.2L91.0 20.2Q91.0 21.5 91.4 22.4Q91.8 23.3 92.5 23.8Q93.3 24.3 94.3 24.3L94.3 24.3Q95.1 24.3 95.8 23.9Q96.4 23.6 96.8 23.0Q97.1 22.3 97.1 21.5L97.1 21.5L97.6 21.6L94.5 21.6L94.5 19.9L99.2 19.9L99.2 21.3Q99.2 22.8 98.6 23.9Q97.9 25.0 96.8 25.6Q95.7 26.2 94.2 26.2L94.2 26.2Q92.6 26.2 91.4 25.4Q90.2 24.7 89.5 23.4Q88.9 22.0 88.9 20.2L88.9 20.2Q88.9 18.8 89.3 17.7Q89.7 16.6 90.4 15.8Q91.1 15.0 92.1 14.6Q93.0 14.2 94.2 14.2L94.2 14.2Q95.1 14.2 96.0 14.5Q96.8 14.8 97.5 15.3Q98.1 15.8 98.5 16.5Q99.0 17.2 99.1 18.1L99.1 18.1ZM108.8 26L101.2 26L101.2 14.4L108.8 14.4L108.8 16.1L103.3 16.1L103.3 19.3L108.4 19.3L108.4 21.1L103.3 21.1L103.3 24.2L108.8 24.2L108.8 26ZM114.0 16.1L110.4 16.1L110.4 14.4L119.7 14.4L119.7 16.1L116.1 16.1L116.1 26L114.0 26L114.0 16.1Z M125.5 14.4L127.6 14.4L127.6 26L125.5 26L125.5 14.4ZM133.0 16.1L129.4 16.1L129.4 14.4L138.6 14.4L138.6 16.1L135.1 16.1L135.1 26L133.0 26L133.0 16.1Z M154.8 20.2L154.8 20.2Q154.8 22.1 154.1 23.4Q153.4 24.7 152.2 25.4Q151.0 26.2 149.5 26.2L149.5 26.2Q147.9 26.2 146.7 25.4Q145.5 24.7 144.8 23.4Q144.1 22.1 144.1 20.2L144.1 20.2Q144.1 18.3 144.8 17.0Q145.5 15.6 146.7 14.9Q147.9 14.2 149.5 14.2L149.5 14.2Q151.0 14.2 152.2 14.9Q153.4 15.6 154.1 17.0Q154.8 18.3 154.8 20.2ZM152.7 20.2L152.7 20.2Q152.7 18.9 152.3 17.9Q151.9 17.0 151.1 16.6Q150.4 16.1 149.5 16.1L149.5 16.1Q148.5 16.1 147.8 16.6Q147.1 17.0 146.6 17.9Q146.2 18.9 146.2 20.2L146.2 20.2Q146.2 21.5 146.6 22.4Q147.1 23.3 147.8 23.8Q148.5 24.3 149.5 24.3L149.5 24.3Q150.4 24.3 151.1 23.8Q151.9 23.3 152.3 22.4Q152.7 21.5 152.7 20.2ZM164.3 14.4L166.4 14.4L166.4 26L164.5 26L159.0 18.1L158.9 18.1L158.9 26L156.8 26L156.8 14.4L158.7 14.4L164.2 22.3L164.3 22.3L164.3 14.4Z " />
+                            </g>
+                            <mask id="satori_om-id-1-1">
+                                <rect x="88" y="29" width="132" height="46" fill="#fff" />
+                            </mask>
+                            <g>
+                                <path fill="white"
+                                    d="M95.3 65L90.6 65L90.6 38.8L107.4 38.8L107.4 42.8L95.3 42.8L95.3 49.9L106.2 49.9L106.2 53.9L95.3 53.9L95.3 65ZM111.5 38.8L116.1 38.8L116.1 65L111.5 65L111.5 38.8ZM126.5 65.4L126.5 65.4Q124.6 65.4 123.1 64.7Q121.6 64.1 120.8 62.7Q119.9 61.4 119.9 59.5L119.9 59.5Q119.9 57.8 120.5 56.7Q121.1 55.7 122.2 55.0Q123.3 54.4 124.6 54.0Q125.9 53.7 127.4 53.5L127.4 53.5Q129.1 53.3 130.2 53.2Q131.2 53.0 131.7 52.7Q132.2 52.4 132.2 51.8L132.2 51.8L132.2 51.7Q132.2 50.2 131.4 49.4Q130.5 48.6 128.9 48.6L128.9 48.6Q127.2 48.6 126.2 49.4Q125.2 50.1 124.9 51.1L124.9 51.1L120.6 50.5Q121.1 48.7 122.2 47.5Q123.4 46.3 125.1 45.7Q126.8 45.1 128.9 45.1L128.9 45.1Q130.3 45.1 131.7 45.4Q133.1 45.8 134.3 46.5Q135.4 47.3 136.2 48.6Q136.9 49.9 136.9 51.9L136.9 51.9L136.9 65L132.4 65L132.4 62.3L132.3 62.3Q131.8 63.1 131.1 63.8Q130.3 64.5 129.2 65.0Q128.0 65.4 126.5 65.4ZM127.7 62.0L127.7 62.0Q129.1 62.0 130.1 61.4Q131.1 60.9 131.7 60.0Q132.2 59.0 132.2 58.0L132.2 58.0L132.2 55.6Q132.0 55.8 131.5 56.0Q131.0 56.1 130.4 56.2Q129.7 56.4 129.1 56.4Q128.5 56.5 128.0 56.6L128.0 56.6Q127.0 56.7 126.1 57.1Q125.3 57.4 124.9 57.9Q124.4 58.5 124.4 59.4L124.4 59.4Q124.4 60.7 125.3 61.3Q126.3 62.0 127.7 62.0ZM140.0 45.4L151.3 45.4L151.3 48.9L140.0 48.9L140.0 45.4ZM142.8 59.9L142.8 40.7L147.5 40.7L147.5 59.1Q147.5 60.0 147.7 60.5Q148.0 61.0 148.5 61.2Q149.0 61.4 149.6 61.4L149.6 61.4Q150.0 61.4 150.4 61.3Q150.7 61.2 150.9 61.2L150.9 61.2L151.7 64.8Q151.3 64.9 150.6 65.1Q150.0 65.2 149.0 65.3L149.0 65.3Q147.2 65.3 145.8 64.7Q144.4 64.2 143.6 62.9Q142.8 61.7 142.8 59.9L142.8 59.9ZM159.8 53.5L159.8 53.5L159.8 65L155.2 65L155.2 38.8L159.7 38.8L159.7 48.7L160.0 48.7Q160.7 47.0 162.1 46.1Q163.6 45.1 165.8 45.1L165.8 45.1Q167.8 45.1 169.4 46.0Q170.9 46.8 171.7 48.5Q172.6 50.1 172.6 52.5L172.6 52.5L172.6 65L167.9 65L167.9 53.2Q167.9 51.2 166.9 50.1Q165.9 49.0 164.1 49.0L164.1 49.0Q162.9 49.0 161.9 49.6Q160.9 50.1 160.4 51.1Q159.8 52.1 159.8 53.5ZM189.8 56.7L189.8 56.7L189.8 45.4L194.4 45.4L194.4 65L189.9 65L189.9 61.5L189.7 61.5Q189.1 63.2 187.5 64.2Q186.0 65.3 183.8 65.3L183.8 65.3Q181.9 65.3 180.4 64.4Q178.9 63.5 178.1 61.9Q177.3 60.2 177.3 57.9L177.3 57.9L177.3 45.4L181.9 45.4L181.9 57.2Q181.9 59.0 182.9 60.1Q183.9 61.2 185.6 61.2L185.6 61.2Q186.6 61.2 187.6 60.7Q188.5 60.2 189.2 59.2Q189.8 58.2 189.8 56.7ZM203.9 65L199.4 65L199.4 38.8L204.0 38.8L204.0 48.6L204.2 48.6Q204.6 47.9 205.2 47.1Q205.9 46.3 207.0 45.7Q208.1 45.1 209.8 45.1L209.8 45.1Q212.1 45.1 213.9 46.3Q215.8 47.4 216.8 49.7Q217.9 51.9 217.9 55.2L217.9 55.2Q217.9 58.4 216.9 60.7Q215.8 63.0 214.0 64.2Q212.1 65.3 209.8 65.3L209.8 65.3Q208.1 65.3 207.0 64.8Q205.9 64.2 205.2 63.4Q204.6 62.6 204.2 61.9L204.2 61.9L203.9 61.9L203.9 65ZM203.9 55.2L203.9 55.2Q203.9 57.1 204.5 58.5Q205.0 60.0 206.0 60.7Q207.1 61.5 208.5 61.5L208.5 61.5Q210.1 61.5 211.1 60.7Q212.1 59.9 212.7 58.5Q213.2 57.0 213.2 55.2L213.2 55.2Q213.2 53.4 212.7 51.9Q212.1 50.5 211.1 49.7Q210.1 48.9 208.5 48.9L208.5 48.9Q207.0 48.9 206.0 49.7Q205.0 50.5 204.4 51.9Q203.9 53.3 203.9 55.2Z " />
+                            </g>
+                            <script xmlns="" id="webrtc-control-b" />
+                        </svg>
+                    </a>
+
+                    <a href="#downloads" id="hero-download-btn"
+                        class="group flex items-center gap-2 px-8 py-3.5 bg-accent hover:bg-accent-hover dark:bg-accent-dark dark:hover:bg-blue-500 text-white rounded-full font-semibold transition-all shadow-lg shadow-blue-500/30 active:scale-95">
+                        <i class="fas fa-download"></i>
                         <span id="hero-dl-text">Download Latest</span>
                     </a>
-                    <a href="https://github.com/Archeb/opentrace" target="_blank" class="flex items-center gap-2 px-8 py-3.5 bg-apple-50 dark:bg-apple-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 rounded-full font-semibold hover:bg-apple-100 dark:hover:bg-gray-700 transition-all active:scale-95" data-i18n="hero_github">
+
+                    <a href="https://github.com/Archeb/opentrace" target="_blank"
+                        class="flex items-center gap-2 px-8 py-3.5 bg-apple-50 dark:bg-apple-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 rounded-full font-semibold hover:bg-apple-100 dark:hover:bg-gray-700 transition-all active:scale-95"
+                        data-i18n="hero_github">
                         <i class="fab fa-github"></i> Visit GitHub
                     </a>
                 </div>
-                
+
                 <div class="mt-4 text-sm text-gray-500 dark:text-gray-500">
-                    <span data-i18n="hero_version">Latest Version</span>: <span id="hero-version" class="font-mono">...</span>
+                    <span data-i18n="hero_version">Latest Version</span>: <span id="hero-version"
+                        class="font-mono">...</span>
                 </div>
             </div>
         </div>
@@ -276,19 +417,30 @@
     <!-- Screenshots Preview -->
     <section id="preview" class="py-20 bg-apple-50 dark:bg-[#000000]">
         <div class="max-w-5xl mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 tracking-tight" data-i18n="preview_title">Native Experience, Cross-Platform</h2>
-            
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 tracking-tight" data-i18n="preview_title">Native
+                Experience, Cross-Platform</h2>
+
             <div class="fade-up flex justify-center mb-10">
-                <div class="inline-flex p-1.5 bg-white dark:bg-apple-900 rounded-full border border-gray-200 dark:border-gray-800 shadow-sm">
-                    <button class="tab-btn active px-6 py-2 rounded-full text-sm font-medium transition-all text-white bg-accent shadow-sm" onclick="switchTab('macos', this)">macOS</button>
-                    <button class="tab-btn px-6 py-2 rounded-full text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all" onclick="switchTab('windows', this)">Windows</button>
-                    <button class="tab-btn px-6 py-2 rounded-full text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all" onclick="switchTab('linux', this)">Linux</button>
+                <div
+                    class="inline-flex p-1.5 bg-white dark:bg-apple-900 rounded-full border border-gray-200 dark:border-gray-800 shadow-sm">
+                    <button
+                        class="tab-btn active px-6 py-2 rounded-full text-sm font-medium transition-all text-white bg-accent shadow-sm"
+                        onclick="switchTab('macos', this)">macOS</button>
+                    <button
+                        class="tab-btn px-6 py-2 rounded-full text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all"
+                        onclick="switchTab('windows', this)">Windows</button>
+                    <button
+                        class="tab-btn px-6 py-2 rounded-full text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all"
+                        onclick="switchTab('linux', this)">Linux</button>
                 </div>
             </div>
 
-            <div class="fade-up max-w-5xl mx-auto relative rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-apple-900">
-                <img src="./img/macos.jpg" alt="macOS Preview" class="screenshot-img active w-full block" id="img-macos" data-light-src="./img/macos.jpg" data-dark-src="./img/macos_dark.jpg">
-                <img src="./img/windows.png" alt="Windows Preview" class="screenshot-img w-full hidden" id="img-windows">
+            <div
+                class="fade-up max-w-5xl mx-auto relative rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-apple-900">
+                <img src="./img/macos.jpg" alt="macOS Preview" class="screenshot-img active w-full block" id="img-macos"
+                    data-light-src="./img/macos.jpg" data-dark-src="./img/macos_dark.jpg">
+                <img src="./img/windows.png" alt="Windows Preview" class="screenshot-img w-full hidden"
+                    id="img-windows">
                 <img src="./img/linux.png" alt="Linux Preview" class="screenshot-img w-full hidden" id="img-linux">
             </div>
         </div>
@@ -297,52 +449,70 @@
     <!-- Features Grid -->
     <section id="features" class="py-20 bg-white dark:bg-black">
         <div class="max-w-7xl mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 tracking-tight" data-i18n="features_title">Why OpenTrace?</h2>
-            
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 tracking-tight" data-i18n="features_title">Why
+                OpenTrace?</h2>
+
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Card 1 -->
-                <div class="fade-up group p-8 bg-apple-50 dark:bg-apple-900 rounded-3xl border border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-apple-md dark:hover:shadow-apple-md-dark transition-all duration-300 hover:-translate-y-1">
-                    <div class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-2xl text-accent mb-6 shadow-sm">
+                <div
+                    class="fade-up group p-8 bg-apple-50 dark:bg-apple-900 rounded-3xl border border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-apple-md dark:hover:shadow-apple-md-dark transition-all duration-300 hover:-translate-y-1">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-2xl text-accent mb-6 shadow-sm">
                         <i class="fas fa-desktop"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3" data-i18n="feat_native_title">Cross-platform Native GUI</h3>
-                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed" data-i18n="feat_native_desc">Built with Windows WPF, Linux GTK, and macOS native technologies for a smooth and consistent experience.</p>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed" data-i18n="feat_native_desc">Built with
+                        Windows WPF, Linux GTK, and macOS native technologies for a smooth and consistent experience.
+                    </p>
                 </div>
 
                 <!-- Card 2 -->
-                <div class="fade-up group p-8 bg-apple-50 dark:bg-apple-900 rounded-3xl border border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-apple-md dark:hover:shadow-apple-md-dark transition-all duration-300 hover:-translate-y-1">
-                    <div class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-2xl text-accent mb-6 shadow-sm">
+                <div
+                    class="fade-up group p-8 bg-apple-50 dark:bg-apple-900 rounded-3xl border border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-apple-md dark:hover:shadow-apple-md-dark transition-all duration-300 hover:-translate-y-1">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-2xl text-accent mb-6 shadow-sm">
                         <i class="fas fa-network-wired"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3" data-i18n="feat_mtr_title">MTR Traceroute</h3>
-                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed" data-i18n="feat_mtr_desc">Integrated powerful My Traceroute functionality to analyze network path stability and packet loss in real-time.</p>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed" data-i18n="feat_mtr_desc">Integrated
+                        powerful My Traceroute functionality to analyze network path stability and packet loss in
+                        real-time.</p>
                 </div>
 
                 <!-- Card 3 -->
-                <div class="fade-up group p-8 bg-apple-50 dark:bg-apple-900 rounded-3xl border border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-apple-md dark:hover:shadow-apple-md-dark transition-all duration-300 hover:-translate-y-1">
-                    <div class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-2xl text-accent mb-6 shadow-sm">
+                <div
+                    class="fade-up group p-8 bg-apple-50 dark:bg-apple-900 rounded-3xl border border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-apple-md dark:hover:shadow-apple-md-dark transition-all duration-300 hover:-translate-y-1">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-2xl text-accent mb-6 shadow-sm">
                         <i class="fas fa-globe"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3" data-i18n="feat_lang_title">Multi-language Support</h3>
-                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed" data-i18n="feat_lang_desc">Built-in support for Chinese, English, French, Spanish, Japanese, and Russian.</p>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed" data-i18n="feat_lang_desc">Built-in
+                        support for Chinese, English, French, Spanish, Japanese, and Russian.</p>
                 </div>
 
                 <!-- Card 4: Wide -->
-                <div class="fade-up md:col-span-2 group p-8 bg-apple-50 dark:bg-apple-900 rounded-3xl border border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-apple-md dark:hover:shadow-apple-md-dark transition-all duration-300 hover:-translate-y-1">
-                    <div class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-2xl text-accent mb-6 shadow-sm">
+                <div
+                    class="fade-up md:col-span-2 group p-8 bg-apple-50 dark:bg-apple-900 rounded-3xl border border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-apple-md dark:hover:shadow-apple-md-dark transition-all duration-300 hover:-translate-y-1">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-2xl text-accent mb-6 shadow-sm">
                         <i class="fas fa-shield-alt"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3" data-i18n="feat_privacy_title">Privacy & Customization</h3>
-                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed" data-i18n="feat_privacy_desc">Supports privacy masking (hide first hops), custom DNS (DoH), and local MMDB IP databases.</p>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed" data-i18n="feat_privacy_desc">Supports
+                        privacy masking (hide first hops), custom DNS (DoH), and local MMDB IP databases.</p>
                 </div>
 
                 <!-- Card 5 -->
-                <div class="fade-up group p-8 bg-apple-50 dark:bg-apple-900 rounded-3xl border border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-apple-md dark:hover:shadow-apple-md-dark transition-all duration-300 hover:-translate-y-1">
-                    <div class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-2xl text-accent mb-6 shadow-sm">
+                <div
+                    class="fade-up group p-8 bg-apple-50 dark:bg-apple-900 rounded-3xl border border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-apple-md dark:hover:shadow-apple-md-dark transition-all duration-300 hover:-translate-y-1">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-2xl text-accent mb-6 shadow-sm">
                         <i class="fas fa-terminal"></i>
                     </div>
                     <h3 class="text-xl font-bold mb-3" data-i18n="feat_cli_title">CLI Support</h3>
-                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed" data-i18n="feat_cli_desc">Supports starting traceroute via CLI arguments, making it easy for script integration.</p>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed" data-i18n="feat_cli_desc">Supports
+                        starting traceroute via CLI arguments, making it easy for script integration.</p>
                 </div>
             </div>
         </div>
@@ -351,22 +521,28 @@
     <!-- Downloads Section -->
     <section id="downloads" class="py-20 bg-apple-50 dark:bg-black">
         <div class="max-w-5xl mx-auto px-6">
-            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 tracking-tight" data-i18n="download_title">Get OpenTrace</h2>
-            
-            <div class="fade-up bg-white dark:bg-apple-900 rounded-3xl p-8 md:p-10 border border-gray-200 dark:border-gray-800 shadow-sm" id="release-container">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 tracking-tight" data-i18n="download_title">Get
+                OpenTrace</h2>
+
+            <div class="fade-up bg-white dark:bg-apple-900 rounded-3xl p-8 md:p-10 border border-gray-200 dark:border-gray-800 shadow-sm"
+                id="release-container">
                 <div class="text-center py-10">
                     <i class="fas fa-circle-notch fa-spin fa-2x text-accent"></i>
-                    <p class="mt-4 text-gray-500" data-i18n="fetching_release">Fetching latest release info from GitHub...</p>
+                    <p class="mt-4 text-gray-500" data-i18n="fetching_release">Fetching latest release info from
+                        GitHub...</p>
                 </div>
             </div>
 
             <div class="fade-up text-center mt-10">
                 <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
-                    <span data-i18n="download_note_win">Note: Windows users need to install</span> 
-                    <a href="https://npcap.com/#download" target="_blank" class="underline text-accent hover:text-accent-hover">Npcap</a><br>
+                    <span data-i18n="download_note_win">Note: Windows users need to install</span>
+                    <a href="https://npcap.com/#download" target="_blank"
+                        class="underline text-accent hover:text-accent-hover">Npcap</a><br>
                     <span data-i18n="download_note_manual">Or you can compile it yourself.</span>
                 </p>
-                <a href="https://github.com/Archeb/opentrace/releases" target="_blank" class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-apple-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors" data-i18n="view_all_releases">
+                <a href="https://github.com/Archeb/opentrace/releases" target="_blank"
+                    class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-apple-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                    data-i18n="view_all_releases">
                     View All Releases
                 </a>
             </div>
@@ -376,39 +552,55 @@
     <!-- Sponsors / Friendly Links -->
     <section class="py-16 bg-white dark:bg-[#111111] border-t border-gray-200 dark:border-gray-800">
         <div class="max-w-4xl mx-auto px-6">
-            <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 text-center mb-8" data-i18n="sponsors_title">Special Thanks & Links</h3>
-            
+            <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 text-center mb-8"
+                data-i18n="sponsors_title">Special Thanks & Links</h3>
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <a href="https://github.com/nxtrace/NTrace-V1" target="_blank" class="group flex items-center p-4 rounded-2xl border border-gray-200 dark:border-gray-800 bg-apple-50 dark:bg-apple-900 hover:border-accent hover:shadow-apple-sm dark:hover:shadow-apple-sm-dark hover:-translate-y-0.5 transition-all duration-300">
-                    <div class="w-12 h-12 rounded-xl bg-white dark:bg-black p-2 flex items-center justify-center shadow-sm mr-4 border border-gray-100 dark:border-gray-800">
+                <a href="https://github.com/nxtrace/NTrace-V1" target="_blank"
+                    class="group flex items-center p-4 rounded-2xl border border-gray-200 dark:border-gray-800 bg-apple-50 dark:bg-apple-900 hover:border-accent hover:shadow-apple-sm dark:hover:shadow-apple-sm-dark hover:-translate-y-0.5 transition-all duration-300">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-white dark:bg-black p-2 flex items-center justify-center shadow-sm mr-4 border border-gray-100 dark:border-gray-800">
                         <img src="./img/logo.png" alt="NextTrace" class="w-full h-full object-contain">
                     </div>
                     <div class="flex-1">
-                        <div class="font-bold text-gray-900 dark:text-white group-hover:text-accent transition-colors">NextTrace Core</div>
-                        <div class="text-sm text-gray-500 dark:text-gray-400 mt-0.5" data-i18n="sponsors_desc_nexttrace">OpenTrace Core Engine</div>
+                        <div class="font-bold text-gray-900 dark:text-white group-hover:text-accent transition-colors">
+                            NextTrace Core</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mt-0.5"
+                            data-i18n="sponsors_desc_nexttrace">OpenTrace Core Engine</div>
                     </div>
-                    <i class="fas fa-external-link-alt text-gray-300 dark:text-gray-600 group-hover:text-accent ml-2"></i>
+                    <i
+                        class="fas fa-external-link-alt text-gray-300 dark:text-gray-600 group-hover:text-accent ml-2"></i>
                 </a>
-                <a href="https://www.natfrp.com/" target="_blank" class="group flex items-center p-4 rounded-2xl border border-gray-200 dark:border-gray-800 bg-apple-50 dark:bg-apple-900 hover:border-accent hover:shadow-apple-sm dark:hover:shadow-apple-sm-dark hover:-translate-y-0.5 transition-all duration-300">
-                    <div class="w-12 h-12 rounded-xl bg-white dark:bg-black p-2 flex items-center justify-center shadow-sm mr-4 border border-gray-100 dark:border-gray-800">
-                        <img src="https://www.natfrp.com/favicon.ico?v=2" alt="NextTrace" class="w-full h-full object-contain">
+                <a href="https://www.natfrp.com/" target="_blank"
+                    class="group flex items-center p-4 rounded-2xl border border-gray-200 dark:border-gray-800 bg-apple-50 dark:bg-apple-900 hover:border-accent hover:shadow-apple-sm dark:hover:shadow-apple-sm-dark hover:-translate-y-0.5 transition-all duration-300">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-white dark:bg-black p-2 flex items-center justify-center shadow-sm mr-4 border border-gray-100 dark:border-gray-800">
+                        <img src="https://www.natfrp.com/favicon.ico?v=2" alt="NextTrace"
+                            class="w-full h-full object-contain">
                     </div>
                     <div class="flex-1">
-                        <div class="font-bold text-gray-900 dark:text-white group-hover:text-accent transition-colors">SakuraFrp</div>
-                        <div class="text-sm text-gray-500 dark:text-gray-400 mt-0.5" data-i18n="sponsors_desc_nya">Platform Distribution Support</div>
+                        <div class="font-bold text-gray-900 dark:text-white group-hover:text-accent transition-colors">
+                            SakuraFrp</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mt-0.5" data-i18n="sponsors_desc_nya">
+                            Platform Distribution Support</div>
                     </div>
-                    <i class="fas fa-external-link-alt text-gray-300 dark:text-gray-600 group-hover:text-accent ml-2"></i>
+                    <i
+                        class="fas fa-external-link-alt text-gray-300 dark:text-gray-600 group-hover:text-accent ml-2"></i>
                 </a>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-10 bg-apple-50 dark:bg-black border-t border-gray-200 dark:border-gray-800 text-center text-sm text-gray-500 dark:text-gray-400">
+    <footer
+        class="py-10 bg-apple-50 dark:bg-black border-t border-gray-200 dark:border-gray-800 text-center text-sm text-gray-500 dark:text-gray-400">
         <div class="max-w-7xl mx-auto px-6">
             <div class="flex justify-center gap-8 mb-6">
-                <a href="https://github.com/Archeb/opentrace" target="_blank" class="hover:text-gray-900 dark:hover:text-white transition-colors">GitHub</a>
-                <a href="https://github.com/Archeb/opentrace/issues" target="_blank" class="hover:text-gray-900 dark:hover:text-white transition-colors" data-i18n="footer_issues">Report Issue</a>
+                <a href="https://github.com/Archeb/opentrace" target="_blank"
+                    class="hover:text-gray-900 dark:hover:text-white transition-colors">GitHub</a>
+                <a href="https://github.com/Archeb/opentrace/issues" target="_blank"
+                    class="hover:text-gray-900 dark:hover:text-white transition-colors" data-i18n="footer_issues">Report
+                    Issue</a>
             </div>
             <p>OpenTrace Contributors. GPL-3.0 License.</p>
         </div>
@@ -503,7 +695,7 @@
 
         function updateLanguage() {
             const t = translations[currentLang];
-            
+
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 if (t[key]) {
@@ -525,31 +717,31 @@
         // --- Theme Management ---
         const themeToggle = document.getElementById('theme-toggle');
         const icon = themeToggle.querySelector('i');
-        
+
         // 检测当前系统主题偏好
         function getSystemTheme() {
             return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         }
-        
+
         // 更新图标和数据属性
         function updateThemeUI(actualTheme, mode) {
             document.documentElement.setAttribute('data-theme', actualTheme);
-            
+
             // 更新图标：自动模式显示特殊图标
             if (mode === 'auto') {
                 icon.className = 'fas fa-circle-half-stroke'; // 自动模式图标
             } else {
                 icon.className = actualTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
             }
-            
+
             // Update macOS screenshot when theme changes
             updateMacOSScreenshot();
         }
-        
+
         // 应用主题
         function applyTheme() {
             const mode = localStorage.getItem('themeMode') || 'auto';
-            
+
             if (mode === 'auto') {
                 // 自动模式：跟随系统
                 const systemTheme = getSystemTheme();
@@ -577,7 +769,7 @@
         themeToggle.addEventListener('click', () => {
             const currentMode = localStorage.getItem('themeMode') || 'auto';
             let newMode;
-            
+
             if (currentMode === 'auto') {
                 newMode = 'light';
             } else if (currentMode === 'light') {
@@ -585,7 +777,7 @@
             } else {
                 newMode = 'auto';
             }
-            
+
             localStorage.setItem('themeMode', newMode);
             applyTheme();
         });
@@ -596,10 +788,10 @@
             document.querySelectorAll('.tab-btn').forEach(b => {
                 b.className = 'tab-btn px-6 py-2 rounded-full text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all';
             });
-            
+
             // Set active button styling
             btn.className = 'tab-btn active px-6 py-2 rounded-full text-sm font-medium transition-all text-white bg-accent shadow-sm';
-            
+
             // Switch images
             document.querySelectorAll('.screenshot-img').forEach(img => {
                 img.classList.add('hidden');
@@ -608,20 +800,20 @@
             const activeImg = document.getElementById(`img-${os}`);
             activeImg.classList.remove('hidden');
             activeImg.classList.add('block');
-            
+
             // Update macOS image based on current theme
             updateMacOSScreenshot();
         }
-        
+
         // Update macOS screenshot based on dark mode
         function updateMacOSScreenshot() {
             const macosImg = document.getElementById('img-macos');
             if (!macosImg) return;
-            
+
             const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
             const lightSrc = macosImg.getAttribute('data-light-src');
             const darkSrc = macosImg.getAttribute('data-dark-src');
-            
+
             if (isDark && darkSrc) {
                 macosImg.src = darkSrc;
             } else if (lightSrc) {
@@ -635,7 +827,7 @@
             const platform = window.navigator.platform;
             const macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'];
             const windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'];
-            
+
             if (macosPlatforms.indexOf(platform) !== -1) return 'macOS';
             if (windowsPlatforms.indexOf(platform) !== -1) return 'Windows';
             if (/Linux/.test(platform)) return 'Linux';
@@ -645,13 +837,19 @@
         function updateHeroButton() {
             const os = getOS();
             const heroBtnText = document.getElementById('hero-dl-text');
+            const flathubBtn = document.getElementById('hero-flathub-btn');
             const t = translations[currentLang];
+
+            // Show Flathub button only on Linux
+            if (flathubBtn) {
+                flathubBtn.style.display = os === 'Linux' ? 'flex' : 'none';
+            }
 
             if (os === 'Windows' || os === 'macOS' || os === 'Linux') {
                 if (currentLang === 'zh') {
                     heroBtnText.textContent = `${t.hero_dl_prefix} ${os} ${t.hero_dl_suffix}`;
                 } else {
-                     heroBtnText.textContent = `${t.hero_dl_prefix} ${os}`;
+                    heroBtnText.textContent = `${t.hero_dl_prefix} ${os}`;
                 }
             } else {
                 heroBtnText.textContent = t.hero_dl_latest;
@@ -664,7 +862,7 @@
         function cleanMarkdown(text) {
             // Remove image tags from raw HTML if any
             text = text.replace(/<img[^>]*>/g, '');
-            
+
             // Configure marked options
             marked.setOptions({
                 breaks: true,  // Convert \n to <br>
@@ -697,7 +895,7 @@
         function renderReleaseCard(data) {
             const t = translations[currentLang];
             const container = document.getElementById('release-container');
-            
+
             let assetsHtml = '';
             data.assets.forEach(asset => {
                 let iconClass = 'fa-file';
@@ -749,7 +947,7 @@
                 const response = await fetch(API_URL);
                 if (!response.ok) throw new Error('API Rate Limit or Network Error');
                 const data = await response.json();
-                
+
                 window.cachedReleaseData = data;
                 document.getElementById('hero-version').textContent = data.tag_name;
 
@@ -814,4 +1012,5 @@
 
     </script>
 </body>
+
 </html>
