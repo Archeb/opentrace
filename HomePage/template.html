@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="{{lang}}" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{page_title}}</title>
+    <meta name="description" content="{{meta_description}}">
+    <meta name="keywords" content="{{meta_keywords}}">
+
+    <!-- Canonical & Hreflang -->
+    <link rel="canonical" href="{{canonical_url}}">
+    {{hreflang_tags}}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{og_title}}">
+    <meta property="og:description" content="{{og_description}}">
+    <meta property="og:url" content="{{canonical_url}}">
+    <meta property="og:locale" content="{{locale}}">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{og_title}}">
+    <meta name="twitter:description" content="{{og_description}}">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Markdown Parser -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: ['selector', '[data-theme="dark"]'],
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        apple: { 50: '#f5f5f7', 100: '#e8e8ed', 200: '#d2d2d7', 800: '#2c2c2e', 900: '#1c1c1e' },
+                        accent: { DEFAULT: '#007aff', hover: '#0077ed', dark: '#0a84ff' }
+                    },
+                    boxShadow: {
+                        'apple-sm': '0 2px 8px rgba(0,0,0,0.04)',
+                        'apple-md': '0 8px 24px rgba(0,0,0,0.08)',
+                        'apple-sm-dark': '0 2px 8px rgba(0,0,0,0.2)',
+                        'apple-md-dark': '0 8px 24px rgba(0,0,0,0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .markdown-body h1 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #111827;
+            margin-top: 1.25rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .markdown-body h2 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #111827;
+            margin-top: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .markdown-body h3 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #111827;
+            margin-top: 0.75rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .markdown-body p {
+            margin-bottom: 0.75rem;
+            line-height: 1.625;
+        }
+
+        .markdown-body ul {
+            list-style-type: disc;
+            padding-left: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .markdown-body ol {
+            list-style-type: decimal;
+            padding-left: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .markdown-body li {
+            line-height: 1.625;
+            margin-bottom: 0.25rem;
+        }
+
+        .markdown-body a {
+            color: #007aff;
+        }
+
+        .markdown-body a:hover {
+            text-decoration: underline;
+        }
+
+        .markdown-body code {
+            padding: 0.125rem 0.375rem;
+            background-color: #f3f4f6;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            color: #db2777;
+        }
+
+        .markdown-body pre {
+            padding: 1rem;
+            background-color: #f3f4f6;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            margin-bottom: 1rem;
+        }
+
+        .markdown-body pre code {
+            padding: 0;
+            background-color: transparent;
+            color: #1f2937;
+        }
+
+        .markdown-body blockquote {
+            padding-left: 1rem;
+            border-left: 4px solid #d1d5db;
+            font-style: italic;
+            color: #4b5563;
+            margin: 1rem 0;
+        }
+
+        .markdown-body hr {
+            margin: 1.5rem 0;
+            border-color: #e5e7eb;
+        }
+
+        .markdown-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+
+        .markdown-body th,
+        .markdown-body td {
+            border: 1px solid #e5e7eb;
+            padding: 0.5rem 0.75rem;
+            text-align: left;
+        }
+
+        .markdown-body th {
+            background-color: #f9fafb;
+            font-weight: 600;
+        }
+
+        .markdown-body img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 0.5rem;
+            margin: 0.5rem 0;
+        }
+
+        [data-theme="dark"] .markdown-body h1,
+        [data-theme="dark"] .markdown-body h2,
+        [data-theme="dark"] .markdown-body h3 {
+            color: #f3f4f6;
+        }
+
+        [data-theme="dark"] .markdown-body a {
+            color: #0a84ff;
+        }
+
+        [data-theme="dark"] .markdown-body code {
+            background-color: #1f2937;
+            color: #f472b6;
+        }
+
+        [data-theme="dark"] .markdown-body pre {
+            background-color: #1f2937;
+        }
+
+        [data-theme="dark"] .markdown-body pre code {
+            color: #e5e7eb;
+        }
+
+        [data-theme="dark"] .markdown-body blockquote {
+            border-left-color: #4b5563;
+            color: #9ca3af;
+        }
+
+        [data-theme="dark"] .markdown-body hr {
+            border-color: #374151;
+        }
+
+        [data-theme="dark"] .markdown-body th,
+        [data-theme="dark"] .markdown-body td {
+            border-color: #374151;
+        }
+
+        [data-theme="dark"] .markdown-body th {
+            background-color: #1f2937;
+        }
+
+        .hero-glow::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 122, 255, 0.15) 0%, rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body
+    class="font-sans antialiased bg-white dark:bg-black text-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+    <!-- Navbar -->
+    <nav
+        class="fixed top-0 left-0 right-0 h-16 bg-white/80 dark:bg-[#1c1c1e]/80 backdrop-blur-md z-50 border-b border-gray-200 dark:border-gray-800 transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 font-bold text-xl hover:opacity-80 transition-opacity">
+                <img src="./img/logo.png" alt="Logo" class="w-8 h-8">
+                <span>OpenTrace</span>
+            </a>
+
+            <div class="flex items-center gap-6">
+                <div class="hidden md:flex items-center gap-6">
+                    <a href="#preview"
+                        class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">{{nav_preview}}</a>
+                    <a href="#features"
+                        class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">{{nav_features}}</a>
+                    <a href="#downloads"
+                        class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">{{nav_download}}</a>
+                    <a href="https://github.com/Archeb/opentrace" target="_blank"
+                        class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                        <i class="fab fa-github mr-1"></i> GitHub
+                    </a>
+                </div>
+
+                <div class="flex items-center gap-2 border-l border-gray-200 dark:border-gray-700 pl-4">
+                    <a href="{{lang_switch_url}}" id="lang-toggle"
+                        class="w-10 h-10 flex items-center justify-center rounded-full text-sm font-semibold text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                        aria-label="Switch Language">{{lang_switch_text}}</a>
+                    <button id="theme-toggle"
+                        class="w-10 h-10 flex items-center justify-center rounded-full text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                        aria-label="Toggle Theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-40 pb-20 text-center overflow-hidden hero-glow">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="fade-up flex flex-col items-center">
+                <img src="./img/logo.png" alt="OpenTrace Logo"
+                    class="w-28 h-28 md:w-32 md:h-32 mb-8 rounded-[2rem] shadow-apple-md dark:shadow-apple-md-dark">
+                <h1 style="line-height:1.2;"
+                    class="text-4xl md:text-6xl font-bold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-br from-gray-900 to-gray-500 dark:from-white dark:to-gray-400">
+                    {{hero_title}}</h1>
+                <p class="text-xl md:text-2xl text-gray-500 dark:text-gray-400 max-w-3xl mx-auto mb-10 font-normal">
+                    {{hero_subtitle}}</p>
+
+                <div class="flex flex-wrap justify-center gap-4">
+                    <a href="https://flathub.org/apps/io.github.Archeb.opentrace" id="hero-flathub-btn"
+                        class="group flex items-center gap-2 px-4 bg-black dark:bg-apple-800 text-white rounded-full font-semibold transition-all border border-gray-200 dark:border-gray-700 active:scale-95"
+                        style="display:none;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="150" height="45" viewBox="0 0 240 80"><text
+                                x="88" y="55" fill="white" font-size="32" font-weight="bold">Flathub</text></svg>
+                    </a>
+                    <a href="#downloads" id="hero-download-btn"
+                        class="group flex items-center gap-2 px-8 py-3.5 bg-accent hover:bg-accent-hover dark:bg-accent-dark dark:hover:bg-blue-500 text-white rounded-full font-semibold transition-all shadow-lg shadow-blue-500/30 active:scale-95">
+                        <i class="fas fa-download"></i>
+                        <span id="hero-dl-text">{{hero_dl_latest}}</span>
+                    </a>
+                    <a href="https://github.com/Archeb/opentrace" target="_blank"
+                        class="flex items-center gap-2 px-8 py-3.5 bg-apple-50 dark:bg-apple-800 text-gray-900 dark:text-white border border-gray-200 dark:border-gray-700 rounded-full font-semibold hover:bg-apple-100 dark:hover:bg-gray-700 transition-all active:scale-95">{{hero_github}}</a>
+                </div>
+
+                <div class="mt-4 text-sm text-gray-500 dark:text-gray-500">
+                    <span>{{hero_version}}</span>: <span id="hero-version" class="font-mono">...</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Screenshots Preview -->
+    <section id="preview" class="py-20 bg-apple-50 dark:bg-[#000000]">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 tracking-tight">{{preview_title}}</h2>
+            <div class="fade-up flex justify-center mb-10">
+                <div
+                    class="inline-flex p-1.5 bg-white dark:bg-apple-900 rounded-full border border-gray-200 dark:border-gray-800 shadow-sm">
+                    <button
+                        class="tab-btn active px-6 py-2 rounded-full text-sm font-medium transition-all text-white bg-accent shadow-sm"
+                        onclick="switchTab('macos', this)">macOS</button>
+                    <button
+                        class="tab-btn px-6 py-2 rounded-full text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all"
+                        onclick="switchTab('windows', this)">Windows</button>
+                    <button
+                        class="tab-btn px-6 py-2 rounded-full text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all"
+                        onclick="switchTab('linux', this)">Linux</button>
+                </div>
+            </div>
+            <div
+                class="fade-up max-w-5xl mx-auto relative rounded-2xl overflow-hidden shadow-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-apple-900">
+                <img src="./img/macos.jpg" alt="macOS Preview" class="screenshot-img active w-full block" id="img-macos"
+                    data-light-src="./img/macos.jpg" data-dark-src="./img/macos_dark.jpg">
+                <img src="./img/windows.png" alt="Windows Preview" class="screenshot-img w-full hidden"
+                    id="img-windows">
+                <img src="./img/linux.png" alt="Linux Preview" class="screenshot-img w-full hidden" id="img-linux">
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section id="features" class="py-20 bg-white dark:bg-black">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 tracking-tight">{{features_title}}</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div
+                    class="fade-up group p-8 bg-apple-50 dark:bg-apple-900 rounded-3xl border border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-apple-md dark:hover:shadow-apple-md-dark transition-all duration-300 hover:-translate-y-1">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-2xl text-accent mb-6 shadow-sm">
+                        <i class="fas fa-desktop"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">{{feat_native_title}}</h3>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed">{{feat_native_desc}}</p>
+                </div>
+                <div
+                    class="fade-up group p-8 bg-apple-50 dark:bg-apple-900 rounded-3xl border border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-apple-md dark:hover:shadow-apple-md-dark transition-all duration-300 hover:-translate-y-1">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-2xl text-accent mb-6 shadow-sm">
+                        <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">{{feat_mtr_title}}</h3>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed">{{feat_mtr_desc}}</p>
+                </div>
+                <div
+                    class="fade-up group p-8 bg-apple-50 dark:bg-apple-900 rounded-3xl border border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-apple-md dark:hover:shadow-apple-md-dark transition-all duration-300 hover:-translate-y-1">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-2xl text-accent mb-6 shadow-sm">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">{{feat_lang_title}}</h3>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed">{{feat_lang_desc}}</p>
+                </div>
+                <div
+                    class="fade-up md:col-span-2 group p-8 bg-apple-50 dark:bg-apple-900 rounded-3xl border border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-apple-md dark:hover:shadow-apple-md-dark transition-all duration-300 hover:-translate-y-1">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-2xl text-accent mb-6 shadow-sm">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">{{feat_privacy_title}}</h3>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed">{{feat_privacy_desc}}</p>
+                </div>
+                <div
+                    class="fade-up group p-8 bg-apple-50 dark:bg-apple-900 rounded-3xl border border-transparent hover:border-gray-200 dark:hover:border-gray-700 hover:shadow-apple-md dark:hover:shadow-apple-md-dark transition-all duration-300 hover:-translate-y-1">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-white dark:bg-black flex items-center justify-center text-2xl text-accent mb-6 shadow-sm">
+                        <i class="fas fa-terminal"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">{{feat_cli_title}}</h3>
+                    <p class="text-gray-500 dark:text-gray-400 leading-relaxed">{{feat_cli_desc}}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Downloads Section -->
+    <section id="downloads" class="py-20 bg-apple-50 dark:bg-black">
+        <div class="max-w-5xl mx-auto px-6">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 tracking-tight">{{download_title}}</h2>
+            <div class="fade-up bg-white dark:bg-apple-900 rounded-3xl p-8 md:p-10 border border-gray-200 dark:border-gray-800 shadow-sm"
+                id="release-container">
+                <div class="text-center py-10">
+                    <i class="fas fa-circle-notch fa-spin fa-2x text-accent"></i>
+                    <p class="mt-4 text-gray-500">{{fetching_release}}</p>
+                </div>
+            </div>
+            <div class="fade-up text-center mt-10">
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
+                    <span>{{download_note_win}}</span>
+                    <a href="https://npcap.com/#download" target="_blank"
+                        class="underline text-accent hover:text-accent-hover">Npcap</a><br>
+                    <span>{{download_note_manual}}</span>
+                </p>
+                <a href="https://github.com/Archeb/opentrace/releases" target="_blank"
+                    class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-apple-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">{{view_all_releases}}</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sponsors -->
+    <section class="py-16 bg-white dark:bg-[#111111] border-t border-gray-200 dark:border-gray-800">
+        <div class="max-w-4xl mx-auto px-6">
+            <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 text-center mb-8">
+                {{sponsors_title}}</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="https://github.com/nxtrace/NTrace-V1" target="_blank"
+                    class="group flex items-center p-4 rounded-2xl border border-gray-200 dark:border-gray-800 bg-apple-50 dark:bg-apple-900 hover:border-accent hover:shadow-apple-sm dark:hover:shadow-apple-sm-dark hover:-translate-y-0.5 transition-all duration-300">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-white dark:bg-black p-2 flex items-center justify-center shadow-sm mr-4 border border-gray-100 dark:border-gray-800">
+                        <img src="./img/logo.png" alt="NextTrace" class="w-full h-full object-contain">
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-bold text-gray-900 dark:text-white group-hover:text-accent transition-colors">
+                            NextTrace Core</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{{sponsors_desc_nexttrace}}</div>
+                    </div>
+                    <i
+                        class="fas fa-external-link-alt text-gray-300 dark:text-gray-600 group-hover:text-accent ml-2"></i>
+                </a>
+                <a href="https://www.natfrp.com/" target="_blank"
+                    class="group flex items-center p-4 rounded-2xl border border-gray-200 dark:border-gray-800 bg-apple-50 dark:bg-apple-900 hover:border-accent hover:shadow-apple-sm dark:hover:shadow-apple-sm-dark hover:-translate-y-0.5 transition-all duration-300">
+                    <div
+                        class="w-12 h-12 rounded-xl bg-white dark:bg-black p-2 flex items-center justify-center shadow-sm mr-4 border border-gray-100 dark:border-gray-800">
+                        <img src="https://www.natfrp.com/favicon.ico?v=2" alt="SakuraFrp"
+                            class="w-full h-full object-contain">
+                    </div>
+                    <div class="flex-1">
+                        <div class="font-bold text-gray-900 dark:text-white group-hover:text-accent transition-colors">
+                            SakuraFrp</div>
+                        <div class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">{{sponsors_desc_nya}}</div>
+                    </div>
+                    <i
+                        class="fas fa-external-link-alt text-gray-300 dark:text-gray-600 group-hover:text-accent ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+        class="py-10 bg-apple-50 dark:bg-black border-t border-gray-200 dark:border-gray-800 text-center text-sm text-gray-500 dark:text-gray-400">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-center gap-8 mb-6">
+                <a href="https://github.com/Archeb/opentrace" target="_blank"
+                    class="hover:text-gray-900 dark:hover:text-white transition-colors">GitHub</a>
+                <a href="https://github.com/Archeb/opentrace/issues" target="_blank"
+                    class="hover:text-gray-900 dark:hover:text-white transition-colors">{{footer_issues}}</a>
+            </div>
+            <p>OpenTrace Contributors. GPL-3.0 License.</p>
+        </div>
+    </footer>
+
+    <script>
+        // i18n data embedded for runtime use
+        const currentLang = '{{lang}}';
+        const translations = {
+            hero_dl_prefix: '{{hero_dl_prefix}}',
+            hero_dl_suffix: '{{hero_dl_suffix}}',
+            hero_dl_latest: '{{hero_dl_latest}}',
+            released_on: '{{released_on}}',
+            release_page: '{{release_page}}',
+            download_files: '{{download_files}}',
+            download_count: '{{download_count}}',
+            api_error: '{{api_error}}',
+            go_github: '{{go_github}}'
+        };
+
+        // Theme Management
+        const themeToggle = document.getElementById('theme-toggle');
+        const icon = themeToggle.querySelector('i');
+
+        function getSystemTheme() {
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        function updateThemeUI(actualTheme, mode) {
+            document.documentElement.setAttribute('data-theme', actualTheme);
+            if (mode === 'auto') {
+                icon.className = 'fas fa-circle-half-stroke';
+            } else {
+                icon.className = actualTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            }
+            updateMacOSScreenshot();
+        }
+
+        function applyTheme() {
+            const mode = localStorage.getItem('themeMode') || 'auto';
+            if (mode === 'auto') {
+                updateThemeUI(getSystemTheme(), 'auto');
+            } else {
+                updateThemeUI(mode, mode);
+            }
+        }
+
+        applyTheme();
+
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+            if ((localStorage.getItem('themeMode') || 'auto') === 'auto') {
+                updateThemeUI(e.matches ? 'dark' : 'light', 'auto');
+            }
+        });
+
+        themeToggle.addEventListener('click', () => {
+            const currentMode = localStorage.getItem('themeMode') || 'auto';
+            let newMode;
+            if (currentMode === 'auto') newMode = 'light';
+            else if (currentMode === 'light') newMode = 'dark';
+            else newMode = 'auto';
+            localStorage.setItem('themeMode', newMode);
+            applyTheme();
+        });
+
+        // Screenshot Tabs
+        function switchTab(os, btn) {
+            document.querySelectorAll('.tab-btn').forEach(b => {
+                b.className = 'tab-btn px-6 py-2 rounded-full text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all';
+            });
+            btn.className = 'tab-btn active px-6 py-2 rounded-full text-sm font-medium transition-all text-white bg-accent shadow-sm';
+            document.querySelectorAll('.screenshot-img').forEach(img => { img.classList.add('hidden'); img.classList.remove('block'); });
+            const activeImg = document.getElementById(`img-${os}`);
+            activeImg.classList.remove('hidden');
+            activeImg.classList.add('block');
+            updateMacOSScreenshot();
+        }
+
+        function updateMacOSScreenshot() {
+            const macosImg = document.getElementById('img-macos');
+            if (!macosImg) return;
+            const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+            const lightSrc = macosImg.getAttribute('data-light-src');
+            const darkSrc = macosImg.getAttribute('data-dark-src');
+            macosImg.src = (isDark && darkSrc) ? darkSrc : (lightSrc || macosImg.src);
+        }
+
+        // OS Detection & Hero Button
+        function getOS() {
+            const platform = window.navigator.platform;
+            if (['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'].includes(platform)) return 'macOS';
+            if (['Win32', 'Win64', 'Windows', 'WinCE'].includes(platform)) return 'Windows';
+            if (/Linux/.test(platform)) return 'Linux';
+            return 'Unknown';
+        }
+
+        function updateHeroButton() {
+            const os = getOS();
+            const heroBtnText = document.getElementById('hero-dl-text');
+            const flathubBtn = document.getElementById('hero-flathub-btn');
+            if (flathubBtn) flathubBtn.style.display = os === 'Linux' ? 'flex' : 'none';
+            if (['Windows', 'macOS', 'Linux'].includes(os)) {
+                heroBtnText.textContent = currentLang === 'zh'
+                    ? `${translations.hero_dl_prefix} ${os} ${translations.hero_dl_suffix}`
+                    : `${translations.hero_dl_prefix} ${os}`;
+            } else {
+                heroBtnText.textContent = translations.hero_dl_latest;
+            }
+        }
+
+        // Data Fetching
+        const API_URL = 'https://api.github.com/repos/Archeb/opentrace/releases/latest';
+
+        function cleanMarkdown(text) {
+            text = text.replace(/<img[^>]*>/g, '');
+            marked.setOptions({ breaks: true, gfm: true, headerIds: false, mangle: false });
+            let html = marked.parse(text);
+            html = html.replace(/<a /g, '<a target="_blank" ').replace(/<img[^>]*>/g, '');
+            return html;
+        }
+
+        function formatBytes(bytes, decimals = 2) {
+            if (!+bytes) return '0 Bytes';
+            const k = 1024, dm = decimals < 0 ? 0 : decimals;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
+        }
+
+        function renderReleaseCard(data) {
+            const t = translations;
+            const container = document.getElementById('release-container');
+            let assetsHtml = '';
+            data.assets.forEach(asset => {
+                let iconClass = 'fa-file';
+                const name = asset.name.toLowerCase();
+                if (name.includes('win')) iconClass = 'fa-windows';
+                else if (name.includes('osx') || name.includes('mac')) iconClass = 'fa-apple';
+                else if (name.includes('linux')) iconClass = 'fa-linux';
+                assetsHtml += `<a href="${asset.browser_download_url}" class="group flex items-center justify-between p-4 bg-white dark:bg-black border border-gray-200 dark:border-gray-800 rounded-xl hover:border-accent dark:hover:border-accent hover:shadow-apple-sm dark:hover:shadow-apple-sm-dark hover:-translate-y-0.5 transition-all duration-200"><div class="flex flex-col"><span class="font-semibold text-gray-900 dark:text-gray-100 text-sm group-hover:text-accent transition-colors"><i class="fab ${iconClass} mr-2 text-accent"></i>${asset.name}</span><span class="text-xs text-gray-500 mt-1">${formatBytes(asset.size)} • ${asset.download_count} ${t.download_count}</span></div><i class="fas fa-download text-gray-400 group-hover:text-accent text-sm"></i></a>`;
+            });
+            container.innerHTML = `<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8 border-b border-gray-100 dark:border-gray-800 pb-6"><div><div class="text-3xl font-bold text-gray-900 dark:text-white">${data.name || data.tag_name}</div><div class="text-sm text-gray-500 mt-1">${t.released_on} ${new Date(data.published_at).toLocaleDateString()}</div></div><a href="${data.html_url}" target="_blank" class="px-4 py-2 bg-gray-50 dark:bg-apple-800 border border-gray-200 dark:border-gray-700 rounded-lg text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">${t.release_page}</a></div><div class="markdown-body text-gray-500 dark:text-gray-400 text-sm mb-8 max-h-80 overflow-y-auto pr-2">${cleanMarkdown(data.body)}</div><h3 class="text-lg font-bold text-gray-900 dark:text-white mb-4">${t.download_files}</h3><div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">${assetsHtml}</div>`;
+        }
+
+        async function init() {
+            updateHeroButton();
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error('API Error');
+                const data = await response.json();
+                window.cachedReleaseData = data;
+                document.getElementById('hero-version').textContent = data.tag_name;
+
+                const os = getOS();
+                const assets = data.assets;
+                let targetExt = [];
+                if (os === 'Windows') targetExt = ['.zip', '.exe'];
+                else if (os === 'macOS') targetExt = ['.dmg'];
+                else if (os === 'Linux') targetExt = ['.tar.gz', '.deb', '.rpm'];
+
+                let suggestedAsset = null;
+                if (targetExt.length > 0) {
+                    const isArm = os === 'macOS' ? true : (navigator.userAgent.includes('ARM') || navigator.userAgent.includes('aarch64'));
+                    suggestedAsset = assets.find(a => {
+                        const name = a.name.toLowerCase();
+                        return targetExt.some(ext => name.endsWith(ext)) && (isArm ? name.includes('arm') : (name.includes('x64') || name.includes('amd64')));
+                    }) || assets.find(a => targetExt.some(ext => a.name.toLowerCase().endsWith(ext)));
+                }
+                document.getElementById('hero-download-btn').href = suggestedAsset ? suggestedAsset.browser_download_url : "#downloads";
+                renderReleaseCard(data);
+            } catch (error) {
+                console.error(error);
+                document.getElementById('hero-version').textContent = "v1.5.0.0 (Cached)";
+                document.getElementById('release-container').innerHTML = `<div class="text-center py-10"><p class="text-gray-500">${translations.api_error}</p><a href="https://github.com/Archeb/opentrace/releases" class="inline-block mt-4 px-6 py-2 bg-accent text-white rounded-full hover:bg-accent-hover transition-colors">${translations.go_github}</a></div>`;
+            }
+        }
+
+        // Intersection Observer for Animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+        init();
+    </script>
+</body>
+
+</html>
