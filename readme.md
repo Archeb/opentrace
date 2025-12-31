@@ -52,7 +52,7 @@ Tip: You can also download the latest beta version of the corresponding architec
 
 ### Images
 
-![Windows](https://i.imgur.com/4mDoWcT.png)
-![MTR on Linux](https://i.imgur.com/MxSHIcU.png)
-![macOS](https://i.imgur.com/brB08tl.png)
+![macOS Dark](./HomePage/img/macos_dark.jpg)
+![Windows](./HomePage/img/windows.png)
+![Linux](./HomePage/img/linux.png)
 ![Preferences on macOS](https://i.imgur.com/X0L6c6S.png)
