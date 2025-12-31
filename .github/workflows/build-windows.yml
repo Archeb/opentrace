@@ -28,11 +28,13 @@ jobs:
         runtime: [win-x64, win-arm64]
         include:
           - runtime: win-x64
-            artifact_path: ./bin/Wpf/Release/net481/win-x64
+            artifact_path: ./bin/Wpf/Release/net48/win-x64
             self_contained: "--no-self-contained"
+            framework: net48
           - runtime: win-arm64
             artifact_path: ./bin/Wpf/Release/net481/win-arm64
             self_contained: "--no-self-contained"
+            framework: net481
 
     runs-on: ubuntu-latest
 
@@ -46,7 +48,7 @@ jobs:
         
     - name: Build for ${{ matrix.runtime }}
       run: |
-        dotnet build OpenTrace.csproj --runtime ${{ matrix.runtime }} --configuration Release ${{ matrix.self_contained }} -f net481
+        dotnet build OpenTrace.csproj --runtime ${{ matrix.runtime }} --configuration Release ${{ matrix.self_contained }} -f ${{ matrix.framework }}
         
     - name: Upload artifact for ${{ matrix.runtime }}
       uses: actions/upload-artifact@v4

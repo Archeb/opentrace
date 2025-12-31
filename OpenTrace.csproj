@@ -7,8 +7,13 @@
   -->
 
   <PropertyGroup>
-    <TargetFrameworks Condition="$([MSBuild]::IsOsPlatform(Windows))">net481;net8.0</TargetFrameworks>
-    <TargetFrameworks Condition="!$([MSBuild]::IsOsPlatform(Windows))">net8.0</TargetFrameworks>
+    <!-- 根据 RID 选择单一目标框架 -->
+    <TargetFramework Condition="'$(RuntimeIdentifier)' == 'win-x64'">net48</TargetFramework>
+    <TargetFramework Condition="'$(RuntimeIdentifier)' == 'win-arm64'">net481</TargetFramework>
+    <TargetFramework Condition="'$(TargetFramework)' == '' AND !$([MSBuild]::IsOsPlatform(Windows))">net8.0</TargetFramework>
+    <!-- 非 CI 构建时的默认值（本地开发） -->
+    <TargetFrameworks Condition="'$(TargetFramework)' == '' AND $([MSBuild]::IsOsPlatform(Windows))">net48;net481;net8.0</TargetFrameworks>
+    <TargetFrameworks Condition="'$(TargetFramework)' == '' AND !$([MSBuild]::IsOsPlatform(Windows))">net8.0</TargetFrameworks>
     
     <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
     <OutputType>Exe</OutputType>
