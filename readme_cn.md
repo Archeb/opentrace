@@ -50,7 +50,7 @@ OpenTrace 是 NextTrace 的跨平台 GUI 界面，带来您熟悉但更强大的
 
 ### 预览图
 
-![Windows](https://github.com/Archeb/opentrace/assets/11910831/510b61a2-712e-4d83-ae94-f396862e68df)
-![MTR on Linux](https://i.imgur.com/MxSHIcU.png)
-![macOS](https://i.imgur.com/brB08tl.png)
+![macOS Dark](./HomePage/img/macos_dark.jpg)
+![Windows](./HomePage/img/windows.png)
+![Linux](./HomePage/img/linux.png)
 ![Preferences on macOS](https://i.imgur.com/X0L6c6S.png)
