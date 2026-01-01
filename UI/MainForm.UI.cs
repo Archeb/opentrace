@@ -35,7 +35,7 @@ namespace OpenTrace.UI
             if (Menu != null) Menu.Items.Clear();
             Content = null;
 
-            Title = Resources.APPTITLE + " v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            Title = Resources.APPTITLE + " v" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
             MinimumSize = new Size(900, 600);
 
             // 设置窗口图标 (主要用于 Linux GTK 平台)

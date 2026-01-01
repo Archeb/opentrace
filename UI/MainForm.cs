@@ -90,7 +90,7 @@ namespace OpenTrace.UI
 
         private async void CheckUpdateAsync()
         {
-            string currentVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString();
+            string currentVersion = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
             string latestVersion = await updateService.CheckForUpdateAsync(currentVersion);
             if (latestVersion != null)
             {
