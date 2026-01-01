@@ -233,6 +233,7 @@ namespace OpenTrace.Services
                 {
                     onFailed?.Invoke();
                 }
+#if NET8_0_OR_GREATER
             } else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
                 // 使用 osascript 请求管理员权限运行程序
@@ -329,7 +330,7 @@ namespace OpenTrace.Services
                 {
                     onFailed?.Invoke();
                 }
-
+#endif
             }
         }
 
