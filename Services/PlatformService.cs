@@ -193,45 +193,143 @@ namespace OpenTrace.Services
         /// <summary>
         /// 以管理员身份重新启动应用程序
         /// </summary>
-        /// <returns>是否成功启动</returns>
-        public bool RestartAsAdministrator()
+        /// <param name="arguments">启动参数</param>
+        /// <param name="onFailed">提权失败时的回调（用于 macOS/Linux 异步场景）</param>
+        public void RestartAsAdministrator(string arguments = "", Action onFailed = null)
         {
-            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            // 获取当前进程的可执行文件路径
+            string exePath = Process.GetCurrentProcess().MainModule?.FileName;
+            
+            if (string.IsNullOrEmpty(exePath))
             {
-                return false;
+                onFailed?.Invoke();
+                return;
             }
-
-            try
+            
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                // 获取当前进程的可执行文件路径
-                string exePath = Process.GetCurrentProcess().MainModule?.FileName;
-                
-                if (string.IsNullOrEmpty(exePath))
-                {
-                    return false;
-                }
 
-                var startInfo = new ProcessStartInfo
+                try
                 {
-                    FileName = exePath,
-                    UseShellExecute = true,
-                    Verb = "runas"
+                    var startInfo = new ProcessStartInfo
+                    {
+                        FileName = exePath,
+                        UseShellExecute = true,
+                        Arguments = arguments,
+                        Verb = "runas"
+                    };
+
+                    Process.Start(startInfo);
+                    
+                    // 关闭当前应用程序
+                    Application.Instance.Quit();
+                }
+                catch (Win32Exception)
+                {
+                    // 用户取消了 UAC 提示
+                    onFailed?.Invoke();
+                }
+                catch (Exception)
+                {
+                    onFailed?.Invoke();
+                }
+            } else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                // 使用 osascript 请求管理员权限运行程序
+                var elvp = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = "/usr/bin/osascript",
+                        ArgumentList = {
+                            "-e",
+                            $"do shell script \"{exePath} {arguments}\" with administrator privileges with prompt \"{Resources.TCP_UDP_RUN_AS_ADMIN}\"",
+                        },
+                        UseShellExecute = false,
+                        RedirectStandardOutput = false,
+                        RedirectStandardError = false,
+                        CreateNoWindow = true
+                    },
+                    EnableRaisingEvents = true
                 };
 
-                Process.Start(startInfo);
-                
-                // 关闭当前应用程序
-                Application.Instance.Quit();
-                return true;
-            }
-            catch (Win32Exception)
+                elvp.Exited += (sender, e) =>
+                {
+                    if (elvp.ExitCode == 0)
+                    {
+                        Application.Instance.Invoke(() =>
+                        {
+                            Application.Instance.Quit();
+                        });
+                    }
+                    else
+                    {
+                        Application.Instance.Invoke(() =>
+                        {
+                            onFailed?.Invoke();
+                        });
+                    }
+                };
+
+                try
+                {
+                    elvp.Start();
+                }
+                catch
+                {
+                    onFailed?.Invoke();
+                }
+            } else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                // 用户取消了 UAC 提示
-                return false;
-            }
-            catch (Exception)
-            {
-                return false;
+                // 使用 pkexec 请求管理员权限
+                try
+                {
+                    var startInfo = new ProcessStartInfo
+                    {
+                        FileName = "pkexec",
+                        ArgumentList = { exePath },
+                        UseShellExecute = false
+                    };
+
+                    // 添加原有参数
+                    if (!string.IsNullOrEmpty(arguments))
+                    {
+                        foreach (var arg in arguments.Split(' '))
+                        {
+                            if (!string.IsNullOrWhiteSpace(arg))
+                            {
+                                startInfo.ArgumentList.Add(arg);
+                            }
+                        }
+                    }
+
+                    var process = new Process { StartInfo = startInfo, EnableRaisingEvents = true };
+                    
+                    process.Exited += (sender, e) =>
+                    {
+                        if (process.ExitCode == 0)
+                        {
+                            Application.Instance.Invoke(() =>
+                            {
+                                Application.Instance.Quit();
+                            });
+                        }
+                        else
+                        {
+                            Application.Instance.Invoke(() =>
+                            {
+                                onFailed?.Invoke();
+                            });
+                        }
+                    };
+
+                    process.Start();
+                }
+                catch
+                {
+                    onFailed?.Invoke();
+                }
+
             }
         }
 

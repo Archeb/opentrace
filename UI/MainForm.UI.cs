@@ -82,14 +82,6 @@ namespace OpenTrace.UI
 
                 System.Globalization.CultureInfo.CurrentUICulture = new System.Globalization.CultureInfo(culture);
 
-#if NET8_0_OR_GREATER
-                // macOS: 更新应用程序语言偏好，下次启动时系统菜单将使用正确的语言
-                if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX))
-                {
-                    SetMacOSAppLanguage(culture);
-                }
-#endif
-
                 BuildUI();
             }
         }

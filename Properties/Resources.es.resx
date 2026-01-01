@@ -337,6 +337,11 @@ sudo chmod +sx /ruta/a/nexttrace
 
 Indique la ruta en ajustes. ¿Descargar?</value>
   </data>
+  <data name="MISSING_COMP_PRIV_TEXT" xml:space="preserve">
+    <value>OpenTrace requiere permisos para realizar el traceroute TCP/UDP.
+
+Haga clic en [Sí] para intentar reiniciar OpenTrace con privilegios de administrador o haga clic en [No] para obtener información sobre cómo configurar manualmente los permisos necesarios.</value>
+  </data>
   <data name="MTR_MODE" xml:space="preserve">
     <value>Modo MTR</value>
   </data>
@@ -443,7 +448,7 @@ Para bases offline, ver documentación de NextTrace.</value>
   <data name="TRACEROUTING" xml:space="preserve">
     <value>Rastreo (Traceroute)</value>
   </data>
-  <data name="WINDOWS_TCP_UDP_REQUIREMENTS_TITLE" xml:space="preserve">
+  <data name="TCP_UDP_REQUIREMENTS_TITLE" xml:space="preserve">
     <value>Requisitos TCP/UDP</value>
   </data>
   <data name="WINDOWS_TCP_UDP_MISSING_ADMIN" xml:space="preserve">
@@ -466,7 +471,7 @@ Para bases offline, ver documentación de NextTrace.</value>
   <data name="WINDOWS_TCP_UDP_HAS_WINDIVERT" xml:space="preserve">
     <value>✓ WinDivert disponible</value>
   </data>
-  <data name="WINDOWS_TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
+  <data name="TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
     <value>Ejecutar como Admin</value>
   </data>
   <data name="WORST" xml:space="preserve">
@@ -540,19 +545,7 @@ Y reinicie OpenTrace.</value>
   <data name="MAP_COLOR_THEME_DARK" xml:space="preserve">
     <value>Oscuro</value>
   </data>
-  <data name="MACOS_INSTALL_MANUALLY" xml:space="preserve">
-    <value>Intenta realizar un seguimiento TCP/UDP en macOS con NextTrace integrado.
-
-Debido a las limitaciones de la plataforma macOS, NextTrace integrado no puede obtener los permisos necesarios.
-
-Instala NextTrace mediante Homebrew o descárgalo manualmente y configura los permisos:
-
-sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
-sudo chown root:admin /path/to/nexttrace
-sudo chmod +sx /path/to/nexttrace
-
-A continuación, especifica la ruta de NextTrace en la configuración.
-
-¿Descargar NextTrace ahora?</value>
+  <data name="RESTART_AS_ADMIN_FAILED" xml:space="preserve">
+    <value>No se pudo reiniciar como administrador, siga las instrucciones en GitHub para configurar manualmente los permisos necesarios para traceroute TCP/UDP en macOS y Linux.</value>
   </data>
 </root>

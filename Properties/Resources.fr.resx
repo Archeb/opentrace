@@ -350,13 +350,10 @@ Puis spécifiez le chemin dans les paramètres.
 
 Souhaitez-vous télécharger l'utilitaire NextTrace maintenant ?</value>
   </data>
-  <data name="MISSING_COMP_PRIV_MACOS" xml:space="preserve">
-    <value>OpenTrace nécessite des privilèges pour effectuer des traces TCP/UDP.
-Veuillez définir les permissions de NextTrace comme suit :
+  <data name="MISSING_COMP_PRIV_TEXT" xml:space="preserve">
+    <value>OpenTrace requiert des autorisations pour effectuer un traçage TCP/UDP.
 
-sudo xattr -r -d com.apple.quarantine /chemin/vers/nexttrace
-sudo chown root:admin /chemin/vers/nexttrace
-sudo chmod +sx /chemin/vers/nexttrace</value>
+Cliquez sur [Oui] pour tenter de redémarrer OpenTrace avec des privilèges d'administrateur, ou sur [Non] pour savoir comment définir manuellement les autorisations requises.</value>
   </data>
   <data name="MISSING_PRIV_MACOS" xml:space="preserve">
     <value>OpenTrace nécessite des privilèges pour effectuer des traces TCP/UDP</value>
@@ -470,7 +467,7 @@ Pour les bases de données hors ligne, voir la documentation de NextTrace.</valu
   <data name="TRACEROUTING" xml:space="preserve">
     <value>Traceroute</value>
   </data>
-  <data name="WINDOWS_TCP_UDP_REQUIREMENTS_TITLE" xml:space="preserve">
+  <data name="TCP_UDP_REQUIREMENTS_TITLE" xml:space="preserve">
     <value>Conditions du mode TCP/UDP</value>
   </data>
   <data name="WINDOWS_TCP_UDP_MISSING_ADMIN" xml:space="preserve">
@@ -496,7 +493,7 @@ Cliquez sur [Non] pour télécharger les composants manquants.</value>
   <data name="WINDOWS_TCP_UDP_HAS_WINDIVERT" xml:space="preserve">
     <value>✓ WinDivert est disponible</value>
   </data>
-  <data name="WINDOWS_TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
+  <data name="TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
     <value>Exécuter en tant qu'administrateur</value>
   </data>
   <data name="WORST" xml:space="preserve">
@@ -573,21 +570,7 @@ Et redémarrez OpenTrace après l'exécution.</value>
   <data name="MAP_COLOR_THEME_DARK" xml:space="preserve">
     <value>Sombre</value>
   </data>
-  <data name="MACOS_INSTALL_MANUALLY" xml:space="preserve">
-    <value>Vous tentez d'effectuer un traçage TCP/UDP sur macOS à l'aide de NextTrace intégré.
-
-En raison des limitations de la plateforme macOS, NextTrace intégré ne dispose pas des autorisations nécessaires.
-
-Veuillez installer NextTrace via Homebrew ou le télécharger manuellement et configurer les autorisations :
-
-sudo xattr -r -d com.apple.quarantine /chemin/vers/nexttrace
-
-sudo chown root:admin /chemin/vers/nexttrace
-
-sudo chmod +sx /chemin/vers/nexttrace
-
-Indiquez ensuite le chemin d'accès à NextTrace dans les paramètres.
-
-Télécharger NextTrace maintenant ?</value>
+  <data name="RESTART_AS_ADMIN_FAILED" xml:space="preserve">
+    <value>Impossible de redémarrer en tant qu'administrateur. Veuillez suivre les instructions sur GitHub pour définir manuellement les autorisations requises pour le traceroute TCP/UDP sur macOS et Linux.</value>
   </data>
 </root>

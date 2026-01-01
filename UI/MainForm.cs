@@ -174,9 +174,9 @@ namespace OpenTrace.UI
                 // 管理员权限状态
                 if (!platformService.IsAdministrator())
                 {
-                    DialogResult UACResult = MessageBox.Show(Resources.WINDOWS_TCP_UDP_MISSING_ADMIN, Resources.WINDOWS_TCP_UDP_REQUIREMENTS_TITLE, MessageBoxButtons.YesNo, MessageBoxType.Warning);
+                    DialogResult UACResult = MessageBox.Show(Resources.WINDOWS_TCP_UDP_MISSING_ADMIN, Resources.TCP_UDP_REQUIREMENTS_TITLE, MessageBoxButtons.YesNo, MessageBoxType.Warning);
 
-                    if (UACResult == DialogResult.Yes) platformService.RestartAsAdministrator();
+                    if (UACResult == DialogResult.Yes) platformService.RestartAsAdministrator(HostInputBox.Text.Trim());
 
                     return;
                 }
@@ -206,7 +206,7 @@ namespace OpenTrace.UI
                     string message = string.Format(Resources.WINDOWS_TCP_UDP_REQUIREMENTS_MSG, statusLines.ToString().TrimEnd());
 
                     // 显示对话框：是 = 继续执行（不再提示），否 = 打开下载地址
-                    DialogResult result = MessageBox.Show(message, Resources.WINDOWS_TCP_UDP_REQUIREMENTS_TITLE, MessageBoxButtons.YesNo, MessageBoxType.Warning);
+                    DialogResult result = MessageBox.Show(message, Resources.TCP_UDP_REQUIREMENTS_TITLE, MessageBoxButtons.YesNo, MessageBoxType.Warning);
 
                     if (result == DialogResult.No)
                     {

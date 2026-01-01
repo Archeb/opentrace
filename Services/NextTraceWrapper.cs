@@ -51,6 +51,7 @@ namespace OpenTrace.Services
         private bool builtinNT = false;
         private int errorOutputCount = 0;
         public ObservableCollection<TracerouteResult> Output { get; } = new ObservableCollection<TracerouteResult>();
+        private PlatformService platformService = new PlatformService();
 
         public NextTraceWrapper()
         {
@@ -149,27 +150,25 @@ namespace OpenTrace.Services
                 }
 
 #if NET8_0_OR_GREATER
-                if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX) && 
+                if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && 
                     Array.Find(extraArgs, e => e == "-T" || e == "-U") != null &&
                     Environment.UserName != "root")
                 {
                     FileSystemInfo fa = new FileInfo(nexttracePath);
                     if ((fa.UnixFileMode & UnixFileMode.SetUser) == 0) 
                     {
-                        if (!builtinNT)
-                            App.app.Invoke(() => {
-                                Eto.Forms.MessageBox.Show(Resources.MISSING_COMP_PRIV_MACOS);
-                            });
-                        else 
-                        {
-                            App.app.Invoke(() => {
-                                DialogResult dr = MessageBox.Show(Resources.MACOS_INSTALL_MANUALLY, Resources.WINDOWS_TCP_UDP_REQUIREMENTS_TITLE, MessageBoxButtons.YesNo);
-                                if (dr == DialogResult.Yes)
-                                {
-                                    Process.Start(new ProcessStartInfo("https://github.com/nxtrace/Ntrace-V1/releases/") { UseShellExecute = true });
-                                }
-                            });
-                        }
+                        App.app.Invoke(() => {
+                            DialogResult dr = MessageBox.Show(Resources.MISSING_COMP_PRIV_TEXT, Resources.TCP_UDP_REQUIREMENTS_TITLE, MessageBoxButtons.YesNo);
+                            if (dr == DialogResult.Yes)
+                            {
+                                platformService.RestartAsAdministrator(arguments, () => {
+                                    MessageBox.Show(Resources.RESTART_AS_ADMIN_FAILED, Resources.TCP_UDP_REQUIREMENTS_TITLE, MessageBoxButtons.OK);
+                                    Process.Start(new ProcessStartInfo("https://github.com/Archeb/opentrace/wiki/How-to-manually-set-the-required-permissions-for-TCP-UDP-traceroute-on-macOS-and-Linux") { UseShellExecute = true });
+                                });
+                            } else {
+                                Process.Start(new ProcessStartInfo("https://github.com/Archeb/opentrace/wiki/How-to-manually-set-the-required-permissions-for-TCP-UDP-traceroute-on-macOS-and-Linux") { UseShellExecute = true });
+                            }
+                        });
                         Status = AppStatus.Quit;
                         AppQuit?.Invoke(this, new AppQuitEventArgs(0));
                         return;

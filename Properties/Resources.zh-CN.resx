@@ -345,13 +345,10 @@ sudo chmod +sx /path/to/nexttrace
 
 是否现在下载 NextTrace？</value>
   </data>
-  <data name="MISSING_COMP_PRIV_MACOS" xml:space="preserve">
+  <data name="MISSING_COMP_PRIV_TEXT" xml:space="preserve">
     <value>OpenTrace 需要权限才能进行 TCP/UDP 追踪。
-请为 NextTrace 设置权限:
 
-sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
-sudo chown root:admin /path/to/nexttrace
-sudo chmod +sx /path/to/nexttrace</value>
+点击 [是] 尝试以最高管理员权限重新启动 OpenTrace，点击 [否] 了解如何手动设置所需权限。</value>
   </data>
   <data name="MISSING_PRIV_MACOS" xml:space="preserve">
     <value>OpenTrace 需要权限才能进行 TCP/UDP 追踪</value>
@@ -465,7 +462,7 @@ sudo chmod +sx /path/to/nexttrace</value>
   <data name="TRACEROUTING" xml:space="preserve">
     <value>路由追踪</value>
   </data>
-  <data name="WINDOWS_TCP_UDP_REQUIREMENTS_TITLE" xml:space="preserve">
+  <data name="TCP_UDP_REQUIREMENTS_TITLE" xml:space="preserve">
     <value>TCP/UDP 模式要求</value>
   </data>
   <data name="WINDOWS_TCP_UDP_MISSING_ADMIN" xml:space="preserve">
@@ -491,7 +488,7 @@ sudo chmod +sx /path/to/nexttrace</value>
   <data name="WINDOWS_TCP_UDP_HAS_WINDIVERT" xml:space="preserve">
     <value>✓ WinDivert 可用</value>
   </data>
-  <data name="WINDOWS_TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
+  <data name="TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
     <value>以管理员身份重新运行</value>
   </data>
   <data name="WORST" xml:space="preserve">
@@ -568,19 +565,7 @@ sudo xattr -r -d com.apple.quarantine &lt;将 OpenTrace 拖放至此&gt;
   <data name="MAP_COLOR_THEME_DARK" xml:space="preserve">
     <value>深色</value>
   </data>
-  <data name="MACOS_INSTALL_MANUALLY" xml:space="preserve">
-    <value>您正尝试使用内置的 NextTrace 在 macOS 上进行 TCP/UDP 追踪
-
-由于 macOS 平台限制，内置的 NextTrace 无法获得所需权限。
-
-请通过 Homebrew 安装或者手动下载 NextTrace 并设置好权限：
-
-sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
-sudo chown root:admin /path/to/nexttrace
-sudo chmod +sx /path/to/nexttrace
-
-然后在设置中指定 NextTrace 路径。
-
-是否现在下载 NextTrace？</value>
+  <data name="RESTART_AS_ADMIN_FAILED" xml:space="preserve">
+    <value>以管理员身份重启失败，请按照 GitHub 上的说明手动设置 macOS 和 Linux 上 TCP/UDP traceroute 所需的权限。</value>
   </data>
 </root>

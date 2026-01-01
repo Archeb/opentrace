@@ -712,27 +712,6 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 You are attempting to perform TCP/UDP tracing on macOS using the built-in NextTrace.
-        ///
-        ///Due to macOS platform limitations, the built-in NextTrace cannot obtain the necessary permissions.
-        ///
-        ///Please install NextTrace via Homebrew or manually download it and configure the permissions:
-        ///
-        ///sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
-        ///sudo chown root:admin /path/to/nexttrace
-        ///sudo chmod +sx /path/to/nexttrace
-        ///
-        ///Then specify the NextTrace path in the settings.
-        ///
-        ///Download NextTrace now? 的本地化字符串。
-        /// </summary>
-        public static string MACOS_INSTALL_MANUALLY {
-            get {
-                return ResourceManager.GetString("MACOS_INSTALL_MANUALLY", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 OpenTrace is quarantined by macOS, something may be inoperative.
         ///Please release OpenTrace as follows:
         ///
@@ -837,16 +816,13 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 OpenTrace requires privileges to perform TCP/UDP trace.
-        ///Please set the permissions of NextTrace as follows:
+        ///   查找类似 OpenTrace requires permissions to perform TCP/UDP traceroute.
         ///
-        ///sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
-        ///sudo chown root:admin /path/to/nexttrace
-        ///sudo chmod +sx /path/to/nexttrace 的本地化字符串。
+        ///Click [Yes] to try restarting OpenTrace with administrator privileges, or click [No] to learn how to manually set the required permissions. 的本地化字符串。
         /// </summary>
-        public static string MISSING_COMP_PRIV_MACOS {
+        public static string MISSING_COMP_PRIV_TEXT {
             get {
-                return ResourceManager.GetString("MISSING_COMP_PRIV_MACOS", resourceCulture);
+                return ResourceManager.GetString("MISSING_COMP_PRIV_TEXT", resourceCulture);
             }
         }
         
@@ -1215,6 +1191,15 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 Failed to restart as administrator, please follow the instructions on GitHub to manually set the required permissions for TCP/UDP traceroute on macOS and Linux. 的本地化字符串。
+        /// </summary>
+        public static string RESTART_AS_ADMIN_FAILED {
+            get {
+                return ResourceManager.GetString("RESTART_AS_ADMIN_FAILED", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Some changes require a restart. 的本地化字符串。
         /// </summary>
         public static string RESTART_TO_APPLY {
@@ -1323,6 +1308,24 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
+        ///   查找类似 TCP/UDP Mode Requirements 的本地化字符串。
+        /// </summary>
+        public static string TCP_UDP_REQUIREMENTS_TITLE {
+            get {
+                return ResourceManager.GetString("TCP_UDP_REQUIREMENTS_TITLE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Run as Administrator 的本地化字符串。
+        /// </summary>
+        public static string TCP_UDP_RUN_AS_ADMIN {
+            get {
+                return ResourceManager.GetString("TCP_UDP_RUN_AS_ADMIN", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Time(ms) 的本地化字符串。
         /// </summary>
         public static string TIME_MS {
@@ -1414,24 +1417,6 @@ namespace OpenTrace.Properties {
         public static string WINDOWS_TCP_UDP_REQUIREMENTS_MSG {
             get {
                 return ResourceManager.GetString("WINDOWS_TCP_UDP_REQUIREMENTS_MSG", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 TCP/UDP Mode Requirements 的本地化字符串。
-        /// </summary>
-        public static string WINDOWS_TCP_UDP_REQUIREMENTS_TITLE {
-            get {
-                return ResourceManager.GetString("WINDOWS_TCP_UDP_REQUIREMENTS_TITLE", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   查找类似 Run as Administrator 的本地化字符串。
-        /// </summary>
-        public static string WINDOWS_TCP_UDP_RUN_AS_ADMIN {
-            get {
-                return ResourceManager.GetString("WINDOWS_TCP_UDP_RUN_AS_ADMIN", resourceCulture);
             }
         }
         

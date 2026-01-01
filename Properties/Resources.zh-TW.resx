@@ -344,13 +344,10 @@ sudo chmod +sx /path/to/nexttrace
 
 是否現在下載 NextTrace？</value>
   </data>
-  <data name="MISSING_COMP_PRIV_MACOS" xml:space="preserve">
-    <value>OpenTrace 需要權限才能進行 TCP/UDP 追蹤。
-請為 NextTrace 設定權限:
+  <data name="MISSING_COMP_PRIV_TEXT" xml:space="preserve">
+    <value>OpenTrace 需要權限才能進行 TCP/UDP traceroute。
 
-sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
-sudo chown root:admin /path/to/nexttrace
-sudo chmod +sx /path/to/nexttrace</value>
+點選 [是] 嘗試以管理員權限重新啟動 OpenTrace，點選 [否] 了解如何手動設定所需權限。</value>
   </data>
   <data name="MISSING_PRIV_MACOS" xml:space="preserve">
     <value>OpenTrace 需要權限才能進行 TCP/UDP 追蹤</value>
@@ -464,7 +461,7 @@ sudo chmod +sx /path/to/nexttrace</value>
   <data name="TRACEROUTING" xml:space="preserve">
     <value>路由追蹤</value>
   </data>
-  <data name="WINDOWS_TCP_UDP_REQUIREMENTS_TITLE" xml:space="preserve">
+  <data name="TCP_UDP_REQUIREMENTS_TITLE" xml:space="preserve">
     <value>TCP/UDP 模式要求</value>
   </data>
   <data name="WINDOWS_TCP_UDP_MISSING_ADMIN" xml:space="preserve">
@@ -490,7 +487,7 @@ sudo chmod +sx /path/to/nexttrace</value>
   <data name="WINDOWS_TCP_UDP_HAS_WINDIVERT" xml:space="preserve">
     <value>✓ WinDivert 可用</value>
   </data>
-  <data name="WINDOWS_TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
+  <data name="TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
     <value>以系統管理員身份重新執行</value>
   </data>
   <data name="WORST" xml:space="preserve">
@@ -567,21 +564,7 @@ sudo xattr -r -d com.apple.quarantine &lt;將 OpenTrace 拖放至此&gt;
   <data name="MAP_COLOR_THEME_DARK" xml:space="preserve">
     <value>深色</value>
   </data>
-  <data name="MACOS_INSTALL_MANUALLY" xml:space="preserve">
-    <value>您嘗試在 macOS 上使用內建的 NextTrace 執行 TCP/UDP 追蹤。
-
-由於 macOS 平台的限制，內建的 NextTrace 無法取得必要的權限。
-
-請透過 Homebrew 安裝 NextTrace，或手動下載並配置權限：
-
-sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
-
-sudo chown root:admin /path/to/nexttrace
-
-sudo chmod +sx /path/to/nexttrace
-
-然後在設定中指定 NextTrace 的路徑。
-
-立即下載 NextTrace？</value>
+  <data name="RESTART_AS_ADMIN_FAILED" xml:space="preserve">
+    <value>以管理員身分重新啟動失敗，請依照 GitHub 上的說明手動設定 macOS 和 Linux 上 TCP/UDP traceroute 所需的權限。</value>
   </data>
 </root>
