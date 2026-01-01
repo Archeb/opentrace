@@ -83,6 +83,7 @@ namespace OpenTrace.UI
                     Application.Instance.AsyncInvoke(() =>
                     {
                         StartTracerouteButton_Click(sender, e);
+                        ActivateSelf();
                     });
                 };
             }
@@ -784,6 +785,45 @@ namespace OpenTrace.UI
                 DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.Hostname) },
                 HeaderText = Resources.HOSTNAME
             });
+        }
+        private void ActivateSelf()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+#if NET8_0_OR_GREATER
+                try
+                {
+                    int currentPid = Process.GetCurrentProcess().Id;
+                    string script = $"tell application \"System Events\" to set frontmost of every process whose unix id is {currentPid} to true";
+                    var psi = new ProcessStartInfo
+                    {
+                        FileName = "/usr/bin/osascript",
+                        ArgumentList = { "-e", script },
+                        UseShellExecute = false,
+                        CreateNoWindow = true,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true
+                    };
+
+                    using (var process = Process.Start(psi))
+                    {
+                        process.WaitForExit(1000); 
+                    }
+                }
+                catch (Exception)
+                {
+                    
+                }
+#endif
+            } else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
+                this.BringToFront();
+                this.Focus();
+
+                if (this.WindowState == WindowState.Minimized)
+                {
+                    this.WindowState = WindowState.Normal;
+                }
+            }
         }
     }
 }

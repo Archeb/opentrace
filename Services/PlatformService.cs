@@ -237,50 +237,53 @@ namespace OpenTrace.Services
 #if NET8_0_OR_GREATER
             } else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
             {
-                // 使用 osascript 请求管理员权限运行程序
+                string shellCommand = $"'{exePath}' {arguments} > /dev/null 2>&1 &";
+
+                string escapedShellCommand = shellCommand
+                    .Replace("\\", "\\\\")
+                    .Replace("\"", "\\\""); 
+
+                string finalScript = $"do shell script \"{escapedShellCommand}\" with administrator privileges with prompt \"{Resources.TCP_UDP_RUN_AS_ADMIN}\"";
+
                 var elvp = new Process
                 {
                     StartInfo = new ProcessStartInfo
                     {
                         FileName = "/usr/bin/osascript",
-                        ArgumentList = {
-                            "-e",
-                            $"tell application \"Terminal\" to do script \"clear && echo \\\"{Resources.TCP_UDP_RUN_AS_ADMIN}\\\" && sudo {exePath} {arguments} && exit\"",
-                            "-e",
-                            "tell application \"Terminal\" to activate"
-                        },
+                        ArgumentList = { "-e", finalScript },
                         UseShellExecute = false,
                         RedirectStandardOutput = false,
                         RedirectStandardError = false,
                         CreateNoWindow = true
                     },
-                    EnableRaisingEvents = true
+                    EnableRaisingEvents = true 
                 };
 
                 elvp.Exited += (sender, e) =>
                 {
-                    if (elvp.ExitCode == 0)
+                    Application.Instance.AsyncInvoke(() =>
                     {
-                        Application.Instance.Invoke(() =>
+                        if (elvp.ExitCode == 0)
                         {
                             Application.Instance.Quit();
-                        });
-                    }
-                    else
-                    {
-                        Application.Instance.Invoke(() =>
+                        }
+                        else
                         {
+                            Console.WriteLine($"Failed to run as administrator: ExitCode: {elvp.ExitCode}");
                             onFailed?.Invoke();
-                        });
-                    }
+                        }
+                        
+                        elvp.Dispose();
+                    });
                 };
 
                 try
                 {
                     elvp.Start();
                 }
-                catch
+                catch (Exception ex)
                 {
+                    Console.WriteLine($"Failed to run as administrator: {ex.Message}");
                     onFailed?.Invoke();
                 }
             } else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
