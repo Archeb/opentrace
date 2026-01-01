@@ -13,6 +13,8 @@ on:
 jobs:
   build-macos:
     runs-on: macos-latest
+    permissions:
+      contents: write
     strategy:
       matrix:
         include:
