@@ -494,7 +494,7 @@ Cliquez sur [Non] pour télécharger les composants manquants.</value>
     <value>✓ WinDivert est disponible</value>
   </data>
   <data name="TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
-    <value>Exécuter en tant qu'administrateur</value>
+    <value>Redémarrage d'OpenTrace en tant qu'administrateur. Veuillez saisir votre mot de passe et appuyer sur Entrée.</value>
   </data>
   <data name="WORST" xml:space="preserve">
     <value>Pire</value>

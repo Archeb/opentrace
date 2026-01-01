@@ -1317,7 +1317,7 @@ namespace OpenTrace.Properties {
         }
         
         /// <summary>
-        ///   查找类似 Run as Administrator 的本地化字符串。
+        ///   查找类似 Restarting OpenTrace as an administrator. Please enter your password and press Enter. 的本地化字符串。
         /// </summary>
         public static string TCP_UDP_RUN_AS_ADMIN {
             get {

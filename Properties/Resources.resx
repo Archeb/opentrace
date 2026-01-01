@@ -496,7 +496,7 @@ Click [No] to download missing components.</value>
     <value>✓ WinDivert is available</value>
   </data>
   <data name="TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
-    <value>Run as Administrator</value>
+    <value>Restarting OpenTrace as an administrator. Please enter your password and press Enter.</value>
   </data>
   <data name="WORST" xml:space="preserve">
     <value>Worst</value>

@@ -478,7 +478,7 @@ sudo chmod +sx /path/to/nexttrace
     <value>✓ WinDivert доступен</value>
   </data>
   <data name="TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
-    <value>Запуск от имени администратора</value>
+    <value>Перезапуск OpenTrace от имени администратора. Пожалуйста, введите свой пароль и нажмите Enter.</value>
   </data>
   <data name="WORST" xml:space="preserve">
     <value>Макс.</value>

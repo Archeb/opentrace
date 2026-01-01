@@ -472,7 +472,7 @@ Para bases offline, ver documentación de NextTrace.</value>
     <value>✓ WinDivert disponible</value>
   </data>
   <data name="TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
-    <value>Ejecutar como Admin</value>
+    <value>Reiniciando OpenTrace como administrador. Ingrese su contraseña y presione Enter.</value>
   </data>
   <data name="WORST" xml:space="preserve">
     <value>Máx.</value>

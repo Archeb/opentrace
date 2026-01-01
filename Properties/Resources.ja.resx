@@ -494,7 +494,7 @@ sudo chmod +sx /path/to/nexttrace
     <value>✓ WinDivert は利用可能です</value>
   </data>
   <data name="TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
-    <value>管理者として実行</value>
+    <value>OpenTrace を管理者として再起動しています。パスワードを入力して Enter キーを押してください。</value>
   </data>
   <data name="WORST" xml:space="preserve">
     <value>最大</value>

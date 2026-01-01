@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.InteropServices;
 using Eto.Forms;
 using OpenTrace.Infrastructure;
@@ -205,6 +206,9 @@ namespace OpenTrace.Services
                 onFailed?.Invoke();
                 return;
             }
+
+            // 过滤掉 --raw 参数（Terminal 中运行时不需要）
+            string filteredArgs = string.Join(" ", arguments.Split(' ').Where(arg => arg != "--raw"));
             
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
@@ -215,7 +219,7 @@ namespace OpenTrace.Services
                     {
                         FileName = exePath,
                         UseShellExecute = true,
-                        Arguments = arguments,
+                        Arguments = filteredArgs,
                         Verb = "runas"
                     };
 
@@ -244,7 +248,9 @@ namespace OpenTrace.Services
                         FileName = "/usr/bin/osascript",
                         ArgumentList = {
                             "-e",
-                            $"do shell script \"{exePath} {arguments}\" with administrator privileges with prompt \"{Resources.TCP_UDP_RUN_AS_ADMIN}\"",
+                            $"tell application \"Terminal\" to do script \"echo \"{Resources.TCP_UDP_RUN_AS_ADMIN}\" && sudo '{exePath} {filteredArgs}' && exit\"",
+                            "-e",
+                            "tell application \"Terminal\" to activate"
                         },
                         UseShellExecute = false,
                         RedirectStandardOutput = false,
@@ -288,21 +294,9 @@ namespace OpenTrace.Services
                     var startInfo = new ProcessStartInfo
                     {
                         FileName = "pkexec",
-                        ArgumentList = { exePath },
+                        ArgumentList = { exePath, filteredArgs },
                         UseShellExecute = false
                     };
-
-                    // 添加原有参数
-                    if (!string.IsNullOrEmpty(arguments))
-                    {
-                        foreach (var arg in arguments.Split(' '))
-                        {
-                            if (!string.IsNullOrWhiteSpace(arg))
-                            {
-                                startInfo.ArgumentList.Add(arg);
-                            }
-                        }
-                    }
 
                     var process = new Process { StartInfo = startInfo, EnableRaisingEvents = true };
                     

@@ -489,7 +489,7 @@ sudo chmod +sx /path/to/nexttrace
     <value>✓ WinDivert 可用</value>
   </data>
   <data name="TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
-    <value>以管理员身份重新运行</value>
+    <value>正以管理员身份重新运行 OpenTrace，请输入密码并按回车。</value>
   </data>
   <data name="WORST" xml:space="preserve">
     <value>最大延迟</value>
