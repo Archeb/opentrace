@@ -207,9 +207,6 @@ namespace OpenTrace.Services
                 return;
             }
 
-            // 过滤掉 --raw 参数（Terminal 中运行时不需要）
-            string filteredArgs = string.Join(" ", arguments.Split(' ').Where(arg => arg != "--raw"));
-            
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
 
@@ -219,7 +216,7 @@ namespace OpenTrace.Services
                     {
                         FileName = exePath,
                         UseShellExecute = true,
-                        Arguments = filteredArgs,
+                        Arguments = arguments,
                         Verb = "runas"
                     };
 
@@ -248,7 +245,7 @@ namespace OpenTrace.Services
                         FileName = "/usr/bin/osascript",
                         ArgumentList = {
                             "-e",
-                            $"tell application \"Terminal\" to do script \"echo \"{Resources.TCP_UDP_RUN_AS_ADMIN}\" && sudo '{exePath} {filteredArgs}' && exit\"",
+                            $"tell application \"Terminal\" to do script \"clear && echo \\\"{Resources.TCP_UDP_RUN_AS_ADMIN}\\\" && sudo {exePath} {arguments} && exit\"",
                             "-e",
                             "tell application \"Terminal\" to activate"
                         },
@@ -294,7 +291,7 @@ namespace OpenTrace.Services
                     var startInfo = new ProcessStartInfo
                     {
                         FileName = "pkexec",
-                        ArgumentList = { exePath, filteredArgs },
+                        ArgumentList = { exePath, arguments },
                         UseShellExecute = false
                     };
 

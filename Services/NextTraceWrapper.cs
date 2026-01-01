@@ -161,7 +161,7 @@ namespace OpenTrace.Services
                             DialogResult dr = MessageBox.Show(Resources.MISSING_COMP_PRIV_TEXT, Resources.TCP_UDP_REQUIREMENTS_TITLE, MessageBoxButtons.YesNo);
                             if (dr == DialogResult.Yes)
                             {
-                                platformService.RestartAsAdministrator(arguments, () => {
+                                platformService.RestartAsAdministrator(host, () => {
                                     MessageBox.Show(Resources.RESTART_AS_ADMIN_FAILED, Resources.TCP_UDP_REQUIREMENTS_TITLE, MessageBoxButtons.OK);
                                     Process.Start(new ProcessStartInfo("https://github.com/Archeb/opentrace/wiki/How-to-manually-set-the-required-permissions-for-TCP-UDP-traceroute-on-macOS-and-Linux") { UseShellExecute = true });
                                 });
