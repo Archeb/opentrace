@@ -94,47 +94,6 @@ namespace OpenTrace.UI
             }
         }
 
-#if NET8_0_OR_GREATER
-        /// <summary>
-        /// 在 macOS 上设置应用程序语言偏好
-        /// </summary>
-        private void SetMacOSAppLanguage(string language)
-        {
-            try
-            {
-                // 将 .NET 语言代码转换为 macOS 语言代码
-                string macLanguage = language switch
-                {
-                    "zh-CN" => "zh-Hans",
-                    "zh-TW" => "zh-Hant",
-                    "zh-HK" => "zh-Hant-HK",
-                    _ => language
-                };
-
-                // 使用 defaults write 设置应用特定的语言偏好
-                var bundleId = "org.opentrace.OpenTrace";
-                var process = new System.Diagnostics.Process
-                {
-                    StartInfo = new System.Diagnostics.ProcessStartInfo
-                    {
-                        FileName = "/usr/bin/defaults",
-                        ArgumentList = { "write", bundleId, "AppleLanguages", "-array", macLanguage },
-                        UseShellExecute = false,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true,
-                        CreateNoWindow = true
-                    }
-                };
-                process.Start();
-                process.WaitForExit(1000);
-            }
-            catch (Exception)
-            {
-                // 忽略设置语言失败的错误
-            }
-        }
-#endif
-
         /// <summary>
         /// 创建菜单栏
         /// </summary>
