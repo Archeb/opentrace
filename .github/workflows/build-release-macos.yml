@@ -72,7 +72,7 @@ jobs:
       run: |
         dotnet build OpenTrace.csproj -c Release -r ${{ matrix.runtime }} -o ./output/ \
           -p:SignApp=True -p:MakeDmg=True -p:NotarizeApp=True \
-          -p:EnableNotarizationStapler=False \
+          -p:EnableNotarizationStapler=True \
           -p:MAC_SIGNING_IDENTITY="${{ secrets.MAC_SIGNING_IDENTITY }}"
 
     - name: Upload Release Asset
