@@ -633,23 +633,38 @@
         }
 
         // OS Detection & Hero Button
-        function getOS() {
-            const platform = window.navigator.platform;
-            if (['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'].includes(platform)) return 'macOS';
-            if (['Win32', 'Win64', 'Windows', 'WinCE'].includes(platform)) return 'Windows';
-            if (/Linux/.test(platform)) return 'Linux';
-            return 'Unknown';
+        function detectPlatform() {
+            const ua = navigator.userAgent, p = navigator.platform;
+            let os = 'Unknown', arch = 'x64';
+            if (['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'].includes(p) || /Mac/.test(ua)) {
+                os = 'macOS';
+                try {
+                    const c = document.createElement('canvas');
+                    const gl = c.getContext('webgl2') || c.getContext('webgl') || c.getContext('experimental-webgl');
+                    const r = gl.getParameter(gl.getExtension('WEBGL_debug_renderer_info').UNMASKED_RENDERER_WEBGL);
+                    arch = /apple/i.test(r) ? 'arm64' : 'x64';
+                } catch { arch = 'arm64'; }
+            } else if (['Win32', 'Win64', 'Windows', 'WinCE'].includes(p)) {
+                os = 'Windows';
+                arch = /ARM|aarch64/i.test(ua) ? 'arm64' : 'x64';
+            } else if (/Linux/.test(p)) {
+                os = 'Linux';
+                arch = /ARM|aarch64/i.test(ua) ? 'arm64' : 'x64';
+            }
+            return { os, arch };
         }
 
+        const platformInfo = detectPlatform();
+
         function updateHeroButton() {
-            const os = getOS();
+            const { os, arch } = platformInfo;
             const heroBtnText = document.getElementById('hero-dl-text');
             const flathubBtn = document.getElementById('hero-flathub-btn');
             if (flathubBtn) flathubBtn.style.display = os === 'Linux' ? 'flex' : 'none';
             if (['Windows', 'macOS', 'Linux'].includes(os)) {
                 heroBtnText.textContent = currentLang === 'zh'
-                    ? `${translations.hero_dl_prefix} ${os} ${translations.hero_dl_suffix}`
-                    : `${translations.hero_dl_prefix} ${os}`;
+                    ? `${translations.hero_dl_prefix} ${os} (${arch}) ${translations.hero_dl_suffix}`
+                    : `${translations.hero_dl_prefix} ${os} (${arch})`;
             } else {
                 heroBtnText.textContent = translations.hero_dl_latest;
             }
@@ -698,7 +713,7 @@
                 window.cachedReleaseData = data;
                 document.getElementById('hero-version').textContent = data.tag_name;
 
-                const os = getOS();
+                const { os, arch } = platformInfo;
                 const assets = data.assets;
                 let targetExt = [];
                 if (os === 'Windows') targetExt = ['.zip', '.exe'];
@@ -707,7 +722,7 @@
 
                 let suggestedAsset = null;
                 if (targetExt.length > 0) {
-                    const isArm = os === 'macOS' ? true : (navigator.userAgent.includes('ARM') || navigator.userAgent.includes('aarch64'));
+                    const isArm = arch === 'arm64';
                     suggestedAsset = assets.find(a => {
                         const name = a.name.toLowerCase();
                         return targetExt.some(ext => name.endsWith(ext)) && (isArm ? name.includes('arm') : (name.includes('x64') || name.includes('amd64')));
