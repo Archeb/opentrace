@@ -419,6 +419,7 @@ namespace OpenTrace.UI
         private void CreateMapWebView()
         {
             mapWebView = new WebView();
+            mapWebView.Url = new Uri("about:blank");
             LoadMapProvider();
             mapWebView.DocumentLoaded += (sender, e) =>
             {
@@ -440,6 +441,7 @@ namespace OpenTrace.UI
                     mapWebView.Url = new Uri("https://geo-devrel-javascript-samples.web.app/samples/map-simple/app/dist/");
                     break;
                 case "openstreetmap":
+                default:
                     // 使用内嵌的 OpenStreetMap HTML 页面
                     mapWebView.LoadHtml(OpenTrace.Properties.Resources.openStreetMapHtml);
                     break;

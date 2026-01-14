@@ -593,6 +593,7 @@ namespace OpenTrace.UI
                         mapWebView.ExecuteScriptAsync(OpenTrace.Properties.Resources.baiduMap);
                         break;
                     case "openstreetmap":
+                    default:
                         mapWebView.ExecuteScriptAsync(OpenTrace.Properties.Resources.openStreetMap);
                         break;
                 }
