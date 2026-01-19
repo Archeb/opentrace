@@ -2,19 +2,23 @@
 
 <img src="https://github.com/nxtrace/NTrace-V1/raw/main/assets/logo.png" height="200px" alt="Logo"/>
 
+<h3>
+  <a href="https://opentrace.app">🌐 Official Website</a> | 
+  <a href="readme_zh.md">🇨🇳 中文说明</a>
+</h3>
+
 </div>
 
 ## OpenTrace
 
-OpenTrace is a cross-platform GUI wrapper for NextTrace. Bringing you a sense of familiarity.
+OpenTrace is an open source visualized route tracing tool.
 
-OpenTrace 是 NextTrace 的跨平台 GUI 界面，带来您熟悉但更强大的用户体验。
+OpenTrace 是一款跨平台可视化路由追踪工具。
 
-[中文说明](readme_cn.md)
 
 ### Usage
 
-- Download OpenTrace for your system from [releases](https://github.com/Archeb/opentrace/releases). Linux users can also install it via [Flathub](https://flathub.org/en/apps/io.github.Archeb.opentrace) or [Arch User Repository](https://aur.archlinux.org/packages/opentrace-bin/).
+- Download OpenTrace for your system from the [official website](https://opentrace.app) or [releases](https://github.com/Archeb/opentrace/releases). Linux users can also install it via [Flathub](https://flathub.org/en/apps/io.github.Archeb.opentrace) or [Arch User Repository](https://aur.archlinux.org/packages/opentrace-bin/).
 
 <details>
 <summary>Alternatively, if you compiled it yourself, then you need to:</summary>
@@ -48,7 +52,7 @@ OpenTrace 是 NextTrace 的跨平台 GUI 界面，带来您熟悉但更强大的
 
 More is coming... [Feature request](https://github.com/Archeb/opentrace/issues/new/choose) is welcome!
 
-Tip: You can also download the latest beta version of the corresponding architecture from the [Actions page of this project](https://github.com/Archeb/opentrace/actions); however, it may contain bugs or vulnerabilities, or may be unstable.
+> **Tip**: You can also download the latest beta version of the corresponding architecture from the [Actions page of this project](https://github.com/Archeb/opentrace/actions); however, it may contain bugs or vulnerabilities, or may be unstable.
 
 ### Images
 
@@ -56,3 +60,11 @@ Tip: You can also download the latest beta version of the corresponding architec
 ![Windows](./HomePage/img/windows.png)
 ![Linux](./HomePage/img/linux.png)
 ![Preferences on macOS](https://i.imgur.com/X0L6c6S.png)
+
+### Credit
+
+OpenTrace uses [NextTrace](https://github.com/nxtrace/Ntrace-V1) as the backend.
+
+### License
+
+OpenTrace is released under the [GPL-3.0 license](LICENSE.txt).
