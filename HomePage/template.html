@@ -637,7 +637,16 @@
         function detectPlatform() {
             const ua = navigator.userAgent, p = navigator.platform;
             let os = 'Unknown', arch = 'x64';
-            if (['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'].includes(p) || /Mac/.test(ua)) {
+            
+            // Check for iOS/iPadOS first (before Mac check)
+            // iPadOS 13+ reports as "MacIntel" but has touch support
+            const isIOS = /iPhone|iPad|iPod/.test(ua) || 
+                ((['Macintosh', 'MacIntel'].includes(p) || /Mac/.test(ua)) && navigator.maxTouchPoints > 1);
+            
+            if (isIOS) {
+                os = 'iOS';
+                arch = 'arm64';
+            } else if (['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'].includes(p) || /Mac/.test(ua)) {
                 os = 'macOS';
                 try {
                     const c = document.createElement('canvas');
