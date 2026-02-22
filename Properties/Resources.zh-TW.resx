@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -118,26 +118,33 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="ABOUT" xml:space="preserve">
-    <value>關於</value>
+    <value>關於...</value>
   </data>
   <data name="ADDITIONAL_ARGS" xml:space="preserve">
-    <value>附加引數</value>
+    <value>附加參數</value>
   </data>
   <data name="APPTITLE" xml:space="preserve">
     <value>OpenTrace</value>
   </data>
   <data name="ASK_ADD_ICMP_FIREWALL_RULE" xml:space="preserve">
-    <value>NextTrace需要型態3和11的ICMP封包來建立完整追蹤路徑。Windows 系統防火牆預設阻擋相關封包，以致只有最後一個節點會被顯示。
-
-您希望NextTrace幫您增加防火牆例外規則以利運行嗎？
-
-若要獲得更多資訊，請參考 https://github.com/nxtrace/Ntrace-core/issues/52</value>
+    <value>NextTrace 需要特定類型 (11 與 3) 的 ICMP 訊息才能完整追蹤路徑。但 Windows 防火牆預設會封鎖這些 ICMP 訊息，導致系統僅能顯示最後一個躍點。
+您是否要新增防火牆規則，以允許 NextTrace 所需的 ICMP 訊息？</value>
   </data>
   <data name="AUTO_DETECT" xml:space="preserve">
-    <value>(留空優先使用內置，然後尋找系統 PATH 目錄)</value>
+    <value>(留空則優先使用內建路徑，若無則搜尋系統 PATH)</value>
   </data>
   <data name="AVRG" xml:space="preserve">
     <value>平均延遲</value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="baiduMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Scripts\baiduMap.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="openStreetMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Scripts\openStreetMap.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
+  </data>
+  <data name="openStreetMapHtml" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\MapPages\openStreetMap.html;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="BEST" xml:space="preserve">
     <value>最佳延遲</value>
@@ -152,245 +159,246 @@
     <value>關閉</value>
   </data>
   <data name="COMBINE_GEO_ORG" xml:space="preserve">
-    <value>把地理位置和組織資訊合為一欄</value>
+    <value>合併地理位置與組織資訊至同一欄位</value>
   </data>
   <data name="COPY" xml:space="preserve">
-    <value>拷貝</value>
+    <value>複製</value>
   </data>
   <data name="COPY_ALL_RESULTS" xml:space="preserve">
     <value>複製所有結果</value>
   </data>
   <data name="CUSTOM_DNS_RESOLVERS" xml:space="preserve">
-    <value>自訂 DNS 解析器
-(支援 UDP / DoH)</value>
+    <value>自訂 DNS
+(DNS / DoH)</value>
   </data>
   <data name="DISABLE_IPGEO" xml:space="preserve">
-    <value>停用地理位置</value>
+    <value>已停用</value>
   </data>
   <data name="DST_PORT_INIT_SEQ" xml:space="preserve">
-    <value>目標埠 / 初始序號</value>
+    <value>目標連接埠 / 初始序號</value>
   </data>
   <data name="EMPTY_HOSTNAME_MSGBOX" xml:space="preserve">
-    <value>主機或 IP 不能為空</value>
+    <value>主機名稱或 IP 位址不可為空</value>
   </data>
   <data name="ENABLE_IPINFOLOCAL" xml:space="preserve">
-    <value>使用本地 IPInfo 資料庫 (ipinfoLocal.mmdb)</value>
+    <value>啟用離線資料庫 IPInfo (ipinfoLocal.mmdb)</value>
   </data>
   <data name="ERR_MSG" xml:space="preserve">
     <value>錯誤訊息</value>
   </data>
   <data name="ERR_WRITING_SETTINGS" xml:space="preserve">
-    <value>儲存設定時出錯</value>
+    <value>寫入應用程式設定時發生錯誤</value>
   </data>
   <data name="EXCEPTIONAL_EXIT_MSG" xml:space="preserve">
-    <value>NextTrace 程式異常退出，請參考錯誤訊息以瞭解更多資訊並及時向我們報告此問題。 退出程式碼：</value>
+    <value>NextTrace 處理程序異常結束。請參閱錯誤訊息以瞭解詳細資訊，並向我們回報此問題。結束代碼：</value>
   </data>
   <data name="EXC_OUTPUT_FORM_PROMPT" xml:space="preserve">
-    <value>NextTrace 產生了一個或多個異常輸出，請檢查下面的輸出資訊以排查問題。 您可以參考 NextTrace Wiki 來查看是否已經有解答；如未能找到答案，請向我們報告。</value>
+    <value>NextTrace 在執行期間產生了非預期的結果。請檢查下列輸出資訊以進行疑難排解。您可以參考 NextTrace Wiki 查看是否已有解答；若找不到答案，請向我們回報。</value>
   </data>
   <data name="EXC_OUTPUT_FORM_REPORT" xml:space="preserve">
-    <value>報告問題</value>
+    <value>回報此問題</value>
   </data>
   <data name="EXC_OUTPUT_FORM_TITLE" xml:space="preserve">
-    <value>異常輸出</value>
+    <value>非預期輸出</value>
   </data>
   <data name="EXE_PATH" xml:space="preserve">
-    <value>可執行檔案路徑</value>
+    <value>執行檔路徑</value>
   </data>
   <data name="EXPORT" xml:space="preserve">
     <value>匯出</value>
   </data>
   <data name="EXPORT_TO" xml:space="preserve">
-    <value>匯出為</value>
+    <value>匯出至</value>
   </data>
   <data name="FAILED_TO_ADD_RULES" xml:space="preserve">
-    <value>新增防火牆規則失敗</value>
+    <value>無法新增防火牆規則</value>
   </data>
   <data name="FILE" xml:space="preserve">
     <value>檔案</value>
   </data>
   <data name="FIRST_TTL_HOP" xml:space="preserve">
-    <value>首個躍點</value>
+    <value>起始 TTL 躍點</value>
   </data>
   <data name="GENERAL" xml:space="preserve">
-    <value>常規設定</value>
+    <value>一般</value>
   </data>
   <data name="GEOLOCATION" xml:space="preserve">
     <value>地理位置</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="googleMap" type="System.Resources.ResXNullRef, System.Windows.Forms">
-    <value />
+  <data name="googleMap" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Assets\Scripts\googleMap.js;System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089;utf-8</value>
   </data>
   <data name="GRID_SIZE_RATIO" xml:space="preserve">
-    <value>表格高度占比</value>
+    <value>表格高度比例</value>
   </data>
   <data name="HELP" xml:space="preserve">
-    <value>幫助</value>
+    <value>說明</value>
   </data>
   <data name="HIDE_ADD_FIREWALL_PROMPT" xml:space="preserve">
-    <value>不再提示新增防火牆規則</value>
+    <value>隱藏新增防火牆規則的提示</value>
   </data>
   <data name="HIDE_MAP_POPUP" xml:space="preserve">
-    <value>隱藏地圖上的資訊視窗</value>
+    <value>隱藏地圖的資訊視窗</value>
   </data>
   <data name="HISTORY" xml:space="preserve">
-    <value>歷史記錄</value>
+    <value>歷史紀錄</value>
   </data>
   <data name="HOSTNAME" xml:space="preserve">
-    <value>主機名</value>
+    <value>主機名稱</value>
   </data>
   <data name="IPINFO_TOKEN" xml:space="preserve">
-    <value>IPInfo Token (可選)</value>
+    <value>IPInfo 權杖 (選填)</value>
   </data>
   <data name="IP_GEO_DATA_PROVIDER" xml:space="preserve">
-    <value>IP 地理位置資料來源</value>
+    <value>IP 地理位置資料供應商</value>
   </data>
   <data name="LANGUAGE" xml:space="preserve">
     <value>語言 (Language)</value>
   </data>
   <data name="LAST" xml:space="preserve">
-    <value>當前延遲</value>
+    <value>最近</value>
   </data>
   <data name="LEOMOEAPI_HOSTPORT" xml:space="preserve">
-    <value>LeoMoeAPI 反代地址</value>
+    <value>LeoMoeAPI 反向代理</value>
   </data>
   <data name="LINKLOCAL_ADDR" xml:space="preserve">
-    <value>鏈路本地地址</value>
+    <value>連結本機位址</value>
   </data>
   <data name="LOCAL_MMDB" xml:space="preserve">
-    <value>本地 MMDB</value>
+    <value>本地 MMDB 覆寫</value>
   </data>
   <data name="LOCAL_MMDB_ADDR" xml:space="preserve">
-    <value>地理位置模板</value>
+    <value>位址範本</value>
   </data>
   <data name="LOCAL_MMDB_ASN" xml:space="preserve">
-    <value>ASN 模板</value>
+    <value>ASN 範本</value>
   </data>
   <data name="LOCAL_MMDB_HOSTNAME" xml:space="preserve">
-    <value>主機名模板</value>
+    <value>主機名稱範本</value>
   </data>
   <data name="LOCAL_MMDB_LAT" xml:space="preserve">
-    <value>緯度模板</value>
+    <value>緯度範本</value>
   </data>
   <data name="LOCAL_MMDB_LON" xml:space="preserve">
-    <value>經度模板</value>
+    <value>經度範本</value>
   </data>
   <data name="LOCAL_MMDB_ORG" xml:space="preserve">
-    <value>組織模板</value>
+    <value>組織範本</value>
   </data>
   <data name="LOCAL_MMDB_PATH" xml:space="preserve">
     <value>本地 MMDB 路徑</value>
   </data>
   <data name="LOCAL_MMDB_PRESETS" xml:space="preserve">
-    <value>預設配置</value>
+    <value>預設組合</value>
   </data>
   <data name="LOCAL_MMDB_PREVIEW" xml:space="preserve">
-    <value>預覽 MMDB</value>
+    <value>預覽 MMDB 檔案</value>
   </data>
   <data name="LOCAL_MMDB_PREVIEW_IP" xml:space="preserve">
-    <value>預覽 IP</value>
+    <value>預覽 MMDB IP</value>
   </data>
   <data name="LOCAL_MMDB_SELECT" xml:space="preserve">
-    <value>選擇 MMDB 檔案</value>
+    <value>選取 MMDB 檔案</value>
   </data>
   <data name="LOCAL_MMDB_TIPS" xml:space="preserve">
-    <value>此功能用本地 MMDB 查詢的結果覆蓋原查詢結果
-留空以避免覆寫對應欄位
-模板舉例: {.country}-{.city}</value>
+    <value>使用本地 MMDB 查詢結果覆寫原始結果。
+留空則不會覆寫該欄位。
+範本範例：{.country}-{.city}</value>
   </data>
   <data name="LOOPBACK_ADDR" xml:space="preserve">
-    <value>本地迴環地址</value>
+    <value>迴路位址</value>
   </data>
   <data name="LOSS" xml:space="preserve">
-    <value>丟包率%</value>
+    <value>遺失率 %</value>
   </data>
   <data name="MAP_PROVIDER" xml:space="preserve">
-    <value>地圖資料來源</value>
+    <value>地圖供應商</value>
   </data>
   <data name="MAP_PROVIDER_BAIDU" xml:space="preserve">
     <value>百度地圖</value>
   </data>
   <data name="MAP_PROVIDER_GOOGLE" xml:space="preserve">
-    <value>Google地圖</value>
+    <value>Google 地圖</value>
   </data>
   <data name="MAP_PROVIDER_OSM" xml:space="preserve">
     <value>OpenStreetMap</value>
   </data>
   <data name="MAX_HOPS" xml:space="preserve">
-    <value>最大躍點</value>
+    <value>最大躍點數</value>
   </data>
   <data name="MISSING_COMP" xml:space="preserve">
-    <value>元件缺失</value>
+    <value>元件遺失</value>
   </data>
   <data name="MISSING_COMP_TEXT" xml:space="preserve">
-    <value>OpenTrace 需要 NextTrace 才能正常工作，但未能找到可執行檔案。
-您可以把 NextTrace 可執行檔案放置於：
-1. 與 OpenTrace 同一目錄下
+    <value>OpenTrace 需要 NextTrace 工具才能正常運作。目前遺失此執行檔。
+NextTrace 可以放置於下列任一位置：
+1. 與 OpenTrace 執行檔相同的目錄
 或
-2. PATH 環境變數中的目錄下
+2. 您系統 PATH 環境變數中的目錄
 
-是否現在下載 NextTrace？</value>
+您現在要下載 NextTrace 工具嗎？</value>
   </data>
   <data name="MISSING_COMP_TEXT_MACOS" xml:space="preserve">
-    <value>OpenTrace 需要 NextTrace 才能正常工作，但未能找到可執行檔案。
-請下載 NextTrace 並設定好權限：
+    <value>OpenTrace 需要 NextTrace 工具才能正常運作。目前遺失此執行檔。
+請下載 NextTrace 並依照下列步驟設定權限：
 
-sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
-sudo chown root:admin /path/to/nexttrace
-sudo chmod +sx /path/to/nexttrace
+sudo xattr -r -d com.apple.quarantine /路徑/至/nexttrace
+sudo chown root:admin /路徑/至/nexttrace
+sudo chmod +sx /路徑/至/nexttrace
 
-然後在設定中指定 NextTrace 路徑。
+並在設定中指定路徑。
 
-是否現在下載 NextTrace？</value>
+您現在要下載 NextTrace 工具嗎？</value>
   </data>
   <data name="MISSING_COMP_PRIV_TEXT" xml:space="preserve">
-    <value>OpenTrace 需要權限才能進行 TCP/UDP traceroute。
+    <value>OpenTrace 需要權限才能執行 TCP/UDP 路由追蹤。
 
-點選 [是] 嘗試以管理員權限重新啟動 OpenTrace，點選 [否] 了解如何手動設定所需權限。</value>
+按一下 [是] 嘗試以管理員權限重新啟動 OpenTrace，或按一下 [否] 瞭解如何手動設定所需的權限。</value>
   </data>
   <data name="MISSING_PRIV_MACOS" xml:space="preserve">
-    <value>OpenTrace 需要權限才能進行 TCP/UDP 追蹤</value>
+    <value>OpenTrace 需要權限才能執行 TCP/UDP 追蹤</value>
   </data>
   <data name="MISSING_SPECIFIED_COMP" xml:space="preserve">
-    <value>未能在指定的位置 "{0}" 中找到 NextTrace。</value>
+    <value>無法在「{0}」中找到 NextTrace。</value>
   </data>
   <data name="MTR_MODE" xml:space="preserve">
     <value>MTR 模式</value>
   </data>
   <data name="NAME_NOT_RESOLVED" xml:space="preserve">
-    <value>找不到主機 {0}。請檢查該名稱，然後重試。</value>
+    <value>找不到主機 {0}。請檢查名稱並再試一次。</value>
   </data>
   <data name="NEW" xml:space="preserve">
-    <value>新建</value>
+    <value>新增</value>
   </data>
   <data name="NEW_WINDOW_TEXT" xml:space="preserve">
-    <value>開啟一個新的 OpenTrace 視窗</value>
+    <value>建立新的 OpenTrace 視窗。</value>
   </data>
   <data name="NEXTTRACE_PROXY" xml:space="preserve">
-    <value>Proxy 設定</value>
+    <value>代理伺服器</value>
   </data>
   <data name="RDNS_MODE" xml:space="preserve">
-    <value>反向 DNS 尋找模式</value>
+    <value>反向 DNS 查閱模式</value>
   </data>
   <data name="ORGANIZATION" xml:space="preserve">
     <value>組織</value>
   </data>
   <data name="OTHER_DATABASE_TIPS" xml:space="preserve">
-    <value>有些數據源只有在設定 API 端點 / Token 後才能選擇；
- 要使用離線資料庫，請參閱 NextTrace 文件進行設定。</value>
+    <value>部分資料來源需要 API 端點或權杖。
+關於離線資料庫，請參閱 NextTrace 文件。</value>
   </data>
   <data name="PACKET_GROUP_INTERVAL" xml:space="preserve">
-    <value>分組請求間隔</value>
+    <value>封包群組間隔</value>
+    <comment>--ttl-time</comment>
   </data>
   <data name="PACKET_INTERVAL" xml:space="preserve">
-    <value>請求間隔</value>
+    <value>封包間隔</value>
+    <comment>--send-time</comment>
   </data>
   <data name="PARALLEL_REQ" xml:space="preserve">
-    <value>並行請求數</value>
+    <value>平行請求數</value>
   </data>
   <data name="POW_PROVIDER" xml:space="preserve">
-    <value>LeoMoeAPI PoW 伺服器</value>
+    <value>LeoMoeAPI PoW 供應商</value>
   </data>
   <data name="POW_PROVIDER_LEOMOE" xml:space="preserve">
     <value>api.leo.moe (預設)</value>
@@ -399,46 +407,46 @@ sudo chmod +sx /path/to/nexttrace
     <value>Nya Labs (中國大陸最佳化)</value>
   </data>
   <data name="PREFERENCES" xml:space="preserve">
-    <value>設定</value>
+    <value>偏好設定</value>
   </data>
   <data name="PRIVATE_ADDR" xml:space="preserve">
-    <value>私有地址（區域網）</value>
+    <value>私有位址 (區域網路)</value>
   </data>
   <data name="PROTOCOL_FOR_TRACEROUTING" xml:space="preserve">
-    <value>Traceroute 使用的協議</value>
+    <value>路由追蹤通訊協定</value>
   </data>
   <data name="QUERIES_SETTING" xml:space="preserve">
-    <value>每躍點探測次數</value>
+    <value>查詢數 (每個躍點的探測次數)</value>
   </data>
   <data name="QUIT" xml:space="preserve">
-    <value>退出</value>
+    <value>結束</value>
   </data>
   <data name="RECV" xml:space="preserve">
-    <value>接收數</value>
+    <value>接收</value>
   </data>
   <data name="RESTART_TO_APPLY" xml:space="preserve">
-    <value>部分設定需重啟應用才能生效</value>
+    <value>部分變更需要重新啟動。</value>
   </data>
   <data name="SAVE" xml:space="preserve">
     <value>儲存</value>
   </data>
   <data name="SELECT_IP_DROPDOWN" xml:space="preserve">
-    <value>選擇一個 IP</value>
+    <value>選取 IP</value>
   </data>
   <data name="SELECT_IP_MSGBOX" xml:space="preserve">
-    <value>請從下拉選單中選擇一個 IP</value>
+    <value>請從下拉式選單中選取一個 IP 位址。</value>
   </data>
   <data name="SENT" xml:space="preserve">
-    <value>已傳送</value>
+    <value>傳送</value>
   </data>
   <data name="SHARED_ADDR" xml:space="preserve">
-    <value>共享地址</value>
+    <value>共用位址</value>
   </data>
   <data name="SRC_ADDR_SETTING" xml:space="preserve">
-    <value>源地址</value>
+    <value>來源位址</value>
   </data>
   <data name="SRC_INTERFACE_SETTING" xml:space="preserve">
-    <value>源介面</value>
+    <value>來源介面</value>
   </data>
   <data name="START" xml:space="preserve">
     <value>開始</value>
@@ -453,62 +461,62 @@ sudo chmod +sx /path/to/nexttrace
     <value>系統 DNS</value>
   </data>
   <data name="TIME_MS" xml:space="preserve">
-    <value>時間(ms)</value>
+    <value>時間 (ms)</value>
   </data>
   <data name="TIME_ROUNDING" xml:space="preserve">
-    <value>保留延遲顯示到整數位</value>
+    <value>將躍點延遲四捨五入至整數</value>
   </data>
   <data name="TRACEROUTING" xml:space="preserve">
     <value>路由追蹤</value>
   </data>
   <data name="TCP_UDP_REQUIREMENTS_TITLE" xml:space="preserve">
-    <value>TCP/UDP 模式要求</value>
+    <value>TCP/UDP 模式需求</value>
   </data>
   <data name="WINDOWS_TCP_UDP_MISSING_ADMIN" xml:space="preserve">
-    <value>在 Windows 系統上執行 TCP/UDP Traceroute 需要管理員權限。您是否要以管理員權限重新啟動 OpenTrace？</value>
+    <value>在 Windows 上執行 TCP/UDP 路由追蹤需要管理員權限。您是否要以管理員權限重新啟動 OpenTrace？</value>
   </data>
   <data name="WINDOWS_TCP_UDP_MISSING_NPCAP" xml:space="preserve">
-    <value>• 未安裝 Npcap</value>
+    <value>• 尚未安裝 Npcap</value>
   </data>
   <data name="WINDOWS_TCP_UDP_MISSING_WINDIVERT" xml:space="preserve">
-    <value>• 未找到 WinDivert （應放在和 NextTrace 可執行文件同一目錄）</value>
+    <value>• 找不到 WinDivert (應與 NextTrace 置於相同目錄)</value>
   </data>
   <data name="WINDOWS_TCP_UDP_REQUIREMENTS_MSG" xml:space="preserve">
-    <value>在 Windows 上使用 TCP/UDP Traceroute 需要滿足以下條件：
+    <value>在 Windows 上執行 TCP/UDP 路由追蹤需要下列條件：
 
 {0}
 
-點擊 [是] 直接嘗試執行 NextTrace（並不再提示）。
-點擊 [否] 下載缺失元件</value>
+按一下 [是] 嘗試直接執行 NextTrace (且不再詢問)。
+按一下 [否] 下載遺失的元件。</value>
   </data>
   <data name="WINDOWS_TCP_UDP_HAS_NPCAP" xml:space="preserve">
-    <value>✓ Npcap 已安裝</value>
+    <value>✓ 已安裝 Npcap</value>
   </data>
   <data name="WINDOWS_TCP_UDP_HAS_WINDIVERT" xml:space="preserve">
-    <value>✓ WinDivert 可用</value>
+    <value>✓ 已有 WinDivert</value>
   </data>
   <data name="TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
-    <value>正在以管理員身分重啟 OpenTrace。請輸入密碼並按下回車鍵。</value>
+    <value>正在以管理員身分重新啟動 OpenTrace。請輸入密碼並按 Enter。</value>
   </data>
   <data name="WORST" xml:space="preserve">
-    <value>最大延遲</value>
+    <value>最差</value>
   </data>
   <data name="MACOS_QUARANTINE" xml:space="preserve">
-    <value>OpenTrace 被 macOS 隔離，工作可能不完全正常。
-請開啟終端，使用下面的命令釋放 OpenTrace:
+    <value>OpenTrace 已被 macOS 隔離，部分功能可能無法運作。
+請依照下列步驟解除隔離：
 
-sudo xattr -r -d com.apple.quarantine &lt;將 OpenTrace 拖放至此&gt;
+sudo xattr -r -d com.apple.quarantine &lt;在此拖放 OpenTrace&gt;
 
-並在完成釋放後重啟 OpenTrace.</value>
+執行後請重新啟動 OpenTrace。</value>
   </data>
   <data name="HOMEPAGE" xml:space="preserve">
-    <value>項目首頁</value>
+    <value>首頁</value>
   </data>
   <data name="RDNS_MODE_ALWAYS" xml:space="preserve">
     <value>嘗試擷取完整 rDNS</value>
   </data>
   <data name="RDNS_MODE_DEFAULT" xml:space="preserve">
-    <value>快速 rDNS（預設）</value>
+    <value>快速 rDNS (預設)</value>
   </data>
   <data name="RDNS_MODE_DISABLE" xml:space="preserve">
     <value>停用 rDNS 查詢</value>
@@ -520,43 +528,43 @@ sudo xattr -r -d com.apple.quarantine &lt;將 OpenTrace 拖放至此&gt;
     <value>下載最新版 OpenTrace</value>
   </data>
   <data name="UPDATE_AVAILABLE" xml:space="preserve">
-    <value>(最新版 {0} 已釋出，可到幫助選單下載)</value>
+    <value>(目前已有版本 {0} 可供下載。請從 [說明] 功能表進行下載。)</value>
   </data>
   <data name="PRIVACY_MASKING" xml:space="preserve">
-    <value>隱私保護</value>
+    <value>隱私遮蔽</value>
   </data>
   <data name="PRIVACY_MASKING_DESCR" xml:space="preserve">
-    <value>隱藏前</value>
+    <value>遮蔽前</value>
   </data>
   <data name="PRIVACY_MASKING_ALL" xml:space="preserve">
-    <value>跳的所有訊息</value>
+    <value>個躍點的資訊</value>
   </data>
   <data name="PRIVACY_MASKING_IP_FULL" xml:space="preserve">
-    <value>跳的完整 IP</value>
+    <value>個躍點的完整 IP</value>
   </data>
   <data name="PRIVACY_MASKING_IP_GEO" xml:space="preserve">
-    <value>跳的 IP 與地理位置</value>
+    <value>個躍點的 IP 與地理位置</value>
   </data>
   <data name="PRIVACY_MASKING_IP_HALF" xml:space="preserve">
-    <value>跳的部分 IP</value>
+    <value>個躍點的部分 IP</value>
   </data>
   <data name="AUTO_IP_SELECTION" xml:space="preserve">
     <value>自動選擇 IP</value>
   </data>
   <data name="IP_SELECTION_MANUAL" xml:space="preserve">
-    <value>手動選擇</value>
+    <value>手動</value>
   </data>
   <data name="IP_SELECTION_FIRST_IPV4" xml:space="preserve">
-    <value>自動選擇第一個 IPv4 (如果可用)</value>
+    <value>自動選取第一個 IPv4（若可用）</value>
   </data>
   <data name="IP_SELECTION_FIRST_IPV6" xml:space="preserve">
-    <value>自動選擇第一個 IPv6 (如果可用)</value>
+    <value>自動選取第一個 IPv6（若可用）</value>
   </data>
   <data name="MAP_COLOR_THEME" xml:space="preserve">
-    <value>地圖顏色主題</value>
+    <value>地圖主題配色</value>
   </data>
   <data name="MAP_COLOR_THEME_AUTO" xml:space="preserve">
-    <value>自動（跟隨系統）</value>
+    <value>自動</value>
   </data>
   <data name="MAP_COLOR_THEME_LIGHT" xml:space="preserve">
     <value>淺色</value>
@@ -565,6 +573,6 @@ sudo xattr -r -d com.apple.quarantine &lt;將 OpenTrace 拖放至此&gt;
     <value>深色</value>
   </data>
   <data name="RESTART_AS_ADMIN_FAILED" xml:space="preserve">
-    <value>以管理員身分重新啟動失敗，請依照 GitHub 上的說明手動設定 macOS 和 Linux 上 TCP/UDP traceroute 所需的權限。</value>
+    <value>無法以管理員身分重新啟動，請依照 GitHub 上的說明，手動設定 macOS 與 Linux 上 TCP/UDP 路由追蹤所需的權限。</value>
   </data>
 </root>
