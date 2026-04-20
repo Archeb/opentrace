@@ -1,10 +1,11 @@
+<div align="right">[English | <a href="readme_zh.md">中文</a>]</div>
+
 <div align="center">
 
 <img src="https://github.com/nxtrace/NTrace-V1/raw/main/assets/logo.png" height="200px" alt="Logo"/>
 
 <h3>
-  <a href="https://opentrace.app">🌐 Official Website</a> | 
-  <a href="readme_zh.md">🇨🇳 中文说明</a>
+  <a href="https://opentrace.app">🌐 Official Website</a>
 </h3>
 
 </div>
