@@ -1,4 +1,4 @@
-<div align="right">[<a href="README.md">English</a> | 中文]</div>
+<div align="right">[<a href="readme.md">English</a> | 中文]</div>
 <div align="center">
 
 <img src="https://github.com/nxtrace/NTrace-V1/raw/main/assets/logo.png" height="200px" alt="Logo"/>
