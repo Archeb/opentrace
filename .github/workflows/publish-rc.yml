@@ -60,9 +60,12 @@ jobs:
           RELEASE_NOTES: ${{ inputs.release_notes }}
         shell: bash
         run: |
-          if gh release view "$RC_TAG" >/dev/null 2>&1; then
-            is_draft=$(gh release view "$RC_TAG" --json isDraft --jq .isDraft)
-            is_prerelease=$(gh release view "$RC_TAG" --json isPrerelease --jq .isPrerelease)
+          release_id=$(gh api --paginate \
+            "repos/$GITHUB_REPOSITORY/releases?per_page=100" \
+            --jq ".[] | select(.tag_name == \"$RC_TAG\") | .id")
+          if [[ -n "$release_id" ]]; then
+            is_draft=$(gh api "repos/$GITHUB_REPOSITORY/releases/$release_id" --jq .draft)
+            is_prerelease=$(gh api "repos/$GITHUB_REPOSITORY/releases/$release_id" --jq .prerelease)
             if [[ "$is_draft" != "true" || "$is_prerelease" != "true" ]]; then
               echo "Release $RC_TAG already exists and is not a draft prerelease" >&2
               exit 1
@@ -94,7 +97,13 @@ jobs:
           RC_TAG: ${{ steps.validate.outputs.rc_tag }}
         shell: bash
         run: |
-          release_id=$(gh api "repos/$GITHUB_REPOSITORY/releases/tags/$RC_TAG" --jq .id)
+          release_id=$(gh api --paginate \
+            "repos/$GITHUB_REPOSITORY/releases?per_page=100" \
+            --jq ".[] | select(.tag_name == \"$RC_TAG\") | .id")
+          if [[ -z "$release_id" ]]; then
+            echo "Draft release $RC_TAG was not found" >&2
+            exit 1
+          fi
           echo "release_id=$release_id" >> "$GITHUB_OUTPUT"
 
   build-windows-linux:
@@ -128,20 +137,20 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           RC_TAG: ${{ needs.prepare-release.outputs.rc_tag }}
+          RELEASE_ID: ${{ needs.prepare-release.outputs.release_id }}
         shell: bash
         run: |
-          release_id=$(gh api "repos/$GITHUB_REPOSITORY/releases/tags/$RC_TAG" --jq .id)
           gh api \
             --method PATCH \
-            "repos/$GITHUB_REPOSITORY/releases/$release_id" \
+            "repos/$GITHUB_REPOSITORY/releases/$RELEASE_ID" \
             -F draft=false \
             -F prerelease=true \
             -f make_latest=false \
             >/dev/null
 
-          is_draft=$(gh api "repos/$GITHUB_REPOSITORY/releases/tags/$RC_TAG" --jq .draft)
-          is_prerelease=$(gh api "repos/$GITHUB_REPOSITORY/releases/tags/$RC_TAG" --jq .prerelease)
-          release_url=$(gh api "repos/$GITHUB_REPOSITORY/releases/tags/$RC_TAG" --jq .html_url)
+          is_draft=$(gh api "repos/$GITHUB_REPOSITORY/releases/$RELEASE_ID" --jq .draft)
+          is_prerelease=$(gh api "repos/$GITHUB_REPOSITORY/releases/$RELEASE_ID" --jq .prerelease)
+          release_url=$(gh api "repos/$GITHUB_REPOSITORY/releases/$RELEASE_ID" --jq .html_url)
           latest_tag=$(gh api "repos/$GITHUB_REPOSITORY/releases/latest" --jq .tag_name)
 
           if [[ "$is_draft" != "false" || "$is_prerelease" != "true" ]]; then
