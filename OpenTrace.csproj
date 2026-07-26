@@ -1,4 +1,4 @@
-﻿<Project Sdk="Eto.Forms/2.10.2">
+﻿<Project Sdk="Eto.Forms/2.11.0">
 
   <!--
     Set the BuildPlatform property to the Eto platform you wish to build for.
@@ -62,7 +62,7 @@
   <ItemGroup>
     <PackageReference Include="Advexp.Settings.Local" Version="2.7.0" />
     <PackageReference Include="Ae.Dns.Client" Version="3.1.0" />
-    <PackageReference Include="Eto.Serialization.Xaml" Version="2.10.2" />
+    <PackageReference Include="Eto.Serialization.Xaml" Version="2.11.0" />
     <PackageReference Include="MaxMind.Db" Version="4.3.4" />
     <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3650.58" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
@@ -114,13 +114,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="Eto.Platform.Wpf" Version="2.10.2">
+    <PackageReference Update="Eto.Platform.Wpf" Version="2.11.0">
       <NoWarn>NU1701</NoWarn>
     </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="Eto.Forms" Version="2.10.2" />
+    <PackageReference Update="Eto.Forms" Version="2.11.0" />
   </ItemGroup>
 
 </Project>
