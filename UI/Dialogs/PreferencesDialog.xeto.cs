@@ -119,6 +119,23 @@ namespace OpenTrace.UI.Dialogs
             }
         }
 
+        private void HandleNextTraceSelect(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filters.Add(new FileFilter("NextTrace", ".exe"));
+            openFileDialog.Filters.Add(new FileFilter("All Files", ".*"));
+            openFileDialog.CheckFileExists = true;
+            openFileDialog.MultiSelect = false;
+            openFileDialog.Title = "Select NextTrace executable";
+            openFileDialog.ShowDialog(this);
+
+            if (!string.IsNullOrWhiteSpace(openFileDialog.FileName))
+            {
+                TextBox settingTextBox = this.FindChild<TextBox>("executablePath");
+                settingTextBox.Text = openFileDialog.FileName;
+            }
+        }
+
         private void HandleMMDBPreview(object sender, EventArgs e)
         {
             TextBox settingTextBox = this.FindChild<TextBox>("localDBPath");

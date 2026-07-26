@@ -183,6 +183,13 @@ function build() {
         console.log('   ✓ Copied favicon.ico');
     }
 
+    const privacySrc = path.join(SRC_DIR, 'privacy.html');
+    const privacyDest = path.join(DIST_DIR, 'privacy.html');
+    if (fs.existsSync(privacySrc)) {
+        fs.copyFileSync(privacySrc, privacyDest);
+        console.log('   ✓ Copied privacy.html');
+    }
+
     console.log('');
 
     // Generate HTML for each language

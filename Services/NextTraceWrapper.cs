@@ -48,7 +48,6 @@ namespace OpenTrace.Services
         public event EventHandler<AppQuitEventArgs> AppQuit;
         public event EventHandler<ExceptionalOutputEventArgs> ExceptionalOutput;
         private string nexttracePath;
-        private bool builtinNT = false;
         private int errorOutputCount = 0;
         public ObservableCollection<TracerouteResult> Output { get; } = new ObservableCollection<TracerouteResult>();
         private PlatformService platformService = new PlatformService();
@@ -56,10 +55,39 @@ namespace OpenTrace.Services
         public NextTraceWrapper()
         {
             string curDir = AppDomain.CurrentDomain.BaseDirectory;
+
+            // A user-selected executable always takes precedence over the bundled
+            // copy. This remains supported for both portable and Store packages.
+            if (!string.IsNullOrWhiteSpace(UserSettings.executablePath))
+            {
+                if (File.Exists(UserSettings.executablePath))
+                {
+                    nexttracePath = UserSettings.executablePath;
+                    return;
+                }
+
+                throw new IOException(UserSettings.executablePath);
+            }
+
             if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                // 检查 Windows 平台可执行文件
-                List<string> winBinaryList = new List<string> { "nexttrace.exe", "nexttrace_windows_amd64.exe", "nexttrace_windows_arm64.exe", "nexttrace_windows_armv7.exe", "nexttrace_windows_386.exe" };
+                // Prefer the current process architecture. Store packages place
+                // the architecture-matched binary at the application root as
+                // nexttrace.exe, while portable builds may use an upstream name.
+                List<string> winBinaryList;
+                if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
+                {
+                    winBinaryList = new List<string> { "nexttrace.exe", "nexttrace_windows_arm64.exe" };
+                }
+                else if (RuntimeInformation.ProcessArchitecture == Architecture.X86)
+                {
+                    winBinaryList = new List<string> { "nexttrace.exe", "nexttrace_windows_386.exe" };
+                }
+                else
+                {
+                    winBinaryList = new List<string> { "nexttrace.exe", "nexttrace_windows_amd64.exe", "nexttrace_windows_386.exe" };
+                }
+
                 foreach (string winBinaryName in winBinaryList)
                 {
                     if (File.Exists(Path.Combine(curDir, winBinaryName)))
@@ -70,9 +98,10 @@ namespace OpenTrace.Services
                     }
                     // 再检查PATH变量
                     string pathVar = Environment.GetEnvironmentVariable("PATH");
-                    string[] pathDirs = pathVar.Split(Path.PathSeparator);
+                    string[] pathDirs = (pathVar ?? "").Split(Path.PathSeparator);
                     foreach (string pathDir in pathDirs)
                     {
+                        if (string.IsNullOrWhiteSpace(pathDir)) continue;
                         if (File.Exists(Path.Combine(pathDir, winBinaryName)))
                         {
                             nexttracePath = Path.Combine(pathDir, winBinaryName);
@@ -91,20 +120,19 @@ namespace OpenTrace.Services
                     if (File.Exists(Path.Combine(curDir, "OpenTrace.app/Contents/MacOS", otherBinaryName)))
                     {
                         nexttracePath = Path.Combine(curDir, "OpenTrace.app/Contents/MacOS", otherBinaryName);
-                        builtinNT = true;
                         break;
                     }
                     if (File.Exists(Path.Combine(curDir, otherBinaryName)))
                     {
                         nexttracePath = Path.Combine(curDir, otherBinaryName);
-                        builtinNT = true;
                         break;
                     }
                     
                     string pathVar = Environment.GetEnvironmentVariable("PATH");
-                    string[] pathDirs = pathVar.Split(Path.PathSeparator);
+                    string[] pathDirs = (pathVar ?? "").Split(Path.PathSeparator);
                     foreach (string pathDir in pathDirs)
                     {
+                        if (string.IsNullOrWhiteSpace(pathDir)) continue;
                         if (File.Exists(Path.Combine(pathDir, otherBinaryName)))
                         {
                             nexttracePath = Path.Combine(pathDir, otherBinaryName);
@@ -115,18 +143,6 @@ namespace OpenTrace.Services
                 }
             }
 
-            // 检查是否手动指定了可执行文件
-            if (UserSettings.executablePath != "")
-            {
-                if (File.Exists(UserSettings.executablePath))
-                {
-                    nexttracePath = UserSettings.executablePath;
-                }
-                else
-                {
-                    throw new IOException(UserSettings.executablePath);
-                }
-            }
             // 未能找到可执行文件
             if (nexttracePath == null)
             {

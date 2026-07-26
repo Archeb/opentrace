@@ -481,6 +481,9 @@ For offline databases, see NextTrace docs.</value>
   <data name="WINDOWS_TCP_UDP_MISSING_WINDIVERT" xml:space="preserve">
     <value>• WinDivert is not found (Should be placed in the same directory as NextTrace)</value>
   </data>
+  <data name="WINDOWS_TCP_UDP_UNAVAILABLE_ARM64" xml:space="preserve">
+    <value>• TCP/UDP mode is unavailable on Windows ARM64 because the required WinDivert runtime is currently available only for x64</value>
+  </data>
   <data name="WINDOWS_TCP_UDP_REQUIREMENTS_MSG" xml:space="preserve">
     <value>TCP/UDP Traceroute on Windows requires the following:
 

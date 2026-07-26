@@ -1405,6 +1405,15 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("WINDOWS_TCP_UDP_MISSING_WINDIVERT", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   查找类似 • TCP/UDP mode is unavailable on Windows ARM64 because the required WinDivert runtime is currently available only for x64 的本地化字符串。
+        /// </summary>
+        public static string WINDOWS_TCP_UDP_UNAVAILABLE_ARM64 {
+            get {
+                return ResourceManager.GetString("WINDOWS_TCP_UDP_UNAVAILABLE_ARM64", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   查找类似 TCP/UDP Traceroute on Windows requires the following:

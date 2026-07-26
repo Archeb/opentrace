@@ -474,6 +474,9 @@ sudo chmod +sx /path/to/nexttrace
   <data name="WINDOWS_TCP_UDP_MISSING_WINDIVERT" xml:space="preserve">
     <value>• 未找到 WinDivert （应放在和 NextTrace 可执行文件同一目录）</value>
   </data>
+  <data name="WINDOWS_TCP_UDP_UNAVAILABLE_ARM64" xml:space="preserve">
+    <value>• Windows ARM64 暂不支持 TCP/UDP 模式，因为所需的 WinDivert 运行时目前仅提供 x64 版本</value>
+  </data>
   <data name="WINDOWS_TCP_UDP_REQUIREMENTS_MSG" xml:space="preserve">
     <value>在 Windows 上使用 TCP/UDP Traceroute 需要满足以下条件：
 

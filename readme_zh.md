@@ -21,7 +21,7 @@ OpenTrace 是一款开源的跨平台可视化路由追踪工具。
 <details>
 <summary>如果您选择自行编译或使用非打包版本，请注意：</summary>
 
-- **下载并安装 NextTrace**：请从[此处](https://github.com/nxtrace/Ntrace-V1/releases)下载对应系统架构的 NextTrace 核心文件。
+- **下载并安装 NextTrace**：请从[此处](https://github.com/nxtrace/NTrace-core/releases)下载对应系统架构的 NextTrace 核心文件。
 
 - **放置核心文件**：将 NextTrace 可执行文件放入 OpenTrace 目录中，或放入系统 PATH 环境变量包含的目录中；您也可以将其放在任意位置，并在 OpenTrace 的设置中手动指定路径（macOS 用户推荐使用手动指定）。
 </details>
@@ -52,6 +52,12 @@ OpenTrace 是一款开源的跨平台可视化路由追踪工具。
 
 > **提示**：您也可以从本项目的 [Actions 页面](https://github.com/Archeb/opentrace/actions) 下载最新构建的测试版（Beta）；但请注意，测试版可能包含 Bug 或不稳定。
 
+### Microsoft Store 程序包
+
+商店构建使用已保留的 `NYALabs.OpenTrace` 身份，生成包含 x64 与 ARM64
+的 MSIX bundle，并内置固定版本、经过 SHA256 校验的 NextTrace。构建和
+提交步骤见 [STORE-SUBMISSION.md](STORE-SUBMISSION.md)。
+
 ### 运行截图
 
 ![macOS 深色模式](./HomePage/img/macos_dark.jpg)
@@ -61,7 +67,7 @@ OpenTrace 是一款开源的跨平台可视化路由追踪工具。
 
 ### 致谢
 
-OpenTrace 使用 [NextTrace](https://github.com/nxtrace/Ntrace-V1) 作为后端核心。
+OpenTrace 使用 [NextTrace](https://github.com/nxtrace/NTrace-core) 作为后端核心。
 
 ### 开源协议
 

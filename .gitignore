@@ -364,3 +364,13 @@ FodyWeavers.xsd
 
 # HomePage build output
 HomePage/dist/
+
+# Microsoft Store packaging output and downloaded build dependencies
+artifacts/
+OpenTrace.Package/AppPackages/
+OpenTrace.Package/BundleArtifacts/
+OpenTrace.Package/Images/
+OpenTrace.Package/obj/
+
+# Local Partner Center release checklist
+STORE-SUBMISSION.md

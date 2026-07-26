@@ -80,12 +80,20 @@ namespace OpenTrace.Services
         /// <returns>是否支持</returns>
         public bool IsProtocolSupported(string protocol)
         {
-            // Windows 不支持 TCP/UDP 协议（除非安装 Npcap）
-            if (protocol != "ICMP" && RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (protocol == "ICMP" || !RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return true;
+            }
+
+            // WinDivert is an independent dependency used by NextTrace for
+            // Windows TCP/UDP probes. The bundled runtime is x64-only, so the
+            // ARM64 Store package exposes ICMP mode only.
+            if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
             {
                 return false;
             }
-            return true;
+
+            return IsNpcapInstalled() && IsWinDivertInstalled();
         }
 
         /// <summary>
@@ -132,6 +140,23 @@ namespace OpenTrace.Services
             try
             {
                 using (var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Npcap"))
+                {
+                    if (key != null)
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch
+            {
+                // 忽略注册表访问错误
+            }
+
+            // Some installations are discoverable only through the service key.
+            try
+            {
+                using (var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(
+                    @"SYSTEM\CurrentControlSet\Services\npcap"))
                 {
                     if (key != null)
                     {

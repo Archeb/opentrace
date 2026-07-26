@@ -117,6 +117,18 @@ namespace OpenTrace.UI
         private void platformChecks()
         {
             platformService.RunPlatformChecks();
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) &&
+                RuntimeInformation.ProcessArchitecture != Architecture.Arm64 &&
+                !platformService.IsNpcapInstalled())
+            {
+                MessageBox.Show(
+                    Resources.WINDOWS_TCP_UDP_MISSING_NPCAP + Environment.NewLine +
+                    Environment.NewLine + "https://npcap.com/#download",
+                    Resources.TCP_UDP_REQUIREMENTS_TITLE,
+                    MessageBoxButtons.OK,
+                    MessageBoxType.Information);
+            }
         }
 
         private void resolveParamChanged(object sender, EventArgs e)
@@ -168,10 +180,49 @@ namespace OpenTrace.UI
 
         private void StartTracerouteButton_Click(object sender, EventArgs e)
         {
-            
-            if(protocolSelection.SelectedValue.ToString() != "ICMP" && RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            bool commandLineTcpUdp = commandLineMode &&
+                App.CommandLineExtraArgs != null &&
+                App.CommandLineExtraArgs.Any(arg => arg == "-T" || arg == "--tcp" || arg == "-U" || arg == "--udp");
+            bool tcpUdpRequested = protocolSelection.SelectedKey == "-T" ||
+                protocolSelection.SelectedKey == "-U" ||
+                commandLineTcpUdp;
+
+            if (tcpUdpRequested && RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                
+                // Missing dependencies are a hard stop. Do not offer a
+                // "continue anyway" path because the mode cannot work reliably.
+                if (!platformService.IsProtocolSupported("TCP"))
+                {
+                    var checkRequirement = platformService.CheckWindowsTcpUdpRequirements();
+                    var statusLines = new System.Text.StringBuilder();
+
+                    statusLines.AppendLine(checkRequirement.HasNpcap
+                        ? Resources.WINDOWS_TCP_UDP_HAS_NPCAP
+                        : Resources.WINDOWS_TCP_UDP_MISSING_NPCAP);
+
+                    if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
+                    {
+                        statusLines.AppendLine(Resources.WINDOWS_TCP_UDP_UNAVAILABLE_ARM64);
+                    }
+                    else
+                    {
+                        statusLines.AppendLine(checkRequirement.HasWinDivert
+                            ? Resources.WINDOWS_TCP_UDP_HAS_WINDIVERT
+                            : Resources.WINDOWS_TCP_UDP_MISSING_WINDIVERT);
+                    }
+
+                    string helpUrl = !checkRequirement.HasNpcap
+                        ? Environment.NewLine + Environment.NewLine + "https://npcap.com/#download"
+                        : "";
+
+                    MessageBox.Show(
+                        statusLines.ToString().TrimEnd() + helpUrl,
+                        Resources.TCP_UDP_REQUIREMENTS_TITLE,
+                        MessageBoxButtons.OK,
+                        MessageBoxType.Warning);
+                    return;
+                }
+
                 // 管理员权限状态
                 if (!platformService.IsAdministrator())
                 {
@@ -180,48 +231,6 @@ namespace OpenTrace.UI
                     if (UACResult == DialogResult.Yes) platformService.RestartAsAdministrator(HostInputBox.Text.Trim());
 
                     return;
-                }
-
-                var checkRequirement = platformService.CheckWindowsTcpUdpRequirements();
-
-                // 如果用户之前选择了"不再提示"，则跳过检查
-                if (!checkRequirement.AllMet && !UserSettings.skipWindowsTcpUdpCheck)
-                {
-
-                    // 构建状态消息
-                    var statusLines = new System.Text.StringBuilder();
-
-
-                    // Npcap 安装状态
-                    if (checkRequirement.HasNpcap)
-                        statusLines.AppendLine(Resources.WINDOWS_TCP_UDP_HAS_NPCAP);
-                    else
-                        statusLines.AppendLine(Resources.WINDOWS_TCP_UDP_MISSING_NPCAP);
-
-                    // WinDivert 状态
-                    if (checkRequirement.HasWinDivert)
-                        statusLines.AppendLine(Resources.WINDOWS_TCP_UDP_HAS_WINDIVERT);
-                    else
-                        statusLines.AppendLine(Resources.WINDOWS_TCP_UDP_MISSING_WINDIVERT);
-
-                    string message = string.Format(Resources.WINDOWS_TCP_UDP_REQUIREMENTS_MSG, statusLines.ToString().TrimEnd());
-
-                    // 显示对话框：是 = 继续执行（不再提示），否 = 打开下载地址
-                    DialogResult result = MessageBox.Show(message, Resources.TCP_UDP_REQUIREMENTS_TITLE, MessageBoxButtons.YesNo, MessageBoxType.Warning);
-
-                    if (result == DialogResult.No)
-                    {
-                        // 打开下载地址
-                        if (!checkRequirement.HasNpcap) Process.Start(new ProcessStartInfo("https://npcap.com/#download") { UseShellExecute = true });
-                        if (!checkRequirement.HasWinDivert) Process.Start(new ProcessStartInfo("https://github.com/basil00/WinDivert/releases") { UseShellExecute = true });
-                        return;
-                    }
-                    else
-                    {
-                        // 用户选择 Yes，保存设置以后不再提示
-                        UserSettings.skipWindowsTcpUdpCheck = true;
-                        UserSettings.SaveSettings();
-                    }
                 }
             }
 

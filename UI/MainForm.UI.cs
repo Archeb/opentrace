@@ -6,6 +6,7 @@ using Resources = OpenTrace.Properties.Resources;
 using OpenTrace.Services;
 using OpenTrace.Infrastructure;
 using OpenTrace.UI.Dialogs;
+using System.Runtime.InteropServices;
 
 namespace OpenTrace.UI
 {
@@ -293,15 +294,39 @@ namespace OpenTrace.UI
         {
             protocolSelection = new DropDown
             {
-                Items = {
-                    new ListItem{Text = "ICMP" ,Key= ""},
-                    new ListItem{Text = "TCP",Key = "-T" },
-                    new ListItem{Text = "UDP",Key = "-U" },
-                },
                 SelectedIndex = 0,
                 ToolTip = Resources.PROTOCOL_FOR_TRACEROUTING
             };
-            protocolSelection.SelectedKey = UserSettings.selectedProtocol;
+
+            protocolSelection.Items.Add(new ListItem { Text = "ICMP", Key = "" });
+
+            if (platformService.IsProtocolSupported("TCP"))
+            {
+                protocolSelection.Items.Add(new ListItem { Text = "TCP", Key = "-T" });
+                protocolSelection.Items.Add(new ListItem { Text = "UDP", Key = "-U" });
+                protocolSelection.SelectedKey = UserSettings.selectedProtocol;
+            }
+            else
+            {
+                // Do not leave an unavailable mode selected from a previous run.
+                protocolSelection.SelectedKey = "";
+                UserSettings.selectedProtocol = "";
+
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
+                    {
+                        protocolSelection.ToolTip = Resources.WINDOWS_TCP_UDP_UNAVAILABLE_ARM64;
+                    }
+                    else
+                    {
+                        protocolSelection.ToolTip = !platformService.IsNpcapInstalled()
+                            ? Resources.WINDOWS_TCP_UDP_MISSING_NPCAP
+                            : Resources.WINDOWS_TCP_UDP_MISSING_WINDIVERT;
+                    }
+                }
+            }
+
             protocolSelection.SelectedKeyChanged += (sender, e) =>
             {
                 UserSettings.selectedProtocol = protocolSelection.SelectedKey;
