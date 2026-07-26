@@ -1,7 +1,7 @@
 [CmdletBinding()]
 param(
     [ValidatePattern('^\d+\.\d+\.\d+\.\d+$')]
-    [string]$Version = '1.5.1.0',
+    [string]$Version = '1.5.2.0',
 
     [string]$OutputDirectory = 'artifacts\store',
 

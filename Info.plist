@@ -7,7 +7,7 @@
     <key>CFBundleIdentifier</key>
     <string>org.opentrace.OpenTrace</string>
     <key>CFBundleShortVersionString</key>
-    <string>1.5.1</string>
+    <string>1.5.2</string>
     <key>LSMinimumSystemVersion</key>
     <string>10.15</string>
     <key>CFBundleDevelopmentRegion</key>

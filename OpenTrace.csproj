@@ -17,7 +17,7 @@
     <Title>OpenTrace</Title>
     <ApplicationIcon>Assets\Icons\icon.ico</ApplicationIcon>
     <PackageIcon>Assets\Icons\icon.png</PackageIcon>
-    <Version>1.5.1</Version>
+    <Version>1.5.2</Version>
     <Platforms>AnyCPU;x64;ARM64</Platforms>
     <PlatformTarget Condition="'$(RuntimeIdentifier)' == 'win-x64'">x64</PlatformTarget>
     <PlatformTarget Condition="'$(RuntimeIdentifier)' == 'win-arm64'">ARM64</PlatformTarget>
