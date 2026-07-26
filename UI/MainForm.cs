@@ -42,6 +42,7 @@ namespace OpenTrace.UI
         private bool appForceExiting = false;
         private bool enterPressed = false;
         private bool commandLineMode = false; // 命令行模式：直接使用命令行参数调用 nexttrace
+        private bool updatingTraceHistory = false;
         private bool currentRunMtrMode;
         private int pendingTracerouteResultCount;
         private int? currentDestinationHop;
@@ -152,6 +153,11 @@ namespace OpenTrace.UI
 
         private void resolveParamChanged(object sender, EventArgs e)
         {
+            if (updatingTraceHistory)
+            {
+                return;
+            }
+
             // 如果文本框被修改，则隐藏 DNS 解析选择框
             if (ResolvedIPSelection.Visible)
             {
@@ -403,18 +409,27 @@ namespace OpenTrace.UI
             }
 
             string newText = HostInputBox.Text;
-            // 清理重复记录
-            IList<IListItem> clone = HostInputBox.Items.ToList();
-            foreach (var toRemove in clone.Where(s => s.Text == newText))
+            updatingTraceHistory = true;
+            try
             {
-                HostInputBox.Items.Remove(toRemove); // 不知道为什么清理掉 ComboBox 的 Item 会把同名文本框的内容一起清掉
+                // 清理重复记录
+                IList<IListItem> clone = HostInputBox.Items.ToList();
+                foreach (var toRemove in clone.Where(s => s.Text == newText))
+                {
+                    HostInputBox.Items.Remove(toRemove); // 不知道为什么清理掉 ComboBox 的 Item 会把同名文本框的内容一起清掉
+                }
+                HostInputBox.Text = newText; // 所以得在这里重新放回去
+                HostInputBox.Items.Insert(0, new ListItem { Text = newText });
+                while (HostInputBox.Items.Count > 20) // 清理20条以上记录
+                {
+                    HostInputBox.Items.RemoveAt(HostInputBox.Items.Count - 1);
+                }
             }
-            HostInputBox.Text = newText; // 所以得在这里重新放回去
-            HostInputBox.Items.Insert(0, new ListItem { Text = newText });
-            while (HostInputBox.Items.Count > 20) // 清理20条以上记录
+            finally
             {
-                HostInputBox.Items.RemoveAt(HostInputBox.Items.Count - 1);
+                updatingTraceHistory = false;
             }
+
             UserSettings.traceHistory = String.Join("\n", HostInputBox.Items.Select(item => item.Text));
             UserSettings.SaveSettings();
 
