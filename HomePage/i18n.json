@@ -44,6 +44,7 @@
         "sponsors_desc_nexttrace": "OpenTrace Core Engine",
         "sponsors_desc_nya": "Platform Distribution Support",
         "footer_issues": "Report Issue",
+        "footer_privacy": "Privacy Policy",
         "og_title": "OpenTrace - Open Source Route Tracing Tool",
         "og_description": "Free, open source, cross-platform GUI for route tracing with MTR support. Download for Windows, macOS, and Linux."
     },
@@ -92,6 +93,7 @@
         "sponsors_desc_nexttrace": "OpenTrace 核心追踪引擎",
         "sponsors_desc_nya": "平台分发支持",
         "footer_issues": "反馈问题",
+        "footer_privacy": "隐私政策",
         "og_title": "OpenTrace - 开源路由追踪工具",
         "og_description": "免费、开源的跨平台可视化路由追踪工具 GUI，支持 MTR 功能。可在 Windows、macOS 和 Linux 上下载使用。"
     }

@@ -11,10 +11,21 @@
     h1, h2 { line-height: 1.25; }
     a { color: #0067b8; }
     .updated { color: #666; }
-    hr { margin: 48px 0; border: 0; border-top: 1px solid #ccc; }
+    .language-selector { display: flex; justify-content: flex-end; align-items: center; gap: 10px; margin-bottom: 32px; }
+    .language-selector select { padding: 7px 10px; border: 1px solid #999; border-radius: 6px; background: transparent; font: inherit; }
+    [hidden] { display: none !important; }
   </style>
 </head>
 <body>
+  <nav class="language-selector" aria-label="Language selector">
+    <label for="language-selector">语言 / Language</label>
+    <select id="language-selector">
+      <option value="zh">简体中文</option>
+      <option value="en">English</option>
+    </select>
+  </nav>
+
+  <main id="policy-zh" lang="zh-CN">
   <h1>OpenTrace 隐私政策</h1>
   <p class="updated">生效日期：2026 年 7 月 26 日</p>
 
@@ -51,9 +62,9 @@
 
   <h2>8. 政策更新与联系我们</h2>
   <p>若功能或法律要求发生变化，我们可能更新本政策，并在本页更新生效日期。有关隐私问题，请在 <a href="https://github.com/Archeb/opentrace/issues">OpenTrace GitHub Issues</a> 联系我们。</p>
+  </main>
 
-  <hr>
-
+  <main id="policy-en" lang="en" hidden>
   <h1>OpenTrace Privacy Policy</h1>
   <p class="updated">Effective date: July 26, 2026</p>
 
@@ -90,5 +101,35 @@
 
   <h2>8. Changes and contact</h2>
   <p>We may update this policy when features or legal requirements change and will revise the effective date on this page. For privacy questions, contact us through <a href="https://github.com/Archeb/opentrace/issues">OpenTrace GitHub Issues</a>.</p>
+  </main>
+
+  <script>
+    (() => {
+      const selector = document.getElementById('language-selector');
+      const policies = {
+        zh: document.getElementById('policy-zh'),
+        en: document.getElementById('policy-en')
+      };
+
+      function showLanguage(language, updateUrl = true) {
+        const selected = language === 'en' ? 'en' : 'zh';
+        policies.zh.hidden = selected !== 'zh';
+        policies.en.hidden = selected !== 'en';
+        selector.value = selected;
+        document.documentElement.lang = selected === 'zh' ? 'zh-CN' : 'en';
+        if (updateUrl) history.replaceState(null, '', `#${selected}`);
+      }
+
+      const requestedLanguage = location.hash.slice(1).toLowerCase();
+      const browserLanguage = navigator.language.toLowerCase();
+      const initialLanguage = ['zh', 'en'].includes(requestedLanguage)
+        ? requestedLanguage
+        : (browserLanguage.startsWith('zh') ? 'zh' : 'en');
+
+      selector.addEventListener('change', event => showLanguage(event.target.value));
+      window.addEventListener('hashchange', () => showLanguage(location.hash.slice(1), false));
+      showLanguage(initialLanguage);
+    })();
+  </script>
 </body>
 </html>
