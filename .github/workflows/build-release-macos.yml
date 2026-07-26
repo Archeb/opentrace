@@ -3,6 +3,26 @@ name: Build for Release (macOS)
 on:
   release:
     types: [published]
+  workflow_call:
+    inputs:
+      release_tag:
+        description: 'Existing draft release tag to upload assets to'
+        required: true
+        type: string
+      release_id:
+        description: 'Existing draft release ID'
+        required: true
+        type: string
+      build_version:
+        description: 'Optional numeric version override for the binaries'
+        required: false
+        default: ''
+        type: string
+      nexttrace_version:
+        description: 'Nexttrace version (leave empty to use latest)'
+        required: false
+        default: ''
+        type: string
   workflow_dispatch:
     inputs:
       nexttrace_version:
@@ -45,18 +65,51 @@ jobs:
           --team-id "${{ secrets.APPLE_TEAM_ID }}" \
           --password "${{ secrets.MACOS_NOTARIZATION_PWD }}"
 
-    - name: Build and Bundle
+    - name: Synchronize macOS bundle version
+      env:
+        OPENTRACE_BUILD_VERSION: ${{ inputs.build_version }}
       run: |
+        bundle_version="$OPENTRACE_BUILD_VERSION"
+        if [ -z "$bundle_version" ]; then
+          bundle_version=$(sed -n 's:.*<Version>\([^<]*\)</Version>.*:\1:p' OpenTrace.csproj | head -n 1)
+        fi
+        if [[ ! "$bundle_version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          echo "Invalid numeric macOS bundle version: $bundle_version" >&2
+          exit 1
+        fi
+        /usr/libexec/PlistBuddy -c "Set :CFBundleShortVersionString $bundle_version" Info.plist
+
+    - name: Build and Bundle
+      env:
+        OPENTRACE_BUILD_VERSION: ${{ inputs.build_version }}
+      run: |
+        version_args=()
+        if [ -n "$OPENTRACE_BUILD_VERSION" ]; then
+          version_args+=("-p:Version=$OPENTRACE_BUILD_VERSION")
+        fi
         dotnet publish OpenTrace.csproj -c Release -r ${{ matrix.runtime }} \
-          --self-contained -o ./output/ -p:SignApp=False -f net8.0
+          --self-contained -o ./output/ -p:SignApp=False -f net8.0 \
+          "${version_args[@]}"
+
+    - name: Resolve Nexttrace Version
+      env:
+        NEXTTRACE_VERSION_INPUT: ${{ inputs.nexttrace_version }}
+        RELEASE_BODY: ${{ github.event.release.body }}
+      run: |
+        if [ -n "$NEXTTRACE_VERSION_INPUT" ]; then
+          echo "ntver=$NEXTTRACE_VERSION_INPUT" >> "$GITHUB_ENV"
+        else
+          ntver=$(printf '%s\n' "$RELEASE_BODY" | sed -n 's/.*nexttrace_version:[[:space:]]*\([^[:space:]]*\).*/\1/p' | head -n 1)
+          echo "ntver=$ntver" >> "$GITHUB_ENV"
+        fi
 
     - name: Download Nexttrace
       uses: robinraju/release-downloader@v1.8
       with:
         repository: nxtrace/NTrace-V1
         fileName: ${{ matrix.nt_file }}
-        latest: ${{ github.event.inputs.nexttrace_version == '' }}
-        tag: ${{ github.event.inputs.nexttrace_version }}
+        latest: ${{ env.ntver == '' }}
+        tag: ${{ env.ntver }}
         token: ${{ secrets.GITHUB_TOKEN }}
         out-file-path: output/OpenTrace.app/Contents/MacOS/
 
@@ -69,24 +122,33 @@ jobs:
           output/OpenTrace.app/Contents/MacOS/nexttrace
 
     - name: Signing and Notarization
+      env:
+        OPENTRACE_BUILD_VERSION: ${{ inputs.build_version }}
       run: |
+        version_args=()
+        if [ -n "$OPENTRACE_BUILD_VERSION" ]; then
+          version_args+=("-p:Version=$OPENTRACE_BUILD_VERSION")
+        fi
         dotnet build OpenTrace.csproj -c Release -r ${{ matrix.runtime }} -o ./output/ \
           -p:SignApp=True -p:MakeDmg=True -p:NotarizeApp=True \
           -p:EnableNotarizationStapler=True \
-          -p:MAC_SIGNING_IDENTITY="${{ secrets.MAC_SIGNING_IDENTITY }}"
+          -p:MAC_SIGNING_IDENTITY="${{ secrets.MAC_SIGNING_IDENTITY }}" \
+          "${version_args[@]}"
 
     - name: Upload Release Asset
-      if: github.event_name == 'release'
+      if: github.event_name == 'release' || inputs.release_id != ''
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: output/OpenTrace.dmg
         asset_name: ${{ matrix.runtime }}.dmg
-        tag: ${{ github.ref }}
+        tag: ${{ inputs.release_tag || github.event.release.tag_name }}
+        release_id: ${{ inputs.release_id }}
+        overwrite: true
 
     # 步骤 7b: 上传Artifact
     - name: Upload Artifact (when manually triggered)
-      if: github.event_name == 'workflow_dispatch'
+      if: github.event_name == 'workflow_dispatch' && inputs.release_id == ''
       uses: actions/upload-artifact@v4
       with:
         name: ${{ matrix.runtime }}.dmg

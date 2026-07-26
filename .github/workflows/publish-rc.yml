@@ -1,0 +1,157 @@
+name: Publish RC prerelease
+run-name: Publish ${{ inputs.rc_tag }} from ${{ github.ref_name }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      rc_tag:
+        description: 'RC tag, e.g. v1.5.2-rc.1'
+        required: true
+        type: string
+      nexttrace_version:
+        description: 'Nexttrace version (e.g. v0.3.3; leave empty to use latest)'
+        required: false
+        default: ''
+        type: string
+      release_notes:
+        description: 'Optional notes shown before the generated changelog'
+        required: false
+        default: ''
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-rc-${{ inputs.rc_tag }}
+  cancel-in-progress: false
+
+jobs:
+  prepare-release:
+    runs-on: ubuntu-latest
+    outputs:
+      rc_tag: ${{ steps.validate.outputs.rc_tag }}
+      release_id: ${{ steps.release.outputs.release_id }}
+      build_version: ${{ steps.validate.outputs.build_version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Validate RC tag and derive build version
+        id: validate
+        env:
+          RC_TAG: ${{ inputs.rc_tag }}
+        shell: bash
+        run: |
+          if [[ ! "$RC_TAG" =~ ^v[0-9]+\.[0-9]+\.[0-9]+-rc\.[0-9]+$ ]]; then
+            echo "RC tag must use the form v1.2.3-rc.1" >&2
+            exit 1
+          fi
+
+          build_version=${RC_TAG#v}
+          build_version=${build_version%-rc.*}
+          echo "rc_tag=$RC_TAG" >> "$GITHUB_OUTPUT"
+          echo "build_version=$build_version" >> "$GITHUB_OUTPUT"
+
+      - name: Create or reuse draft prerelease
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RC_TAG: ${{ steps.validate.outputs.rc_tag }}
+          RELEASE_NOTES: ${{ inputs.release_notes }}
+        shell: bash
+        run: |
+          if gh release view "$RC_TAG" >/dev/null 2>&1; then
+            is_draft=$(gh release view "$RC_TAG" --json isDraft --jq .isDraft)
+            is_prerelease=$(gh release view "$RC_TAG" --json isPrerelease --jq .isPrerelease)
+            if [[ "$is_draft" != "true" || "$is_prerelease" != "true" ]]; then
+              echo "Release $RC_TAG already exists and is not a draft prerelease" >&2
+              exit 1
+            fi
+            echo "Reusing draft prerelease $RC_TAG"
+            exit 0
+          fi
+
+          notes_file="$RUNNER_TEMP/rc-release-notes.md"
+          printf '%s\n\n' '> [!WARNING]' > "$notes_file"
+          printf '%s\n' '> This is a release candidate intended for manual testing. It is not the current stable release.' >> "$notes_file"
+          if [[ -n "$RELEASE_NOTES" ]]; then
+            printf '\n%s\n' "$RELEASE_NOTES" >> "$notes_file"
+          fi
+
+          gh release create "$RC_TAG" \
+            --target "$GITHUB_SHA" \
+            --title "OpenTrace $RC_TAG" \
+            --notes-file "$notes_file" \
+            --generate-notes \
+            --draft \
+            --prerelease \
+            --latest=false
+
+      - name: Resolve draft release ID
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RC_TAG: ${{ steps.validate.outputs.rc_tag }}
+        shell: bash
+        run: |
+          release_id=$(gh api "repos/$GITHUB_REPOSITORY/releases/tags/$RC_TAG" --jq .id)
+          echo "release_id=$release_id" >> "$GITHUB_OUTPUT"
+
+  build-windows-linux:
+    needs: prepare-release
+    uses: ./.github/workflows/build-release.yml
+    with:
+      release_tag: ${{ needs.prepare-release.outputs.rc_tag }}
+      release_id: ${{ needs.prepare-release.outputs.release_id }}
+      build_version: ${{ needs.prepare-release.outputs.build_version }}
+      nexttrace_version: ${{ inputs.nexttrace_version }}
+    secrets: inherit
+
+  build-macos:
+    needs: prepare-release
+    uses: ./.github/workflows/build-release-macos.yml
+    with:
+      release_tag: ${{ needs.prepare-release.outputs.rc_tag }}
+      release_id: ${{ needs.prepare-release.outputs.release_id }}
+      build_version: ${{ needs.prepare-release.outputs.build_version }}
+      nexttrace_version: ${{ inputs.nexttrace_version }}
+    secrets: inherit
+
+  publish-release:
+    needs:
+      - prepare-release
+      - build-windows-linux
+      - build-macos
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish prerelease without changing Latest
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RC_TAG: ${{ needs.prepare-release.outputs.rc_tag }}
+        shell: bash
+        run: |
+          release_id=$(gh api "repos/$GITHUB_REPOSITORY/releases/tags/$RC_TAG" --jq .id)
+          gh api \
+            --method PATCH \
+            "repos/$GITHUB_REPOSITORY/releases/$release_id" \
+            -F draft=false \
+            -F prerelease=true \
+            -f make_latest=false \
+            >/dev/null
+
+          is_draft=$(gh api "repos/$GITHUB_REPOSITORY/releases/tags/$RC_TAG" --jq .draft)
+          is_prerelease=$(gh api "repos/$GITHUB_REPOSITORY/releases/tags/$RC_TAG" --jq .prerelease)
+          release_url=$(gh api "repos/$GITHUB_REPOSITORY/releases/tags/$RC_TAG" --jq .html_url)
+          latest_tag=$(gh api "repos/$GITHUB_REPOSITORY/releases/latest" --jq .tag_name)
+
+          if [[ "$is_draft" != "false" || "$is_prerelease" != "true" ]]; then
+            echo "RC was not published as a prerelease" >&2
+            exit 1
+          fi
+          if [[ "$latest_tag" == "$RC_TAG" ]]; then
+            echo "RC unexpectedly replaced the stable Latest release" >&2
+            exit 1
+          fi
+
+          echo "Published prerelease: $release_url"
+          echo "Stable Latest remains: $latest_tag"
