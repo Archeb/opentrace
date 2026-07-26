@@ -258,8 +258,8 @@
   <data name="LAST" xml:space="preserve">
     <value>最近</value>
   </data>
-  <data name="LEOMOEAPI_HOSTPORT" xml:space="preserve">
-    <value>LeoMoeAPI 反向代理</value>
+  <data name="NEXTTRACE_HOSTPORT" xml:space="preserve">
+    <value>NextTrace 反向代理</value>
   </data>
   <data name="LINKLOCAL_ADDR" xml:space="preserve">
     <value>連結本機位址</value>
@@ -398,10 +398,10 @@ sudo chmod +sx /路徑/至/nexttrace
     <value>平行請求數</value>
   </data>
   <data name="POW_PROVIDER" xml:space="preserve">
-    <value>LeoMoeAPI PoW 供應商</value>
+    <value>NextTrace PoW 供應商</value>
   </data>
-  <data name="POW_PROVIDER_LEOMOE" xml:space="preserve">
-    <value>api.leo.moe (預設)</value>
+  <data name="POW_PROVIDER_NEXTTRACE" xml:space="preserve">
+    <value>NextTrace（預設）</value>
   </data>
   <data name="POW_PROVIDER_SAKURA" xml:space="preserve">
     <value>Nya Labs (中國大陸最佳化)</value>
@@ -574,5 +574,40 @@ sudo xattr -r -d com.apple.quarantine &lt;在此拖放 OpenTrace&gt;
   </data>
   <data name="RESTART_AS_ADMIN_FAILED" xml:space="preserve">
     <value>無法以管理員身分重新啟動，請依照 GitHub 上的說明，手動設定 macOS 與 Linux 上 TCP/UDP 路由追蹤所需的權限。</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_TOKEN" xml:space="preserve">
+    <value>NextTrace API v4 Token</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_GET_TOKEN" xml:space="preserve">
+    <value>取得 Token…</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_DIALOG_TITLE" xml:space="preserve">
+    <value>NextTrace API v4 Token</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_INSTRUCTIONS" xml:space="preserve">
+    <value>完成一次 Cloudflare 人機驗證，OpenTrace 會自動申請並擷取 Token。檢查結果後按「確認」儲存。</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_CONFIRM" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_CLEAR_BROWSER_DATA" xml:space="preserve">
+    <value>清除快取與 Cookie</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_CLEARING_BROWSER_DATA" xml:space="preserve">
+    <value>正在清除快取與 Cookie…</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_BROWSER_DATA_CLEARED" xml:space="preserve">
+    <value>快取與 Cookie 已清除。</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_BROWSER_DATA_CLEAR_FAILED" xml:space="preserve">
+    <value>無法清除快取與 Cookie。</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_TOKEN_READY" xml:space="preserve">
+    <value>Token 已擷取，請按「確認」儲存。</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_ERROR_OPEN_PAGE" xml:space="preserve">
+    <value>無法開啟內建 Token 頁面。你仍可將 Token 手動貼到輸入欄位中。
+
+{0}</value>
   </data>
 </root>

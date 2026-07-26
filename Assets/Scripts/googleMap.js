@@ -1,6 +1,19 @@
 window.opentrace = {
 	Hops: [],
+	markers: [],
+	polyline: null,
 	reset: function (hideMapPopup = false, darkMode = false) {
+		if (this.markers) {
+			this.markers.forEach(marker => {
+				google.maps.event.clearInstanceListeners(marker);
+				marker.setMap(null);
+			});
+		}
+		this.markers = [];
+		if (this.polyline) {
+			this.polyline.setMap(null);
+			this.polyline = null;
+		}
 		var styles;
 		if (darkMode) {
 			styles = [
@@ -187,8 +200,19 @@ window.opentrace = {
 
 		console.log(hopData);
 
-		// Clear any existing overlays
-		gmap.overlayMapTypes.clear();
+		// Remove the previous marker/listener graph before redrawing. Merely
+		// clearing overlayMapTypes does not detach Marker instances.
+		if (this.markers) {
+			this.markers.forEach(marker => {
+				google.maps.event.clearInstanceListeners(marker);
+				marker.setMap(null);
+			});
+		}
+		this.markers = [];
+		if (this.polyline) {
+			this.polyline.setMap(null);
+			this.polyline = null;
+		}
 
         if (hopNo !== undefined) {
             // Update the existing hop if hopNo is provided
@@ -208,6 +232,7 @@ window.opentrace = {
 				map: gmap,
 				title: `#${h.No}: ${h.Geolocation}`
 			});
+			this.markers.push(marker);
 			let markerIndex = i;
 			google.maps.event.addListener(marker, 'mouseover', () => {
 				this.showPopup(markerIndex);
@@ -229,6 +254,7 @@ window.opentrace = {
 			strokeWeight: 2
 		});
 		polyline.setMap(gmap);
+		this.polyline = polyline;
 
 		if (path.length > 1) {
 			// Get the bounds of the path 
@@ -301,4 +327,3 @@ window.opentrace = {
 		document.body.appendChild(popupElement);
 	},
 };
-

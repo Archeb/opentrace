@@ -10,8 +10,8 @@
 
 namespace OpenTrace.Properties {
     using System;
-    
-    
+
+
     /// <summary>
     ///   一个强类型的资源类，用于查找本地化的字符串等。
     /// </summary>
@@ -23,15 +23,15 @@ namespace OpenTrace.Properties {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resources {
-        
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal Resources() {
         }
-        
+
         /// <summary>
         ///   返回此类使用的缓存的 ResourceManager 实例。
         /// </summary>
@@ -45,7 +45,7 @@ namespace OpenTrace.Properties {
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   重写当前线程的 CurrentUICulture 属性，对
         ///   使用此强类型资源类的所有资源查找执行重写。
@@ -59,7 +59,7 @@ namespace OpenTrace.Properties {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   查找类似 About... 的本地化字符串。
         /// </summary>
@@ -68,7 +68,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("ABOUT", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Additional Arguments 的本地化字符串。
         /// </summary>
@@ -77,7 +77,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("ADDITIONAL_ARGS", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 OpenTrace 的本地化字符串。
         /// </summary>
@@ -86,7 +86,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("APPTITLE", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 NextTrace needs certain types (11 and 3) of ICMP messages to fully trace routes. But Windows firewall blocks these ICMP by default, causing only the last hop to be displayed.
         ///Would you like to add a firewall rule to allow needed ICMP for NextTrace? 的本地化字符串。
@@ -96,7 +96,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("ASK_ADD_ICMP_FIREWALL_RULE", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 (Leave empty for built-in, then system PATH) 的本地化字符串。
         /// </summary>
@@ -105,7 +105,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("AUTO_DETECT", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Auto IP Selection 的本地化字符串。
         /// </summary>
@@ -114,7 +114,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("AUTO_IP_SELECTION", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Avg. 的本地化字符串。
         /// </summary>
@@ -123,7 +123,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("AVRG", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 window.opentrace = {
         ///	Hops: [],
@@ -138,7 +138,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("baiduMap", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Best 的本地化字符串。
         /// </summary>
@@ -147,7 +147,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("BEST", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Cancel 的本地化字符串。
         /// </summary>
@@ -156,7 +156,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("CANCEL", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Check update on startup 的本地化字符串。
         /// </summary>
@@ -165,7 +165,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("CHECK_UPDATE_ON_STARTUP", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 CHUNZHEN Endpoint 的本地化字符串。
         /// </summary>
@@ -174,7 +174,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("CHUNZHEN_ENDPOINT", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Close 的本地化字符串。
         /// </summary>
@@ -183,7 +183,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("CLOSE", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Combine Geography and Organization into a single column 的本地化字符串。
         /// </summary>
@@ -192,7 +192,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("COMBINE_GEO_ORG", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Copy  的本地化字符串。
         /// </summary>
@@ -201,7 +201,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("COPY", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Copy All Results 的本地化字符串。
         /// </summary>
@@ -210,7 +210,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("COPY_ALL_RESULTS", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Custom DNS
         ///(DNS / DoH) 的本地化字符串。
@@ -220,7 +220,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("CUSTOM_DNS_RESOLVERS", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Disabled 的本地化字符串。
         /// </summary>
@@ -229,7 +229,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("DISABLE_IPGEO", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Download latest OpenTrace 的本地化字符串。
         /// </summary>
@@ -238,7 +238,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("DOWNLOAD_LATEST", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Destination port / Initial seq 的本地化字符串。
         /// </summary>
@@ -247,7 +247,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("DST_PORT_INIT_SEQ", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Host or IP cannot be empty 的本地化字符串。
         /// </summary>
@@ -256,7 +256,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("EMPTY_HOSTNAME_MSGBOX", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Enable offline database IPInfo (ipinfoLocal.mmdb) 的本地化字符串。
         /// </summary>
@@ -265,7 +265,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("ENABLE_IPINFOLOCAL", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Error Message 的本地化字符串。
         /// </summary>
@@ -274,7 +274,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("ERR_MSG", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Error writing app settings. 的本地化字符串。
         /// </summary>
@@ -283,7 +283,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("ERR_WRITING_SETTINGS", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 NextTrace generated one or more unexpected outputs during runtime. Please check the output below for troubleshooting. You can refer to the NextTrace Wiki to see if there is already an answer; if you cannot find the answer, please report it to us. 的本地化字符串。
         /// </summary>
@@ -292,7 +292,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("EXC_OUTPUT_FORM_PROMPT", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Report this issue 的本地化字符串。
         /// </summary>
@@ -301,7 +301,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("EXC_OUTPUT_FORM_REPORT", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Unexpected Output 的本地化字符串。
         /// </summary>
@@ -310,7 +310,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("EXC_OUTPUT_FORM_TITLE", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 NextTrace process exited unexpectedly. Please refer to the error message to learn more and report this issue to us. Exit Code:  的本地化字符串。
         /// </summary>
@@ -319,7 +319,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("EXCEPTIONAL_EXIT_MSG", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Executable Path 的本地化字符串。
         /// </summary>
@@ -328,7 +328,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("EXE_PATH", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Export 的本地化字符串。
         /// </summary>
@@ -337,7 +337,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("EXPORT", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Export To 的本地化字符串。
         /// </summary>
@@ -346,7 +346,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("EXPORT_TO", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Failed to add firewall rules. 的本地化字符串。
         /// </summary>
@@ -355,7 +355,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("FAILED_TO_ADD_RULES", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 File 的本地化字符串。
         /// </summary>
@@ -364,7 +364,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("FILE", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 First TTL Hop 的本地化字符串。
         /// </summary>
@@ -373,7 +373,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("FIRST_TTL_HOP", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 General 的本地化字符串。
         /// </summary>
@@ -382,7 +382,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("GENERAL", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Geolocation 的本地化字符串。
         /// </summary>
@@ -391,11 +391,24 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("GEOLOCATION", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 window.opentrace = {
         ///	Hops: [],
+        ///	markers: [],
+        ///	polyline: null,
         ///	reset: function (hideMapPopup = false, darkMode = false) {
+        ///		if (this.markers) {
+        ///			this.markers.forEach(marker =&gt; {
+        ///				google.maps.event.clearInstanceListeners(marker);
+        ///				marker.setMap(null);
+        ///			});
+        ///		}
+        ///		this.markers = [];
+        ///		if (this.polyline) {
+        ///			this.polyline.setMap(null);
+        ///			this.polyline = null;
+        ///		}
         ///		var styles;
         ///		if (darkMode) {
         ///			styles = [
@@ -403,33 +416,14 @@ namespace OpenTrace.Properties {
         ///					&quot;featureType&quot;: &quot;all&quot;,
         ///					&quot;elementType&quot;: &quot;labels.text.fill&quot;,
         ///					&quot;stylers&quot;: [
-        ///						{
-        ///							&quot;saturation&quot;: 36
-        ///						},
-        ///						{
-        ///							&quot;color&quot;: &quot;#000000&quot;
-        ///						},
-        ///						{
-        ///							&quot;lightness&quot;: 40
-        ///						}
-        ///					]
-        ///				},
-        ///				{
-        ///					&quot;featureType&quot;: &quot;all&quot;,
-        ///					&quot;elementType&quot;: &quot;labels.text.stroke&quot;,
-        ///					&quot;stylers&quot;: [
-        ///						{
-        ///							&quot;visibility&quot;: &quot;on&quot;
-        ///						},
-        ///						{
-        ///		 [字符串的其余部分被截断]&quot;; 的本地化字符串。
+        /// [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string googleMap {
             get {
                 return ResourceManager.GetString("googleMap", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Grid Height Ratio 的本地化字符串。
         /// </summary>
@@ -438,7 +432,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("GRID_SIZE_RATIO", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Help 的本地化字符串。
         /// </summary>
@@ -447,7 +441,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("HELP", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Hide the prompt to add firewall rules 的本地化字符串。
         /// </summary>
@@ -456,7 +450,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("HIDE_ADD_FIREWALL_PROMPT", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Hide the map&apos;s info windows 的本地化字符串。
         /// </summary>
@@ -465,7 +459,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("HIDE_MAP_POPUP", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 History 的本地化字符串。
         /// </summary>
@@ -474,7 +468,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("HISTORY", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Homepage 的本地化字符串。
         /// </summary>
@@ -483,7 +477,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("HOMEPAGE", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Hostname 的本地化字符串。
         /// </summary>
@@ -492,7 +486,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("HOSTNAME", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 IP Geograph Data Provider 的本地化字符串。
         /// </summary>
@@ -501,7 +495,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("IP_GEO_DATA_PROVIDER", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Auto-select First IPv4 (if available) 的本地化字符串。
         /// </summary>
@@ -510,7 +504,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("IP_SELECTION_FIRST_IPV4", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Auto-select First IPv6 (if available) 的本地化字符串。
         /// </summary>
@@ -519,7 +513,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("IP_SELECTION_FIRST_IPV6", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Manual 的本地化字符串。
         /// </summary>
@@ -528,7 +522,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("IP_SELECTION_MANUAL", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 IPInfo Token (Optional) 的本地化字符串。
         /// </summary>
@@ -537,7 +531,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("IPINFO_TOKEN", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Language (语言) 的本地化字符串。
         /// </summary>
@@ -546,7 +540,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("LANGUAGE", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Last 的本地化字符串。
         /// </summary>
@@ -555,16 +549,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("LAST", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   查找类似 LeoMoeAPI Reverse Proxy 的本地化字符串。
-        /// </summary>
-        public static string LEOMOEAPI_HOSTPORT {
-            get {
-                return ResourceManager.GetString("LEOMOEAPI_HOSTPORT", resourceCulture);
-            }
-        }
-        
+
         /// <summary>
         ///   查找类似 Link-local Address 的本地化字符串。
         /// </summary>
@@ -573,7 +558,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("LINKLOCAL_ADDR", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Local MMDB Overwrite 的本地化字符串。
         /// </summary>
@@ -582,7 +567,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("LOCAL_MMDB", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Address Template 的本地化字符串。
         /// </summary>
@@ -591,7 +576,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("LOCAL_MMDB_ADDR", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 ASN Template 的本地化字符串。
         /// </summary>
@@ -600,7 +585,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("LOCAL_MMDB_ASN", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Hostname Template 的本地化字符串。
         /// </summary>
@@ -609,7 +594,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("LOCAL_MMDB_HOSTNAME", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Latitude Template 的本地化字符串。
         /// </summary>
@@ -618,7 +603,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("LOCAL_MMDB_LAT", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Longitude Template 的本地化字符串。
         /// </summary>
@@ -627,7 +612,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("LOCAL_MMDB_LON", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Organization Template 的本地化字符串。
         /// </summary>
@@ -636,7 +621,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("LOCAL_MMDB_ORG", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Local MMDB Path 的本地化字符串。
         /// </summary>
@@ -645,7 +630,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("LOCAL_MMDB_PATH", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Presets 的本地化字符串。
         /// </summary>
@@ -654,7 +639,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("LOCAL_MMDB_PRESETS", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Preview MMDB File 的本地化字符串。
         /// </summary>
@@ -663,7 +648,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("LOCAL_MMDB_PREVIEW", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Preview MMDB IP 的本地化字符串。
         /// </summary>
@@ -672,7 +657,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("LOCAL_MMDB_PREVIEW_IP", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Select MMDB File 的本地化字符串。
         /// </summary>
@@ -681,7 +666,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("LOCAL_MMDB_SELECT", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Use MMDB query result overwrite original result
         ///Leave empty to avoid overwrite field
@@ -692,7 +677,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("LOCAL_MMDB_TIPS", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Loopback Address 的本地化字符串。
         /// </summary>
@@ -701,7 +686,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("LOOPBACK_ADDR", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Loss% 的本地化字符串。
         /// </summary>
@@ -710,7 +695,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("LOSS", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 OpenTrace is quarantined by macOS, something may be inoperative.
         ///Please release OpenTrace as follows:
@@ -724,7 +709,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("MACOS_QUARANTINE", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Map Color Theme 的本地化字符串。
         /// </summary>
@@ -733,7 +718,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("MAP_COLOR_THEME", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Auto (System) 的本地化字符串。
         /// </summary>
@@ -742,7 +727,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("MAP_COLOR_THEME_AUTO", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Dark 的本地化字符串。
         /// </summary>
@@ -751,7 +736,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("MAP_COLOR_THEME_DARK", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Light 的本地化字符串。
         /// </summary>
@@ -760,7 +745,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("MAP_COLOR_THEME_LIGHT", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Map Provider 的本地化字符串。
         /// </summary>
@@ -769,7 +754,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("MAP_PROVIDER", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Baidu Maps 的本地化字符串。
         /// </summary>
@@ -778,7 +763,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("MAP_PROVIDER_BAIDU", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Google Maps 的本地化字符串。
         /// </summary>
@@ -787,7 +772,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("MAP_PROVIDER_GOOGLE", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 OpenStreetMap 的本地化字符串。
         /// </summary>
@@ -796,7 +781,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("MAP_PROVIDER_OSM", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Max Hops 的本地化字符串。
         /// </summary>
@@ -805,7 +790,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("MAX_HOPS", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Missing Component 的本地化字符串。
         /// </summary>
@@ -814,7 +799,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("MISSING_COMP", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 OpenTrace requires permissions to perform TCP/UDP traceroute.
         ///
@@ -825,7 +810,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("MISSING_COMP_PRIV_TEXT", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 OpenTrace requires the NextTrace utility to function properly. This executable is currently missing.
         ///NextTrace can be placed in either:
@@ -840,7 +825,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("MISSING_COMP_TEXT", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 OpenTrace requires the NextTrace utility to function properly. This executable is currently missing.
         ///Please download NextTrace and set the permissions as follows:
@@ -858,7 +843,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("MISSING_COMP_TEXT_MACOS", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 OpenTrace requires privileges to perform TCP/UDP trace 的本地化字符串。
         /// </summary>
@@ -867,7 +852,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("MISSING_PRIV_MACOS", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 NextTrace could not be found in &quot;{0}&quot;. 的本地化字符串。
         /// </summary>
@@ -876,7 +861,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("MISSING_SPECIFIED_COMP", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 MTR Mode 的本地化字符串。
         /// </summary>
@@ -885,7 +870,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("MTR_MODE", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Could not find host {0}. Please check the name and try again. 的本地化字符串。
         /// </summary>
@@ -894,7 +879,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("NAME_NOT_RESOLVED", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 New 的本地化字符串。
         /// </summary>
@@ -903,7 +888,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("NEW", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Create a new OpenTrace window. 的本地化字符串。
         /// </summary>
@@ -912,7 +897,117 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("NEW_WINDOW_TEXT", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   查找类似 Unable to clear cache and cookies. 的本地化字符串。
+        /// </summary>
+        public static string NEXTTRACE_API_V4_BROWSER_DATA_CLEAR_FAILED {
+            get {
+                return ResourceManager.GetString("NEXTTRACE_API_V4_BROWSER_DATA_CLEAR_FAILED", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Cache and cookies cleared. 的本地化字符串。
+        /// </summary>
+        public static string NEXTTRACE_API_V4_BROWSER_DATA_CLEARED {
+            get {
+                return ResourceManager.GetString("NEXTTRACE_API_V4_BROWSER_DATA_CLEARED", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Clear cache and cookies 的本地化字符串。
+        /// </summary>
+        public static string NEXTTRACE_API_V4_CLEAR_BROWSER_DATA {
+            get {
+                return ResourceManager.GetString("NEXTTRACE_API_V4_CLEAR_BROWSER_DATA", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Clearing cache and cookies… 的本地化字符串。
+        /// </summary>
+        public static string NEXTTRACE_API_V4_CLEARING_BROWSER_DATA {
+            get {
+                return ResourceManager.GetString("NEXTTRACE_API_V4_CLEARING_BROWSER_DATA", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Confirm 的本地化字符串。
+        /// </summary>
+        public static string NEXTTRACE_API_V4_CONFIRM {
+            get {
+                return ResourceManager.GetString("NEXTTRACE_API_V4_CONFIRM", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 NextTrace API v4 Token 的本地化字符串。
+        /// </summary>
+        public static string NEXTTRACE_API_V4_DIALOG_TITLE {
+            get {
+                return ResourceManager.GetString("NEXTTRACE_API_V4_DIALOG_TITLE", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Unable to open the integrated token page. You can still paste a token into the field manually.
+        ///
+        ///{0} 的本地化字符串。
+        /// </summary>
+        public static string NEXTTRACE_API_V4_ERROR_OPEN_PAGE {
+            get {
+                return ResourceManager.GetString("NEXTTRACE_API_V4_ERROR_OPEN_PAGE", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Get token… 的本地化字符串。
+        /// </summary>
+        public static string NEXTTRACE_API_V4_GET_TOKEN {
+            get {
+                return ResourceManager.GetString("NEXTTRACE_API_V4_GET_TOKEN", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Complete the Cloudflare verification once. OpenTrace will request and extract the token automatically. Review the result, then choose Confirm. 的本地化字符串。
+        /// </summary>
+        public static string NEXTTRACE_API_V4_INSTRUCTIONS {
+            get {
+                return ResourceManager.GetString("NEXTTRACE_API_V4_INSTRUCTIONS", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 NextTrace API v4 Token 的本地化字符串。
+        /// </summary>
+        public static string NEXTTRACE_API_V4_TOKEN {
+            get {
+                return ResourceManager.GetString("NEXTTRACE_API_V4_TOKEN", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 Token extracted. Choose Confirm to save it. 的本地化字符串。
+        /// </summary>
+        public static string NEXTTRACE_API_V4_TOKEN_READY {
+            get {
+                return ResourceManager.GetString("NEXTTRACE_API_V4_TOKEN_READY", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   查找类似 NextTrace Reverse Proxy 的本地化字符串。
+        /// </summary>
+        public static string NEXTTRACE_HOSTPORT {
+            get {
+                return ResourceManager.GetString("NEXTTRACE_HOSTPORT", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   查找类似 Proxy 的本地化字符串。
         /// </summary>
@@ -921,7 +1016,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("NEXTTRACE_PROXY", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 window.opentrace = {
         ///	Hops: [],
@@ -952,7 +1047,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("openStreetMap", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 &lt;!DOCTYPE html&gt;
         ///&lt;html&gt;
@@ -960,11 +1055,11 @@ namespace OpenTrace.Properties {
         ///    &lt;meta charset=&quot;utf-8&quot; /&gt;
         ///    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
         ///    &lt;title&gt;OpenTrace Map&lt;/title&gt;
-        ///    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://unpkg.com/leaflet@1.9.4/dist/leaflet.css&quot; 
-        ///          integrity=&quot;sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=&quot; 
+        ///    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://unpkg.com/leaflet@1.9.4/dist/leaflet.css&quot;
+        ///          integrity=&quot;sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=&quot;
         ///          crossorigin=&quot;&quot; /&gt;
-        ///    &lt;script src=&quot;https://unpkg.com/leaflet@1.9.4/dist/leaflet.js&quot; 
-        ///            integrity=&quot;sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=&quot; 
+        ///    &lt;script src=&quot;https://unpkg.com/leaflet@1.9.4/dist/leaflet.js&quot;
+        ///            integrity=&quot;sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=&quot;
         ///             [字符串的其余部分被截断]&quot;; 的本地化字符串。
         /// </summary>
         public static string openStreetMapHtml {
@@ -972,7 +1067,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("openStreetMapHtml", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Organization 的本地化字符串。
         /// </summary>
@@ -981,7 +1076,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("ORGANIZATION", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Some data sources require an API endpoint/token.
         ///For offline databases, see NextTrace docs. 的本地化字符串。
@@ -991,7 +1086,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("OTHER_DATABASE_TIPS", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Packet Group Interval 的本地化字符串。
         /// </summary>
@@ -1000,7 +1095,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("PACKET_GROUP_INTERVAL", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Packet Interval 的本地化字符串。
         /// </summary>
@@ -1009,7 +1104,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("PACKET_INTERVAL", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Parallel Requests 的本地化字符串。
         /// </summary>
@@ -1018,25 +1113,25 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("PARALLEL_REQ", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   查找类似 LeoMoeAPI PoW Provider 的本地化字符串。
+        ///   查找类似 NextTrace PoW Provider 的本地化字符串。
         /// </summary>
         public static string POW_PROVIDER {
             get {
                 return ResourceManager.GetString("POW_PROVIDER", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   查找类似 api.leo.moe (Default) 的本地化字符串。
+        ///   查找类似 NextTrace (Default) 的本地化字符串。
         /// </summary>
-        public static string POW_PROVIDER_LEOMOE {
+        public static string POW_PROVIDER_NEXTTRACE {
             get {
-                return ResourceManager.GetString("POW_PROVIDER_LEOMOE", resourceCulture);
+                return ResourceManager.GetString("POW_PROVIDER_NEXTTRACE", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Nya Labs (China Mainland Optimized) 的本地化字符串。
         /// </summary>
@@ -1045,7 +1140,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("POW_PROVIDER_SAKURA", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Preferences 的本地化字符串。
         /// </summary>
@@ -1054,7 +1149,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("PREFERENCES", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Privacy Masking 的本地化字符串。
         /// </summary>
@@ -1063,7 +1158,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("PRIVACY_MASKING", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 hops&apos; info 的本地化字符串。
         /// </summary>
@@ -1072,7 +1167,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("PRIVACY_MASKING_ALL", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Mask first 的本地化字符串。
         /// </summary>
@@ -1081,7 +1176,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("PRIVACY_MASKING_DESCR", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 hops&apos; full IP 的本地化字符串。
         /// </summary>
@@ -1090,7 +1185,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("PRIVACY_MASKING_IP_FULL", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 hops&apos; IP &amp; Geo 的本地化字符串。
         /// </summary>
@@ -1099,7 +1194,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("PRIVACY_MASKING_IP_GEO", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 hops&apos; partial IP 的本地化字符串。
         /// </summary>
@@ -1108,7 +1203,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("PRIVACY_MASKING_IP_HALF", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Private Address (LAN) 的本地化字符串。
         /// </summary>
@@ -1117,7 +1212,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("PRIVATE_ADDR", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Protocol for tracerouting 的本地化字符串。
         /// </summary>
@@ -1126,7 +1221,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("PROTOCOL_FOR_TRACEROUTING", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Queries (probes per each hop) 的本地化字符串。
         /// </summary>
@@ -1135,7 +1230,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("QUERIES_SETTING", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Quit 的本地化字符串。
         /// </summary>
@@ -1144,7 +1239,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("QUIT", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Reverse DNS Lookup Mode 的本地化字符串。
         /// </summary>
@@ -1153,7 +1248,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("RDNS_MODE", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Attempt to Retrieve Full rDNS 的本地化字符串。
         /// </summary>
@@ -1162,7 +1257,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("RDNS_MODE_ALWAYS", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Fast rDNS (Default) 的本地化字符串。
         /// </summary>
@@ -1171,7 +1266,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("RDNS_MODE_DEFAULT", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Disable rDNS Query 的本地化字符串。
         /// </summary>
@@ -1180,7 +1275,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("RDNS_MODE_DISABLE", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Recv 的本地化字符串。
         /// </summary>
@@ -1189,7 +1284,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("RECV", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Failed to restart as administrator, please follow the instructions on GitHub to manually set the required permissions for TCP/UDP traceroute on macOS and Linux. 的本地化字符串。
         /// </summary>
@@ -1198,7 +1293,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("RESTART_AS_ADMIN_FAILED", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Some changes require a restart. 的本地化字符串。
         /// </summary>
@@ -1207,7 +1302,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("RESTART_TO_APPLY", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Save 的本地化字符串。
         /// </summary>
@@ -1216,7 +1311,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("SAVE", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Select an IP 的本地化字符串。
         /// </summary>
@@ -1225,7 +1320,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("SELECT_IP_DROPDOWN", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Please select an IP from the dropdown. 的本地化字符串。
         /// </summary>
@@ -1234,7 +1329,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("SELECT_IP_MSGBOX", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Sent 的本地化字符串。
         /// </summary>
@@ -1243,7 +1338,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("SENT", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Shared Address 的本地化字符串。
         /// </summary>
@@ -1252,7 +1347,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("SHARED_ADDR", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Source Address 的本地化字符串。
         /// </summary>
@@ -1261,7 +1356,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("SRC_ADDR_SETTING", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Source Interface 的本地化字符串。
         /// </summary>
@@ -1270,7 +1365,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("SRC_INTERFACE_SETTING", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Start 的本地化字符串。
         /// </summary>
@@ -1279,7 +1374,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("START", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Std. Dev. 的本地化字符串。
         /// </summary>
@@ -1288,7 +1383,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("STDEV", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Stop 的本地化字符串。
         /// </summary>
@@ -1297,7 +1392,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("STOP", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 System DNS 的本地化字符串。
         /// </summary>
@@ -1306,7 +1401,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("SYSTEM_DNS_RESOLVER", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 TCP/UDP Mode Requirements 的本地化字符串。
         /// </summary>
@@ -1315,7 +1410,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("TCP_UDP_REQUIREMENTS_TITLE", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Restarting OpenTrace as an administrator. Please enter your password and press Enter. 的本地化字符串。
         /// </summary>
@@ -1324,7 +1419,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("TCP_UDP_RUN_AS_ADMIN", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Time(ms) 的本地化字符串。
         /// </summary>
@@ -1333,7 +1428,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("TIME_MS", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Round hop latency to whole number 的本地化字符串。
         /// </summary>
@@ -1342,7 +1437,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("TIME_ROUNDING", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 Tracerouting 的本地化字符串。
         /// </summary>
@@ -1351,7 +1446,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("TRACEROUTING", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 (Version {0} now available. Download it from the Help menu.) 的本地化字符串。
         /// </summary>
@@ -1360,7 +1455,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("UPDATE_AVAILABLE", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 ✓ Npcap is installed 的本地化字符串。
         /// </summary>
@@ -1369,7 +1464,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("WINDOWS_TCP_UDP_HAS_NPCAP", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 ✓ WinDivert is available 的本地化字符串。
         /// </summary>
@@ -1378,7 +1473,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("WINDOWS_TCP_UDP_HAS_WINDIVERT", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 TCP/UDP Traceroute on Windows requires administrator privileges. Do you want to restart OpenTrace with administrator privileges? 的本地化字符串。
         /// </summary>
@@ -1387,7 +1482,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("WINDOWS_TCP_UDP_MISSING_ADMIN", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 • Npcap is not installed 的本地化字符串。
         /// </summary>
@@ -1396,7 +1491,7 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("WINDOWS_TCP_UDP_MISSING_NPCAP", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   查找类似 • WinDivert is not found (Should be placed in the same directory as NextTrace) 的本地化字符串。
         /// </summary>
@@ -1406,15 +1501,6 @@ namespace OpenTrace.Properties {
             }
         }
 
-        /// <summary>
-        ///   查找类似 • TCP/UDP mode is unavailable on Windows ARM64 because the required WinDivert runtime is currently available only for x64 的本地化字符串。
-        /// </summary>
-        public static string WINDOWS_TCP_UDP_UNAVAILABLE_ARM64 {
-            get {
-                return ResourceManager.GetString("WINDOWS_TCP_UDP_UNAVAILABLE_ARM64", resourceCulture);
-            }
-        }
-        
         /// <summary>
         ///   查找类似 TCP/UDP Traceroute on Windows requires the following:
         ///
@@ -1428,7 +1514,16 @@ namespace OpenTrace.Properties {
                 return ResourceManager.GetString("WINDOWS_TCP_UDP_REQUIREMENTS_MSG", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   查找类似 • TCP/UDP mode is unavailable on Windows ARM64 because the required WinDivert runtime is currently available only for x64 的本地化字符串。
+        /// </summary>
+        public static string WINDOWS_TCP_UDP_UNAVAILABLE_ARM64 {
+            get {
+                return ResourceManager.GetString("WINDOWS_TCP_UDP_UNAVAILABLE_ARM64", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   查找类似 Worst 的本地化字符串。
         /// </summary>

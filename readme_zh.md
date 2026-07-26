@@ -38,11 +38,13 @@ OpenTrace 是一款开源的跨平台可视化路由追踪工具。
 
 - [x] 用户友好的图形界面及清晰易懂的参数说明
 
-- [x] 集成 MTR (My Traceroute) 功能
+- [x] 集成 MTR (My Traceroute) 功能；NextTrace v1.5.2 及以上使用原生 MTR，不可用时静默回退兼容实现
 
 - [x] 多语言支持 (英语、中文、法语、西班牙语、日语、俄语)
 
 - [x] 支持自定义 DNS 解析器 (DNS, DoH)
+
+- [x] 集成 Cloudflare 人机验证并自动设置 NextTrace API v4 Token（需 NextTrace v1.7.0 及以上）
 
 - [x] 支持通过命令行 (CLI) 启动追踪
 

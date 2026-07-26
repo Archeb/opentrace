@@ -244,8 +244,8 @@
   <data name="LAST" xml:space="preserve">
     <value>Тек.</value>
   </data>
-  <data name="LEOMOEAPI_HOSTPORT" xml:space="preserve">
-    <value>Прокси LeoMoeAPI</value>
+  <data name="NEXTTRACE_HOSTPORT" xml:space="preserve">
+    <value>Прокси NextTrace</value>
   </data>
   <data name="LINKLOCAL_ADDR" xml:space="preserve">
     <value>Link-local адрес</value>
@@ -379,10 +379,10 @@ sudo chmod +sx /path/to/nexttrace
     <value>Параллельные запросы</value>
   </data>
   <data name="POW_PROVIDER" xml:space="preserve">
-    <value>LeoMoeAPI PoW провайдер</value>
+    <value>Провайдер PoW NextTrace</value>
   </data>
-  <data name="POW_PROVIDER_LEOMOE" xml:space="preserve">
-    <value>api.leo.moe (По умолчанию)</value>
+  <data name="POW_PROVIDER_NEXTTRACE" xml:space="preserve">
+    <value>NextTrace (По умолчанию)</value>
   </data>
   <data name="POW_PROVIDER_SAKURA" xml:space="preserve">
     <value>Nya Labs (Оптимизация для Китая)</value>
@@ -556,5 +556,40 @@ sudo xattr -r -d com.apple.quarantine [перетащите OpenTrace сюда]
   </data>
   <data name="RESTART_AS_ADMIN_FAILED" xml:space="preserve">
     <value>Не удалось перезапустить систему от имени администратора. Пожалуйста, следуйте инструкциям на GitHub, чтобы вручную установить необходимые разрешения для трассировки маршрута TCP/UDP в macOS и Linux.</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_TOKEN" xml:space="preserve">
+    <value>Токен NextTrace API v4</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_GET_TOKEN" xml:space="preserve">
+    <value>Получить токен…</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_DIALOG_TITLE" xml:space="preserve">
+    <value>Токен NextTrace API v4</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_INSTRUCTIONS" xml:space="preserve">
+    <value>Один раз пройдите проверку Cloudflare. OpenTrace автоматически запросит и извлечёт токен. Проверьте результат и нажмите «Подтвердить».</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_CONFIRM" xml:space="preserve">
+    <value>Подтвердить</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_CLEAR_BROWSER_DATA" xml:space="preserve">
+    <value>Очистить кэш и файлы cookie</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_CLEARING_BROWSER_DATA" xml:space="preserve">
+    <value>Очистка кэша и файлов cookie…</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_BROWSER_DATA_CLEARED" xml:space="preserve">
+    <value>Кэш и файлы cookie очищены.</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_BROWSER_DATA_CLEAR_FAILED" xml:space="preserve">
+    <value>Не удалось очистить кэш и файлы cookie.</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_TOKEN_READY" xml:space="preserve">
+    <value>Токен извлечён. Нажмите «Подтвердить», чтобы сохранить его.</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_ERROR_OPEN_PAGE" xml:space="preserve">
+    <value>Не удалось открыть встроенную страницу токена. Токен по-прежнему можно вставить в поле вручную.
+
+{0}</value>
   </data>
 </root>

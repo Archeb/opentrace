@@ -41,11 +41,13 @@ OpenTrace 是一款跨平台可视化路由追踪工具。
 
 - [x] User-friendly GUI and easy-to-understand parameter descriptions
 
-- [x] MTR (My Traceroute) functionality
+- [x] MTR (My Traceroute) functionality; uses native NextTrace MTR with v1.5.2+ and silently falls back to the compatibility implementation when unavailable
 
 - [x] Multi-language support (English, Chinese, French, Spanish, Japanese, Russian)
 
 - [x] Custom DNS Resolvers (DNS, DoH)
+
+- [x] Integrated Cloudflare verification and automatic setup for NextTrace API v4 tokens (NextTrace v1.7.0+)
 
 - [x] Use CLI to start a trace
 

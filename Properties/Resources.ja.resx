@@ -258,8 +258,8 @@ NextTrace 用に、必要な ICMP を許可するファイアウォール規則�
   <data name="LAST" xml:space="preserve">
     <value>現在</value>
   </data>
-  <data name="LEOMOEAPI_HOSTPORT" xml:space="preserve">
-    <value>LeoMoeAPI リバースプロキシ</value>
+  <data name="NEXTTRACE_HOSTPORT" xml:space="preserve">
+    <value>NextTrace リバースプロキシ</value>
   </data>
   <data name="LINKLOCAL_ADDR" xml:space="preserve">
     <value>リンクローカルアドレス</value>
@@ -396,10 +396,10 @@ sudo chmod +sx /path/to/nexttrace
     <value>並列リクエスト数</value>
   </data>
   <data name="POW_PROVIDER" xml:space="preserve">
-    <value>LeoMoeAPI PoW プロバイダー</value>
+    <value>NextTrace PoW プロバイダー</value>
   </data>
-  <data name="POW_PROVIDER_LEOMOE" xml:space="preserve">
-    <value>api.leo.moe (デフォルト)</value>
+  <data name="POW_PROVIDER_NEXTTRACE" xml:space="preserve">
+    <value>NextTrace (デフォルト)</value>
   </data>
   <data name="POW_PROVIDER_SAKURA" xml:space="preserve">
     <value>Nya Labs (中国本土最適化)</value>
@@ -572,5 +572,40 @@ sudo xattr -r -d com.apple.quarantine &lt;ここに OpenTrace をドラッグ＆
   </data>
   <data name="RESTART_AS_ADMIN_FAILED" xml:space="preserve">
     <value>管理者として再起動できませんでした。GitHub の指示に従って、macOS および Linux 上の TCP/UDP トレースルートに必要な権限を手動で設定してください。</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_TOKEN" xml:space="preserve">
+    <value>NextTrace API v4 トークン</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_GET_TOKEN" xml:space="preserve">
+    <value>トークンを取得…</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_DIALOG_TITLE" xml:space="preserve">
+    <value>NextTrace API v4 トークン</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_INSTRUCTIONS" xml:space="preserve">
+    <value>Cloudflare の認証を一度完了してください。OpenTrace がトークンを自動的に申請して抽出します。結果を確認してから［確認］を選択してください。</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_CONFIRM" xml:space="preserve">
+    <value>確認</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_CLEAR_BROWSER_DATA" xml:space="preserve">
+    <value>キャッシュと Cookie を消去</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_CLEARING_BROWSER_DATA" xml:space="preserve">
+    <value>キャッシュと Cookie を消去しています…</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_BROWSER_DATA_CLEARED" xml:space="preserve">
+    <value>キャッシュと Cookie を消去しました。</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_BROWSER_DATA_CLEAR_FAILED" xml:space="preserve">
+    <value>キャッシュと Cookie を消去できませんでした。</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_TOKEN_READY" xml:space="preserve">
+    <value>トークンを抽出しました。保存するには［確認］を選択してください。</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_ERROR_OPEN_PAGE" xml:space="preserve">
+    <value>組み込みのトークンページを開けません。トークンを入力欄に手動で貼り付けることもできます。
+
+{0}</value>
   </data>
 </root>

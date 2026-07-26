@@ -49,6 +49,12 @@ namespace OpenTrace.Infrastructure
         [Setting(Name = "IPInfoToken", Default = "")]
         public static string IPInfoToken { get; set; }
 
+        [Setting(Name = "NextTraceAPIV4Token", Default = "")]
+        public static string NextTraceAPIV4Token { get; set; }
+
+        [Setting(Name = "NextTraceAPIV4TokenExpiresAt", Default = "")]
+        public static string NextTraceAPIV4TokenExpiresAt { get; set; }
+
         [Setting(Name = "ChunZhenEndpoint", Default = "")]
         public static string ChunZhenEndpoint { get; set; }
 
@@ -73,8 +79,10 @@ namespace OpenTrace.Infrastructure
         [Setting(Name = "traceHistory", Default = "")]
         public static string traceHistory { get; set; }
 
+        // Keep the legacy persisted key so existing installations retain their
+        // configured reverse proxy after the NextTrace terminology migration.
         [Setting(Name = "LeoMoeAPI_HOSTPORT", Default = "")]
-        public static string LeoMoeAPI_HOSTPORT { get; set; }
+        public static string NextTrace_HOSTPORT { get; set; }
 
         [Setting(Name = "NextTraceProxy", Default = "")]
         public static string NextTraceProxy { get; set; }

@@ -2,7 +2,7 @@ namespace OpenTrace.Models
 {
     class TracerouteResult
     {
-        public TracerouteResult(string no, string ip, string time, string geolocation, string ASNumber, string hostname, string organization, string latitude, string longitude)
+        public TracerouteResult(string no, string ip, string time, string geolocation, string ASNumber, string hostname, string organization, string latitude, string longitude, bool isDestination = false)
         {
             No = no;
             IP = ip;
@@ -13,6 +13,7 @@ namespace OpenTrace.Models
             Organization = organization;
             Latitude = latitude;
             Longitude = longitude;
+            IsDestination = isDestination;
         }
         public string No { get; set; }
         public string IP { get; set; }
@@ -23,5 +24,6 @@ namespace OpenTrace.Models
         public string Organization { get; set; }
         public string Latitude { get; set; }
         public string Longitude { get; set; }
+        public bool IsDestination { get; set; }
     }
 }

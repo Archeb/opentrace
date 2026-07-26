@@ -258,8 +258,8 @@ Would you like to add a firewall rule to allow needed ICMP for NextTrace?</value
   <data name="LAST" xml:space="preserve">
     <value>Last</value>
   </data>
-  <data name="LEOMOEAPI_HOSTPORT" xml:space="preserve">
-    <value>LeoMoeAPI Reverse Proxy</value>
+  <data name="NEXTTRACE_HOSTPORT" xml:space="preserve">
+    <value>NextTrace Reverse Proxy</value>
   </data>
   <data name="LINKLOCAL_ADDR" xml:space="preserve">
     <value>Link-local Address</value>
@@ -398,10 +398,10 @@ For offline databases, see NextTrace docs.</value>
     <value>Parallel Requests</value>
   </data>
   <data name="POW_PROVIDER" xml:space="preserve">
-    <value>LeoMoeAPI PoW Provider</value>
+    <value>NextTrace PoW Provider</value>
   </data>
-  <data name="POW_PROVIDER_LEOMOE" xml:space="preserve">
-    <value>api.leo.moe (Default)</value>
+  <data name="POW_PROVIDER_NEXTTRACE" xml:space="preserve">
+    <value>NextTrace (Default)</value>
   </data>
   <data name="POW_PROVIDER_SAKURA" xml:space="preserve">
     <value>Nya Labs (China Mainland Optimized)</value>
@@ -577,5 +577,40 @@ And restart OpenTrace after execution.</value>
   </data>
   <data name="RESTART_AS_ADMIN_FAILED" xml:space="preserve">
     <value>Failed to restart as administrator, please follow the instructions on GitHub to manually set the required permissions for TCP/UDP traceroute on macOS and Linux.</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_TOKEN" xml:space="preserve">
+    <value>NextTrace API v4 Token</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_GET_TOKEN" xml:space="preserve">
+    <value>Get token…</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_DIALOG_TITLE" xml:space="preserve">
+    <value>NextTrace API v4 Token</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_INSTRUCTIONS" xml:space="preserve">
+    <value>Complete the Cloudflare verification once. OpenTrace will request and extract the token automatically. Review the result, then choose Confirm.</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_CONFIRM" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_CLEAR_BROWSER_DATA" xml:space="preserve">
+    <value>Clear cache and cookies</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_CLEARING_BROWSER_DATA" xml:space="preserve">
+    <value>Clearing cache and cookies…</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_BROWSER_DATA_CLEARED" xml:space="preserve">
+    <value>Cache and cookies cleared.</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_BROWSER_DATA_CLEAR_FAILED" xml:space="preserve">
+    <value>Unable to clear cache and cookies.</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_TOKEN_READY" xml:space="preserve">
+    <value>Token extracted. Choose Confirm to save it.</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_ERROR_OPEN_PAGE" xml:space="preserve">
+    <value>Unable to open the integrated token page. You can still paste a token into the field manually.
+
+{0}</value>
   </data>
 </root>

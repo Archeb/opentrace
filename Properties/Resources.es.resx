@@ -252,8 +252,8 @@
   <data name="LAST" xml:space="preserve">
     <value>Últ.</value>
   </data>
-  <data name="LEOMOEAPI_HOSTPORT" xml:space="preserve">
-    <value>Proxy LeoMoeAPI</value>
+  <data name="NEXTTRACE_HOSTPORT" xml:space="preserve">
+    <value>Proxy inverso de NextTrace</value>
   </data>
   <data name="LINKLOCAL_ADDR" xml:space="preserve">
     <value>Dirección link-local</value>
@@ -377,10 +377,10 @@ Para bases offline, ver documentación de NextTrace.</value>
     <value>Peticiones paralelas</value>
   </data>
   <data name="POW_PROVIDER" xml:space="preserve">
-    <value>Proveedor PoW LeoMoeAPI</value>
+    <value>Proveedor PoW de NextTrace</value>
   </data>
-  <data name="POW_PROVIDER_LEOMOE" xml:space="preserve">
-    <value>api.leo.moe (Defecto)</value>
+  <data name="POW_PROVIDER_NEXTTRACE" xml:space="preserve">
+    <value>NextTrace (Predeterminado)</value>
   </data>
   <data name="POW_PROVIDER_SAKURA" xml:space="preserve">
     <value>Nya Labs (Optimizado China)</value>
@@ -547,5 +547,40 @@ Y reinicie OpenTrace.</value>
   </data>
   <data name="RESTART_AS_ADMIN_FAILED" xml:space="preserve">
     <value>No se pudo reiniciar como administrador, siga las instrucciones en GitHub para configurar manualmente los permisos necesarios para traceroute TCP/UDP en macOS y Linux.</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_TOKEN" xml:space="preserve">
+    <value>Token de NextTrace API v4</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_GET_TOKEN" xml:space="preserve">
+    <value>Obtener token…</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_DIALOG_TITLE" xml:space="preserve">
+    <value>Token de NextTrace API v4</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_INSTRUCTIONS" xml:space="preserve">
+    <value>Complete una vez la verificación de Cloudflare. OpenTrace solicitará y extraerá el token automáticamente. Revise el resultado y seleccione Confirmar.</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_CONFIRM" xml:space="preserve">
+    <value>Confirmar</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_CLEAR_BROWSER_DATA" xml:space="preserve">
+    <value>Borrar caché y cookies</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_CLEARING_BROWSER_DATA" xml:space="preserve">
+    <value>Borrando caché y cookies…</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_BROWSER_DATA_CLEARED" xml:space="preserve">
+    <value>Se borraron la caché y las cookies.</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_BROWSER_DATA_CLEAR_FAILED" xml:space="preserve">
+    <value>No se pudieron borrar la caché y las cookies.</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_TOKEN_READY" xml:space="preserve">
+    <value>Token extraído. Seleccione Confirmar para guardarlo.</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_ERROR_OPEN_PAGE" xml:space="preserve">
+    <value>No se pudo abrir la página de token integrada. Aún puede pegar manualmente un token en el campo.
+
+{0}</value>
   </data>
 </root>

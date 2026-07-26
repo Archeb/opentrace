@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -12,6 +11,7 @@ using OpenTrace.Models;
 using OpenTrace.Infrastructure;
 using System.Runtime.InteropServices;
 using System.Linq;
+using System.Threading;
 using Eto.Forms;
 
 namespace OpenTrace.Services
@@ -34,6 +34,14 @@ namespace OpenTrace.Services
             ExitCode = exitCode;
         }
     }
+    class TracerouteResultEventArgs : EventArgs
+    {
+        public TracerouteResult Result { get; }
+        public TracerouteResultEventArgs(TracerouteResult result)
+        {
+            Result = result;
+        }
+    }
     enum AppStatus
     {
         Init,
@@ -42,14 +50,41 @@ namespace OpenTrace.Services
     }
     internal class NextTraceWrapper
     {
+        internal static readonly Version NativeMtrMinimumVersion = new Version(1, 5, 2);
+        internal static readonly Version ApiV4MinimumVersion = new Version(1, 7, 0);
+
+        private static readonly Regex RawRowPattern = new Regex(
+            @"^\d{1,2}\|",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        private static readonly Regex AnsiEscapePattern = new Regex(
+            @"(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        private static readonly Regex PrivateAddressPattern = new Regex(
+            @"^((127\.)|(192\.168\.)|(10\.)|(172\.1[6-9]\.)|(172\.2[0-9]\.)|(172\.3[0-1]\.)|(::1$)|([fF][cCdD]))",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        private static readonly Regex SharedAddressPattern = new Regex(
+            @"^((100\.6[4-9]\.)|(100\.[7-9][0-9]\.)|(100\.1[0-1][0-9]\.)|(100\.12[0-7]\.))",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        private static readonly Regex LinkLocalAddressPattern = new Regex(
+            @"^169\.254\.",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant);
+        private static readonly Regex LoopbackAddressPattern = new Regex(
+            @"^127\.",
+            RegexOptions.Compiled | RegexOptions.CultureInvariant);
+
         private Process _process;
+        private readonly object processLock = new object();
+        private volatile bool stopRequested;
+        private bool appStartRaised;
+        private Version detectedVersion;
+        private bool versionDetectionAttempted;
         public AppStatus Status { get; set; } = AppStatus.Init;
         public event EventHandler AppStart;
         public event EventHandler<AppQuitEventArgs> AppQuit;
         public event EventHandler<ExceptionalOutputEventArgs> ExceptionalOutput;
+        public event EventHandler<TracerouteResultEventArgs> ResultReceived;
         private string nexttracePath;
         private int errorOutputCount = 0;
-        public ObservableCollection<TracerouteResult> Output { get; } = new ObservableCollection<TracerouteResult>();
         private PlatformService platformService = new PlatformService();
 
         public NextTraceWrapper()
@@ -152,18 +187,12 @@ namespace OpenTrace.Services
 
         public void Run(string host, bool MTRMode, params string[] extraArgs)
         {
+            stopRequested = false;
+            appStartRaised = false;
+            errorOutputCount = 0;
             Task.Run(() =>
             {
                 Console.WriteLine($"Using NextTrace: {nexttracePath}");
-                string arguments;
-                if (MTRMode)
-                {
-                    arguments = ArgumentBuilder(host, extraArgs.Concat(new string[] { "--queries 1" }).ToArray(), new string[] { "queries" });
-                }
-                else
-                {
-                    arguments = ArgumentBuilder(host, extraArgs);
-                }
 
 #if NET8_0_OR_GREATER
                 if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows) && 
@@ -191,95 +220,366 @@ namespace OpenTrace.Services
                     }
                 }
 #endif
-                _process = new Process
+                if (stopRequested)
+                {
+                    Status = AppStatus.Quit;
+                    AppQuit?.Invoke(this, new AppQuitEventArgs(0));
+                    return;
+                }
+
+                bool useNativeMtr = MTRMode && SupportsNativeMtr();
+                StartNextTraceProcess(host, MTRMode, extraArgs, useNativeMtr);
+            });
+        }
+
+        private void StartNextTraceProcess(string host, bool mtrMode, string[] extraArgs, bool useNativeMtr)
+        {
+            if (stopRequested)
+            {
+                Status = AppStatus.Quit;
+                AppQuit?.Invoke(this, new AppQuitEventArgs(0));
+                return;
+            }
+
+            string arguments;
+            if (mtrMode && useNativeMtr)
+            {
+                // Native MTR raw mode emits the same 12-column stream consumed by
+                // ProcessLine. Ignore the configured query count so the stream
+                // remains continuous until the user stops it.
+                arguments = ArgumentBuilder(
+                    host,
+                    extraArgs.Concat(new string[] { "--mtr" }).ToArray(),
+                    new string[] { "queries" });
+            }
+            else if (mtrMode)
+            {
+                // Compatibility path used by pre-v1.5.2 and by binaries whose
+                // native MTR flavor cannot start.
+                arguments = ArgumentBuilder(
+                    host,
+                    extraArgs.Concat(new string[] { "--queries 1" }).ToArray(),
+                    new string[] { "queries" });
+            }
+            else
+            {
+                arguments = ArgumentBuilder(host, extraArgs);
+            }
+
+            var process = new Process
+            {
+                StartInfo = new ProcessStartInfo
+                {
+                    FileName = nexttracePath,
+                    Arguments = arguments,
+                    UseShellExecute = false,
+                    StandardOutputEncoding = Encoding.GetEncoding(65001),
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true
+                }
+            };
+
+            AddEnvironmentVariable(process, "NEXTTRACE_IPINSIGHT_TOKEN", UserSettings.IPInsightToken);
+            AddEnvironmentVariable(process, "NEXTTRACE_IPINFO_TOKEN", UserSettings.IPInfoToken);
+            AddEnvironmentVariable(process, "NEXTTRACE_CHUNZHENURL", UserSettings.ChunZhenEndpoint);
+            AddEnvironmentVariable(process, "NEXTTRACE_HOSTPORT", UserSettings.NextTrace_HOSTPORT);
+            AddEnvironmentVariable(process, "NEXTTRACE_PROXY", UserSettings.NextTraceProxy);
+            AddEnvironmentVariable(process, "NEXTTRACE_POWPROVIDER", UserSettings.POWProvider);
+            AddEnvironmentVariable(process, "NEXTTRACE_IPAPI_BASE", UserSettings.IPAPI_Base);
+            if (SupportsApiV4())
+                AddEnvironmentVariable(process, "NEXTTRACE_API_V4_TOKEN", UserSettings.NextTraceAPIV4Token);
+
+            if (mtrMode && !useNativeMtr)
+                process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_UNINTERRUPTED", "1");
+
+            int nativeOutputSeen = 0;
+            int nativeDestinationHop = 0;
+            int fallbackStarted = 0;
+            process.OutputDataReceived += (sender, e) =>
+            {
+                if (e.Data == null) return;
+
+                // 去除输出中的控制字符
+                string line = AnsiEscapePattern.Replace(e.Data, "");
+
+                Match match1 = RawRowPattern.Match(line);
+                if (match1.Success)
+                {
+                    TracerouteResult result = ProcessLine(line, host);
+                    if (result == null)
+                    {
+                        if (useNativeMtr &&
+                            Interlocked.CompareExchange(ref nativeOutputSeen, 0, 0) == 0)
+                        {
+                            try
+                            {
+                                process.Kill();
+                            }
+                            catch
+                            {
+                            }
+                        }
+                        else
+                        {
+                            HandleExceptionalOutput(false, line);
+                        }
+                        return;
+                    }
+
+                    if (useNativeMtr)
+                        Interlocked.Exchange(ref nativeOutputSeen, 1);
+
+                    int hopNumber;
+                    if (useNativeMtr && int.TryParse(result.No, out hopNumber))
+                    {
+                        int finalHop = Interlocked.CompareExchange(ref nativeDestinationHop, 0, 0);
+                        if (finalHop > 0 && hopNumber > finalHop)
+                            return;
+
+                        if (result.IsDestination &&
+                            (finalHop == 0 || hopNumber < finalHop))
+                        {
+                            Interlocked.Exchange(ref nativeDestinationHop, hopNumber);
+                        }
+                    }
+
+                    // Results form a stream in MTR mode. Raising an event avoids
+                    // retaining every raw row for the lifetime of the process.
+                    ResultReceived?.Invoke(this, new TracerouteResultEventArgs(result));
+                    return;
+                }
+
+                if (line.StartsWith("NextTrace ")) return;
+                if (line.IndexOf("hops max") > -1) return;
+                if (line.StartsWith("IP Geo Data Provider")) return;
+                if (line.StartsWith("[NextTrace API]")) return;
+
+                // Do not expose errors from a failed native-MTR probe. If it exits
+                // before producing a raw row, the Exited handler silently starts
+                // the compatibility implementation instead.
+                if (!useNativeMtr || Interlocked.CompareExchange(ref nativeOutputSeen, 0, 0) != 0)
+                    HandleExceptionalOutput(false, line);
+            };
+            process.ErrorDataReceived += (sender, e) =>
+            {
+                if (e.Data == null) return;
+                if (!useNativeMtr || Interlocked.CompareExchange(ref nativeOutputSeen, 0, 0) != 0)
+                    HandleExceptionalOutput(true, e.Data);
+            };
+            process.Exited += (sender, e) =>
+            {
+                try
+                {
+                    // Ensure all asynchronous stdout/stderr callbacks have
+                    // completed before AppQuit stops the UI batching timer.
+                    process.WaitForExit();
+                }
+                catch
+                {
+                }
+
+                int exitCode;
+                try
+                {
+                    exitCode = process.ExitCode;
+                }
+                catch
+                {
+                    exitCode = -1;
+                }
+
+                if (useNativeMtr &&
+                    !stopRequested &&
+                    Interlocked.CompareExchange(ref nativeOutputSeen, 0, 0) == 0)
+                {
+                    Debug.Print("Native NextTrace MTR unavailable; using compatibility mode.");
+                    errorOutputCount = 0;
+                    process.Dispose();
+                    if (Interlocked.Exchange(ref fallbackStarted, 1) == 0)
+                        StartNextTraceProcess(host, mtrMode, extraArgs, false);
+                    return;
+                }
+
+                Debug.Print("Exited");
+                Status = AppStatus.Quit;
+                AppQuit?.Invoke(this, new AppQuitEventArgs(exitCode));
+                process.Dispose();
+            };
+
+            process.EnableRaisingEvents = true;
+            lock (processLock)
+            {
+                _process = process;
+            }
+
+            if (stopRequested)
+            {
+                process.Dispose();
+                Status = AppStatus.Quit;
+                AppQuit?.Invoke(this, new AppQuitEventArgs(0));
+                return;
+            }
+
+            try
+            {
+                process.Start();
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
+                Status = AppStatus.Start;
+                if (!appStartRaised)
+                {
+                    appStartRaised = true;
+                    AppStart?.Invoke(this, EventArgs.Empty);
+                }
+            }
+            catch (Exception exception)
+            {
+                process.Dispose();
+                if (useNativeMtr && !stopRequested)
+                {
+                    Debug.Print("Native NextTrace MTR failed to start; using compatibility mode.");
+                    if (Interlocked.Exchange(ref fallbackStarted, 1) == 0)
+                        StartNextTraceProcess(host, mtrMode, extraArgs, false);
+                    return;
+                }
+
+                Status = AppStatus.Quit;
+                ExceptionalOutput?.Invoke(this, new ExceptionalOutputEventArgs(true, exception.Message));
+                AppQuit?.Invoke(this, new AppQuitEventArgs(-1));
+            }
+        }
+
+        private static void AddEnvironmentVariable(Process process, string name, string value)
+        {
+            if (!string.IsNullOrWhiteSpace(value))
+                process.StartInfo.EnvironmentVariables[name] = value;
+        }
+
+        private void HandleExceptionalOutput(bool isErrorOutput, string output)
+        {
+            ExceptionalOutput?.Invoke(this, new ExceptionalOutputEventArgs(isErrorOutput, output));
+            if (errorOutputCount < 100)
+            {
+                errorOutputCount++;
+            }
+            else
+            {
+                Kill();
+            }
+        }
+
+        private bool SupportsNativeMtr()
+        {
+            Version version = DetectNextTraceVersion();
+            return version != null && version.CompareTo(NativeMtrMinimumVersion) >= 0;
+        }
+
+        private bool SupportsApiV4()
+        {
+            if (string.IsNullOrWhiteSpace(UserSettings.NextTraceAPIV4Token))
+                return false;
+
+            DateTimeOffset expiresAt;
+            if (!string.IsNullOrWhiteSpace(UserSettings.NextTraceAPIV4TokenExpiresAt) &&
+                DateTimeOffset.TryParse(UserSettings.NextTraceAPIV4TokenExpiresAt, out expiresAt) &&
+                expiresAt <= DateTimeOffset.UtcNow)
+            {
+                // Let NextTrace fall back to its v3 provider instead of repeatedly
+                // sending a known-expired v4 credential.
+                return false;
+            }
+
+            Version version = DetectNextTraceVersion();
+            return version != null && version.CompareTo(ApiV4MinimumVersion) >= 0;
+        }
+
+        private Version DetectNextTraceVersion()
+        {
+            if (versionDetectionAttempted)
+                return detectedVersion;
+
+            versionDetectionAttempted = true;
+            var output = new StringBuilder();
+            var outputLock = new object();
+            try
+            {
+                using (var versionProcess = new Process
                 {
                     StartInfo = new ProcessStartInfo
                     {
                         FileName = nexttracePath,
-                        Arguments = arguments,
+                        Arguments = "--version",
                         UseShellExecute = false,
-                        StandardOutputEncoding = Encoding.GetEncoding(65001),
                         RedirectStandardOutput = true,
                         RedirectStandardError = true,
-                        CreateNoWindow = true
+                        CreateNoWindow = true,
+                        StandardOutputEncoding = Encoding.GetEncoding(65001)
                     }
-                };
-
-                if (UserSettings.IPInsightToken != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_IPINSIGHT_TOKEN", UserSettings.IPInsightToken);
-                if (UserSettings.IPInfoToken != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_IPINFO_TOKEN", UserSettings.IPInfoToken);
-                if (UserSettings.ChunZhenEndpoint != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_CHUNZHENURL", UserSettings.ChunZhenEndpoint);
-                if (UserSettings.LeoMoeAPI_HOSTPORT != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_HOSTPORT", UserSettings.LeoMoeAPI_HOSTPORT);
-                if (UserSettings.NextTraceProxy != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_PROXY", UserSettings.NextTraceProxy);
-                if (UserSettings.POWProvider != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_POWPROVIDER", UserSettings.POWProvider);
-                if (UserSettings.IPAPI_Base != "") _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_IPAPI_BASE", UserSettings.IPAPI_Base);
-
-                if (MTRMode) // 添加环境变量让NextTrace进入持续追踪模式
-                    _process.StartInfo.EnvironmentVariables.Add("NEXTTRACE_UNINTERRUPTED", "1");
-
-                Regex match1stLine = new Regex(@"^\d{1,2}\|");
-                _process.OutputDataReceived += (sender, e) =>
+                })
                 {
-                    if (e.Data != null)
+                    versionProcess.OutputDataReceived += (sender, e) =>
                     {
-                        // Debug.Print(e.Data);
-                        // 去除输出中的控制字符
-                        Regex formatCleanup = new Regex(@"(\x9B|\x1B\[)[0-?]*[ -\/]*[@-~]");
-                        string line = formatCleanup.Replace(e.Data, "");
-
-                        Match match1 = match1stLine.Match(line);
-                        if (match1.Success)
+                        if (e.Data != null)
                         {
-                            Output.Add(ProcessLine(line));
+                            lock (outputLock)
+                                output.AppendLine(e.Data);
                         }
-                        else
-                        {
-                            if (line.StartsWith("NextTrace ")) return;
-                            if (line.IndexOf("hops max") > -1) return;
-                            if (line.StartsWith("IP Geo Data Provider")) return;
-                            if (line.StartsWith("[NextTrace API]")) return;
-                            ExceptionalOutput?.Invoke(this, new ExceptionalOutputEventArgs(false, line));
-                            if (errorOutputCount < 100)
-                            {
-                                errorOutputCount++;
-                            }
-                            else
-                            {
-                                Kill(); // 错误输出过多，强制结束
-                            }
-                        }
-                    }
-                };
-                _process.ErrorDataReceived += (sender, e) =>
-                {
-                    if (e.Data != null)
+                    };
+                    versionProcess.ErrorDataReceived += (sender, e) =>
                     {
-                        //Debug.Print(e.Data);
-                        ExceptionalOutput?.Invoke(this, new ExceptionalOutputEventArgs(true, e.Data));
-                        if (errorOutputCount < 100)
+                        if (e.Data != null)
                         {
-                            errorOutputCount++;
+                            lock (outputLock)
+                                output.AppendLine(e.Data);
                         }
-                        else
-                        {
-                            Kill(); // 错误输出过多，强制结束
-                        }
+                    };
+                    versionProcess.Start();
+                    versionProcess.BeginOutputReadLine();
+                    versionProcess.BeginErrorReadLine();
+                    if (!versionProcess.WaitForExit(3000))
+                    {
+                        versionProcess.Kill();
+                        return null;
                     }
-                };
-                _process.Exited += (sender, e) =>
-                {
-                    Debug.Print("Exited");
-                    Status = AppStatus.Quit;
-                    AppQuit?.Invoke(this, new AppQuitEventArgs(_process.ExitCode));
-                };
-                _process.EnableRaisingEvents = true;
-                _process.Start();
-                _process.BeginOutputReadLine();
-                _process.BeginErrorReadLine();
-                Status = AppStatus.Start;
-                AppStart?.Invoke(this, null);
-            });
+                    versionProcess.WaitForExit();
+                }
+            }
+            catch (Exception exception)
+            {
+                Debug.Print("Unable to detect NextTrace version: " + exception.Message);
+                return null;
+            }
+
+            string versionOutput;
+            lock (outputLock)
+                versionOutput = output.ToString();
+            detectedVersion = ParseNextTraceVersion(versionOutput);
+            return detectedVersion;
         }
-        private TracerouteResult ProcessLine(string line)
+
+        internal static Version ParseNextTraceVersion(string output)
+        {
+            if (string.IsNullOrWhiteSpace(output))
+                return null;
+
+            Match match = Regex.Match(
+                output,
+                @"(?<!\d)v?(\d+)\.(\d+)\.(\d+)(?:[-+][0-9A-Za-z.-]+)?",
+                RegexOptions.IgnoreCase);
+            if (!match.Success)
+                return null;
+
+            Version version;
+            return Version.TryParse(
+                match.Groups[1].Value + "." +
+                match.Groups[2].Value + "." +
+                match.Groups[3].Value,
+                out version)
+                ? version
+                : null;
+        }
+        private TracerouteResult ProcessLine(string line, string destination)
         {
             string No = "";
             string IP = "*";
@@ -290,41 +590,50 @@ namespace OpenTrace.Services
             string Organization = "";
             string Latitude = "";
             string Longitude = "";
+            bool IsDestination = false;
             string[] LineData = line.Split('|');
-            if (LineData.Length > 7)
+            if (LineData.Length < 2)
+                return null;
+
+            No = LineData[0];
+            if (LineData[1] == "*")
             {
-                No = LineData[0];
-                if (LineData[1] == "*")
-                {
-                    Time = "*";
-                }
-                else
-                {
-                    IP = LineData[1];
-                    Time = LineData[3];
-                    Geolocation = LineData[5] + " " + LineData[6] + " " + LineData[7] + " " + LineData[8];
-                    AS = LineData[4];
-                    Hostname = LineData[2];
-                    Organization = LineData[9];
-                    Latitude = LineData[10];
-                    Longitude = LineData[11];
-                }
+                // NextTrace intentionally emits compact timeout rows such as
+                // "2|*||||||" (8 fields). They are valid raw output even though
+                // successful rows carry the full 12 fields.
+                if (LineData.Length < 8)
+                    return null;
+                Time = "*";
+            }
+            else
+            {
+                if (LineData.Length < 12)
+                    return null;
+                IP = LineData[1];
+                Time = LineData[3];
+                Geolocation = LineData[5] + " " + LineData[6] + " " + LineData[7] + " " + LineData[8];
+                AS = LineData[4];
+                Hostname = LineData[2];
+                Organization = LineData[9];
+                Latitude = LineData[10];
+                Longitude = LineData[11];
+                IsDestination = string.Equals(IP, destination, StringComparison.OrdinalIgnoreCase);
             }
 
             // 匹配特定网络地址
-            if (new Regex(@"^((127\.)|(192\.168\.)|(10\.)|(172\.1[6-9]\.)|(172\.2[0-9]\.)|(172\.3[0-1]\.)|(::1$)|([fF][cCdD]))").IsMatch(IP))
+            if (PrivateAddressPattern.IsMatch(IP))
             {
                 Geolocation = Resources.PRIVATE_ADDR;
             }
-            if (new Regex(@"^((100\.6[4-9]\.)|(100\.[7-9][0-9]\.)|(100\.1[0-1][0-9]\.)|(100\.12[0-7]\.))").IsMatch(IP))
+            if (SharedAddressPattern.IsMatch(IP))
             {
                 Geolocation = Resources.SHARED_ADDR;
             }
-            if (new Regex(@"^169\.254\.").IsMatch(IP))
+            if (LinkLocalAddressPattern.IsMatch(IP))
             {
                 Geolocation = Resources.LINKLOCAL_ADDR;
             }
-            if (new Regex(@"^127\.").IsMatch(IP))
+            if (LoopbackAddressPattern.IsMatch(IP))
             {
                 Geolocation = Resources.LOOPBACK_ADDR;
             }
@@ -377,7 +686,7 @@ namespace OpenTrace.Services
             }
 
 
-            return new TracerouteResult(No, IP, Time, Geolocation, AS, Hostname, Organization, Latitude, Longitude);
+            return new TracerouteResult(No, IP, Time, Geolocation, AS, Hostname, Organization, Latitude, Longitude, IsDestination);
         }
         private string ArgumentBuilder(string host, string[] extraArgs, string[] ignoreUserArgs = null)
         {
@@ -406,10 +715,14 @@ namespace OpenTrace.Services
         }
         public void Kill()
         {
+            stopRequested = true;
             try
             {
-                if (_process != null && !_process.HasExited)
-                    _process.Kill();
+                lock (processLock)
+                {
+                    if (_process != null && !_process.HasExited)
+                        _process.Kill();
+                }
             }
             catch (Exception ex)
             {

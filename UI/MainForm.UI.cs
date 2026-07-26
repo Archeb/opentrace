@@ -342,7 +342,7 @@ namespace OpenTrace.UI
             dataProviderSelection = new DropDown
             {
                 Items = {
-                    new ListItem{Text = "LeoMoeAPI", Key= ""},
+                    new ListItem{Text = "NextTrace", Key= ""},
                     new ListItem{Text = "IPInfo", Key = "--data-provider IPInfo" },
                     new ListItem{Text = "IP.SB ", Key = "--data-provider IP.SB" },
                     new ListItem{Text = "IP-API.com", Key = "--data-provider IPAPI.com" },
