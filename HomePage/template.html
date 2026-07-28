@@ -375,6 +375,12 @@
                             <script xmlns="" id="webrtc-control-b" />
                         </svg>
                     </a>
+                    <a href="{{microsoft_store_url}}"
+                        id="hero-microsoft-store-btn" class="group flex items-center gap-2 px-4 text-white rounded-full font-semibold transition-all border border-gray-200 dark:border-gray-700 active:scale-95"
+                        style="display:none; background-color: #202020;" aria-label="{{microsoft_store_badge_alt}}">
+                        <img src="{{microsoft_store_badge_url}}" alt="{{microsoft_store_badge_alt}}"
+                            class="h-[45px] w-auto">
+                    </a>
                     <a href="#downloads" id="hero-download-btn"
                         class="group flex items-center gap-2 px-8 py-3.5 bg-accent hover:bg-accent-hover dark:bg-accent-dark dark:hover:bg-blue-500 text-white rounded-full font-semibold transition-all shadow-lg shadow-blue-500/30 active:scale-95">
                         <i class="fas fa-download"></i>
@@ -672,7 +678,9 @@
             const { os, arch } = platformInfo;
             const heroBtnText = document.getElementById('hero-dl-text');
             const flathubBtn = document.getElementById('hero-flathub-btn');
+            const microsoftStoreBtn = document.getElementById('hero-microsoft-store-btn');
             if (flathubBtn) flathubBtn.style.display = os === 'Linux' ? 'flex' : 'none';
+            if (microsoftStoreBtn) microsoftStoreBtn.style.display = os === 'Windows' ? 'flex' : 'none';
             if (['Windows', 'macOS', 'Linux'].includes(os)) {
                 heroBtnText.textContent = currentLang === 'zh'
                     ? `${translations.hero_dl_prefix} ${os} (${arch}) ${translations.hero_dl_suffix}`

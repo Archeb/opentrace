@@ -2,6 +2,9 @@
     "en": {
         "lang": "en",
         "locale": "en-US",
+        "microsoft_store_url": "https://apps.microsoft.com/detail/9n894bglcqtr?referrer=appbadge&amp;source=opentrace.app&amp;hl=en-US",
+        "microsoft_store_badge_url": "https://get.microsoft.com/images/en-us%20dark.svg",
+        "microsoft_store_badge_alt": "Get it from Microsoft",
         "page_title": "OpenTrace - The Cross-platform Route Tracing Tool",
         "meta_description": "OpenTrace is a free, open source, cross-platform GUI for route tracing. Download for Windows, macOS, and Linux. Visualize your network path with MTR support.",
         "meta_keywords": "OpenTrace, traceroute, route tracing, MTR, network diagnostics, cross-platform, open source, opentrace homepage, opentrace download",
@@ -51,6 +54,9 @@
     "zh": {
         "lang": "zh",
         "locale": "zh-CN",
+        "microsoft_store_url": "https://apps.microsoft.com/detail/9n894bglcqtr?referrer=appbadge&amp;source=opentrace.app&amp;hl=zh-CN",
+        "microsoft_store_badge_url": "https://get.microsoft.com/images/zh-cn%20dark.svg",
+        "microsoft_store_badge_alt": "\u4ece Microsoft \u83b7\u53d6",
         "page_title": "OpenTrace - 跨平台路由追踪工具",
         "meta_description": "OpenTrace 是一款免费、开源的跨平台可视化路由追踪工具 GUI。支持 Windows、macOS 和 Linux。内置 MTR 功能，轻松分析路由路径。",
         "meta_keywords": "OpenTrace, 路由追踪, traceroute, MTR, 网络诊断, 跨平台, 开源, opentrace官网, opentrace下载",
