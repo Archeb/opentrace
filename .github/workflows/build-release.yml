@@ -3,17 +3,32 @@ name: Build for Release (Windows & Linux)
 on:
   release:
     types: [published]
+  workflow_call:
+    inputs:
+      release_tag:
+        description: 'Existing draft release tag to upload assets to'
+        required: true
+        type: string
+      release_id:
+        description: 'Existing draft release ID'
+        required: true
+        type: string
+      build_version:
+        description: 'Optional numeric version override for the binaries'
+        required: false
+        default: ''
+        type: string
+      nexttrace_version:
+        description: 'Nexttrace version (leave empty to use latest)'
+        required: false
+        default: ''
+        type: string
   workflow_dispatch:
     inputs:
       nexttrace_version:
         description: 'Nexttrace version (e.g., v0.3.3, leave empty to use latest)'
         required: false
         default: ''
-      use_latest:
-        description: 'Use latest nexttrace version'
-        required: false
-        type: boolean
-        default: true
 
 jobs:
   build:
@@ -33,6 +48,7 @@ jobs:
             nt_fn: nexttrace.exe
             archive_command: "zip -r"
             archive_extension: zip
+            pack_target: "."
           - runtime: win-arm64
             artifact_path: ./bin/Wpf/Release/net481/win-arm64
             self_contained: "--no-self-contained"
@@ -41,6 +57,7 @@ jobs:
             nt_fn: nexttrace.exe
             archive_command: "zip -r"
             archive_extension: zip
+            pack_target: "."
           - runtime: linux-x64
             artifact_path: ./bin/Gtk/Release/net8.0/linux-x64
             self_contained: "--self-contained"
@@ -49,6 +66,7 @@ jobs:
             nt_fn: nexttrace
             archive_command: "tar -cvzf"
             archive_extension: tar.gz
+            pack_target: "."
           - runtime: linux-arm64
             artifact_path: ./bin/Gtk/Release/net8.0/linux-arm64
             self_contained: "--self-contained"
@@ -57,6 +75,7 @@ jobs:
             nt_fn: nexttrace
             archive_command: "tar -cvzf"
             archive_extension: tar.gz
+            pack_target: "."
 
     env:
         NUGET_PACKAGES: ${{ github.workspace }}/.nuget/packages
@@ -77,15 +96,30 @@ jobs:
           dotnet restore OpenTrace.csproj
 
     - name: Build
-      run: dotnet build OpenTrace.csproj --runtime ${{ matrix.runtime }} --configuration Release ${{ matrix.self_contained }} -f ${{ matrix.framework }}
-
-    - name: Fetch Nexttrace Version
+      env:
+        OPENTRACE_BUILD_VERSION: ${{ inputs.build_version }}
       run: |
-        if [ -n "${{ github.event.inputs.nexttrace_version }}" ]; then
-          echo "ntver=${{ github.event.inputs.nexttrace_version }}" >> $GITHUB_ENV
+        version_args=()
+        if [ -n "$OPENTRACE_BUILD_VERSION" ]; then
+          version_args+=("-p:Version=$OPENTRACE_BUILD_VERSION")
+        fi
+        dotnet build OpenTrace.csproj \
+          --runtime ${{ matrix.runtime }} \
+          --configuration Release \
+          ${{ matrix.self_contained }} \
+          -f ${{ matrix.framework }} \
+          "${version_args[@]}"
+
+    - name: Resolve Nexttrace Version
+      env:
+        NEXTTRACE_VERSION_INPUT: ${{ inputs.nexttrace_version }}
+        RELEASE_BODY: ${{ github.event.release.body }}
+      run: |
+        if [ -n "$NEXTTRACE_VERSION_INPUT" ]; then
+          echo "ntver=$NEXTTRACE_VERSION_INPUT" >> "$GITHUB_ENV"
         else
-          release="${{ github.event.release.body }} "
-          echo "ntver=$(echo $release | grep -E -o nexttrace_version:.\*? | cut -d':' -f2)" >> $GITHUB_ENV
+          ntver=$(printf '%s\n' "$RELEASE_BODY" | sed -n 's/.*nexttrace_version:[[:space:]]*\([^[:space:]]*\).*/\1/p' | head -n 1)
+          echo "ntver=$ntver" >> "$GITHUB_ENV"
         fi
     
     - name: Download Nexttrace
@@ -93,7 +127,7 @@ jobs:
       with: 
         repository: nxtrace/NTrace-V1
         fileName: ${{ matrix.nt_file }}
-        latest: ${{ (github.event.inputs.use_latest == 'true' || (env.ntver == '' && github.event.inputs.nexttrace_version == '')) && true || false }}
+        latest: ${{ env.ntver == '' }}
         tag: ${{ env.ntver }}
         token: ${{ secrets.GITHUB_TOKEN }}
         out-file-path: ${{ matrix.artifact_path }}
@@ -109,19 +143,21 @@ jobs:
         cd ${{ matrix.artifact_path }}
         mv ./nexttrace_* ./${{ matrix.nt_fn }}
         chmod +x ./${{ matrix.nt_fn }}
-        ${{ matrix.archive_command }} ${{ github.workspace }}/${{ matrix.runtime }}.${{ matrix.archive_extension }} ${{ matrix.pack_target == '' && '.' || matrix.pack_target }}
+        ${{ matrix.archive_command }} ${{ github.workspace }}/${{ matrix.runtime }}.${{ matrix.archive_extension }} ${{ matrix.pack_target }}
 
-    - name: Upload to Release (when triggered by release event)
-      if: github.event_name == 'release'
+    - name: Upload to Release
+      if: github.event_name == 'release' || inputs.release_id != ''
       uses: svenstaro/upload-release-action@v2
       with:
         repo_token: ${{ secrets.GITHUB_TOKEN }}
         file: ${{ matrix.runtime }}.${{ matrix.archive_extension }}
         asset_name: ${{ matrix.runtime }}.${{ matrix.archive_extension }}
-        tag: ${{ github.ref }}
+        tag: ${{ inputs.release_tag || github.event.release.tag_name }}
+        release_id: ${{ inputs.release_id }}
+        overwrite: true
     
     - name: Upload Artifact (when manually triggered)
-      if: github.event_name == 'workflow_dispatch'
+      if: github.event_name == 'workflow_dispatch' && inputs.release_id == ''
       uses: actions/upload-artifact@v4
       with:
         name: ${{ matrix.runtime }}

@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.InteropServices;
 using Eto.Forms;
 using OpenTrace.Infrastructure;
@@ -79,12 +80,20 @@ namespace OpenTrace.Services
         /// <returns>是否支持</returns>
         public bool IsProtocolSupported(string protocol)
         {
-            // Windows 不支持 TCP/UDP 协议（除非安装 Npcap）
-            if (protocol != "ICMP" && RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            if (protocol == "ICMP" || !RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                return true;
+            }
+
+            // WinDivert is an independent dependency used by NextTrace for
+            // Windows TCP/UDP probes. The bundled runtime is x64-only, so the
+            // ARM64 Store package exposes ICMP mode only.
+            if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
             {
                 return false;
             }
-            return true;
+
+            return IsNpcapInstalled() && IsWinDivertInstalled();
         }
 
         /// <summary>
@@ -131,6 +140,23 @@ namespace OpenTrace.Services
             try
             {
                 using (var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Npcap"))
+                {
+                    if (key != null)
+                    {
+                        return true;
+                    }
+                }
+            }
+            catch
+            {
+                // 忽略注册表访问错误
+            }
+
+            // Some installations are discoverable only through the service key.
+            try
+            {
+                using (var key = Microsoft.Win32.Registry.LocalMachine.OpenSubKey(
+                    @"SYSTEM\CurrentControlSet\Services\npcap"))
                 {
                     if (key != null)
                     {
@@ -193,45 +219,137 @@ namespace OpenTrace.Services
         /// <summary>
         /// 以管理员身份重新启动应用程序
         /// </summary>
-        /// <returns>是否成功启动</returns>
-        public bool RestartAsAdministrator()
+        /// <param name="arguments">启动参数</param>
+        /// <param name="onFailed">提权失败时的回调（用于 macOS/Linux 异步场景）</param>
+        public void RestartAsAdministrator(string arguments = "", Action onFailed = null)
         {
-            if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            // 获取当前进程的可执行文件路径
+            string exePath = Process.GetCurrentProcess().MainModule?.FileName;
+            
+            if (string.IsNullOrEmpty(exePath))
             {
-                return false;
+                onFailed?.Invoke();
+                return;
             }
 
-            try
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                // 获取当前进程的可执行文件路径
-                string exePath = Process.GetCurrentProcess().MainModule?.FileName;
-                
-                if (string.IsNullOrEmpty(exePath))
-                {
-                    return false;
-                }
 
-                var startInfo = new ProcessStartInfo
+                try
                 {
-                    FileName = exePath,
-                    UseShellExecute = true,
-                    Verb = "runas"
+                    var startInfo = new ProcessStartInfo
+                    {
+                        FileName = exePath,
+                        UseShellExecute = true,
+                        Arguments = arguments,
+                        Verb = "runas"
+                    };
+
+                    Process.Start(startInfo);
+                    
+                    // 关闭当前应用程序
+                    Application.Instance.Quit();
+                }
+                catch (Win32Exception)
+                {
+                    // 用户取消了 UAC 提示
+                    onFailed?.Invoke();
+                }
+                catch (Exception)
+                {
+                    onFailed?.Invoke();
+                }
+#if NET8_0_OR_GREATER
+            } else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                string shellCommand = $"'{exePath}' {arguments} > /dev/null 2>&1 &";
+
+                string escapedShellCommand = shellCommand
+                    .Replace("\\", "\\\\")
+                    .Replace("\"", "\\\""); 
+
+                string finalScript = $"do shell script \"{escapedShellCommand}\" with administrator privileges with prompt \"{Resources.TCP_UDP_RUN_AS_ADMIN}\"";
+
+                var elvp = new Process
+                {
+                    StartInfo = new ProcessStartInfo
+                    {
+                        FileName = "/usr/bin/osascript",
+                        ArgumentList = { "-e", finalScript },
+                        UseShellExecute = false,
+                        RedirectStandardOutput = false,
+                        RedirectStandardError = false,
+                        CreateNoWindow = true
+                    },
+                    EnableRaisingEvents = true 
                 };
 
-                Process.Start(startInfo);
-                
-                // 关闭当前应用程序
-                Application.Instance.Quit();
-                return true;
-            }
-            catch (Win32Exception)
+                elvp.Exited += (sender, e) =>
+                {
+                    Application.Instance.AsyncInvoke(() =>
+                    {
+                        if (elvp.ExitCode == 0)
+                        {
+                            Application.Instance.Quit();
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Failed to run as administrator: ExitCode: {elvp.ExitCode}");
+                            onFailed?.Invoke();
+                        }
+                        
+                        elvp.Dispose();
+                    });
+                };
+
+                try
+                {
+                    elvp.Start();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Failed to run as administrator: {ex.Message}");
+                    onFailed?.Invoke();
+                }
+            } else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
             {
-                // 用户取消了 UAC 提示
-                return false;
-            }
-            catch (Exception)
-            {
-                return false;
+                // 使用 pkexec 请求管理员权限
+                try
+                {
+                    var startInfo = new ProcessStartInfo
+                    {
+                        FileName = "pkexec",
+                        ArgumentList = { exePath, arguments },
+                        UseShellExecute = false
+                    };
+
+                    var process = new Process { StartInfo = startInfo, EnableRaisingEvents = true };
+                    
+                    process.Exited += (sender, e) =>
+                    {
+                        if (process.ExitCode == 0)
+                        {
+                            Application.Instance.Invoke(() =>
+                            {
+                                Application.Instance.Quit();
+                            });
+                        }
+                        else
+                        {
+                            Application.Instance.Invoke(() =>
+                            {
+                                onFailed?.Invoke();
+                            });
+                        }
+                    };
+
+                    process.Start();
+                }
+                catch
+                {
+                    onFailed?.Invoke();
+                }
+#endif
             }
         }
 

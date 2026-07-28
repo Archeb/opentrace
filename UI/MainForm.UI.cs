@@ -6,6 +6,7 @@ using Resources = OpenTrace.Properties.Resources;
 using OpenTrace.Services;
 using OpenTrace.Infrastructure;
 using OpenTrace.UI.Dialogs;
+using System.Runtime.InteropServices;
 
 namespace OpenTrace.UI
 {
@@ -82,58 +83,9 @@ namespace OpenTrace.UI
 
                 System.Globalization.CultureInfo.CurrentUICulture = new System.Globalization.CultureInfo(culture);
 
-#if NET8_0_OR_GREATER
-                // macOS: 更新应用程序语言偏好，下次启动时系统菜单将使用正确的语言
-                if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX))
-                {
-                    SetMacOSAppLanguage(culture);
-                }
-#endif
-
                 BuildUI();
             }
         }
-
-#if NET8_0_OR_GREATER
-        /// <summary>
-        /// 在 macOS 上设置应用程序语言偏好
-        /// </summary>
-        private void SetMacOSAppLanguage(string language)
-        {
-            try
-            {
-                // 将 .NET 语言代码转换为 macOS 语言代码
-                string macLanguage = language switch
-                {
-                    "zh-CN" => "zh-Hans",
-                    "zh-TW" => "zh-Hant",
-                    "zh-HK" => "zh-Hant-HK",
-                    _ => language
-                };
-
-                // 使用 defaults write 设置应用特定的语言偏好
-                var bundleId = "org.opentrace.OpenTrace";
-                var process = new System.Diagnostics.Process
-                {
-                    StartInfo = new System.Diagnostics.ProcessStartInfo
-                    {
-                        FileName = "/usr/bin/defaults",
-                        ArgumentList = { "write", bundleId, "AppleLanguages", "-array", macLanguage },
-                        UseShellExecute = false,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true,
-                        CreateNoWindow = true
-                    }
-                };
-                process.Start();
-                process.WaitForExit(1000);
-            }
-            catch (Exception)
-            {
-                // 忽略设置语言失败的错误
-            }
-        }
-#endif
 
         /// <summary>
         /// 创建菜单栏
@@ -342,15 +294,39 @@ namespace OpenTrace.UI
         {
             protocolSelection = new DropDown
             {
-                Items = {
-                    new ListItem{Text = "ICMP" ,Key= ""},
-                    new ListItem{Text = "TCP",Key = "-T" },
-                    new ListItem{Text = "UDP",Key = "-U" },
-                },
                 SelectedIndex = 0,
                 ToolTip = Resources.PROTOCOL_FOR_TRACEROUTING
             };
-            protocolSelection.SelectedKey = UserSettings.selectedProtocol;
+
+            protocolSelection.Items.Add(new ListItem { Text = "ICMP", Key = "" });
+
+            if (platformService.IsProtocolSupported("TCP"))
+            {
+                protocolSelection.Items.Add(new ListItem { Text = "TCP", Key = "-T" });
+                protocolSelection.Items.Add(new ListItem { Text = "UDP", Key = "-U" });
+                protocolSelection.SelectedKey = UserSettings.selectedProtocol;
+            }
+            else
+            {
+                // Do not leave an unavailable mode selected from a previous run.
+                protocolSelection.SelectedKey = "";
+                UserSettings.selectedProtocol = "";
+
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
+                    {
+                        protocolSelection.ToolTip = Resources.WINDOWS_TCP_UDP_UNAVAILABLE_ARM64;
+                    }
+                    else
+                    {
+                        protocolSelection.ToolTip = !platformService.IsNpcapInstalled()
+                            ? Resources.WINDOWS_TCP_UDP_MISSING_NPCAP
+                            : Resources.WINDOWS_TCP_UDP_MISSING_WINDIVERT;
+                    }
+                }
+            }
+
             protocolSelection.SelectedKeyChanged += (sender, e) =>
             {
                 UserSettings.selectedProtocol = protocolSelection.SelectedKey;
@@ -366,7 +342,7 @@ namespace OpenTrace.UI
             dataProviderSelection = new DropDown
             {
                 Items = {
-                    new ListItem{Text = "LeoMoeAPI", Key= ""},
+                    new ListItem{Text = "NextTrace", Key= ""},
                     new ListItem{Text = "IPInfo", Key = "--data-provider IPInfo" },
                     new ListItem{Text = "IP.SB ", Key = "--data-provider IP.SB" },
                     new ListItem{Text = "IP-API.com", Key = "--data-provider IPAPI.com" },
@@ -468,6 +444,7 @@ namespace OpenTrace.UI
         private void CreateMapWebView()
         {
             mapWebView = new WebView();
+            mapWebView.Url = new Uri("about:blank");
             LoadMapProvider();
             mapWebView.DocumentLoaded += (sender, e) =>
             {
@@ -489,6 +466,7 @@ namespace OpenTrace.UI
                     mapWebView.Url = new Uri("https://geo-devrel-javascript-samples.web.app/samples/map-simple/app/dist/");
                     break;
                 case "openstreetmap":
+                default:
                     // 使用内嵌的 OpenStreetMap HTML 页面
                     mapWebView.LoadHtml(OpenTrace.Properties.Resources.openStreetMapHtml);
                     break;

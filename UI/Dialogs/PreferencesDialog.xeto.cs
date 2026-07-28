@@ -13,6 +13,7 @@ using OpenTrace.Models;
 using OpenTrace.Infrastructure;
 using OpenTrace.UI.Forms;
 using System.Diagnostics;
+using Resources = OpenTrace.Properties.Resources;
 
 namespace OpenTrace.UI.Dialogs
 {
@@ -73,6 +74,7 @@ namespace OpenTrace.UI.Dialogs
         }
         private void SaveButton_Click(object sender, EventArgs e)
         {
+            string previousNextTraceApiV4Token = UserSettings.NextTraceAPIV4Token;
             foreach (var setting in userSettings.GetType().GetProperties())
             {
                 TextBox settingTextBox = this.FindChild<TextBox>(setting.Name);
@@ -96,6 +98,17 @@ namespace OpenTrace.UI.Dialogs
                     setting.SetValue(userSettings, settingTextArea.Text);
                 }
             }
+            UserSettings.NextTraceAPIV4Token =
+                (UserSettings.NextTraceAPIV4Token ?? "").Trim();
+            if (!string.Equals(
+                previousNextTraceApiV4Token,
+                UserSettings.NextTraceAPIV4Token,
+                StringComparison.Ordinal))
+            {
+                // Manually entered tokens do not have expiry metadata from the
+                // issuance page, so do not retain the previous token's expiry.
+                UserSettings.NextTraceAPIV4TokenExpiresAt = "";
+            }
             UserSettings.gridSizePercentage = this.FindChild<NumericStepper>("gridSizePercentage").Value / 100;
             UserSettings.maskedHops = (int)this.FindChild<NumericStepper>("maskedHops").Value;
             UserSettings.SaveSettings();
@@ -116,6 +129,53 @@ namespace OpenTrace.UI.Dialogs
             {
                 TextBox settingTextBox = this.FindChild<TextBox>("localDBPath");
                 settingTextBox.Text = openFileDialog.FileName;
+            }
+        }
+
+        private void HandleNextTraceSelect(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filters.Add(new FileFilter("NextTrace", ".exe"));
+            openFileDialog.Filters.Add(new FileFilter("All Files", ".*"));
+            openFileDialog.CheckFileExists = true;
+            openFileDialog.MultiSelect = false;
+            openFileDialog.Title = "Select NextTrace executable";
+            openFileDialog.ShowDialog(this);
+
+            if (!string.IsNullOrWhiteSpace(openFileDialog.FileName))
+            {
+                TextBox settingTextBox = this.FindChild<TextBox>("executablePath");
+                settingTextBox.Text = openFileDialog.FileName;
+            }
+        }
+
+        private void HandleNextTraceApiV4Token(object sender, EventArgs e)
+        {
+            try
+            {
+                var tokenDialog = new NextTraceApiV4TokenDialog();
+                NextTraceApiV4TokenResult result = tokenDialog.ShowModal(this);
+                if (result == null || string.IsNullOrWhiteSpace(result.Token))
+                    return;
+
+                TextBox tokenTextBox = this.FindChild<TextBox>("NextTraceAPIV4Token");
+                if (tokenTextBox != null)
+                    tokenTextBox.Text = result.Token;
+
+                // Persist immediately so a token acquired through the embedded
+                // verification flow is not lost if Preferences is later closed
+                // with Cancel.
+                UserSettings.NextTraceAPIV4Token = result.Token;
+                UserSettings.NextTraceAPIV4TokenExpiresAt = result.ExpiresAt;
+                UserSettings.SaveSettings();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(
+                    string.Format(Resources.NEXTTRACE_API_V4_ERROR_OPEN_PAGE, exception.Message),
+                    Resources.NEXTTRACE_API_V4_DIALOG_TITLE,
+                    MessageBoxButtons.OK,
+                    MessageBoxType.Warning);
             }
         }
 

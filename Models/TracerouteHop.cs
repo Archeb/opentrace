@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using OpenTrace.Infrastructure;
 
@@ -8,16 +7,72 @@ namespace OpenTrace.Models
 {
     class TracerouteHop
     {
+        internal const int MtrHistoryLimit = 128;
+
+        private readonly string hopNumber;
+        private readonly int historyLimit;
+        private long sentCount;
+        private long receivedCount;
+        private long latencySampleCount;
+        private double latencyMean;
+        private double latencyM2;
+        private double bestLatency = double.MaxValue;
+        private double worstLatency;
+        private double lastLatency;
+
         public TracerouteHop(TracerouteResult hopData)
+            : this(hopData.No)
         {
-            HopData = new ObservableCollection<TracerouteResult>();
-            HopData.Add(hopData);
+            AddResult(hopData);
         }
+
+        public TracerouteHop(string hopNumber, int historyLimit = int.MaxValue)
+        {
+            this.hopNumber = hopNumber;
+            this.historyLimit = Math.Max(1, historyLimit);
+            HopData = new List<TracerouteResult>();
+        }
+
+        public void AddResult(TracerouteResult result)
+        {
+            if (result == null)
+                return;
+
+            sentCount++;
+            lastLatency = 0;
+            if (result.IP != "*")
+            {
+                receivedCount++;
+                double latency;
+                if (double.TryParse(result.Time, out latency))
+                {
+                    lastLatency = latency;
+                    latencySampleCount++;
+                    double delta = latency - latencyMean;
+                    latencyMean += delta / latencySampleCount;
+                    latencyM2 += delta * (latency - latencyMean);
+                    bestLatency = Math.Min(bestLatency, latency);
+                    worstLatency = Math.Max(worstLatency, latency);
+                }
+            }
+
+            if (!string.IsNullOrEmpty(result.Latitude) &&
+                !string.IsNullOrEmpty(result.Longitude))
+            {
+                LatestLocatedResult = result;
+            }
+
+            HopData.Add(result);
+            if (HopData.Count > historyLimit)
+                HopData.RemoveAt(0);
+        }
+
+        public TracerouteResult LatestLocatedResult { get; private set; }
         public string No
         {
             get
             {
-                return HopData[0].No;
+                return hopNumber;
             }
         }
         public string IP
@@ -128,62 +183,33 @@ namespace OpenTrace.Models
         {
             get
             {
-                var validTimes = new List<double>();
-                foreach (var hop in HopData)
-                {
-                    double timeValue;
-                    if (hop.IP != "*" && double.TryParse(hop.Time, out timeValue))
-                    {
-                        validTimes.Add(timeValue);
-                    }
-                }
-
-                if (validTimes.Count < 2)
-                {
-                    return 0;
-                }
-
-                double mean = validTimes.Average();
-                double sumOfSquares = validTimes.Sum(time => Math.Pow(time - mean, 2));
-
-                return Math.Sqrt(sumOfSquares / validTimes.Count);
+                return latencySampleCount < 2
+                    ? 0
+                    : Math.Sqrt(latencyM2 / latencySampleCount);
             }
         }
         public int Loss
         {
             get
             {
-                if (HopData.Count == 0)
-                {
+                if (sentCount == 0)
                     return 0;
-                }
-                int count = 0;
-                foreach (TracerouteResult hop in HopData)
-                {
-                    if (hop.IP == "*")
-                        count++;
-                }
-                return (int)((float)count / HopData.Count * 100);
+
+                return (int)((sentCount - receivedCount) * 100 / sentCount);
             }
         }
-        public int Recv
+        public long Recv
         {
             get
             {
-                int count = 0;
-                foreach (TracerouteResult hop in HopData)
-                {
-                    if (hop.IP != "*")
-                        count++;
-                }
-                return count;
+                return receivedCount;
             }
         }
-        public int Sent
+        public long Sent
         {
             get
             {
-                return HopData.Count;
+                return sentCount;
             }
         }
 
@@ -191,15 +217,7 @@ namespace OpenTrace.Models
         {
             get
             {
-                if (HopData.Count > 0 && HopData[HopData.Count - 1].IP != "*")
-                {
-                    double timeValue;
-                    if (double.TryParse(HopData[HopData.Count - 1].Time, out timeValue))
-                    {
-                        return timeValue;
-                    }
-                }
-                return 0;
+                return lastLatency;
             }
         }
 
@@ -207,19 +225,7 @@ namespace OpenTrace.Models
         {
             get
             {
-                double worst = 0;
-                foreach (TracerouteResult hop in HopData)
-                {
-                    double timeValue;
-                    if (hop.IP != "*" && double.TryParse(hop.Time, out timeValue))
-                    {
-                        if (timeValue > worst)
-                        {
-                            worst = timeValue;
-                        }
-                    }
-                }
-                return worst;
+                return latencySampleCount == 0 ? 0 : worstLatency;
             }
         }
 
@@ -227,21 +233,7 @@ namespace OpenTrace.Models
         {
             get
             {
-                double best = double.MaxValue;
-                bool foundValue = false;
-                foreach (TracerouteResult hop in HopData)
-                {
-                    double timeValue;
-                    if (hop.IP != "*" && double.TryParse(hop.Time, out timeValue))
-                    {
-                        foundValue = true;
-                        if (timeValue < best)
-                        {
-                            best = timeValue;
-                        }
-                    }
-                }
-                return foundValue ? best : 0;
+                return latencySampleCount == 0 ? 0 : bestLatency;
             }
         }
 
@@ -249,21 +241,10 @@ namespace OpenTrace.Models
         {
             get
             {
-                double sum = 0;
-                int count = 0;
-                foreach (TracerouteResult hop in HopData)
-                {
-                    double timeValue;
-                    if (hop.IP != "*" && double.TryParse(hop.Time, out timeValue))
-                    {
-                        sum += timeValue;
-                        count++;
-                    }
-                }
-                return count > 0 ? sum / count : 0;
+                return latencySampleCount == 0 ? 0 : latencyMean;
             }
         }
-        public ObservableCollection<TracerouteResult> HopData { get; set; }
+        public List<TracerouteResult> HopData { get; }
 
     }
 }

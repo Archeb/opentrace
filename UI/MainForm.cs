@@ -13,13 +13,21 @@ using Newtonsoft.Json;
 using System.Runtime.InteropServices;
 using System.Linq;
 using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Net.Sockets;
+using System.Threading;
 
 namespace OpenTrace.UI
 {
     public partial class MainForm : Form
     {
+        private const int MaxPendingTracerouteResults = 8192;
+        private const int MaxResultsPerUiTick = 512;
+
         private ObservableCollection<TracerouteHop> tracerouteResultCollection = new ObservableCollection<TracerouteHop>();
+        private readonly ConcurrentQueue<TracerouteResult> pendingTracerouteResults = new ConcurrentQueue<TracerouteResult>();
+        private readonly Dictionary<int, string> mapHopSignatures = new Dictionary<int, string>();
+        private readonly UITimer tracerouteResultTimer;
         private static NextTraceWrapper CurrentInstance { get; set; }
         private ComboBox HostInputBox;
         private GridView tracerouteGridView;
@@ -34,6 +42,10 @@ namespace OpenTrace.UI
         private bool appForceExiting = false;
         private bool enterPressed = false;
         private bool commandLineMode = false; // 命令行模式：直接使用命令行参数调用 nexttrace
+        private bool updatingTraceHistory = false;
+        private bool currentRunMtrMode;
+        private int pendingTracerouteResultCount;
+        private int? currentDestinationHop;
 
         private ExceptionalOutputForm exceptionalOutputForm = new ExceptionalOutputForm();
         private Clipboard clipboard = new Clipboard();
@@ -45,6 +57,14 @@ namespace OpenTrace.UI
         {
             // 初始化 UI 组件
             InitializeComponent();
+
+            tracerouteResultTimer = new UITimer
+            {
+                // Coalesce the continuous MTR stream into at most ten UI
+                // updates per second so input and window messages stay responsive.
+                Interval = 0.1
+            };
+            tracerouteResultTimer.Elapsed += TracerouteResultTimer_Elapsed;
 
             // 平台特定检查
             platformChecks();
@@ -83,6 +103,7 @@ namespace OpenTrace.UI
                     Application.Instance.AsyncInvoke(() =>
                     {
                         StartTracerouteButton_Click(sender, e);
+                        ActivateSelf();
                     });
                 };
             }
@@ -116,10 +137,27 @@ namespace OpenTrace.UI
         private void platformChecks()
         {
             platformService.RunPlatformChecks();
+
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows) &&
+                RuntimeInformation.ProcessArchitecture != Architecture.Arm64 &&
+                !platformService.IsNpcapInstalled())
+            {
+                MessageBox.Show(
+                    Resources.WINDOWS_TCP_UDP_MISSING_NPCAP + Environment.NewLine +
+                    Environment.NewLine + "https://npcap.com/#download",
+                    Resources.TCP_UDP_REQUIREMENTS_TITLE,
+                    MessageBoxButtons.OK,
+                    MessageBoxType.Information);
+            }
         }
 
         private void resolveParamChanged(object sender, EventArgs e)
         {
+            if (updatingTraceHistory)
+            {
+                return;
+            }
+
             // 如果文本框被修改，则隐藏 DNS 解析选择框
             if (ResolvedIPSelection.Visible)
             {
@@ -167,60 +205,57 @@ namespace OpenTrace.UI
 
         private void StartTracerouteButton_Click(object sender, EventArgs e)
         {
-            
-            if(protocolSelection.SelectedValue.ToString() != "ICMP" && RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            bool commandLineTcpUdp = commandLineMode &&
+                App.CommandLineExtraArgs != null &&
+                App.CommandLineExtraArgs.Any(arg => arg == "-T" || arg == "--tcp" || arg == "-U" || arg == "--udp");
+            bool tcpUdpRequested = protocolSelection.SelectedKey == "-T" ||
+                protocolSelection.SelectedKey == "-U" ||
+                commandLineTcpUdp;
+
+            if (tcpUdpRequested && RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
-                
-                // 管理员权限状态
-                if (!platformService.IsAdministrator())
+                // Missing dependencies are a hard stop. Do not offer a
+                // "continue anyway" path because the mode cannot work reliably.
+                if (!platformService.IsProtocolSupported("TCP"))
                 {
-                    DialogResult UACResult = MessageBox.Show(Resources.WINDOWS_TCP_UDP_MISSING_ADMIN, Resources.WINDOWS_TCP_UDP_REQUIREMENTS_TITLE, MessageBoxButtons.YesNo, MessageBoxType.Warning);
+                    var checkRequirement = platformService.CheckWindowsTcpUdpRequirements();
+                    var statusLines = new System.Text.StringBuilder();
 
-                    if (UACResult == DialogResult.Yes) platformService.RestartAsAdministrator();
+                    statusLines.AppendLine(checkRequirement.HasNpcap
+                        ? Resources.WINDOWS_TCP_UDP_HAS_NPCAP
+                        : Resources.WINDOWS_TCP_UDP_MISSING_NPCAP);
 
+                    if (RuntimeInformation.ProcessArchitecture == Architecture.Arm64)
+                    {
+                        statusLines.AppendLine(Resources.WINDOWS_TCP_UDP_UNAVAILABLE_ARM64);
+                    }
+                    else
+                    {
+                        statusLines.AppendLine(checkRequirement.HasWinDivert
+                            ? Resources.WINDOWS_TCP_UDP_HAS_WINDIVERT
+                            : Resources.WINDOWS_TCP_UDP_MISSING_WINDIVERT);
+                    }
+
+                    string helpUrl = !checkRequirement.HasNpcap
+                        ? Environment.NewLine + Environment.NewLine + "https://npcap.com/#download"
+                        : "";
+
+                    MessageBox.Show(
+                        statusLines.ToString().TrimEnd() + helpUrl,
+                        Resources.TCP_UDP_REQUIREMENTS_TITLE,
+                        MessageBoxButtons.OK,
+                        MessageBoxType.Warning);
                     return;
                 }
 
-                var checkRequirement = platformService.CheckWindowsTcpUdpRequirements();
-
-                // 如果用户之前选择了"不再提示"，则跳过检查
-                if (!checkRequirement.AllMet && !UserSettings.skipWindowsTcpUdpCheck)
+                // 管理员权限状态
+                if (!platformService.IsAdministrator())
                 {
+                    DialogResult UACResult = MessageBox.Show(Resources.WINDOWS_TCP_UDP_MISSING_ADMIN, Resources.TCP_UDP_REQUIREMENTS_TITLE, MessageBoxButtons.YesNo, MessageBoxType.Warning);
 
-                    // 构建状态消息
-                    var statusLines = new System.Text.StringBuilder();
+                    if (UACResult == DialogResult.Yes) platformService.RestartAsAdministrator(HostInputBox.Text.Trim());
 
-
-                    // Npcap 安装状态
-                    if (checkRequirement.HasNpcap)
-                        statusLines.AppendLine(Resources.WINDOWS_TCP_UDP_HAS_NPCAP);
-                    else
-                        statusLines.AppendLine(Resources.WINDOWS_TCP_UDP_MISSING_NPCAP);
-
-                    // WinDivert 状态
-                    if (checkRequirement.HasWinDivert)
-                        statusLines.AppendLine(Resources.WINDOWS_TCP_UDP_HAS_WINDIVERT);
-                    else
-                        statusLines.AppendLine(Resources.WINDOWS_TCP_UDP_MISSING_WINDIVERT);
-
-                    string message = string.Format(Resources.WINDOWS_TCP_UDP_REQUIREMENTS_MSG, statusLines.ToString().TrimEnd());
-
-                    // 显示对话框：是 = 继续执行（不再提示），否 = 打开下载地址
-                    DialogResult result = MessageBox.Show(message, Resources.WINDOWS_TCP_UDP_REQUIREMENTS_TITLE, MessageBoxButtons.YesNo, MessageBoxType.Warning);
-
-                    if (result == DialogResult.No)
-                    {
-                        // 打开下载地址
-                        if (!checkRequirement.HasNpcap) Process.Start(new ProcessStartInfo("https://npcap.com/#download") { UseShellExecute = true });
-                        if (!checkRequirement.HasWinDivert) Process.Start(new ProcessStartInfo("https://github.com/basil00/WinDivert/releases") { UseShellExecute = true });
-                        return;
-                    }
-                    else
-                    {
-                        // 用户选择 Yes，保存设置以后不再提示
-                        UserSettings.skipWindowsTcpUdpCheck = true;
-                        UserSettings.SaveSettings();
-                    }
+                    return;
                 }
             }
 
@@ -261,6 +296,10 @@ namespace OpenTrace.UI
             }
 
             tracerouteResultCollection.Clear(); // 清空原有GridView
+            tracerouteResultTimer.Stop();
+            ClearPendingTracerouteResults();
+            mapHopSignatures.Clear();
+            currentDestinationHop = null;
             ResetMap(); // 重置地图
             Title = Resources.APPTITLE;
             // 处理文本框输入
@@ -370,38 +409,49 @@ namespace OpenTrace.UI
             }
 
             string newText = HostInputBox.Text;
-            // 清理重复记录
-            IList<IListItem> clone = HostInputBox.Items.ToList();
-            foreach (var toRemove in clone.Where(s => s.Text == newText))
+            updatingTraceHistory = true;
+            try
             {
-                HostInputBox.Items.Remove(toRemove); // 不知道为什么清理掉 ComboBox 的 Item 会把同名文本框的内容一起清掉
+                // 清理重复记录
+                IList<IListItem> clone = HostInputBox.Items.ToList();
+                foreach (var toRemove in clone.Where(s => s.Text == newText))
+                {
+                    HostInputBox.Items.Remove(toRemove); // 不知道为什么清理掉 ComboBox 的 Item 会把同名文本框的内容一起清掉
+                }
+                HostInputBox.Text = newText; // 所以得在这里重新放回去
+                HostInputBox.Items.Insert(0, new ListItem { Text = newText });
+                while (HostInputBox.Items.Count > 20) // 清理20条以上记录
+                {
+                    HostInputBox.Items.RemoveAt(HostInputBox.Items.Count - 1);
+                }
             }
-            HostInputBox.Text = newText; // 所以得在这里重新放回去
-            HostInputBox.Items.Insert(0, new ListItem { Text = newText });
-            while (HostInputBox.Items.Count > 20) // 清理20条以上记录
+            finally
             {
-                HostInputBox.Items.RemoveAt(HostInputBox.Items.Count - 1);
+                updatingTraceHistory = false;
             }
+
             UserSettings.traceHistory = String.Join("\n", HostInputBox.Items.Select(item => item.Text));
             UserSettings.SaveSettings();
 
             startTracerouteButton.Text = Resources.STOP;
+            currentRunMtrMode = (bool)MTRMode.Checked;
 
             // 处理NextTrace实例发回的结果
-            CurrentInstance.Output.CollectionChanged += Instance_OutputCollectionChanged;
+            CurrentInstance.ResultReceived += Instance_ResultReceived;
             CurrentInstance.ExceptionalOutput += Instance_ExceptionalOutput;
             CurrentInstance.AppQuit += Instance_AppQuit;
+            tracerouteResultTimer.Start();
             
             // 命令行模式：直接传递命令行参数给 nexttrace，忽略 GUI 设置
             if (commandLineMode && App.CommandLineExtraArgs != null && App.CommandLineExtraArgs.Length > 0)
             {
-                CurrentInstance.Run(readyToUseIP, (bool)MTRMode.Checked, App.CommandLineExtraArgs);
+                CurrentInstance.Run(readyToUseIP, currentRunMtrMode, App.CommandLineExtraArgs);
                 // 命令行模式只在第一次启动时使用，之后恢复正常模式
                 commandLineMode = false;
             }
             else
             {
-                CurrentInstance.Run(readyToUseIP, (bool)MTRMode.Checked, dataProviderSelection.SelectedKey, protocolSelection.SelectedKey);
+                CurrentInstance.Run(readyToUseIP, currentRunMtrMode, dataProviderSelection.SelectedKey, protocolSelection.SelectedKey);
             }
             
         }
@@ -416,6 +466,8 @@ namespace OpenTrace.UI
         {
             Application.Instance.InvokeAsync(() =>
             {
+                ProcessPendingTracerouteResults(MaxPendingTracerouteResults);
+                tracerouteResultTimer.Stop();
                 CurrentInstance = null;
                 startTracerouteButton.Text = Resources.START;
                 if (appForceExiting != true && (e.ExitCode != 0))
@@ -441,43 +493,175 @@ namespace OpenTrace.UI
             });
         }
 
-        private void Instance_OutputCollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        private void Instance_ResultReceived(object sender, TracerouteResultEventArgs e)
         {
-            if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Add)
-            {
-                Application.Instance.InvokeAsync(() =>
-                {
-                    try
-                    {
-                        TracerouteResult result = (TracerouteResult)e.NewItems[0];
-                        result = IPDBLoader.Rewrite(result);
-                        int HopNo = int.Parse(result.No);
-                        if (HopNo > tracerouteResultCollection.Count)
-                        {
-                            // 正常添加新的跳
-                            tracerouteResultCollection.Add(new TracerouteHop(result));
-                            UpdateMap(result);
-                            tracerouteGridView.ScrollToRow(tracerouteResultCollection.Count - 1);
-                        }
-                        else
-                        {
-                            // 修改现有的跳
-                            tracerouteResultCollection[HopNo - 1].HopData.Add(result);
+            if (e.Result == null)
+                return;
 
-                            // 仅当存在经纬度数据时更新地图
-                            if (result.Latitude != "" && result.Longitude != "")
-                            {
-                                UpdateMap(result, HopNo - 1);
-                            }
-                            
-                            tracerouteGridView.ReloadData(HopNo - 1);
-                        }
-                    } catch (Exception exception)
-                    {
-                        MessageBox.Show($"Message: ${exception.Message} \nSource: ${exception.Source} \nStackTrace: ${exception.StackTrace}", "Exception Occurred");
-                    }
-                });
+            // Local MMDB/template rewriting can involve file-backed lookups. Do
+            // it on the process callback thread so it cannot block the UI timer.
+            TracerouteResult rewrittenResult;
+            try
+            {
+                rewrittenResult = IPDBLoader.Rewrite(e.Result);
             }
+            catch
+            {
+                rewrittenResult = e.Result;
+            }
+            pendingTracerouteResults.Enqueue(rewrittenResult);
+            Interlocked.Increment(ref pendingTracerouteResultCount);
+
+            // A broken or unexpectedly noisy NextTrace process must not be able
+            // to grow the pending UI queue without bound. Under normal MTR rates
+            // the queue stays far below this limit.
+            TracerouteResult discarded;
+            while (Volatile.Read(ref pendingTracerouteResultCount) > MaxPendingTracerouteResults &&
+                   pendingTracerouteResults.TryDequeue(out discarded))
+            {
+                Interlocked.Decrement(ref pendingTracerouteResultCount);
+            }
+        }
+
+        private void TracerouteResultTimer_Elapsed(object sender, EventArgs e)
+        {
+            ProcessPendingTracerouteResults();
+        }
+
+        private void ProcessPendingTracerouteResults(int maxResults = MaxResultsPerUiTick)
+        {
+            var dirtyHopIndexes = new HashSet<int>();
+            var mapUpdates = new Dictionary<int, TracerouteResult>();
+            bool rebuildMap = false;
+            bool rowsAdded = false;
+            int lastVisibleHopIndex = -1;
+            int processed = 0;
+
+            try
+            {
+                TracerouteResult result;
+                while (processed < maxResults &&
+                       pendingTracerouteResults.TryDequeue(out result))
+                {
+                    Interlocked.Decrement(ref pendingTracerouteResultCount);
+                    processed++;
+
+                    int hopNo;
+                    if (result == null ||
+                        !int.TryParse(result.No, out hopNo) ||
+                        hopNo <= 0)
+                    {
+                        continue;
+                    }
+
+                    if (currentDestinationHop.HasValue && hopNo > currentDestinationHop.Value)
+                        continue;
+
+                    while (tracerouteResultCollection.Count < hopNo)
+                    {
+                        int placeholderIndex = tracerouteResultCollection.Count;
+                        string placeholderHopNo = (placeholderIndex + 1).ToString();
+                        int historyLimit = currentRunMtrMode
+                            ? TracerouteHop.MtrHistoryLimit
+                            : int.MaxValue;
+                        tracerouteResultCollection.Add(
+                            new TracerouteHop(placeholderHopNo, historyLimit));
+                        rowsAdded = true;
+                        QueueMapUpdate(
+                            mapUpdates,
+                            placeholderIndex,
+                            new TracerouteResult(
+                                placeholderHopNo, "*", "", "", "", "", "", "", ""));
+                    }
+
+                    int hopIndex = hopNo - 1;
+                    tracerouteResultCollection[hopIndex].AddResult(result);
+                    dirtyHopIndexes.Add(hopIndex);
+                    lastVisibleHopIndex = hopIndex;
+
+                    if (!string.IsNullOrEmpty(result.Latitude) &&
+                        !string.IsNullOrEmpty(result.Longitude))
+                    {
+                        QueueMapUpdate(mapUpdates, hopIndex, result);
+                    }
+
+                    if (result.IsDestination &&
+                        (!currentDestinationHop.HasValue || hopNo < currentDestinationHop.Value))
+                    {
+                        currentDestinationHop = hopNo;
+                        while (tracerouteResultCollection.Count > hopNo)
+                        {
+                            tracerouteResultCollection.RemoveAt(tracerouteResultCollection.Count - 1);
+                            rebuildMap = true;
+                        }
+                    }
+                }
+
+                if (rebuildMap)
+                {
+                    RebuildMap();
+                }
+                else
+                {
+                    foreach (KeyValuePair<int, TracerouteResult> update in mapUpdates.OrderBy(item => item.Key))
+                        UpdateMap(update.Value, update.Key);
+                }
+
+                if (dirtyHopIndexes.Count > 0)
+                {
+                    tracerouteGridView.ReloadData(
+                        dirtyHopIndexes.Where(hopIndex =>
+                            hopIndex < tracerouteResultCollection.Count));
+                }
+
+                if (rowsAdded &&
+                    lastVisibleHopIndex >= 0 &&
+                    lastVisibleHopIndex < tracerouteResultCollection.Count)
+                {
+                    tracerouteGridView.ScrollToRow(lastVisibleHopIndex);
+                }
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(
+                    $"Message: ${exception.Message} \nSource: ${exception.Source} \nStackTrace: ${exception.StackTrace}",
+                    "Exception Occurred");
+            }
+        }
+
+        private void ClearPendingTracerouteResults()
+        {
+            TracerouteResult discarded;
+            while (pendingTracerouteResults.TryDequeue(out discarded))
+            {
+            }
+            Interlocked.Exchange(ref pendingTracerouteResultCount, 0);
+        }
+
+        private void QueueMapUpdate(
+            IDictionary<int, TracerouteResult> mapUpdates,
+            int hopIndex,
+            TracerouteResult result)
+        {
+            string signature = string.Join(
+                "\u001f",
+                result.IP ?? "",
+                result.Geolocation ?? "",
+                result.Organization ?? "",
+                result.AS ?? "",
+                result.Hostname ?? "",
+                result.Latitude ?? "",
+                result.Longitude ?? "");
+
+            string previousSignature;
+            if (mapHopSignatures.TryGetValue(hopIndex, out previousSignature) &&
+                string.Equals(previousSignature, signature, StringComparison.Ordinal))
+            {
+                return;
+            }
+
+            mapHopSignatures[hopIndex] = signature;
+            mapUpdates[hopIndex] = result;
         }
 
         private void StopTraceroute()
@@ -539,20 +723,6 @@ namespace OpenTrace.UI
             gridHeight = (int)(totalHeight * UserSettings.gridSizePercentage);
             tracerouteGridView.Height = gridHeight; // 按比例还原高度
         }
-        private void UpdateMap(TracerouteResult result)
-        {
-            try
-            {
-                // 把 Result 转换为 JSON
-                string resultJson = JsonConvert.SerializeObject(result);
-                // 通过 ExecuteScript 把结果传进去
-                mapWebView.ExecuteScriptAsync(@"window.opentrace.updateHop(`" + resultJson + "`);");
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show($"Message: ${e.Message} \nSource: ${e.Source} \nStackTrace: ${e.StackTrace}", "Exception Occurred");
-            }
-        }
         private void UpdateMap(TracerouteResult result, int hopNo)
         {
             try
@@ -566,6 +736,10 @@ namespace OpenTrace.UI
             {
                 MessageBox.Show($"Message: ${e.Message} \nSource: ${e.Source} \nStackTrace: ${e.StackTrace}", "Exception Occurred");
             }
+        }
+        private void RebuildMap()
+        {
+            ResetMap();
         }
         private void FocusMapPoint(int hopNo)
         {
@@ -592,6 +766,7 @@ namespace OpenTrace.UI
                         mapWebView.ExecuteScriptAsync(OpenTrace.Properties.Resources.baiduMap);
                         break;
                     case "openstreetmap":
+                    default:
                         mapWebView.ExecuteScriptAsync(OpenTrace.Properties.Resources.openStreetMap);
                         break;
                 }
@@ -614,22 +789,22 @@ namespace OpenTrace.UI
                 }
                 
                 mapWebView.ExecuteScriptAsync("window.opentrace.reset(" + UserSettings.hideMapPopup.ToString().ToLower() + ", " + darkMode.ToString().ToLower() + ")");
-                
-                // 恢复地图上的点
-                if (tracerouteResultCollection.Count > 0)
+
+                // Restore a correctly indexed map from one bounded snapshot per
+                // hop. This also keeps a route visible when its located sample
+                // has already rotated out of the MTR history window.
+                mapHopSignatures.Clear();
+                var restoreUpdates = new Dictionary<int, TracerouteResult>();
+                for (int hopIndex = 0; hopIndex < tracerouteResultCollection.Count; hopIndex++)
                 {
-                    foreach (var hop in tracerouteResultCollection)
-                    {
-                        if (hop.HopData != null && hop.HopData.Count > 0)
-                        {
-                            var lastResult = hop.HopData.Last();
-                            if (!string.IsNullOrEmpty(lastResult.Latitude) && !string.IsNullOrEmpty(lastResult.Longitude))
-                            {
-                                UpdateMap(lastResult);
-                            }
-                        }
-                    }
+                    TracerouteHop hop = tracerouteResultCollection[hopIndex];
+                    TracerouteResult mapResult = hop.LatestLocatedResult ??
+                        new TracerouteResult(
+                            hop.No, "*", "", "", "", "", "", "", "");
+                    QueueMapUpdate(restoreUpdates, hopIndex, mapResult);
                 }
+                foreach (KeyValuePair<int, TracerouteResult> update in restoreUpdates.OrderBy(item => item.Key))
+                    UpdateMap(update.Value, update.Key);
             } catch (Exception e)
             {
                 MessageBox.Show($"Message: ${e.Message} \nSource: ${e.Source} \nStackTrace: ${e.StackTrace}", "Exception Occurred");
@@ -784,6 +959,45 @@ namespace OpenTrace.UI
                 DataCell = new TextBoxCell { Binding = Binding.Property<TracerouteHop, string>(r => r.Hostname) },
                 HeaderText = Resources.HOSTNAME
             });
+        }
+        private void ActivateSelf()
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+#if NET8_0_OR_GREATER
+                try
+                {
+                    int currentPid = Process.GetCurrentProcess().Id;
+                    string script = $"tell application \"System Events\" to set frontmost of every process whose unix id is {currentPid} to true";
+                    var psi = new ProcessStartInfo
+                    {
+                        FileName = "/usr/bin/osascript",
+                        ArgumentList = { "-e", script },
+                        UseShellExecute = false,
+                        CreateNoWindow = true,
+                        RedirectStandardOutput = true,
+                        RedirectStandardError = true
+                    };
+
+                    using (var process = Process.Start(psi))
+                    {
+                        process.WaitForExit(1000); 
+                    }
+                }
+                catch (Exception)
+                {
+                    
+                }
+#endif
+            } else if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows)) {
+                this.BringToFront();
+                this.Focus();
+
+                if (this.WindowState == WindowState.Minimized)
+                {
+                    this.WindowState = WindowState.Normal;
+                }
+            }
         }
     }
 }

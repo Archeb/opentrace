@@ -7,6 +7,7 @@
     <title>{{page_title}}</title>
     <meta name="description" content="{{meta_description}}">
     <meta name="keywords" content="{{meta_keywords}}">
+    <link rel="icon" href="/img/logo.png" type="image/png">
 
     <!-- Canonical & Hreflang -->
     <link rel="canonical" href="{{canonical_url}}">
@@ -391,12 +392,12 @@
     </section>
 
     <!-- Screenshots Preview -->
-    <section id="preview" class="py-20 bg-apple-50 dark:bg-[#000000]">
+    <section id="preview" class="py-20 bg-apple-50 dark:bg-[#000000] transition-colors duration-300">
         <div class="max-w-5xl mx-auto px-6">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 tracking-tight">{{preview_title}}</h2>
             <div class="fade-up flex justify-center mb-10">
                 <div
-                    class="inline-flex p-1.5 bg-white dark:bg-apple-900 rounded-full border border-gray-200 dark:border-gray-800 shadow-sm">
+                    class="inline-flex p-1.5 bg-white dark:bg-apple-900 rounded-full border border-gray-200 dark:border-gray-800 shadow-sm transition-colors duration-300">
                     <button
                         class="tab-btn active px-6 py-2 rounded-full text-sm font-medium transition-all text-white bg-accent shadow-sm"
                         onclick="switchTab('macos', this)">macOS</button>
@@ -420,7 +421,7 @@
     </section>
 
     <!-- Features Grid -->
-    <section id="features" class="py-20 bg-white dark:bg-black">
+    <section id="features" class="py-20 bg-white dark:bg-black transition-colors duration-300">
         <div class="max-w-7xl mx-auto px-6">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 tracking-tight">{{features_title}}</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -474,7 +475,7 @@
     </section>
 
     <!-- Downloads Section -->
-    <section id="downloads" class="py-20 bg-apple-50 dark:bg-black">
+    <section id="downloads" class="py-20 bg-apple-50 dark:bg-black transition-colors duration-300">
         <div class="max-w-5xl mx-auto px-6">
             <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 tracking-tight">{{download_title}}</h2>
             <div class="fade-up bg-white dark:bg-apple-900 rounded-3xl p-8 md:p-10 border border-gray-200 dark:border-gray-800 shadow-sm"
@@ -488,7 +489,7 @@
                 <p class="text-sm text-gray-500 dark:text-gray-400 mb-4 leading-relaxed">
                     <span>{{download_note_win}}</span>
                     <a href="https://npcap.com/#download" target="_blank"
-                        class="underline text-accent hover:text-accent-hover">Npcap</a><br>
+                        class="underline text-accent hover:text-accent-hover">Npcap</a>
                     <span>{{download_note_manual}}</span>
                 </p>
                 <a href="https://github.com/Archeb/opentrace/releases" target="_blank"
@@ -498,15 +499,15 @@
     </section>
 
     <!-- Sponsors -->
-    <section class="py-16 bg-white dark:bg-[#111111] border-t border-gray-200 dark:border-gray-800">
+    <section class="py-16 bg-white dark:bg-[#111111] border-t border-gray-200 dark:border-gray-800 transition-colors">
         <div class="max-w-4xl mx-auto px-6">
             <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 text-center mb-8">
                 {{sponsors_title}}</h3>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <a href="https://github.com/nxtrace/NTrace-V1" target="_blank"
+                <a href="https://github.com/nxtrace/NTrace-core" target="_blank"
                     class="group flex items-center p-4 rounded-2xl border border-gray-200 dark:border-gray-800 bg-apple-50 dark:bg-apple-900 hover:border-accent hover:shadow-apple-sm dark:hover:shadow-apple-sm-dark hover:-translate-y-0.5 transition-all duration-300">
                     <div
-                        class="w-12 h-12 rounded-xl bg-white dark:bg-black p-2 flex items-center justify-center shadow-sm mr-4 border border-gray-100 dark:border-gray-800">
+                        class="w-12 h-12 rounded-xl bg-white dark:bg-apple-900 p-2 flex items-center justify-center shadow-sm mr-4 border border-gray-100 dark:border-gray-800">
                         <img src="./img/logo.png" alt="NextTrace" class="w-full h-full object-contain">
                     </div>
                     <div class="flex-1">
@@ -520,7 +521,7 @@
                 <a href="https://www.natfrp.com/" target="_blank"
                     class="group flex items-center p-4 rounded-2xl border border-gray-200 dark:border-gray-800 bg-apple-50 dark:bg-apple-900 hover:border-accent hover:shadow-apple-sm dark:hover:shadow-apple-sm-dark hover:-translate-y-0.5 transition-all duration-300">
                     <div
-                        class="w-12 h-12 rounded-xl bg-white dark:bg-black p-2 flex items-center justify-center shadow-sm mr-4 border border-gray-100 dark:border-gray-800">
+                        class="w-12 h-12 rounded-xl bg-white dark:bg-apple-900 p-2 flex items-center justify-center shadow-sm mr-4 border border-gray-100 dark:border-gray-800">
                         <img src="https://www.natfrp.com/favicon.ico?v=2" alt="SakuraFrp"
                             class="w-full h-full object-contain">
                     </div>
@@ -545,6 +546,8 @@
                     class="hover:text-gray-900 dark:hover:text-white transition-colors">GitHub</a>
                 <a href="https://github.com/Archeb/opentrace/issues" target="_blank"
                     class="hover:text-gray-900 dark:hover:text-white transition-colors">{{footer_issues}}</a>
+                <a href="/privacy.html"
+                    class="hover:text-gray-900 dark:hover:text-white transition-colors">{{footer_privacy}}</a>
             </div>
             <p>OpenTrace Contributors. GPL-3.0 License.</p>
         </div>
@@ -633,23 +636,47 @@
         }
 
         // OS Detection & Hero Button
-        function getOS() {
-            const platform = window.navigator.platform;
-            if (['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'].includes(platform)) return 'macOS';
-            if (['Win32', 'Win64', 'Windows', 'WinCE'].includes(platform)) return 'Windows';
-            if (/Linux/.test(platform)) return 'Linux';
-            return 'Unknown';
+        function detectPlatform() {
+            const ua = navigator.userAgent, p = navigator.platform;
+            let os = 'Unknown', arch = 'x64';
+            
+            // Check for iOS/iPadOS first (before Mac check)
+            // iPadOS 13+ reports as "MacIntel" but has touch support
+            const isIOS = /iPhone|iPad|iPod/.test(ua) || 
+                ((['Macintosh', 'MacIntel'].includes(p) || /Mac/.test(ua)) && navigator.maxTouchPoints > 1);
+            
+            if (isIOS) {
+                os = 'iOS';
+                arch = 'arm64';
+            } else if (['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'].includes(p) || /Mac/.test(ua)) {
+                os = 'macOS';
+                try {
+                    const c = document.createElement('canvas');
+                    const gl = c.getContext('webgl2') || c.getContext('webgl') || c.getContext('experimental-webgl');
+                    const r = gl.getParameter(gl.getExtension('WEBGL_debug_renderer_info').UNMASKED_RENDERER_WEBGL);
+                    arch = /apple/i.test(r) ? 'arm64' : 'x64';
+                } catch { arch = 'arm64'; }
+            } else if (['Win32', 'Win64', 'Windows', 'WinCE'].includes(p)) {
+                os = 'Windows';
+                arch = /ARM|aarch64/i.test(ua) ? 'arm64' : 'x64';
+            } else if (/Linux/.test(p)) {
+                os = 'Linux';
+                arch = /ARM|aarch64/i.test(ua) ? 'arm64' : 'x64';
+            }
+            return { os, arch };
         }
 
+        const platformInfo = detectPlatform();
+
         function updateHeroButton() {
-            const os = getOS();
+            const { os, arch } = platformInfo;
             const heroBtnText = document.getElementById('hero-dl-text');
             const flathubBtn = document.getElementById('hero-flathub-btn');
             if (flathubBtn) flathubBtn.style.display = os === 'Linux' ? 'flex' : 'none';
             if (['Windows', 'macOS', 'Linux'].includes(os)) {
                 heroBtnText.textContent = currentLang === 'zh'
-                    ? `${translations.hero_dl_prefix} ${os} ${translations.hero_dl_suffix}`
-                    : `${translations.hero_dl_prefix} ${os}`;
+                    ? `${translations.hero_dl_prefix} ${os} (${arch}) ${translations.hero_dl_suffix}`
+                    : `${translations.hero_dl_prefix} ${os} (${arch})`;
             } else {
                 heroBtnText.textContent = translations.hero_dl_latest;
             }
@@ -698,7 +725,7 @@
                 window.cachedReleaseData = data;
                 document.getElementById('hero-version').textContent = data.tag_name;
 
-                const os = getOS();
+                const { os, arch } = platformInfo;
                 const assets = data.assets;
                 let targetExt = [];
                 if (os === 'Windows') targetExt = ['.zip', '.exe'];
@@ -707,7 +734,7 @@
 
                 let suggestedAsset = null;
                 if (targetExt.length > 0) {
-                    const isArm = os === 'macOS' ? true : (navigator.userAgent.includes('ARM') || navigator.userAgent.includes('aarch64'));
+                    const isArm = arch === 'arm64';
                     suggestedAsset = assets.find(a => {
                         const name = a.name.toLowerCase();
                         return targetExt.some(ext => name.endsWith(ext)) && (isArm ? name.includes('arm') : (name.includes('x64') || name.includes('amd64')));

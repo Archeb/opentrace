@@ -252,8 +252,8 @@
   <data name="LAST" xml:space="preserve">
     <value>Últ.</value>
   </data>
-  <data name="LEOMOEAPI_HOSTPORT" xml:space="preserve">
-    <value>Proxy LeoMoeAPI</value>
+  <data name="NEXTTRACE_HOSTPORT" xml:space="preserve">
+    <value>Proxy inverso de NextTrace</value>
   </data>
   <data name="LINKLOCAL_ADDR" xml:space="preserve">
     <value>Dirección link-local</value>
@@ -337,6 +337,11 @@ sudo chmod +sx /ruta/a/nexttrace
 
 Indique la ruta en ajustes. ¿Descargar?</value>
   </data>
+  <data name="MISSING_COMP_PRIV_TEXT" xml:space="preserve">
+    <value>OpenTrace requiere permisos para realizar el traceroute TCP/UDP.
+
+Haga clic en [Sí] para intentar reiniciar OpenTrace con privilegios de administrador o haga clic en [No] para obtener información sobre cómo configurar manualmente los permisos necesarios.</value>
+  </data>
   <data name="MTR_MODE" xml:space="preserve">
     <value>Modo MTR</value>
   </data>
@@ -372,10 +377,10 @@ Para bases offline, ver documentación de NextTrace.</value>
     <value>Peticiones paralelas</value>
   </data>
   <data name="POW_PROVIDER" xml:space="preserve">
-    <value>Proveedor PoW LeoMoeAPI</value>
+    <value>Proveedor PoW de NextTrace</value>
   </data>
-  <data name="POW_PROVIDER_LEOMOE" xml:space="preserve">
-    <value>api.leo.moe (Defecto)</value>
+  <data name="POW_PROVIDER_NEXTTRACE" xml:space="preserve">
+    <value>NextTrace (Predeterminado)</value>
   </data>
   <data name="POW_PROVIDER_SAKURA" xml:space="preserve">
     <value>Nya Labs (Optimizado China)</value>
@@ -443,7 +448,7 @@ Para bases offline, ver documentación de NextTrace.</value>
   <data name="TRACEROUTING" xml:space="preserve">
     <value>Rastreo (Traceroute)</value>
   </data>
-  <data name="WINDOWS_TCP_UDP_REQUIREMENTS_TITLE" xml:space="preserve">
+  <data name="TCP_UDP_REQUIREMENTS_TITLE" xml:space="preserve">
     <value>Requisitos TCP/UDP</value>
   </data>
   <data name="WINDOWS_TCP_UDP_MISSING_ADMIN" xml:space="preserve">
@@ -466,8 +471,8 @@ Para bases offline, ver documentación de NextTrace.</value>
   <data name="WINDOWS_TCP_UDP_HAS_WINDIVERT" xml:space="preserve">
     <value>✓ WinDivert disponible</value>
   </data>
-  <data name="WINDOWS_TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
-    <value>Ejecutar como Admin</value>
+  <data name="TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
+    <value>Reiniciando OpenTrace como administrador. Ingrese su contraseña y presione Enter.</value>
   </data>
   <data name="WORST" xml:space="preserve">
     <value>Máx.</value>
@@ -540,19 +545,42 @@ Y reinicie OpenTrace.</value>
   <data name="MAP_COLOR_THEME_DARK" xml:space="preserve">
     <value>Oscuro</value>
   </data>
-  <data name="MACOS_INSTALL_MANUALLY" xml:space="preserve">
-    <value>Intenta realizar un seguimiento TCP/UDP en macOS con NextTrace integrado.
+  <data name="RESTART_AS_ADMIN_FAILED" xml:space="preserve">
+    <value>No se pudo reiniciar como administrador, siga las instrucciones en GitHub para configurar manualmente los permisos necesarios para traceroute TCP/UDP en macOS y Linux.</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_TOKEN" xml:space="preserve">
+    <value>Token de NextTrace API v4</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_GET_TOKEN" xml:space="preserve">
+    <value>Obtener token…</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_DIALOG_TITLE" xml:space="preserve">
+    <value>Token de NextTrace API v4</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_INSTRUCTIONS" xml:space="preserve">
+    <value>Complete una vez la verificación de Cloudflare. OpenTrace solicitará y extraerá el token automáticamente. Revise el resultado y seleccione Confirmar.</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_CONFIRM" xml:space="preserve">
+    <value>Confirmar</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_CLEAR_BROWSER_DATA" xml:space="preserve">
+    <value>Borrar caché y cookies</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_CLEARING_BROWSER_DATA" xml:space="preserve">
+    <value>Borrando caché y cookies…</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_BROWSER_DATA_CLEARED" xml:space="preserve">
+    <value>Se borraron la caché y las cookies.</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_BROWSER_DATA_CLEAR_FAILED" xml:space="preserve">
+    <value>No se pudieron borrar la caché y las cookies.</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_TOKEN_READY" xml:space="preserve">
+    <value>Token extraído. Seleccione Confirmar para guardarlo.</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_ERROR_OPEN_PAGE" xml:space="preserve">
+    <value>No se pudo abrir la página de token integrada. Aún puede pegar manualmente un token en el campo.
 
-Debido a las limitaciones de la plataforma macOS, NextTrace integrado no puede obtener los permisos necesarios.
-
-Instala NextTrace mediante Homebrew o descárgalo manualmente y configura los permisos:
-
-sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
-sudo chown root:admin /path/to/nexttrace
-sudo chmod +sx /path/to/nexttrace
-
-A continuación, especifica la ruta de NextTrace en la configuración.
-
-¿Descargar NextTrace ahora?</value>
+{0}</value>
   </data>
 </root>

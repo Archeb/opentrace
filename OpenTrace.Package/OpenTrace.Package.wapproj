@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build"
+         xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\DesktopBridge\Microsoft.DesktopBridge.props" />
+
+  <PropertyGroup>
+    <ProjectGuid>{78DA2A11-D1EF-485F-BF46-621B73519447}</ProjectGuid>
+    <ProjectName>OpenTrace.Package</ProjectName>
+    <RootNamespace>OpenTrace.Package</RootNamespace>
+    <Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
+    <Platform Condition="'$(Platform)' == ''">x64</Platform>
+    <Platforms>x64;ARM64</Platforms>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <EntryPointProjectUniqueName>..\OpenTrace.csproj</EntryPointProjectUniqueName>
+    <TargetPlatformVersion>10.0.26100.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
+    <GenerateAppInstallerFile>false</GenerateAppInstallerFile>
+    <AppxBundle>Always</AppxBundle>
+    <AppxBundlePlatforms>x64|arm64</AppxBundlePlatforms>
+    <UapAppxPackageBuildMode>StoreUpload</UapAppxPackageBuildMode>
+    <GeneratedStoreImageDirectory>$(MSBuildProjectDirectory)\obj\StoreImages</GeneratedStoreImageDirectory>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+    <Content Include="$(GeneratedStoreImageDirectory)\Square44x44Logo.png">
+      <Link>Images\Square44x44Logo.png</Link>
+    </Content>
+    <Content Include="$(GeneratedStoreImageDirectory)\Square150x150Logo.png">
+      <Link>Images\Square150x150Logo.png</Link>
+    </Content>
+    <Content Include="$(GeneratedStoreImageDirectory)\StoreLogo.png">
+      <Link>Images\StoreLogo.png</Link>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OpenTrace.csproj">
+      <Project>{D3D12167-7280-4E48-BA3D-0DCFCBA5AF88}</Project>
+      <Name>OpenTrace</Name>
+      <EntryPointProject>true</EntryPointProject>
+      <AdditionalProperties Condition="'$(Platform)' == 'x64'">RuntimeIdentifier=win-x64</AdditionalProperties>
+      <AdditionalProperties Condition="'$(Platform)' == 'ARM64'">RuntimeIdentifier=win-arm64</AdditionalProperties>
+    </ProjectReference>
+  </ItemGroup>
+
+  <!--
+    The reproducible store build entry point is scripts\Build-StorePackage.ps1.
+    It downloads fixed, hash-verified NextTrace payloads before invoking
+    MakeAppx. The WAP project is retained for manifest editing and Visual Studio
+    association with Partner Center.
+  -->
+  <Target Name="GenerateStoreImages" BeforeTargets="PrepareForBuild">
+    <Exec Command="powershell.exe -NoProfile -ExecutionPolicy Bypass -File &quot;$(MSBuildProjectDirectory)\..\scripts\Prepare-StoreAssets.ps1&quot; -SourcePath &quot;$(MSBuildProjectDirectory)\..\HomePage\img\logo.png&quot; -OutputDirectory &quot;$(GeneratedStoreImageDirectory)&quot;" />
+  </Target>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\DesktopBridge\Microsoft.DesktopBridge.targets" />
+</Project>

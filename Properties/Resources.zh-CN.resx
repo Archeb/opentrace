@@ -169,7 +169,7 @@
 (支持 UDP / DoH)</value>
   </data>
   <data name="DISABLE_IPGEO" xml:space="preserve">
-    <value>禁用地理位置</value>
+    <value>禁用</value>
   </data>
   <data name="DST_PORT_INIT_SEQ" xml:space="preserve">
     <value>目标端口 / 初始序号</value>
@@ -252,8 +252,8 @@
   <data name="LAST" xml:space="preserve">
     <value>当前延迟</value>
   </data>
-  <data name="LEOMOEAPI_HOSTPORT" xml:space="preserve">
-    <value>LeoMoeAPI 反代地址</value>
+  <data name="NEXTTRACE_HOSTPORT" xml:space="preserve">
+    <value>NextTrace 反代地址</value>
   </data>
   <data name="LINKLOCAL_ADDR" xml:space="preserve">
     <value>链路本地地址</value>
@@ -345,13 +345,10 @@ sudo chmod +sx /path/to/nexttrace
 
 是否现在下载 NextTrace？</value>
   </data>
-  <data name="MISSING_COMP_PRIV_MACOS" xml:space="preserve">
+  <data name="MISSING_COMP_PRIV_TEXT" xml:space="preserve">
     <value>OpenTrace 需要权限才能进行 TCP/UDP 追踪。
-请为 NextTrace 设置权限:
 
-sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
-sudo chown root:admin /path/to/nexttrace
-sudo chmod +sx /path/to/nexttrace</value>
+点击 [是] 尝试以最高管理员权限重新启动 OpenTrace，点击 [否] 了解如何手动设置所需权限。</value>
   </data>
   <data name="MISSING_PRIV_MACOS" xml:space="preserve">
     <value>OpenTrace 需要权限才能进行 TCP/UDP 追踪</value>
@@ -394,10 +391,10 @@ sudo chmod +sx /path/to/nexttrace</value>
     <value>并行请求数</value>
   </data>
   <data name="POW_PROVIDER" xml:space="preserve">
-    <value>LeoMoeAPI PoW 服务器</value>
+    <value>NextTrace PoW 服务器</value>
   </data>
-  <data name="POW_PROVIDER_LEOMOE" xml:space="preserve">
-    <value>api.leo.moe (默认)</value>
+  <data name="POW_PROVIDER_NEXTTRACE" xml:space="preserve">
+    <value>NextTrace（默认）</value>
   </data>
   <data name="POW_PROVIDER_SAKURA" xml:space="preserve">
     <value>Nya Labs (中国大陆优化)</value>
@@ -465,7 +462,7 @@ sudo chmod +sx /path/to/nexttrace</value>
   <data name="TRACEROUTING" xml:space="preserve">
     <value>路由追踪</value>
   </data>
-  <data name="WINDOWS_TCP_UDP_REQUIREMENTS_TITLE" xml:space="preserve">
+  <data name="TCP_UDP_REQUIREMENTS_TITLE" xml:space="preserve">
     <value>TCP/UDP 模式要求</value>
   </data>
   <data name="WINDOWS_TCP_UDP_MISSING_ADMIN" xml:space="preserve">
@@ -476,6 +473,9 @@ sudo chmod +sx /path/to/nexttrace</value>
   </data>
   <data name="WINDOWS_TCP_UDP_MISSING_WINDIVERT" xml:space="preserve">
     <value>• 未找到 WinDivert （应放在和 NextTrace 可执行文件同一目录）</value>
+  </data>
+  <data name="WINDOWS_TCP_UDP_UNAVAILABLE_ARM64" xml:space="preserve">
+    <value>• Windows ARM64 暂不支持 TCP/UDP 模式，因为所需的 WinDivert 运行时目前仅提供 x64 版本</value>
   </data>
   <data name="WINDOWS_TCP_UDP_REQUIREMENTS_MSG" xml:space="preserve">
     <value>在 Windows 上使用 TCP/UDP Traceroute 需要满足以下条件：
@@ -491,8 +491,8 @@ sudo chmod +sx /path/to/nexttrace</value>
   <data name="WINDOWS_TCP_UDP_HAS_WINDIVERT" xml:space="preserve">
     <value>✓ WinDivert 可用</value>
   </data>
-  <data name="WINDOWS_TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
-    <value>以管理员身份重新运行</value>
+  <data name="TCP_UDP_RUN_AS_ADMIN" xml:space="preserve">
+    <value>正以管理员身份重新运行 OpenTrace，请输入密码并按回车。</value>
   </data>
   <data name="WORST" xml:space="preserve">
     <value>最大延迟</value>
@@ -568,19 +568,42 @@ sudo xattr -r -d com.apple.quarantine &lt;将 OpenTrace 拖放至此&gt;
   <data name="MAP_COLOR_THEME_DARK" xml:space="preserve">
     <value>深色</value>
   </data>
-  <data name="MACOS_INSTALL_MANUALLY" xml:space="preserve">
-    <value>您正尝试使用内置的 NextTrace 在 macOS 上进行 TCP/UDP 追踪
+  <data name="RESTART_AS_ADMIN_FAILED" xml:space="preserve">
+    <value>以管理员身份重启失败，请按照 GitHub 上的说明手动设置 macOS 和 Linux 上 TCP/UDP traceroute 所需的权限。</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_TOKEN" xml:space="preserve">
+    <value>NextTrace API v4 Token</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_GET_TOKEN" xml:space="preserve">
+    <value>获取 Token…</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_DIALOG_TITLE" xml:space="preserve">
+    <value>NextTrace API v4 Token</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_INSTRUCTIONS" xml:space="preserve">
+    <value>完成一次 Cloudflare 人机验证，OpenTrace 会自动申请并提取 Token。检查结果后点击“确认”保存。</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_CONFIRM" xml:space="preserve">
+    <value>确认</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_CLEAR_BROWSER_DATA" xml:space="preserve">
+    <value>清除缓存和 Cookie</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_CLEARING_BROWSER_DATA" xml:space="preserve">
+    <value>正在清除缓存和 Cookie…</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_BROWSER_DATA_CLEARED" xml:space="preserve">
+    <value>缓存和 Cookie 已清除。</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_BROWSER_DATA_CLEAR_FAILED" xml:space="preserve">
+    <value>无法清除缓存和 Cookie。</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_TOKEN_READY" xml:space="preserve">
+    <value>Token 已提取，请点击“确认”保存。</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_ERROR_OPEN_PAGE" xml:space="preserve">
+    <value>无法打开内置 Token 页面。你仍可将 Token 手动粘贴到输入框中。
 
-由于 macOS 平台限制，内置的 NextTrace 无法获得所需权限。
-
-请通过 Homebrew 安装或者手动下载 NextTrace 并设置好权限：
-
-sudo xattr -r -d com.apple.quarantine /path/to/nexttrace
-sudo chown root:admin /path/to/nexttrace
-sudo chmod +sx /path/to/nexttrace
-
-然后在设置中指定 NextTrace 路径。
-
-是否现在下载 NextTrace？</value>
+{0}</value>
   </data>
 </root>
