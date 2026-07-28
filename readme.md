@@ -57,13 +57,6 @@ More is coming... [Feature request](https://github.com/Archeb/opentrace/issues/n
 
 > **Tip**: You can also download the latest beta version of the corresponding architecture from the [Actions page of this project](https://github.com/Archeb/opentrace/actions); however, it may contain bugs or vulnerabilities, or may be unstable.
 
-### Microsoft Store package
-
-The Store build uses the reserved `NYALabs.OpenTrace` identity and produces a
-combined x64/ARM64 MSIX bundle with pinned, hash-verified NextTrace binaries.
-See [STORE-SUBMISSION.md](STORE-SUBMISSION.md) for build and submission
-instructions.
-
 ### Images
 
 ![macOS Dark](./HomePage/img/macos_dark.jpg)

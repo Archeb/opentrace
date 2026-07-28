@@ -54,12 +54,6 @@ OpenTrace 是一款开源的跨平台可视化路由追踪工具。
 
 > **提示**：您也可以从本项目的 [Actions 页面](https://github.com/Archeb/opentrace/actions) 下载最新构建的测试版（Beta）；但请注意，测试版可能包含 Bug 或不稳定。
 
-### Microsoft Store 程序包
-
-商店构建使用已保留的 `NYALabs.OpenTrace` 身份，生成包含 x64 与 ARM64
-的 MSIX bundle，并内置固定版本、经过 SHA256 校验的 NextTrace。构建和
-提交步骤见 [STORE-SUBMISSION.md](STORE-SUBMISSION.md)。
-
 ### 运行截图
 
 ![macOS 深色模式](./HomePage/img/macos_dark.jpg)
