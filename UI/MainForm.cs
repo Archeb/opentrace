@@ -16,6 +16,8 @@ using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Net.Sockets;
 using System.Threading;
+using System.Globalization;
+using OpenTrace.UI.Dialogs;
 
 namespace OpenTrace.UI
 {
@@ -72,11 +74,113 @@ namespace OpenTrace.UI
             // 异步检查更新
             CheckUpdateAsync();
 
+            // Check only after the main window is visible so the reminder and
+            // token browser are correctly owned and focused on every platform.
+            Shown += MainForm_Shown;
+
             // 处理命令行参数
             ProcessCommandLineArgs();
 
             // 自动聚焦输入框
             HostInputBox.Focus();
+        }
+
+        private void MainForm_Shown(object sender, EventArgs e)
+        {
+            Shown -= MainForm_Shown;
+            CheckNextTraceApiV4TokenExpiry();
+        }
+
+        private void CheckNextTraceApiV4TokenExpiry()
+        {
+            string token = (UserSettings.NextTraceAPIV4Token ?? "").Trim();
+            string expiresAtValue = (UserSettings.NextTraceAPIV4TokenExpiresAt ?? "").Trim();
+            if (token.Length == 0 ||
+                expiresAtValue.Length == 0 ||
+                string.Equals(
+                    UserSettings.NextTraceAPIV4TokenExpiryReminderDismissedFor,
+                    expiresAtValue,
+                    StringComparison.Ordinal) ||
+                !TryParseNextTraceApiV4TokenExpiry(expiresAtValue, out DateTimeOffset expiresAt) ||
+                expiresAt > DateTimeOffset.UtcNow)
+            {
+                return;
+            }
+
+            string localExpiry = expiresAt.ToLocalTime().ToString("g", CultureInfo.CurrentCulture);
+            DialogResult response = MessageBox.Show(
+                string.Format(Resources.NEXTTRACE_API_V4_TOKEN_EXPIRED_MESSAGE, localExpiry),
+                Resources.NEXTTRACE_API_V4_TOKEN_EXPIRED_TITLE,
+                MessageBoxButtons.YesNo,
+                MessageBoxType.Warning);
+
+            if (response == DialogResult.Yes)
+            {
+                AcquireNextTraceApiV4Token();
+                return;
+            }
+
+            // Suppress reminders only for this token expiry. Acquiring or
+            // manually entering another token clears this marker.
+            UserSettings.NextTraceAPIV4TokenExpiryReminderDismissedFor = expiresAtValue;
+            UserSettings.SaveSettings();
+        }
+
+        private void AcquireNextTraceApiV4Token()
+        {
+            try
+            {
+                var tokenDialog = new NextTraceApiV4TokenDialog();
+                NextTraceApiV4TokenResult result = tokenDialog.ShowModal(this);
+                if (result == null || string.IsNullOrWhiteSpace(result.Token))
+                    return;
+
+                UserSettings.NextTraceAPIV4Token = result.Token.Trim();
+                UserSettings.NextTraceAPIV4TokenExpiresAt = (result.ExpiresAt ?? "").Trim();
+                UserSettings.NextTraceAPIV4TokenExpiryReminderDismissedFor = "";
+                UserSettings.SaveSettings();
+            }
+            catch (Exception exception)
+            {
+                MessageBox.Show(
+                    string.Format(Resources.NEXTTRACE_API_V4_ERROR_OPEN_PAGE, exception.Message),
+                    Resources.NEXTTRACE_API_V4_DIALOG_TITLE,
+                    MessageBoxButtons.OK,
+                    MessageBoxType.Warning);
+            }
+        }
+
+        private static bool TryParseNextTraceApiV4TokenExpiry(
+            string value,
+            out DateTimeOffset expiresAt)
+        {
+            const DateTimeStyles styles =
+                DateTimeStyles.AllowWhiteSpaces | DateTimeStyles.AssumeUniversal;
+
+            if (DateTimeOffset.TryParse(value, CultureInfo.InvariantCulture, styles, out expiresAt) ||
+                DateTimeOffset.TryParse(value, CultureInfo.CurrentCulture, styles, out expiresAt))
+            {
+                expiresAt = expiresAt.ToUniversalTime();
+                return true;
+            }
+
+            if (long.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out long unixTime))
+            {
+                try
+                {
+                    expiresAt = unixTime > 100000000000L
+                        ? DateTimeOffset.FromUnixTimeMilliseconds(unixTime)
+                        : DateTimeOffset.FromUnixTimeSeconds(unixTime);
+                    return true;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    // Invalid metadata should not prevent the application from starting.
+                }
+            }
+
+            expiresAt = default(DateTimeOffset);
+            return false;
         }
 
         /// <summary>

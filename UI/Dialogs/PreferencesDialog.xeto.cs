@@ -108,6 +108,7 @@ namespace OpenTrace.UI.Dialogs
                 // Manually entered tokens do not have expiry metadata from the
                 // issuance page, so do not retain the previous token's expiry.
                 UserSettings.NextTraceAPIV4TokenExpiresAt = "";
+                UserSettings.NextTraceAPIV4TokenExpiryReminderDismissedFor = "";
             }
             UserSettings.gridSizePercentage = this.FindChild<NumericStepper>("gridSizePercentage").Value / 100;
             UserSettings.maskedHops = (int)this.FindChild<NumericStepper>("maskedHops").Value;
@@ -167,6 +168,7 @@ namespace OpenTrace.UI.Dialogs
                 // with Cancel.
                 UserSettings.NextTraceAPIV4Token = result.Token;
                 UserSettings.NextTraceAPIV4TokenExpiresAt = result.ExpiresAt;
+                UserSettings.NextTraceAPIV4TokenExpiryReminderDismissedFor = "";
                 UserSettings.SaveSettings();
             }
             catch (Exception exception)

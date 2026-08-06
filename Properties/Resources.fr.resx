@@ -608,4 +608,12 @@ Et redémarrez OpenTrace après l'exécution.</value>
 
 {0}</value>
   </data>
+  <data name="NEXTTRACE_API_V4_TOKEN_EXPIRED_TITLE" xml:space="preserve">
+    <value>Le jeton NextTrace API v4 a expiré</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_TOKEN_EXPIRED_MESSAGE" xml:space="preserve">
+    <value>Le jeton NextTrace API v4 a expiré le {0}. Voulez-vous en obtenir un nouveau maintenant ?
+
+Choisissez Oui pour l’obtenir à nouveau. Choisissez Non pour ne plus recevoir de rappels pour ce jeton.</value>
+  </data>
 </root>

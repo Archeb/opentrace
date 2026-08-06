@@ -991,6 +991,24 @@ namespace OpenTrace.Properties {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to The NextTrace API v4 token expired at {0}. Retrieve a new token now?.
+        /// </summary>
+        public static string NEXTTRACE_API_V4_TOKEN_EXPIRED_MESSAGE {
+            get {
+                return ResourceManager.GetString("NEXTTRACE_API_V4_TOKEN_EXPIRED_MESSAGE", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to NextTrace API v4 token expired.
+        /// </summary>
+        public static string NEXTTRACE_API_V4_TOKEN_EXPIRED_TITLE {
+            get {
+                return ResourceManager.GetString("NEXTTRACE_API_V4_TOKEN_EXPIRED_TITLE", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   查找类似 Token extracted. Choose Confirm to save it. 的本地化字符串。
         /// </summary>
         public static string NEXTTRACE_API_V4_TOKEN_READY {

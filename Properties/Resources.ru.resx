@@ -592,4 +592,12 @@ sudo xattr -r -d com.apple.quarantine [перетащите OpenTrace сюда]
 
 {0}</value>
   </data>
+  <data name="NEXTTRACE_API_V4_TOKEN_EXPIRED_TITLE" xml:space="preserve">
+    <value>Срок действия токена NextTrace API v4 истёк</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_TOKEN_EXPIRED_MESSAGE" xml:space="preserve">
+    <value>Срок действия токена NextTrace API v4 истёк {0}. Получить новый токен сейчас?
+
+Выберите «Да», чтобы получить его снова. Выберите «Нет», чтобы больше не напоминать об этом токене.</value>
+  </data>
 </root>

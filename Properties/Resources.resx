@@ -613,4 +613,12 @@ And restart OpenTrace after execution.</value>
 
 {0}</value>
   </data>
+  <data name="NEXTTRACE_API_V4_TOKEN_EXPIRED_TITLE" xml:space="preserve">
+    <value>NextTrace API v4 token expired</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_TOKEN_EXPIRED_MESSAGE" xml:space="preserve">
+    <value>The NextTrace API v4 token expired at {0}. Retrieve a new token now?
+
+Choose Yes to retrieve it again. Choose No to stop reminders for this token.</value>
+  </data>
 </root>

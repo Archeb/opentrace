@@ -606,4 +606,12 @@ sudo xattr -r -d com.apple.quarantine &lt;将 OpenTrace 拖放至此&gt;
 
 {0}</value>
   </data>
+  <data name="NEXTTRACE_API_V4_TOKEN_EXPIRED_TITLE" xml:space="preserve">
+    <value>NextTrace API v4 Token 已过期</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_TOKEN_EXPIRED_MESSAGE" xml:space="preserve">
+    <value>NextTrace API v4 Token 已于 {0} 到期。是否立即重新获取？
+
+选择“是”重新获取；选择“否”后将不再提醒此 Token。</value>
+  </data>
 </root>

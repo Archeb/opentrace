@@ -583,4 +583,12 @@ Y reinicie OpenTrace.</value>
 
 {0}</value>
   </data>
+  <data name="NEXTTRACE_API_V4_TOKEN_EXPIRED_TITLE" xml:space="preserve">
+    <value>El token de NextTrace API v4 ha caducado</value>
+  </data>
+  <data name="NEXTTRACE_API_V4_TOKEN_EXPIRED_MESSAGE" xml:space="preserve">
+    <value>El token de NextTrace API v4 caducó el {0}. ¿Desea obtener uno nuevo ahora?
+
+Seleccione Sí para volver a obtenerlo. Seleccione No para dejar de recibir avisos sobre este token.</value>
+  </data>
 </root>

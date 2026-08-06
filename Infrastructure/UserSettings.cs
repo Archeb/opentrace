@@ -55,6 +55,9 @@ namespace OpenTrace.Infrastructure
         [Setting(Name = "NextTraceAPIV4TokenExpiresAt", Default = "")]
         public static string NextTraceAPIV4TokenExpiresAt { get; set; }
 
+        [Setting(Name = "NextTraceAPIV4TokenExpiryReminderDismissedFor", Default = "")]
+        public static string NextTraceAPIV4TokenExpiryReminderDismissedFor { get; set; }
+
         [Setting(Name = "ChunZhenEndpoint", Default = "")]
         public static string ChunZhenEndpoint { get; set; }
 
