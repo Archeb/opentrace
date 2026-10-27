@@ -45,6 +45,9 @@ namespace OpenTrace.UI
         private bool enterPressed = false;
         private bool commandLineMode = false; // 命令行模式：直接使用命令行参数调用 nexttrace
         private bool updatingTraceHistory = false;
+        private bool updatingResolvedIPSelection = false;
+        private bool automaticResolvedIPSelection = false;
+        private string pendingResolvedIP;
         private bool currentRunMtrMode;
         private int pendingTracerouteResultCount;
         private int? currentDestinationHop;
@@ -262,12 +265,66 @@ namespace OpenTrace.UI
                 return;
             }
 
-            // 如果文本框被修改，则隐藏 DNS 解析选择框
+            // 如果输入或 DNS 解析器被修改，则隐藏 IP 选择框并取消待重启的追踪。
+            automaticResolvedIPSelection = false;
+            pendingResolvedIP = null;
             if (ResolvedIPSelection.Visible)
             {
                 ResolvedIPSelection.Items.Clear();
                 ResolvedIPSelection.Visible = false;
             }
+        }
+
+        private void PopulateResolvedIPSelection(IPAddress[] resolvedAddresses, IPAddress selectedAddress = null)
+        {
+            updatingResolvedIPSelection = true;
+            try
+            {
+                ResolvedIPSelection.Items.Clear();
+                ResolvedIPSelection.Items.Add(Resources.SELECT_IP_DROPDOWN);
+                foreach (IPAddress resolvedAddress in resolvedAddresses)
+                {
+                    ResolvedIPSelection.Items.Add(resolvedAddress.ToString());
+                }
+
+                ResolvedIPSelection.SelectedIndex = 0;
+                if (selectedAddress != null)
+                {
+                    for (int index = 0; index < resolvedAddresses.Length; index++)
+                    {
+                        if (resolvedAddresses[index].Equals(selectedAddress))
+                        {
+                            ResolvedIPSelection.SelectedIndex = index + 1;
+                            break;
+                        }
+                    }
+                }
+                ResolvedIPSelection.Visible = true;
+            }
+            finally
+            {
+                updatingResolvedIPSelection = false;
+            }
+        }
+
+        private void ResolvedIPSelection_SelectedKeyChanged(object sender, EventArgs e)
+        {
+            if (updatingResolvedIPSelection ||
+                !automaticResolvedIPSelection ||
+                !ResolvedIPSelection.Visible ||
+                ResolvedIPSelection.SelectedIndex <= 0)
+            {
+                return;
+            }
+
+            if (CurrentInstance != null)
+            {
+                pendingResolvedIP = ResolvedIPSelection.SelectedKey;
+                StopTraceroute();
+                return;
+            }
+
+            StartTracerouteButton_Click(sender, e);
         }
 
         private void MTRMode_CheckedChanged(object sender, EventArgs e)
@@ -365,6 +422,8 @@ namespace OpenTrace.UI
 
             if (CurrentInstance != null)
             {
+                // A normal Start/Stop click cancels a queued restart after an IP change.
+                pendingResolvedIP = null;
                 StopTraceroute();
                 return;
             }
@@ -456,14 +515,8 @@ namespace OpenTrace.UI
                             if (UserSettings.autoIPSelection == "manual")
                             {
                                 // 手动选择 IP
-                                ResolvedIPSelection.Items.Clear();
-                                ResolvedIPSelection.Items.Add(Resources.SELECT_IP_DROPDOWN);
-                                foreach (IPAddress resolvedAddress in resolvedAddresses)
-                                {
-                                    ResolvedIPSelection.Items.Add(resolvedAddress.ToString());
-                                }
-                                ResolvedIPSelection.SelectedIndex = 0;
-                                ResolvedIPSelection.Visible = true;
+                                automaticResolvedIPSelection = false;
+                                PopulateResolvedIPSelection(resolvedAddresses);
                                 CurrentInstance = null;
                                 return;
                             }
@@ -487,10 +540,16 @@ namespace OpenTrace.UI
                                 }
 
                                 readyToUseIP = selectedIP.ToString();
+                                if (!commandLineMode)
+                                {
+                                    automaticResolvedIPSelection = true;
+                                    PopulateResolvedIPSelection(resolvedAddresses, selectedIP);
+                                }
                             }
                         }
                         else
                         {
+                            automaticResolvedIPSelection = false;
                             readyToUseIP = resolvedAddresses[0].ToString();
                         }
                         Title = Resources.APPTITLE + ": " + HostInputBox.Text + " (" + readyToUseIP + ")";
@@ -581,6 +640,17 @@ namespace OpenTrace.UI
                 }
                 // 强制结束一般退出代码不为 0，不提示异常。
                 appForceExiting = false;
+
+                string nextIP = pendingResolvedIP;
+                pendingResolvedIP = null;
+                if (!string.IsNullOrEmpty(nextIP) &&
+                    automaticResolvedIPSelection &&
+                    ResolvedIPSelection.Visible &&
+                    ResolvedIPSelection.SelectedIndex > 0 &&
+                    string.Equals(ResolvedIPSelection.SelectedKey, nextIP, StringComparison.Ordinal))
+                {
+                    Application.Instance.AsyncInvoke(() => StartTracerouteButton_Click(this, EventArgs.Empty));
+                }
             });
         }
 

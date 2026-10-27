@@ -266,6 +266,7 @@ namespace OpenTrace.UI
 
             // 已解析 IP 选择框
             ResolvedIPSelection = new DropDown { Visible = false };
+            ResolvedIPSelection.SelectedKeyChanged += ResolvedIPSelection_SelectedKeyChanged;
 
             // 开始按钮
             startTracerouteButton = new Button { Text = Resources.START };
